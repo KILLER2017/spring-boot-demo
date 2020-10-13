@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.WorkloadTargetDao">
+    <select id="findAll" resultType="WorkloadTarget">
+        select
+            id as id,
+            type as type,
+            level as level,
+            teaching_workload_target AS teachingWorkloadTarget,
+            research_workload_target AS researchWorkloadTarget
+        from workload_target
+    </select>
+
+    <select id="findOne"  resultType="WorkloadTarget">
+        select
+            id,
+            type,
+            level,
+            teaching_workload_target AS teachingWorkloadTarget,
+            research_workload_target AS researchWorkloadTarget
+        from workload_target
+        where id = #{id}
+    </select>
+
+    <select id="findOneByLevelAndPostType"  resultType="WorkloadTarget">
+        select
+            id,
+            type,
+            level,
+            teaching_workload_target AS teachingWorkloadTarget,
+            research_workload_target AS researchWorkloadTarget
+        from workload_target
+        where level = #{level} and type = #{postType}
+    </select>
+
+    <insert id="save">
+        INSERT INTO workload_target (id, type, level, teaching_workload_target, research_workload_target) values
+            (#{id}, #{type}, #{level}, #{teachingWorkloadTarget}, #{researchWorkloadTarget})
+        ON DUPLICATE KEY UPDATE type=values(type), level=values(level),teaching_workload_target=values(teaching_workload_target),research_workload_target=values(research_workload_target)
+    </insert>
+</mapper>

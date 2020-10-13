@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.ResearcherDao">
+    <select id="findOne" resultType="top.alvinsite.demo.model.entity.Researcher">
+        select
+        gxky0201.id as id,
+        gxky0201.xm as nickname,
+        gxky0201.dlxtzh as account,
+        gxky0201.ssjgbh as departmentCode,
+        s_unit.NAME as departmentTitle
+        from gxky0201
+        left join s_unit on s_unit.id = gxky0201.ssjgbh
+        <where>
+            ryscbz = 0
+            <if test="account != null">and gxky0201.dlxtzh = #{account}</if>
+        </where>
+        limit 1
+    </select>
+
+    <select id="findAll" resultType="ResearcherPerformance">
+        select
+        gxky0201.id as id,
+        gxjg0101.xm as nickname,
+        gxjg0101.gh as account,
+        department.title as department
+        from gxky0201
+        join gxjg0101 on gxjg0101.gh = gxky0201.dlxtzh
+        left join department on department.id = gxjg0101.dwh
+        <where>
+            ryscbz = 0
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+        </where>
+    </select>
+</mapper>

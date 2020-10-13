@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.RuleDao">
+    <select id="findAll" resultType="Rule">
+        select
+            id,
+            year,
+            type,
+            post_type as postType,
+            alias,
+            rule
+        from salary_rule
+        <where>
+            <if test="year != null">year = #{year}</if>
+        </where>
+        ORDER BY FIND_IN_SET(`type`,'教师,管理,辅导员,实验员')
+    </select>
+
+    <select id="findOne" resultType="Rule">
+        select
+            id,
+            year,
+            type,
+            post_type as postType,
+            alias,
+            rule
+        from salary_rule
+        <where>
+            year = #{year}
+            and type = #{type}
+            and post_type = #{postType}
+        </where>
+        limit 1
+    </select>
+
+    <insert id="save">
+        INSERT INTO salary_rule (id, year, type, post_type, alias, rule) values
+            (#{id}, #{year}, #{type}, #{postType}, #{alias}, #{rule})
+        ON DUPLICATE KEY UPDATE year=values(year), type=values(type), post_type=values(post_type), alias=values(alias), rule=values(rule)
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO salary_rule (id, year, type, post_type, alias, rule) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.year}, #{item.type}, #{item.postType}, #{item.alias}, #{item.rule})
+        </foreach>
+        ON DUPLICATE KEY UPDATE year=values(year), type=values(type), post_type=values(post_type), alias=values(alias), rule=values(rule)
+    </insert>
+
+    <delete id="delete">
+        delete from salary_rule
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from salary_rule
+        where id in
+        <foreach collection="array" item="outputId" open="(" separator="," close=")">
+            #{outputId}
+        </foreach>
+    </delete>
+</mapper>

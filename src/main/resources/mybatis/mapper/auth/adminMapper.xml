@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.auth.AdminDao">
+    <resultMap id="adminResult" type="top.alvinsite.demo.model.dto.auth.AdminDTO">
+        <id property="id" column="id" />
+        <result property="nickname" column="nickname" />
+        <result property="account" column="account" />
+        <result property="phone" column="yddh" />
+        <result property="department" column="department" />
+        <result property="updateTime" column="update_time" />
+        <association property="updateBy" javaType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO">
+            <id property="account" column="update_by_account" />
+            <result property="nickname" column="update_by_nickname" />
+        </association>
+    </resultMap>
+
+
+    <select id="findAll" resultMap="adminResult">
+        select
+            auth_admin.id,
+            gxjg0101.xm as nickname,
+            auth_admin.account,
+            gxxx0701.yddh,
+            department.title as department,
+            auth_admin.update_time,
+            auth_admin.update_by as update_by_account,
+            gxjg0101_2.xm as update_by_nickname
+        from auth_admin
+        left join gxjg0101 on gxjg0101.gh = auth_admin.account
+        left join gxxx0701 on gxxx0701.xgh = auth_admin.account
+        left join department on department.id = gxjg0101.dwh
+        left join gxjg0101 gxjg0101_2 on gxjg0101_2.gh = auth_admin.update_by
+        <where>
+            <if test="nickname != null">gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and auth_admin.account like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+        </where>
+        order by auth_admin.update_time desc
+    </select>
+
+    <delete id="delete" >
+        delete from auth_admin where id = #{id}
+    </delete>
+
+    <insert id="saveBatch">
+        INSERT INTO auth_admin (id, account, create_by, update_by) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.account}, #{item.createBy}, #{item.updateBy})
+        </foreach>
+        ON DUPLICATE KEY UPDATE account=values(account), update_by=values(update_by)
+    </insert>
+
+    <select id="findOneByAccount" resultMap="adminResult" >
+        select
+        auth_admin.id,
+        gxjg0101.xm as nickname,
+        auth_admin.account,
+        gxxx0701.yddh,
+        department.title as department,
+        auth_admin.update_time,
+        auth_admin.update_by as update_by_account,
+        gxjg0101_2.xm as update_by_nickname
+        from auth_admin
+        left join gxjg0101 on gxjg0101.gh = auth_admin.account
+        left join gxxx0701 on gxxx0701.xgh = auth_admin.account
+        left join department on department.id = gxjg0101.dwh
+        left join gxjg0101 gxjg0101_2 on gxjg0101_2.gh = auth_admin.update_by
+        <where>
+            <if test="account != null">and auth_admin.account = #{account}</if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.SalarySummaryDao">
+    <select id="findAll" resultType="SalarySummary">
+        select
+            salary_summaries.id,
+            salary_summaries.year,
+            salary_summaries.account,
+            salary_summaries.nickname,
+            salary_summaries.type,
+            salary_summaries.level,
+            salary_summaries.post,
+            salary_summaries.post_type as postType,
+            salary_summaries.duty,
+            teaching_workload as teachingWorkload,
+            research_workload as researchWorkload,
+            measurement,
+            performance_wage as performanceWage,
+            incentive_wage as incentiveWage,
+            overtime_subsidy AS overtimeSubsidy,
+            job_subsidy as jobSubsidy,
+            special_subsidy AS specialSubsidy,
+            total_salary as totalSalary
+        from salary_summaries
+        join gxjg0101 on gxjg0101.gh = salary_summaries.account
+        <where>
+            year = #{year}
+            <if test="departmentScope != null">
+                and gxjg0101.dwh in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="findOneByAccountAndYear"  resultType="SalarySummary">
+        select
+            id,
+            year,
+            account,
+            nickname,
+            type,
+            level,
+            post,
+            post_type as postType,
+            duty,
+            teaching_workload as teachingWorkload,
+            research_workload as researchWorkload,
+            measurement,
+            performance_wage as performanceWage,
+            incentive_wage as incentiveWage,
+            overtime_subsidy AS overtimeSubsidy,
+            job_subsidy as jobSubsidy,
+            special_subsidy AS specialSubsidy,
+            total_salary as totalSalary
+        from salary_summaries
+        <where>
+            account = #{account}
+            and year = #{year}
+        </where>
+        limit 1
+    </select>
+
+
+    <insert id="saveBatch">
+        INSERT INTO salary_summaries (
+            id,
+            year,
+            account,
+            nickname,
+            type,
+            level,
+            post,
+            post_type,
+            duty,
+            teaching_workload,
+            research_workload,
+            measurement,
+            performance_wage,
+            incentive_wage,
+            overtime_subsidy,
+            job_subsidy,
+            special_subsidy,
+            total_salary
+        ) values
+        <foreach collection="list" item="item" separator=",">
+        (
+            #{item.id},
+            #{item.year},
+            #{item.account},
+            #{item.nickname},
+            #{item.type},
+            #{item.level},
+            #{item.post},
+            #{item.postType},
+            #{item.duty},
+            #{item.teachingWorkload},
+            #{item.researchWorkload},
+            #{item.measurement},
+            #{item.performanceWage},
+            #{item.incentiveWage},
+            #{item.overtimeSubsidy},
+            #{item.jobSubsidy},
+            #{item.specialSubsidy},
+            #{item.totalSalary}
+        )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            year=values(year),
+            account=values(account),
+            nickname=values(nickname),
+            type=values(type),
+            level=values(level),
+            post=values(post),
+            post_type=values(post_type),
+            duty=values(duty),
+            teaching_workload=values(teaching_workload),
+            research_workload=values(research_workload),
+            measurement=values(measurement),
+            performance_wage=values(performance_wage),
+            incentive_wage=values(incentive_wage),
+            overtime_subsidy=values(overtime_subsidy),
+            job_subsidy=values(job_subsidy),
+            special_subsidy=values(special_subsidy),
+            total_salary=values(total_salary)
+    </insert>
+</mapper>

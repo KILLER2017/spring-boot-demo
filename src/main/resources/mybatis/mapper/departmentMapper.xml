@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.type.DepartmentDao">
+    <select id="findAll" resultType="Department">
+        select
+            id,
+            title
+        from department
+        where parent is not null
+        order by ID ASC
+    </select>
+
+    <select id="findManageUnit" resultType="Department">
+        select
+            department.id,
+            department.title
+        from auth_manager_user
+        left join auth_manager on auth_manager.id = auth_manager_user.manager
+        left join department on department.id = auth_manager.department
+        where account = #{account} and is_active = 1
+    </select>
+
+    <select id="findOne"  resultType="top.alvinsite.demo.model.entity.Department">
+        select
+            ID as id,
+            NAME as title
+        from s_unit
+        where ID = #{id}
+    </select>
+</mapper>

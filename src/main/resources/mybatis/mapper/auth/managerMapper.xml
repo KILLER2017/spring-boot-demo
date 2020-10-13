@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.auth.ManagerDao">
+    <resultMap id="managerResult" type="top.alvinsite.demo.model.dto.auth.ManagerDTO">
+        <id property="id" column="id" />
+        <result property="department" column="department" />
+        <result property="updateTime" column="update_time" />
+        <association property="updateBy" javaType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO">
+            <id property="account" column="update_by_account" />
+            <result property="nickname" column="update_by_nickname" />
+        </association>
+        <collection property="managers" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="id"  select="findManagerUserById">
+            <id property="account" column="account"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+    </resultMap>
+
+    <select id="findManagerUserById" parameterType="java.lang.Integer" resultType="ManagerUserDTO">
+        select
+            account,
+            gxjg0101.xm as nickname
+        from auth_manager_user
+        join gxjg0101 on gxjg0101.gh = auth_manager_user.account
+        where auth_manager_user.manager = #{id}
+    </select>
+
+
+
+    <select id="findAll" resultMap="managerResult">
+        select
+            auth_manager.id,
+            department.id as department_id,
+            department.title as department,
+            auth_manager.update_time,
+            auth_manager.update_by as update_by_account,
+            gxjg0101.xm as update_by_nickname
+        from auth_manager
+        left join department on department.id = auth_manager.department
+        left join gxjg0101  on gxjg0101.gh = auth_manager.update_by
+
+        <where>
+            is_active = 1
+            <if test="department">and department.title like concat('%', #{department}, '%')</if>
+            <if test="account != null || nickname != null">
+                and exists (
+                select *
+                from auth_manager_user
+                left join gxjg0101 inner_gxjg0101 on inner_gxjg0101.gh = auth_manager_user.account
+                <where>
+                    auth_manager.id = auth_manager_user.manager
+                    <if test="account != null">and auth_manager_user.account like concat('%', #{account}, '%')</if>
+                    <if test="nickname != null">and inner_gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+                </where>
+                )
+            </if>
+        </where>
+        order by auth_manager.id asc
+    </select>
+
+    <select id="findDepartmentById" resultType="java.lang.String">
+        select department
+        from auth_manager
+        where id = #{id}
+        limit 1
+    </select>
+
+    <delete id="deleteManagerUser">
+        delete from auth_manager_user where manager = #{id}
+    </delete>
+
+    <insert id="saveBatch">
+        INSERT INTO auth_manager_user (id, manager, account, create_by, update_by) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.manager}, #{item.account}, #{item.createBy}, #{item.updateBy})
+        </foreach>
+        ON DUPLICATE KEY UPDATE manager=values(manager), account=values(account), update_by=values(update_by)
+    </insert>
+
+    <update id="updateOperator">
+        update auth_manager set update_by = #{account} where department = #{departmentId}
+    </update>
+
+    <update id="setInactive">
+        update auth_manager set is_active = 0 where id = #{id}
+    </update>
+
+    <update id="reset">
+        update auth_manager set is_active = 1
+    </update>
+
+    <select id="findAllByDepartment" resultMap="managerResult">
+        select
+        auth_manager.id,
+        department.title as department,
+        auth_manager_user.id as auth_manager_user_id,
+        gxjg0101.xm as nickname,
+        auth_manager_user.account,
+        auth_manager.update_time,
+        auth_manager.update_by as update_by_account,
+        gxjg0101_2.xm as update_by_nickname
+        from auth_manager
+        left join auth_manager_user on auth_manager_user.manager = auth_manager.id
+        left join department on department.id = auth_manager.department
+        left join gxjg0101 on gxjg0101.gh = auth_manager_user.account
+        left join gxjg0101 gxjg0101_2 on gxjg0101_2.gh = auth_manager.update_by
+        <where>
+            is_active = 1
+            <if test="id != null">and auth_manager.id = #{id}</if>
+            <if test="department != null">and auth_manager.department = #{department}</if>
+        </where>
+    </select>
+
+    <select id="findOneByAccount" resultMap="managerResult" >
+        select
+        auth_manager.id,
+        department.id as department,
+        auth_manager_user.id as auth_manager_user_id,
+        gxjg0101.xm as nickname,
+        auth_manager_user.account,
+        auth_manager.update_time,
+        auth_manager.update_by as update_by_account,
+        gxjg0101_2.xm as update_by_nickname
+        from auth_manager
+        left join auth_manager_user on auth_manager_user.manager = auth_manager.id
+        left join department on department.id = auth_manager.department
+        left join gxjg0101 on gxjg0101.gh = auth_manager_user.account
+        left join gxjg0101 gxjg0101_2 on gxjg0101_2.gh = auth_manager.update_by
+        <where>
+            is_active = 1
+            <if test="account != null">and auth_manager_user.account = #{account}</if>
+        </where>
+        limit 1
+    </select>
+    <select id="findUnitIdsByAccount" resultType="java.lang.String" >
+        select distinct
+            department.id as department
+        from auth_manager
+        left join auth_manager_user on auth_manager_user.manager = auth_manager.id
+        left join department on department.id = auth_manager.department
+        left join gxjg0101 on gxjg0101.gh = auth_manager_user.account
+        left join gxjg0101 gxjg0101_2 on gxjg0101_2.gh = auth_manager.update_by
+        <where>
+            is_active = 1
+            and auth_manager_user.account = #{account}
+        </where>
+    </select>
+</mapper>

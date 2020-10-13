@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.rule.CrossingRuleDao">
+    <select id="findAll" parameterType="top.alvinsite.demo.model.params.RuleQuery" resultType="top.alvinsite.demo.model.dto.rule.CrossingRuleDTO">
+        select
+        id,
+        department,
+        year,
+        min,
+        max,
+        score
+        from crossing_project_rule
+        <where>
+            <if test="department != null">department = #{department}</if>
+            <if test="year != null">and year = #{year}</if>
+        </where>
+    </select>
+
+    <delete id="delete">
+        delete from crossing_project_rule where department = #{department} and year = #{year}
+    </delete>
+
+    <insert id="saveBatch">
+        INSERT INTO crossing_project_rule (id, department, year, min, max, score) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.department}, #{item.year}, #{item.min}, #{item.max}, #{item.score})
+        </foreach>
+        ON DUPLICATE KEY UPDATE department=values(department), year=values(year),min=values(min), max=values(max), score=values(score)
+    </insert>
+</mapper>

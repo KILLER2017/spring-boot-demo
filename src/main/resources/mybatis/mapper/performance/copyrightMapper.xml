@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.performance.CopyrightDao">
+    <resultMap id="findCopyrightResult" type="top.alvinsite.demo.model.dto.performance.CopyrightDTO">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="department" column="department" />
+        <result property="nickname" column="nickname" />
+        <result property="score" column="score" />
+        <result property="type" column="type" />
+        <collection property="authors" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="zzqbh"  select="findAuthorsById">
+            <id property="account" column="account"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+    </resultMap>
+
+    <select id="findCopyright" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findCopyrightResult">
+        select
+            gxky0306.id as id,
+            gxky0306.zzqbh,
+            gxjg0101.xm as nickname,
+            department.title as department,
+            gxky0305.zzqmc as title,
+            dm_category.NAME as type,
+        (
+        case gxky0306.smsx
+        when 1 then rule.score1
+        when 2 then rule.score2
+        when 3 then rule.score3
+        when 4 then rule.score4
+        when 5 then rule.score5
+        when 6 then rule.score6
+        when 7 then rule.score7
+        when 8 then rule.score8
+        end
+        ) as score
+        from gxky0306
+        join gxky0305 on gxky0305.id = gxky0306.zzqbh
+        join gxjg0101 on gxjg0101.gh = gxky0306.zzzgh
+        join department on department.id = gxjg0101.dwh
+        left join dm_category on dm_category.id = gxky0305.zzqlx
+        left join copyright_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
+        <where>
+            gxky0305.shzt = 2
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="year != null">and year(gxky0305.cbrq) = #{year}</if>
+        </where>
+    </select>
+
+    <select id="findAuthorsById"  parameterType="String" resultType="ManagerUserDTO">
+        SELECT
+            gxjg0101.xm as nickname,
+            gxjg0101.gh as account
+        FROM gxky0306
+        join gxjg0101 on gxjg0101.gh = gxky0306.zzzgh
+        where gxky0306.zzqbh = #{id}
+        order by gxky0306.smsx
+    </select>
+
+    <select id="calcCopyrightTotalPoints" resultType="java.lang.Float" >
+        select
+            sum((
+            case gxky0306.smsx
+            when 1 then rule.score1
+            when 2 then rule.score2
+            when 3 then rule.score3
+            when 4 then rule.score4
+            when 5 then rule.score5
+            when 6 then rule.score6
+            when 7 then rule.score7
+            when 8 then rule.score8
+            end
+            ))
+        from gxky0306
+        join gxky0305 on gxky0305.id = gxky0306.zzqbh
+        left join gxjg0101 on gxjg0101.gh = gxky0306.zzzgh
+        left join copyright_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
+        <where>
+            gxky0305.shzt = 2
+            and gxjg0101.gh = #{account}
+            and year(gxky0305.cbrq) = #{year}
+        </where>
+    </select>
+</mapper>

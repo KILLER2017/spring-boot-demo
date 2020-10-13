@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: demo
+
+  datasource:
+    #url: jdbc:mysql://localhost:3306/research_performance?serverTimezone=UTC
+    #username: root
+    #password: root
+
+    url: jdbc:mysql://172.31.150.19:3306/performance?serverTimezone=UTC
+    username: performance
+    password: RBE872d6Y8KzX5HK
+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      max-active: 50
+      max-idle: 10
+      max-wait: 10000
+      initial-size: 5
+
+  redis:
+    database: 0
+    host: 172.31.150.19
+    port: 6379
+    password: candy.123
+
+mybatis-plus:
+  # configuration:
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mybatis/mapper/**/*Mapper.xml
+  type-aliases-package: top.alvinsite.demo.model.entity,top.alvinsite.demo.model.dto,top.alvinsite.demo.model.dto.auth,top.alvinsite.demo.model.params
+  type-handlers-package: top.alvinsite.demo.typehandler
+  config-location: classpath:mybatis/mybatis-config.xml
+
+
+
+logging:
+  level:
+    root: info
+
+app:
+  domain: csjx.dgut.edu.cn
+
+cas:
+  dgut:
+    domain: cas.dgut.edu.cn
+    app-id: performance
+    app-secret: 13e787fff1d0
+    enable: true
+    login-url: https://${cas.dgut.domain}/?appid=${cas.dgut.app-id}&state=
+    logout-url: https://${cas.dgut.domain}/logout?callback=
+    check-token: https://${cas.dgut.domain}/ssoapi/v2/checkToken
+    user-info-server: https://${cas.dgut.domain}/oauth/getUserInfo
+xcz:
+  permission:
+    enable: true
+
+  parameter:
+    enable: true

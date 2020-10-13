@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.TeacherDao">
+    <resultMap id="teacherResult" type="Teacher">
+        <id property="account" column="account" />
+        <result property="nickname" column="nickname" />
+        <result property="phone" column="yddh" />
+        <association property="department" javaType="Department">
+            <id property="id" column="departmentCode" />
+            <result property="title" column="departmentTitle" />
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="teacherResult">
+        select
+            gh as account,
+            xm as nickname,
+            dwh as departmentCode,
+            department.title as departmentTitle,
+            gxxx0701.yddh
+        from gxjg0101
+        left join gxxx0701 on gxxx0701.xgh = gxjg0101.gh
+        left join department on department.id = gxjg0101.dwh
+    </select>
+
+
+
+
+    <select id="findAllSalary" resultType="SalarySummaryDTO">
+        select
+            gh,
+            xm
+        from gxjg0101
+        left join gxjg0301 on gxxx0301.gh = gxjg0101.gh
+        left join department on department.id = gxjg0101.dwh
+        <where>
+            gxjg0101.type != 3
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+        </where>
+    </select>
+
+    <select id="findOne"  resultMap="teacherResult">
+        select
+            gh as account,
+            xm as nickname,
+            dwh as departmentCode,
+            department.title as departmentTitle
+        from gxjg0101
+        left join department on department.id = gxjg0101.dwh
+        where gh = #{account}
+    </select>
+
+    <resultMap id="adminCandidateResult" type="AdminCandidateDTO">
+        <id property="account" column="account" />
+        <result property="nickname" column="nickname" />
+        <result property="phone" column="yddh" />
+        <result property="join" column="join" />
+        <association property="department" javaType="Department">
+            <id property="id" column="departmentCode" />
+            <result property="title" column="departmentTitle" />
+        </association>
+    </resultMap>
+
+    <select id="findAdminCandidate" parameterType="string" resultMap="adminCandidateResult">
+        select
+            gh as account,
+            xm as nickname,
+            dwh as departmentCode,
+            department.title as departmentTitle,
+            gxxx0701.yddh,
+            IF(auth_admin.id, 1, 0) as `join`
+        from gxjg0101
+        left join gxxx0701 on gxxx0701.xgh = gxjg0101.gh
+        left join department on department.id = gxjg0101.dwh
+        left join auth_admin on auth_admin.account = gxjg0101.gh
+        <where>
+            auth_admin.id is null
+            <if test="searchKey != null">and gh like concat('%', #{searchKey}, '%') or xm like concat('%', #{searchKey}, '%')</if>
+        </where>
+    </select>
+
+    <resultMap id="managerUserCandidateResult" type="ManagerUserCandidateDTO">
+        <id property="account" column="account" />
+        <result property="nickname" column="nickname" />
+        <result property="phone" column="yddh" />
+        <result property="join" column="join" />
+        <association property="department" javaType="Department">
+            <id property="id" column="departmentCode" />
+            <result property="title" column="departmentTitle" />
+        </association>
+    </resultMap>
+
+    <select id="findManagerUserCandidate" resultMap="managerUserCandidateResult">
+        select
+        gh as account,
+        xm as nickname,
+        dwh as departmentCode,
+        department.title as departmentTitle,
+        gxxx0701.yddh,
+        IF(auth_manager_user.id, 1, 0) as `join`
+        from gxjg0101
+        left join gxxx0701 on gxxx0701.xgh = gxjg0101.gh
+        left join department on department.id = gxjg0101.dwh
+        left join auth_manager_user on auth_manager_user.account = gxjg0101.gh
+        left join auth_manager on auth_manager.id = auth_manager_user.manager
+        <where>
+            <if test="searchKey != null">gh like concat('%', #{searchKey}, '%') or xm like concat('%', #{searchKey}, '%')</if>
+        </where>
+    </select>
+</mapper>

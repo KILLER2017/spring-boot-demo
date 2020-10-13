@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.performance.ProjectDao">
+    <select id="findLongitudinalProject" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultType="LongitudinalProject">
+        select
+            gxky0107.id as id,
+            gxky0101.id as projectNum,
+            gxky0101.xmmc as title,
+            gxky0117.bzm as typeId,
+            gxky0117.flmc as type,
+            DM_PROJECT_LEVEL.ID as levelId,
+            DM_PROJECT_LEVEL.NAME as level,
+            gxky0101.htjf as budget,
+            gxjg0101.xm as nickname,
+            department.id as departmentId,
+            department.title as department,
+            gxky0107.pxh as signedOrder,
+            year(gxky0101.lxsj) as approvalProjectYear
+
+        from gxky0107
+        join gxky0101 on gxky0101.id = gxky0107.xmbh
+        join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
+        join department on department.id = gxjg0101.dwh
+        left join DM_PROJECT_LEVEL ON DM_PROJECT_LEVEL.ID = gxky0101.xmjb
+        left join gxky0117 on gxky0101.xmflbh = gxky0117.bzm
+        <where>
+            gxky0101.xmxzbh = 0
+            and gxky0101.shztbh = 2
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="year != null">and year(gxky0101.lxsj) = #{year}</if>
+        </where>
+    </select>
+
+
+    <resultMap id="findCrossingProjectResult" type="CrossingProject">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="nickname" column="nickname" />
+        <result property="department" column="department" />
+        <result property="contractType" column="contractType" />
+        <result property="contractNum" column="contractNum" />
+        <result property="budget" column="budget" />
+        <result property="score" column="score" />
+        <collection property="members" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="id"  select="findMembersById">
+            <id property="account" column="account"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+    </resultMap>
+
+    <select id="findCrossingProject" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findCrossingProjectResult">
+        select
+            gxky0107.id as id,
+            gxky0101.id as projectNum,
+            gxky0101.xmmc as title,
+            gxjg0101.xm as nickname,
+            department.id as departmentId,
+            department.title as department,
+            DM_CONTRACT_TYPE.NAME as contractType,
+            gxky0101.xmbh as contractNum,
+            gxky0101.htjf as budget,
+            gxky0107.pxh as signedOrder,
+            year(gxky0101.lxsj) as approvalProjectYear
+        from gxky0107
+        join gxky0101 on gxky0101.id = gxky0107.xmbh
+        join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
+        join department on department.id = gxjg0101.dwh
+        LEFT JOIN DM_CONTRACT_TYPE ON DM_CONTRACT_TYPE.ID = gxky0101.htlx
+        <where>
+            gxky0101.xmxzbh = 1
+            and gxky0101.shztbh = 2
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="year != null">and year(gxky0101.lxsj) = #{year}</if>
+        </where>
+    </select>
+
+    <select id="findMembersById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
+        SELECT DISTINCT
+            gxjg0101.xm as nickname,
+            gxjg0101.gh as account
+        FROM gxky0107
+                 join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
+        where
+            gxky0107.xmbh = #{id} and
+            gxky0107.zzlxbh = '1' # 筛选本校老师
+        order by gxky0107.pxh
+    </select>
+
+    <select id="calcLongitudinalTotalPoints" resultType="java.lang.Float">
+        select
+            sum(rule.score)
+        from gxky0101
+        join gxky0201 on gxky0101.fzrbh = gxky0201.id
+        join gxjg0101 on gxjg0101.gh = gxky0201.dlxtzh
+        left join gxky0117 on gxky0101.xmflbh = gxky0117.bzm
+        left join longitudinal_project_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
+        and rule.type = gxky0101.xmflbh and rule.level = gxky0101.xmjb
+        and rule.min &lt;= gxky0101.htjf and rule.max &gt; gxky0101.htjf
+        <where>
+            gxky0101.xmxzbh = 0
+            and gxky0101.shztbh = 2
+            and gxjg0101.gh = #{account}
+            and gxky0101.lxsj = concat(#{year}, '%')
+        </where>
+    </select>
+
+    <select id="calcCrossingTotalPoints" resultType="java.lang.Float">
+        select
+            sum(rule.score)
+        from gxky0101
+        join gxky0201 on gxky0101.fzrbh = gxky0201.id
+        join gxjg0101 on gxjg0101.gh = gxky0201.dlxtzh
+        left join crossing_project_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
+        and rule.min &lt;= gxky0101.htjf and rule.max &gt; gxky0101.htjf
+        <where>
+            gxky0101.xmxzbh = 1
+            and gxky0101.shztbh = 2
+            and gxky0201.dlxtzh = #{account}
+            and gxky0101.lxsj = concat(#{year}, '%')
+        </where>
+    </select>
+</mapper>

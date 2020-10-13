@@ -1,0 +1,17 @@
+10:17:14.773 xcz.log [main] INFO  top.alvinsite.demo.DemoApplication - Starting DemoApplication on DESKTOP-K5MT1OK with PID 23616 (C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar\demo.jar started by Administrator in C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar)
+10:17:14.778 xcz.log [main] INFO  top.alvinsite.demo.DemoApplication - The following profiles are active: dev
+10:17:15.857 xcz.log [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+10:17:15.866 xcz.log [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+10:17:15.941 xcz.log [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55ms. Found 0 Redis repository interfaces.
+10:17:17.523 xcz.log [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+10:17:17.535 xcz.log [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+10:17:17.536 xcz.log [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:17:17.536 xcz.log [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+10:17:17.638 xcz.log [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:17:17.642 xcz.log [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2777 ms
+10:17:19.612 xcz.log [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+10:17:20.154 xcz.log [main] INFO  xcz.config.PermissionConfig - 初始化权限拦截器
+10:17:20.180 xcz.log [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+10:17:20.267 xcz.log [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+10:17:20.296 xcz.log [main] INFO  top.alvinsite.demo.DemoApplication - Started DemoApplication in 6.331 seconds (JVM running for 6.93)
+10:17:20.675 xcz.log [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'

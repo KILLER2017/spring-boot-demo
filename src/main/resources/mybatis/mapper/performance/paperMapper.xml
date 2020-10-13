@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.performance.PaperDao">
+    <resultMap id="findPaperResult" type="top.alvinsite.demo.model.dto.performance.PaperDTO">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="department" column="department" />
+        <result property="nickname" column="nickname" />
+        <result property="nickname" column="nickname" />
+
+        <result property="periodical" column="fbqk" />
+        <result property="type" column="type" />
+        <result property="score" column="score" />
+        <collection property="authors" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="lwbh"  select="findAuthorsById">
+            <id property="account" column="account"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+    </resultMap>
+
+    <select id="findPaper" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findPaperResult">
+        select
+            gxky0312.id as id,
+            gxky0312.zzmc as nickname,
+            department.title as department,
+            gxky0312.lwbh as lwbh,
+            gxky0316.lwmc as title,
+            gxky0316.fbqk,
+            dm_paper_type.NAME as type,
+        (
+            case gxky0312.smsx
+            when 1 then rule.score1
+            when 2 then rule.score2
+            when 3 then rule.score3
+            when 4 then rule.score4
+            when 5 then rule.score5
+            when 6 then rule.score6
+            when 7 then rule.score7
+            when 8 then rule.score8
+            end
+        ) as score
+
+        from gxky0312
+        join gxky0316 on gxky0312.lwbh = gxky0316.id
+        join gxjg0101 on gxjg0101.gh = gxky0312.zzzgh
+        join department on department.id = gxjg0101.dwh
+        left join dm_paper_type on gxky0316.lwfl = dm_paper_type.id
+        left join paper_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and gxky0316.lwfl = rule.type
+        <where>
+            gxky0316.shzt = 2
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="year != null">and year(gxky0316.fbrq) = #{year}</if>
+        </where>
+        order by gxky0312.id
+    </select>
+
+    <select id="findAuthorsById"  parameterType="String" resultType="ManagerUserDTO">
+        SELECT DISTINCT
+            gxjg0101.xm as nickname,
+            gxjg0101.gh as account
+        FROM gxky0312
+        join gxjg0101 on gxjg0101.gh = gxky0312.zzzgh
+        where gxky0312.lwbh = #{id}
+        order by gxky0312.smsx
+    </select>
+
+    <select id="calcPaperTotalPoints" resultType="java.lang.Float" >
+        select
+            sum((
+            case gxky0312.smsx
+            when 1 then rule.score1
+            when 2 then rule.score2
+            when 3 then rule.score3
+            when 4 then rule.score4
+            when 5 then rule.score5
+            when 6 then rule.score6
+            when 7 then rule.score7
+            when 8 then rule.score8
+            end
+            ))
+        from gxky0312
+        join gxky0316 on gxky0312.lwbh = gxky0316.id
+        join gxjg0101 on gxjg0101.gh = gxky0312.zzzgh
+        left join paper_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and gxky0316.lwfl = rule.type
+
+        <where>
+            gxky0316.shzt = 2
+            and gxky0312.zzzgh = #{account}
+            and year(gxky0316.fbrq) = #{year}
+        </where>
+    </select>
+
+</mapper>

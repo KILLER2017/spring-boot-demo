@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.LevelFactorDao">
+    <select id="findAll" resultType="LevelFactor">
+        select
+            id,
+            type,
+            level,
+            factor
+        from level_factor
+    </select>
+
+    <select id="findOne"  resultType="LevelFactor">
+        select
+            id,
+            type,
+            level,
+            factor
+        from level_factor
+        where id = #{id}
+    </select>
+
+    <select id="findOneByTypeAndLevel"  resultType="LevelFactor">
+        select
+            id,
+            type,
+            level,
+            factor
+        from level_factor
+        where type = #{type} and level = #{level}
+        limit 1
+    </select>
+
+    <insert id="save">
+        INSERT INTO level_factor (id, type, level, factor) values
+            (#{id}, #{type}, #{level}, #{factor})
+        ON DUPLICATE KEY UPDATE type=values(type), level=values(level),factor=values(factor)
+    </insert>
+</mapper>

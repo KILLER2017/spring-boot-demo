@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.performance.LiteratureDao">
+    <resultMap id="findLiteratureResult" type="top.alvinsite.demo.model.dto.performance.LiteratureDTO" >
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="department" column="department"/>
+        <result property="title" column="title"/>
+        <result property="type" column="type"/>
+        <result property="wordCount" column="wordCount"/>
+        <result property="firstAuthor" column="firstAuthor"/>
+        <result property="score" column="score"/>
+        <collection property="authors" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="zzbh"  select="findAuthorsById">
+            <id property="account" column="account"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+    </resultMap>
+
+    <select id="findLiterature" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findLiteratureResult">
+        select
+            gxky0308.id as id,
+            gxjg0101.xm as nickname,
+            department.title as department,
+            gxky0301.zzmc as title,
+            DM_BOOK_TYPE.NAME as type,
+            gxky0301.zs as wordCount,
+            gxky0308.zzbh,
+            gxky0301.dyzzmc as firstAuthor,
+        (
+            case gxky0308.smsx
+            when 1 then rule.score1
+            when 2 then rule.score2
+            when 3 then rule.score3
+            when 4 then rule.score4
+            when 5 then rule.score5
+            when 6 then rule.score6
+            when 7 then rule.score7
+            when 8 then rule.score8
+        end
+        ) as score
+        from gxky0308
+        join gxky0301 on gxky0301.id = gxky0308.zzbh
+        join gxjg0101 on gxjg0101.gh = gxky0308.zzzgh
+        join department on department.id = gxjg0101.dwh
+        LEFT JOIN DM_BOOK_TYPE ON DM_BOOK_TYPE.ID = gxky0301.zzlx
+        left join literature_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
+        and rule.type = gxky0301.zzlx and rule.min &lt;= gxky0301.zs and gxky0301.zs &lt; rule.max
+        <where>
+            gxky0301.shzt = 2
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="year != null">and year(gxky0301.cbrq) = #{year}</if>
+        </where>
+    </select>
+
+    <select id="findAuthorsById"  parameterType="String" resultType="ManagerUserDTO">
+        SELECT
+            gxjg0101.xm as nickname,
+            gxjg0101.gh as account
+        FROM gxky0308
+        join gxjg0101 on gxjg0101.gh = gxky0308.zzzgh
+        where gxky0308.zzbh = #{id}
+        order by gxky0308.smsx
+    </select>
+
+    <select id="calcLiteratureTotalPoints" resultType="java.lang.Float" >
+        select
+            sum((
+                case gxky0308.smsx
+                when 1 then rule.score1
+                when 2 then rule.score2
+                when 3 then rule.score3
+                when 4 then rule.score4
+                when 5 then rule.score5
+                when 6 then rule.score6
+                when 7 then rule.score7
+                when 8 then rule.score8
+                end
+            ))
+        from gxky0308
+        join gxky0301 on gxky0301.id = gxky0308.zzbh
+        join gxjg0101 on gxjg0101.gh = gxky0308.zzzgh
+        left join literature_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
+        and rule.type = gxky0301.zzlx and rule.min &lt;= gxky0301.zs and gxky0301.zs &lt; rule.max
+        <where>
+            gxky0301.shzt = 2
+            and gxjg0101.gh = #{account}
+            and year(gxky0301.cbrq) = #{year}
+        </where>
+    </select>
+</mapper>
