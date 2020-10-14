@@ -2,7 +2,6 @@ package top.alvinsite.demo.typehandler;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import top.alvinsite.demo.model.enums.BookType;
 import top.alvinsite.demo.model.enums.HonorGrade;
 
 import java.sql.CallableStatement;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 public class HonorGradeTypehandler extends BaseTypeHandler<HonorGrade> {
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int idx, HonorGrade honorGrade, JdbcType jdbcType) throws SQLException {
-        preparedStatement.setString(idx, honorGrade.getId());
+        preparedStatement.setString(idx, honorGrade.getValue());
     }
 
     @Override

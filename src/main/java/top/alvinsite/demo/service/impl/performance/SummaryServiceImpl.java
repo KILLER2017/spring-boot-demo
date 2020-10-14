@@ -1,5 +1,6 @@
 package top.alvinsite.demo.service.impl.performance;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.ResearcherDao;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SummaryServiceImpl implements SummaryService {
+public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPerformance> implements SummaryService {
     /**
      * 项目
      */
@@ -27,20 +28,15 @@ public class SummaryServiceImpl implements SummaryService {
     private PaperDao paperDao;
 
     @Autowired
-    private LiteratureDao literatureDao;
-
-    @Autowired
     private PatentDao patentDao;
     @Autowired
     private CopyrightDao copyrightDao;
     @Autowired
     private AwardedDAO awardedDAO;
-    @Autowired
-    private ResearcherDao researcherDao;
 
     @Override
     public List<ResearcherPerformance> findAll(PerformanceQuery performanceQuery) {
-        List<ResearcherPerformance> list = researcherDao.findAll(performanceQuery);
+        List<ResearcherPerformance> list = baseMapper.findAll(performanceQuery);
 
         list.stream().map(researcherPerformance -> calcTotalPoints(researcherPerformance, performanceQuery.getYear())).collect(Collectors.toList());
         return list;

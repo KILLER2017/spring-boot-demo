@@ -4,7 +4,6 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
-import top.alvinsite.demo.model.enums.BookType;
 import top.alvinsite.demo.model.enums.ProjectLevel;
 
 import java.sql.CallableStatement;
@@ -18,7 +17,7 @@ import java.sql.SQLException;
 public class ProjectLevelTypeHandler extends BaseTypeHandler<ProjectLevel> {
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int idx, ProjectLevel projectLevel, JdbcType jdbcType) throws SQLException {
-        preparedStatement.setInt(idx, projectLevel.getId());
+        preparedStatement.setInt(idx, projectLevel.getValue());
     }
 
     @Override

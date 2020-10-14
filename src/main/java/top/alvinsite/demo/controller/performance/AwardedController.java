@@ -4,14 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.controller.BaseController;
-import top.alvinsite.demo.model.entity.performance.CrossingProject;
-import top.alvinsite.demo.service.performance.CrossingProjectService;
+import top.alvinsite.demo.model.entity.performance.Awarded;
+import top.alvinsite.demo.service.performance.AwardedService;
 import xcz.annotation.PermissionClass;
 
 @Slf4j
 @RestController
-@RequestMapping("performance/crossing-project")
+@RequestMapping("performance/awarded")
 @PermissionClass
-public class CrossingProjectController extends BaseController<CrossingProjectService, CrossingProject> {
+public class AwardedController extends BaseController<AwardedService, Awarded>{
 
 }

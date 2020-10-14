@@ -1,11 +1,14 @@
 package top.alvinsite.demo.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum BookType {
+public enum BookType implements IEnum<String> {
     TEACHING_MATERIAL("2", "教材"),
     TREATISE("3", "专著"),
     TRANSLATION("4", "译著"),
@@ -16,19 +19,30 @@ public enum BookType {
     REFERENCE_BOOKS("7", "工具书"),
     ;
 
-    private final String id;
+    @EnumValue
+    private final String value;
+
+
+    @JsonValue
     private final String name;
 
-    public String getId() {
-        return id;
-    }
 
-    public static BookType getEnumById(String id) {
+    public static BookType getEnumById(String value) {
         for (BookType type : BookType.values()) {
-            if (type.getId().equals(id)) {
+            if (type.getValue().equals(values())) {
                 return type;
             }
         }
         return null;
+    }
+
+    @Override
+    public String getValue() {
+        return this.value;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

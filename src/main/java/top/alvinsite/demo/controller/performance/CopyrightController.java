@@ -4,14 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.controller.BaseController;
-import top.alvinsite.demo.model.entity.performance.CrossingProject;
-import top.alvinsite.demo.service.performance.CrossingProjectService;
+import top.alvinsite.demo.model.entity.performance.Copyright;
+import top.alvinsite.demo.service.performance.CopyrightService;
 import xcz.annotation.PermissionClass;
 
 @Slf4j
 @RestController
-@RequestMapping("performance/crossing-project")
+@RequestMapping("performance/copyright")
 @PermissionClass
-public class CrossingProjectController extends BaseController<CrossingProjectService, CrossingProject> {
+public class CopyrightController extends BaseController<CopyrightService, Copyright>{
 
 }

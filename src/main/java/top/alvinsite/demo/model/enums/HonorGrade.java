@@ -1,11 +1,12 @@
 package top.alvinsite.demo.model.enums;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum HonorGrade {
+public enum HonorGrade implements IEnum<String> {
     Grand_Prize("1", "特等奖"),
     first_prize("2", "一等奖"),
     Second_Prize("3", "二等奖"),
@@ -15,19 +16,24 @@ public enum HonorGrade {
     others("9", "其他奖"),
         ;
 
-    private final String id;
+    private final String value;
     private final String name;
 
-    public String getId() {
-        return id;
+    public String getValue() {
+        return value;
     }
 
     public static HonorGrade getEnumById(String id) {
         for (HonorGrade type : HonorGrade.values()) {
-            if (type.getId().equals(id)) {
+            if (type.getValue().equals(id)) {
                 return type;
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

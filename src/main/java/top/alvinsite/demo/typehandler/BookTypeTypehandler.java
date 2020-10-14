@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class BookTypeTypehandler extends BaseTypeHandler<BookType> {
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int idx, BookType bookType, JdbcType jdbcType) throws SQLException {
-        preparedStatement.setString(idx, bookType.getId());
+        preparedStatement.setString(idx, bookType.getValue());
     }
 
     @Override

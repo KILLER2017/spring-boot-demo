@@ -34,10 +34,6 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
     @Autowired
     private LongitudinalRuleService longitudinalRuleService;
 
-
-
-
-
     @Autowired
     private ScoreDistributionService scoreDistributionService;
 
@@ -79,17 +75,16 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
         }
 
         // 查询是否采用分值分配法
-        boolean useScoreDistribute = scoreDistributionConfigService.useScoreDistribute(
+        ScoreDistributionParam param = new ScoreDistributionParam(
+                project.getDepartment(),
+                this.performance,
                 project.getApprovalProjectYear(),
-                project.getDepartmentId(),
-                this.performance);
+                project.getMemberNum(), project.
+                getSignedOrder());
 
-        if (useScoreDistribute) {
-            ScoreDistributionParam param = new ScoreDistributionParam(project.getApprovalProjectYear(), project.getMemberNum(), project.getSignedOrder());
-            float proportion = scoreDistributionService.getProportion(param);
-            budgetScore *= proportion;
-            projectScore *= proportion;
-        }
+        float proportion = scoreDistributionService.getProportion(param);
+        budgetScore *= proportion;
+        projectScore *= proportion;
 
         // 返回个人得分
         project.setBudgetScore(budgetScore);

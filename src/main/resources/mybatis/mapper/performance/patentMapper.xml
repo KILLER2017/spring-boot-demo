@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.performance.PatentDao">
-    <resultMap id="findPatentResult" type="top.alvinsite.demo.model.dto.performance.PatentDTO">
+    <resultMap id="findPatentResult" type="Patent">
         <id property="id" column="id"/>
         <result property="nickname" column="nickname"/>
         <result property="department" column="department"/>

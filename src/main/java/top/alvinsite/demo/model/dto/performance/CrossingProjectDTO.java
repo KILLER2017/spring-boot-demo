@@ -11,16 +11,16 @@ import java.util.List;
 @Data
 @Alias("CrossingProjectDTO")
 public class CrossingProjectDTO {
-    protected String id;
+    private String id;
 
     @ExcelColumn(value = "姓名", col = 1)
-    protected String nickname;
+    private String nickname;
 
     @ExcelColumn(value = "所属单位", col = 2)
-    protected String department;
+    private String department;
 
     @ExcelColumn(value = "合同名称", col = 3)
-    protected String title;
+    private String title;
 
     @ExcelColumn(value = "合同类型", col = 4)
     private String contractType;
@@ -34,5 +34,5 @@ public class CrossingProjectDTO {
     private List<ManagerUserDTO> members;
 
     @ExcelColumn(value = "绩效分数", col = 7)
-    protected float score;
+    private float score;
 }

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.performance.PaperDao">
-    <resultMap id="findPaperResult" type="top.alvinsite.demo.model.dto.performance.PaperDTO">
+    <resultMap id="findPaperResult" type="Paper">
         <id property="id" column="id" />
         <result property="title" column="title" />
         <result property="department" column="department" />
@@ -23,10 +23,14 @@
         select
             gxky0312.id as id,
             gxky0312.zzmc as nickname,
+            department.id as departmentId,
             department.title as department,
             gxky0312.lwbh as lwbh,
             gxky0316.lwmc as title,
             gxky0316.fbqk,
+            year(gxky0316.fbrq) as ApprovalProjectYear,
+            gxky0316.zzrs as memberNum,
+            gxky0312.smsx as SignedOrder,
             dm_paper_type.NAME as type,
         (
             case gxky0312.smsx

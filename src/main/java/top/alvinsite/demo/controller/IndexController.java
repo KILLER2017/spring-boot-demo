@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.performance.*;
 import top.alvinsite.demo.model.dto.performance.*;
-import top.alvinsite.demo.model.entity.performance.CrossingProject;
-import top.alvinsite.demo.model.entity.performance.LongitudinalProject;
+import top.alvinsite.demo.model.entity.performance.*;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.TotalPointsParam;
 import top.alvinsite.demo.model.support.UserInfo;
+import top.alvinsite.demo.service.performance.PaperService;
 import top.alvinsite.demo.service.performance.SummaryService;
 import top.alvinsite.demo.utils.ExcelUtils;
 import xcz.annotation.IgnorePermission;
@@ -28,18 +28,15 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("performance")
+@RequestMapping("performance-old")
 @PermissionClass
-public class IndexController extends BaseController {
-    /**
-     * 项目
-     */
+public class IndexController {
+
+
+
     @Autowired
     private ProjectDao projectDao;
 
-    /**
-     * 论文
-     */
     @Autowired
     private PaperDao paperDao;
 
@@ -62,6 +59,12 @@ public class IndexController extends BaseController {
         return "this is index page!";
     }
 
+    protected void addManagerLimit(UserInfo userInfo, PerformanceQuery performanceQuery) {
+        // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
+        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
+            performanceQuery.setDepartmentId(userInfo.getManageUnitId());
+        }
+    }
 
     @GetMapping("summaries")
     public PageInfo<ResearcherPerformance> summaries(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
@@ -72,85 +75,35 @@ public class IndexController extends BaseController {
     }
 
 
-
-
-
-
-    @GetMapping("paper")
-    public PageInfo<PaperDTO> findPaper(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
-        addManagerLimit(userInfo, performanceQuery);
-
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<PaperDTO> list = paperDao.findPaper(performanceQuery);
-
-        return new PageInfo<>(list);
-    }
-
-    @GetMapping("literature")
-    public PageInfo<LiteratureDTO> findLiterature(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
-        addManagerLimit(userInfo, performanceQuery);
-
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<LiteratureDTO> list = literatureDao.findLiterature(performanceQuery);
-        return new PageInfo<>(list);
-    }
-
-    @GetMapping("patent")
-    public PageInfo<PatentDTO> findPatent(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
-        addManagerLimit(userInfo, performanceQuery);
-
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<PatentDTO> list = patentDao.findPatent(performanceQuery);
-        return new PageInfo<>(list);
-    }
-
-    @GetMapping("copyright")
-    public PageInfo<CopyrightDTO> findCopyright(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
-        addManagerLimit(userInfo, performanceQuery);
-
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<CopyrightDTO> list = copyrightDao.findCopyright(performanceQuery);
-        return new PageInfo<>(list);
-    }
-
-    @GetMapping("awarded")
-    public PageInfo<AwardedDTO> findAwarded(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
-        addManagerLimit(userInfo, performanceQuery);
-
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<AwardedDTO> list = awardedDAO.findAwarded(performanceQuery);
-        return new PageInfo<>(list);
-    }
-
     @GetMapping("export-excel")
     public void exportExcel(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery, HttpServletResponse response) {
         addManagerLimit(userInfo, performanceQuery);
         // 汇总
-        List<ResearcherPerformance> researcherPerformanceList = summaryService.findAll(performanceQuery);
+        // List<ResearcherPerformance> researcherPerformanceList = summaryService.findAll(performanceQuery);
         // 纵向项目
-        List<LongitudinalProject> longitudinalProjectList = projectDao.findLongitudinalProject(performanceQuery);
+        // List<LongitudinalProject> longitudinalProjectList = projectDao.findLongitudinalProject(performanceQuery);
         // 横向项目
-        List<CrossingProject> crossingProjectList = projectDao.findCrossingProject(performanceQuery);
+        // List<CrossingProject> crossingProjectList = projectDao.findCrossingProject(performanceQuery);
         // 论文成果
-        List<PaperDTO> paperDTOList = paperDao.findPaper(performanceQuery);
+        // List<Paper> paperList = paperDao.findPaper(performanceQuery);
         // 著作成果
-        List<LiteratureDTO> literatureDTOList = literatureDao.findLiterature(performanceQuery);
+        List<Literature> literatureList = literatureDao.findLiterature(performanceQuery);
         // 专利成果
-        List<PatentDTO> patentDTOList = patentDao.findPatent(performanceQuery);
+        // List<Patent> patentList = patentDao.findPatent(performanceQuery);
         // 著作权
-        List<CopyrightDTO> copyrightDTOList = copyrightDao.findCopyright(performanceQuery);
+        // List<Copyright> copyrightList = copyrightDao.findCopyright(performanceQuery);
         // 科研获奖
-        List<AwardedDTO> awardedDTOList = awardedDAO.findAwarded(performanceQuery);
+        // List<Awarded> awardedList = awardedDAO.findAwarded(performanceQuery);
 
         new ExcelUtils.Builder()
-                .addSheet("汇总", researcherPerformanceList, ResearcherPerformance.class)
-                .addSheet("纵向项目", longitudinalProjectList, LongitudinalProject.class)
-                .addSheet("横向项目", crossingProjectList, CrossingProject.class)
-                .addSheet("论文成果", paperDTOList, PaperDTO.class)
-                .addSheet("著作成果", literatureDTOList, LiteratureDTO.class)
-                .addSheet("专利成果", patentDTOList, PatentDTO.class)
-                .addSheet("著作权", copyrightDTOList, CopyrightDTO.class)
-                .addSheet("科研获奖", awardedDTOList, AwardedDTO.class)
+                // .addSheet("汇总", researcherPerformanceList, ResearcherPerformance.class)
+                // .addSheet("纵向项目", longitudinalProjectList, LongitudinalProject.class)
+                // .addSheet("横向项目", crossingProjectList, CrossingProject.class)
+                // .addSheet("论文成果", paperList, Paper.class)
+                .addSheet("著作成果", literatureList, Literature.class)
+                // .addSheet("专利成果", patentList, Patent.class)
+                // .addSheet("著作权", copyrightList, Copyright.class)
+                // .addSheet("科研获奖", awardedList, Awarded.class)
                 .setResponse(response)
                 .build();
     }
