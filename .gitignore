@@ -29,3 +29,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/log.path_IS_UNDEFINED/
