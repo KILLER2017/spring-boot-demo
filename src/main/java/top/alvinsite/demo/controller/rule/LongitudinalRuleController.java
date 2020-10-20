@@ -18,29 +18,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("performance/rule/longitudinal-project")
 @PermissionClass
-public class LongitudinalRuleController {
-    @Autowired
-    private LongitudinalRuleService longitudinalRuleService;
+public class LongitudinalRuleController extends BaseRuleController<LongitudinalRuleService, LongitudinalProjectRule> {
 
-    @GetMapping
-    public List<LongitudinalRuleDTO> list(@Valid @RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery) {
-        // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            ruleQuery.setDepartment(userInfo.getManageUnitId());
-        }
-        return longitudinalRuleService.list(ruleQuery);
-    }
+    public static String performance = "longitudinal";
 
-
-    @PostMapping
-    public void save(@RequestHeader("authorization") UserInfo userInfo, @RequestBody List<LongitudinalProjectRule> longitudinalProjectRules) {
-        // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            longitudinalProjectRules.stream().map((longitudinalRule -> {
-                longitudinalRule.setDepartment(userInfo.getManageUnitId());
-                return longitudinalRule;
-            })).collect(Collectors.toList());
-        }
-        longitudinalRuleService.save(longitudinalProjectRules);
+    public LongitudinalRuleController() {
+        super.setPerformance(performance);
     }
 }

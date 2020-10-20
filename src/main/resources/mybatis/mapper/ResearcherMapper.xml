@@ -21,19 +21,20 @@
 
     <select id="findAll" resultType="ResearcherPerformance">
         select
-        gxky0201.id as id,
+        gxjg0101.gh as id,
         gxjg0101.xm as nickname,
         gxjg0101.gh as account,
+        #{year} as year,
         department.title as department
-        from gxky0201
-        join gxjg0101 on gxjg0101.gh = gxky0201.dlxtzh
+        from gxjg0101
         left join department on department.id = gxjg0101.dwh
         <where>
-            ryscbz = 0
+            dqztm = 1 and type != 3 and dwh is not null
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
         </where>
+        order by gxjg0101.dwh asc
     </select>
 </mapper>

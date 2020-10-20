@@ -1,3 +1,4 @@
+/*
 package top.alvinsite.demo.typehandler;
 
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -33,3 +34,4 @@ public class HonorGradeTypehandler extends BaseTypeHandler<HonorGrade> {
         return HonorGrade.getEnumById(id);
     }
 }
+*/

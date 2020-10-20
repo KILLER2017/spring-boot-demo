@@ -1,42 +1,48 @@
 Manifest-Version: 1.0
 Main-Class: top.alvinsite.demo.DemoApplication
-Class-Path: spring-data-commons-2.3.0.RELEASE.jar jul-to-slf4j-1.7.30.ja
- r slf4j-api-1.7.30.jar spring-data-redis-2.3.0.RELEASE.jar snakeyaml-1.
- 26.jar spring-beans-5.2.6.RELEASE.jar poi-ooxml-schemas-3.13.jar spring
- -aop-5.2.6.RELEASE.jar javax.servlet-api-4.0.1.jar spring-boot-starter-
- json-2.3.0.RELEASE.jar hutool-log-5.3.8.jar mybatis-spring-boot-starter
- -2.1.2.jar mybatis-spring-2.0.4.jar commons-jexl3-3.1.jar log4j-to-slf4
- j-2.13.2.jar commons-logging-1.2.jar netty-resolver-4.1.49.Final.jar ja
- ckson-module-parameter-names-2.11.0.jar spring-context-support-5.2.6.RE
- LEASE.jar classmate-1.5.1.jar netty-transport-4.1.49.Final.jar tomcat-e
- mbed-core-9.0.35.jar surefire-logger-api-2.22.2.jar netty-handler-4.1.4
- 9.Final.jar commons-collections-3.2.2.jar spring-boot-starter-web-2.3.0
- .RELEASE.jar mybatis-spring-boot-autoconfigure-2.1.2.jar logback-core-1
- .2.3.jar spring-expression-5.2.6.RELEASE.jar jackson-databind-2.11.0.ja
- r jboss-logging-3.4.1.Final.jar jakarta.validation-api-2.0.2.jar spring
- -boot-autoconfigure-2.3.0.RELEASE.jar reactive-streams-1.0.3.jar mysql-
- connector-java-8.0.20.jar jackson-annotations-2.11.0.jar netty-buffer-4
- .1.49.Final.jar poi-ooxml-3.13.jar spring-context-5.2.6.RELEASE.jar pag
- ehelper-5.1.2.jar spring-boot-starter-tomcat-2.3.0.RELEASE.jar tomcat-e
- mbed-websocket-9.0.35.jar jsqlparser-1.0.jar spring-tx-5.2.6.RELEASE.ja
- r spring-boot-starter-validation-2.3.0.RELEASE.jar spring-data-keyvalue
- -2.3.0.RELEASE.jar hutool-setting-5.3.8.jar spring-boot-starter-logging
- -2.3.0.RELEASE.jar aspectjweaver-1.9.5.jar spring-jdbc-5.2.6.RELEASE.ja
- r jakarta.el-3.0.3.jar jakarta.annotation-api-1.3.5.jar hutool-core-5.3
- .8.jar wiremock-jre8-standalone-2.25.0.jar mybatis-3.5.4.jar netty-code
- c-4.1.49.Final.jar lombok-1.18.12.jar spring-core-5.2.6.RELEASE.jar log
- back-classic-1.2.3.jar HikariCP-3.4.5.jar spring-boot-configuration-pro
- cessor-2.3.0.RELEASE.jar xcz-utils-springboot-starter-1.0-SNAPSHOT.jar 
- log4j-api-2.13.2.jar poi-3.13.jar fastjson-1.2.58.jar spring-boot-start
- er-2.3.0.RELEASE.jar cas-dgut-srping-boot-starter-1.1-SNAPSHOT.jar comm
- ons-lang3-3.10.jar surefire-api-2.22.2.jar hibernate-validator-6.1.5.Fi
- nal.jar jackson-datatype-jdk8-2.11.0.jar surefire-booter-2.22.2.jar net
- ty-common-4.1.49.Final.jar jackson-core-2.11.0.jar spring-boot-2.3.0.RE
- LEASE.jar spring-webmvc-5.2.6.RELEASE.jar spring-boot-starter-data-redi
- s-2.3.0.RELEASE.jar spring-boot-starter-jdbc-2.3.0.RELEASE.jar jackson-
- datatype-jsr310-2.11.0.jar reactor-core-3.3.5.RELEASE.jar spring-web-5.
- 2.6.RELEASE.jar commons-codec-1.14.jar spring-oxm-5.2.6.RELEASE.jar spr
- ing-jcl-5.2.6.RELEASE.jar hutool-extra-5.3.8.jar stax-api-1.0.1.jar let
- tuce-core-5.3.0.RELEASE.jar xmlbeans-2.6.0.jar spring-aspects-5.2.6.REL
- EASE.jar
+Class-Path: netty-common-4.1.49.Final.jar spring-boot-autoconfigure-2.3.
+ 0.RELEASE.jar netty-codec-4.1.49.Final.jar spring-data-keyvalue-2.3.0.R
+ ELEASE.jar mybatis-plus-3.4.0.jar HikariCP-3.4.5.jar mybatis-spring-2.0
+ .5.jar snakeyaml-1.26.jar mybatis-plus-core-3.4.0.jar surefire-logger-a
+ pi-2.22.2.jar jackson-core-2.11.0.jar spring-boot-starter-web-2.3.0.REL
+ EASE.jar spring-context-support-5.2.6.RELEASE.jar mybatis-plus-annotati
+ on-3.4.0.jar hutool-setting-5.3.8.jar jakarta.annotation-api-1.3.5.jar 
+ spring-data-redis-2.3.0.RELEASE.jar spring-boot-starter-jdbc-2.3.0.RELE
+ ASE.jar spring-jcl-5.2.6.RELEASE.jar spring-plugin-metadata-1.2.0.RELEA
+ SE.jar spring-boot-2.3.0.RELEASE.jar cas-dgut-srping-boot-starter-1.1-S
+ NAPSHOT.jar logback-classic-1.2.3.jar springfox-core-2.9.2.jar reactive
+ -streams-1.0.3.jar slf4j-api-1.7.30.jar xcz-utils-springboot-starter-1.
+ 0-SNAPSHOT.jar poi-3.13.jar byte-buddy-1.10.10.jar springfox-swagger-co
+ mmon-2.9.2.jar jakarta.el-3.0.3.jar spring-webmvc-5.2.6.RELEASE.jar hut
+ ool-extra-5.3.8.jar spring-boot-starter-logging-2.3.0.RELEASE.jar mapst
+ ruct-1.2.0.Final.jar hutool-log-5.3.8.jar commons-codec-1.14.jar spring
+ -boot-configuration-processor-2.3.0.RELEASE.jar javax.servlet-api-4.0.1
+ .jar jboss-logging-3.4.1.Final.jar lombok-1.18.12.jar netty-transport-4
+ .1.49.Final.jar springfox-swagger-ui-2.9.2.jar mybatis-plus-extension-3
+ .4.0.jar spring-data-commons-2.3.0.RELEASE.jar spring-oxm-5.2.6.RELEASE
+ .jar xmlbeans-2.6.0.jar guava-20.0.jar spring-boot-starter-2.3.0.RELEAS
+ E.jar log4j-to-slf4j-2.13.2.jar spring-aop-5.2.6.RELEASE.jar commons-je
+ xl3-3.1.jar spring-aspects-5.2.6.RELEASE.jar surefire-booter-2.22.2.jar
+  fastjson-1.2.58.jar jsqlparser-1.0.jar commons-logging-1.2.jar surefir
+ e-api-2.22.2.jar jakarta.validation-api-2.0.2.jar aspectjweaver-1.9.5.j
+ ar spring-web-5.2.6.RELEASE.jar poi-ooxml-3.13.jar spring-core-5.2.6.RE
+ LEASE.jar jackson-module-parameter-names-2.11.0.jar springfox-schema-2.
+ 9.2.jar jackson-datatype-jdk8-2.11.0.jar netty-buffer-4.1.49.Final.jar 
+ log4j-api-2.13.2.jar mysql-connector-java-8.0.20.jar tomcat-embed-core-
+ 9.0.35.jar stax-api-1.0.1.jar tomcat-embed-websocket-9.0.35.jar swagger
+ -models-1.5.20.jar commons-collections-3.2.2.jar spring-boot-starter-js
+ on-2.3.0.RELEASE.jar spring-boot-starter-data-redis-2.3.0.RELEASE.jar s
+ pring-plugin-core-1.2.0.RELEASE.jar jackson-annotations-2.11.0.jar comm
+ ons-lang3-3.10.jar spring-context-5.2.6.RELEASE.jar classmate-1.5.1.jar
+  springfox-spi-2.9.2.jar spring-tx-5.2.6.RELEASE.jar hibernate-validato
+ r-6.1.5.Final.jar jul-to-slf4j-1.7.30.jar swagger-annotations-1.5.20.ja
+ r netty-resolver-4.1.49.Final.jar lettuce-core-5.3.0.RELEASE.jar spring
+ -boot-starter-validation-2.3.0.RELEASE.jar springfox-spring-web-2.9.2.j
+ ar reactor-core-3.3.5.RELEASE.jar wiremock-jre8-standalone-2.25.0.jar n
+ etty-handler-4.1.49.Final.jar springfox-swagger2-2.9.2.jar pagehelper-5
+ .1.2.jar mybatis-plus-boot-starter-3.4.0.jar jackson-databind-2.11.0.ja
+ r mybatis-3.5.5.jar spring-beans-5.2.6.RELEASE.jar spring-expression-5.
+ 2.6.RELEASE.jar spring-jdbc-5.2.6.RELEASE.jar poi-ooxml-schemas-3.13.ja
+ r spring-boot-starter-tomcat-2.3.0.RELEASE.jar logback-core-1.2.3.jar h
+ utool-core-5.3.8.jar jackson-datatype-jsr310-2.11.0.jar
 

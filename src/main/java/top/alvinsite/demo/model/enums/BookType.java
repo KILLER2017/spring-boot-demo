@@ -27,15 +27,6 @@ public enum BookType implements IEnum<String> {
     private final String name;
 
 
-    public static BookType getEnumById(String value) {
-        for (BookType type : BookType.values()) {
-            if (type.getValue().equals(values())) {
-                return type;
-            }
-        }
-        return null;
-    }
-
     @Override
     public String getValue() {
         return this.value;

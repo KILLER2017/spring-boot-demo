@@ -14,9 +14,6 @@
         </where>
     </select>
 
-    <delete id="delete">
-        delete from paper_rule where department = #{department} and year = #{year}
-    </delete>
 
     <insert id="saveBatch">
         INSERT INTO paper_rule (id, department, year, type, score1, score2, score3, score4, score5, score6, score7, score8) values

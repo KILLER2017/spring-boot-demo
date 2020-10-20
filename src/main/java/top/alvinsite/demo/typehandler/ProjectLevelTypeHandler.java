@@ -1,3 +1,4 @@
+/*
 package top.alvinsite.demo.typehandler;
 
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -38,3 +39,4 @@ public class ProjectLevelTypeHandler extends BaseTypeHandler<ProjectLevel> {
         return ProjectLevel.getEnumById(id);
     }
 }
+*/

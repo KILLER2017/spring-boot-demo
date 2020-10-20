@@ -10,21 +10,9 @@ import java.util.List;
 
 @Repository
 public interface LevelFactorDao extends BaseMapper<LevelFactor> {
-    @Select("        select\n" +
-            "            id,\n" +
-            "            type,\n" +
-            "            level,\n" +
-            "            factor\n" +
-            "        from level_factor")
+
     List<LevelFactor> findAll();
 
-    @Select("        select\n" +
-            "            id,\n" +
-            "            type,\n" +
-            "            level,\n" +
-            "            factor\n" +
-            "        from level_factor\n" +
-            "        where id = #{id}")
     LevelFactor findOne(Integer id);
 
 

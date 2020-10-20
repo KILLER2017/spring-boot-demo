@@ -2,8 +2,10 @@ package top.alvinsite.demo.model.entity.performance;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
+import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.enums.BookType;
 import top.alvinsite.demo.model.enums.PublisherLevel;
 import top.alvinsite.demo.model.support.ExcelColumn;
@@ -12,16 +14,15 @@ import java.util.List;
 
 @Data
 @Alias("Literature")
-public class Literature {
+@EqualsAndHashCode(callSuper = false)
+public class Literature extends BaseEntity  {
     private String id;
 
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 
-    private String departmentId;
-
     @ExcelColumn(value = "所属单位", col = 2)
-    private String department;
+    private Department department;
 
     @ExcelColumn(value = "著作名称", col = 3)
     private String title;
@@ -38,11 +39,11 @@ public class Literature {
     private String fundingSource;
 
     // 是否研究东莞问题专著
-    private Boolean isTopicWithDongguan = false;
+    private boolean isTopicWithDongguan = false;
 
     // 是否为修订版
     @TableField(value = "sfwxgb")
-    private Boolean isRevised;
+    private boolean isRevised;
 
     @ExcelColumn(value = "参编作者", col = 5)
     private List<ManagerUserDTO> authors;

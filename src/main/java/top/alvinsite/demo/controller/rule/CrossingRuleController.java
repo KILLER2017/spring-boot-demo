@@ -17,29 +17,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("performance/rule/crossing-project")
 @PermissionClass
-public class CrossingRuleController {
-    @Autowired
-    private CrossingRuleService crossingRuleService;
+public class CrossingRuleController extends BaseRuleController<CrossingRuleService, CrossingProjectRule> {
 
-    @GetMapping
-    public List<CrossingRuleDTO> list(@RequestHeader("authorization") UserInfo userInfo, RuleQuery ruleQuery) {
-        // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            ruleQuery.setDepartment(userInfo.getManageUnitId());
-        }
-        return crossingRuleService.list(ruleQuery);
-    }
+    public static String performance = "crossing";
 
-    @PostMapping
-    public void save(@RequestHeader("authorization") UserInfo userInfo, @RequestBody List<CrossingProjectRule> crossingProjectRules) {
-        // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            crossingProjectRules.stream().map((crossingRule -> {
-                crossingRule.setDepartment(userInfo.getManageUnitId());
-                return crossingRule;
-            })).collect(Collectors.toList());
-        }
-
-        crossingRuleService.save(crossingProjectRules);
+    public CrossingRuleController() {
+        super.setPerformance(performance);
     }
 }

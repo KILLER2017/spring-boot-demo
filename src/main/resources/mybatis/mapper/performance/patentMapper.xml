@@ -6,11 +6,16 @@
     <resultMap id="findPatentResult" type="Patent">
         <id property="id" column="id"/>
         <result property="nickname" column="nickname"/>
-        <result property="department" column="department"/>
         <result property="title" column="title"/>
         <result property="score" column="score" />
         <result property="type" column="type" />
         <result property="scope" column="scope" />
+
+        <association property="department" javaType="Department" >
+            <id property="id" column="departmentId" />
+            <result property="title" column="department" />
+        </association>
+
         <collection property="inventors" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="zlbh"  select="findAuthorsById">
             <id property="account" column="account"/>
             <result property="nickname" column="nickname"/>
@@ -21,30 +26,19 @@
         select
             gxky0314.id as id,
             gxjg0101.xm as nickname,
+            department.id as departmentId,
             department.title as department,
             gxky0302.zlmc as title,
             gxky0314.zlbh,
-            dm_patent_type.NAME as type,
-            dm_patent_scope.NAME as scope,
-        (
-        case gxky0314.smsx
-        when 1 then rule.score1
-        when 2 then rule.score2
-        when 3 then rule.score3
-        when 4 then rule.score4
-        when 5 then rule.score5
-        when 6 then rule.score6
-        when 7 then rule.score7
-        when 8 then rule.score8
-        end
-        ) as score
+            gxky0302.zllx as type,
+            gxky0302.zlfw as scope,
+            year(gxky0302.gkrq) as ApprovalProjectYear,
+            gxky0302.fmsjrgs as memberNum,
+            gxky0314.smsx as SignedOrder
         from gxky0314
         join gxky0302 on gxky0302.id = gxky0314.zlbh
         join gxjg0101 on gxjg0101.gh = gxky0314.fmrzgh
         join department on department.id = gxjg0101.dwh
-        left join dm_patent_type on dm_patent_type.ID = gxky0302.zllx
-        left join dm_patent_scope on dm_patent_scope.ID = gxky0302.zlfw
-        left join patent_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and rule.type = gxky0302.zllx and rule.scope = gxky0302.zlfw
         <where>
             gxky0302.shzt = 2
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>

@@ -1,6 +1,8 @@
 package top.alvinsite.demo.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,20 +15,13 @@ public enum ProjectLevel implements IEnum<Integer> {
     SCHOOL_LEVEL(4, "校级"),
     OTHERS(5, "其他");
 
+    @EnumValue
     private final int value;
+    @JsonValue
     private final String name;
 
     public Integer getValue() {
         return value;
-    }
-
-    public static ProjectLevel getEnumById(int id) {
-        for (ProjectLevel type : ProjectLevel.values()) {
-            if (type.getValue() == id) {
-                return type;
-            }
-        }
-        return null;
     }
 
     @Override

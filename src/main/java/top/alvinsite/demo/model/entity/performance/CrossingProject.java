@@ -3,22 +3,21 @@ package top.alvinsite.demo.model.entity.performance;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
+import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;
 
 @Data
 @Alias("CrossingProject")
-public class CrossingProject {
+public class CrossingProject extends BaseEntity  {
     protected String id;
 
     @ExcelColumn(value = "姓名", col = 1)
     protected String nickname;
 
-    private String departmentId;
-
     @ExcelColumn(value = "所属单位", col = 2)
-    protected String department;
+    protected Department department;
 
 
     private String projectNum;

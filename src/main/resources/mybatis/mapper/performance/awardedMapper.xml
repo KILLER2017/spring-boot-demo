@@ -6,11 +6,16 @@
     <resultMap id="findCopyrightResult" type="Awarded">
         <id property="id" column="id" />
         <result property="title" column="title" />
-        <result property="department" column="department" />
         <result property="nickname" column="nickname" />
         <result property="score" column="score" />
         <result property="level" column="level" />
         <result property="grade" column="grade" />
+
+        <association property="department" javaType="Department" >
+            <id property="id" column="departmentId" />
+            <result property="title" column="department" />
+        </association>
+
         <collection property="awardee" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="hjbh"  select="findAuthorsById">
             <id property="account" column="account"/>
             <result property="nickname" column="nickname"/>
@@ -21,29 +26,19 @@
             gxky0310.id as id,
             gxky0310.hjbh,
             gxjg0101.xm as nickname,
+            department.id as departmentId,
             department.title as department,
             gxky0309.hjmc as title,
-            DM_HONOR_LEVEL.NAME as level,
-            DM_HONOR_GRADE.NAME as grade,
-        (
-        case gxky0310.smsx
-        when 1 then rule.score1
-        when 2 then rule.score2
-        when 3 then rule.score3
-        when 4 then rule.score4
-        when 5 then rule.score5
-        when 6 then rule.score6
-        when 7 then rule.score7
-        when 8 then rule.score8
-        end
-        ) as score
+            gxky0309.hjjb as level,
+            gxky0309.hjdj as grade,
+            year(gxky0309.hjrq) as ApprovalProjectYear,
+            gxky0309.hjrs as memberNum,
+            gxky0310.smsx as SignedOrder
+
         from gxky0310
         join gxky0309 on gxky0309.id = gxky0310.hjbh
         join gxjg0101 on gxjg0101.gh = gxky0310.wcrzgh
         join department on department.id = gxjg0101.dwh
-        LEFT JOIN DM_HONOR_LEVEL ON DM_HONOR_LEVEL.ID = gxky0309.hjjb
-        LEFT JOIN DM_HONOR_GRADE ON DM_HONOR_GRADE.ID = gxky0309.hjdj
-        left join awarded_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and rule.level = gxky0309.hjjb and rule.grade = gxky0309.hjdj
         <where>
             gxky0309.shzt = 2
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>

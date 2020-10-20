@@ -1,10 +1,11 @@
-package top.alvinsite.demo.controller;
+package top.alvinsite.demo.controller.performance;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
@@ -14,6 +15,8 @@ import top.alvinsite.demo.service.performance.BasePerformanceService;
 import java.util.List;
 
 public class BaseController<M extends BasePerformanceService, T> {
+
+    protected String controllerName = "default";
 
     @Autowired
     protected M baseService;
@@ -33,5 +36,10 @@ public class BaseController<M extends BasePerformanceService, T> {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<T> list = baseService.findAll(performanceQuery);
         return new PageInfo<>(list);
+    }
+
+    @PostMapping
+    public String test() {
+        return controllerName;
     }
 }

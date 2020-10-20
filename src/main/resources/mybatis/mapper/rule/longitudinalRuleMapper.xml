@@ -24,10 +24,6 @@
         </where>
     </select>
 
-    <delete id="delete">
-        delete from longitudinal_project_rule where department = #{department} and year = #{year}
-    </delete>
-
     <insert id="saveBatch">
         INSERT INTO longitudinal_project_rule (id, department, year, type, level, min, max, score) values
         <foreach collection="list" item="item" separator=",">

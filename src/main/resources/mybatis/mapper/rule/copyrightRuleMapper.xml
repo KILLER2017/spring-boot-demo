@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.rule.CopyrightRuleDao">
 
-    <select id="findAll"  resultType="CopyrightRuleDTO">
+    <select id="findAll"  resultType="CopyrightRule">
         select
             *
         from copyright_rule rule
@@ -14,19 +14,13 @@
         </where>
     </select>
 
-    <delete id="delete">
-        delete from copyright_rule where department = #{department} and year = #{year}
-    </delete>
-
     <insert id="saveBatch">
-        INSERT INTO copyright_rule (id, department, year, score1, score2, score3, score4, score5, score6, score7, score8) values
+        INSERT INTO copyright_rule (id, department, year, type, score) values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.department}, #{item.year}, #{item.score1}, #{item.score2}, #{item.score3},
-            #{item.score4}, #{item.score5}, #{item.score6}, #{item.score7}, #{item.score8})
+            (#{item.id}, #{item.department}, #{item.year}, #{item.type}, #{item.score})
         </foreach>
-        ON DUPLICATE KEY UPDATE department=values(department), year=values(year), score1=values(score1)
-        , score2=values(score2), score3=values(score3), score4=values(score4), score5=values(score5), score6=values(score6)
-        , score7=values(score7), score8=values(score8)
+        ON DUPLICATE KEY UPDATE department=values(department), year=values(year), type=values(type)
+        , score=values(score)
     </insert>
 
 </mapper>

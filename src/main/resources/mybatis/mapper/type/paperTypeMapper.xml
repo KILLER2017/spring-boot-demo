@@ -7,7 +7,7 @@
         select
             ID as id,
             NAME as title
-        from dm_paper_type
+        from DM_PAPER_TYPE
         order by ID ASC
     </select>
 
@@ -15,7 +15,7 @@
         select
             ID as id,
             NAME as title
-        from dm_paper_type
+        from DM_PAPER_TYPE
         where ID = #{id}
     </select>
 </mapper>

@@ -20,6 +20,6 @@ cas:
 logging:
   level:
     root: info
-    top.alvinsite.demo: debug
+    top.alvinsite.demo: info
 
 debug: false

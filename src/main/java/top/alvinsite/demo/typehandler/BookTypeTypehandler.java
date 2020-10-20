@@ -1,3 +1,4 @@
+/*
 package top.alvinsite.demo.typehandler;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,3 +41,4 @@ public class BookTypeTypehandler extends BaseTypeHandler<BookType> {
         return BookType.getEnumById(id);
     }
 }
+*/

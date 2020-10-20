@@ -1,5 +1,7 @@
 package top.alvinsite.demo.service.impl.rule;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,20 @@ public class ScoreDistributionConfigServiceImpl extends ServiceImpl<ScoreDistrib
         );
 
         return config == null ? false : config.getActive();
+    }
+
+    public void applyConfig(ScoreDistributionConfig newConfig) {
+        LambdaQueryWrapper<ScoreDistributionConfig> query = Wrappers.<ScoreDistributionConfig>lambdaQuery()
+                .eq(ScoreDistributionConfig::getDepartment, newConfig.getDepartment())
+                .eq(ScoreDistributionConfig::getYear, newConfig.getYear())
+                .eq(ScoreDistributionConfig::getPerformance, newConfig.getPerformance());
+
+        ScoreDistributionConfig oldConfig = scoreDistributionConfigDao.selectOne(query);
+
+        if (oldConfig != null) {
+            scoreDistributionConfigDao.update(newConfig, query);
+        } else {
+            scoreDistributionConfigDao.insert(newConfig);
+        }
     }
 }

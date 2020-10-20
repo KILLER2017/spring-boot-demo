@@ -17,29 +17,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("performance/rule/paper")
 @PermissionClass
-public class PaperRuleController {
+public class PaperRuleController extends BaseRuleController<PaperRuleService, PaperRule> {
 
-    @Autowired
-    private PaperRuleService paperRuleService;
+    public static String performance = "paper";
 
-    @GetMapping
-    public List<PaperRuleDTO> list(@RequestHeader("authorization") UserInfo userInfo, RuleQuery ruleQuery) {
-        // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            ruleQuery.setDepartment(userInfo.getManageUnitId());
-        }
-        return paperRuleService.list(ruleQuery);
-    }
-
-    @PostMapping
-    public void save(@RequestHeader("authorization") UserInfo userInfo, @RequestBody List<PaperRule> paperRules) {
-        // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            paperRules.stream().map((paperRule -> {
-                paperRule.setDepartment(userInfo.getManageUnitId());
-                return paperRule;
-            })).collect(Collectors.toList());
-        }
-        paperRuleService.save(paperRules);
+    public PaperRuleController() {
+        super.setPerformance(performance);
     }
 }

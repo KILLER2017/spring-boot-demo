@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
@@ -20,6 +21,7 @@ import top.alvinsite.demo.utils.ExceptionUtils;
 import top.alvinsite.demo.utils.ValidationUtils;
 import xcz.exception.AuthException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Map;
 
 
@@ -62,6 +64,17 @@ public class ControllerExceptionHandler {
         return baseResponse;
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public BaseResponse handleConstraintViolationException(ConstraintViolationException e) {
+        BaseResponse<Map<String, String>> baseResponse = handleBaseException(e);
+        baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        baseResponse.setMessage("字段验证错误，请完善后重试！");
+        baseResponse.setData(ValidationUtils.mapWithValidError(e.getConstraintViolations()));
+        return baseResponse;
+
+    }
+
     @ExceptionHandler(MultipartException.class)
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse handleMultipartException(Exception e) {
@@ -71,6 +84,16 @@ public class ControllerExceptionHandler {
         baseResponse.setMessage("请上传需要导入的数据文件");
         return baseResponse;
     }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public BaseResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        BaseResponse<?> baseResponse = handleBaseException(e);
+        baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        baseResponse.setMessage("缺失请求主体");
+        return baseResponse;
+    }
+
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.OK)

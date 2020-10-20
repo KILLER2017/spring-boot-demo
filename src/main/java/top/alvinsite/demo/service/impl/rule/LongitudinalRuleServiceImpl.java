@@ -1,6 +1,7 @@
 package top.alvinsite.demo.service.impl.rule;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
 @Slf4j
 @Service
-public class LongitudinalRuleServiceImpl implements LongitudinalRuleService {
+public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao, LongitudinalProjectRule> implements LongitudinalRuleService {
     @Autowired
     private LongitudinalRuleDao longitudinalRuleDao;
 
@@ -44,8 +45,10 @@ public class LongitudinalRuleServiceImpl implements LongitudinalRuleService {
     @Override
     public LongitudinalProjectRule findOneByLongitudinalProject(LongitudinalProject longitudinalProject) {
         LongitudinalProjectRule rule = longitudinalRuleDao.selectOne(Wrappers.<LongitudinalProjectRule>lambdaQuery()
-                .eq(LongitudinalProjectRule::getType, longitudinalProject.getTypeId())
-                .eq(LongitudinalProjectRule::getLevel, longitudinalProject.getLevelId()
+                .eq(LongitudinalProjectRule::getYear, longitudinalProject.getApprovalProjectYear())
+                .eq(LongitudinalProjectRule::getDepartment, longitudinalProject.getDepartment().getId())
+                .eq(LongitudinalProjectRule::getType, longitudinalProject.getType().getId())
+                .eq(LongitudinalProjectRule::getLevel, longitudinalProject.getLevel()
                 ));
 
         if (null == rule) {
@@ -53,5 +56,24 @@ public class LongitudinalRuleServiceImpl implements LongitudinalRuleService {
         }
 
         return rule;
+    }
+
+    @Override
+    public float getScore(LongitudinalProject longitudinalProject) {
+        // 读取计分规则
+        LongitudinalProjectRule rule = findOneByLongitudinalProject(longitudinalProject);
+
+        // 计算项目总分
+        float budgetScore = 0f;
+        float projectScore = 0f;
+
+        if (rule != null) {
+            budgetScore = longitudinalProject.getBudget() / rule.getBudgetScoreFactor();
+            projectScore = rule.getProjectScore();
+        }
+        longitudinalProject.setBudgetScore(budgetScore);
+        longitudinalProject.setProjectScore(projectScore);
+        longitudinalProject.setScore(budgetScore + projectScore);
+        return budgetScore + projectScore;
     }
 }

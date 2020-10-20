@@ -15,9 +15,6 @@
         </where>
     </select>
 
-    <delete id="delete">
-        delete from literature_rule where department = #{department} and year = #{year}
-    </delete>
 
     <insert id="saveBatch">
         INSERT INTO literature_rule (id, department, year, type, min, max, score1, score2, score3, score4, score5, score6, score7, score8) values

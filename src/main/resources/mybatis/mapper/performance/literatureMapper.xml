@@ -6,12 +6,16 @@
     <resultMap id="findLiteratureResult" type="Literature" >
         <id property="id" column="id"/>
         <result property="nickname" column="nickname"/>
-        <result property="department" column="department"/>
         <result property="title" column="title"/>
         <result property="type" column="type"/>
         <result property="wordCount" column="wordCount"/>
         <result property="firstAuthor" column="firstAuthor"/>
         <result property="score" column="score"/>
+
+        <association property="department" javaType="Department" >
+            <id property="id" column="departmentId" />
+            <result property="title" column="department" />
+        </association>
         <collection property="authors" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="zzbh"  select="findAuthorsById">
             <id property="account" column="account"/>
             <result property="nickname" column="nickname"/>
@@ -25,7 +29,7 @@
             department.id as departmentId,
             department.title as department,
             gxky0301.zzmc as title,
-            DM_BOOK_TYPE.ID as type,
+            gxky0301.zzlx as type,
             gxky0301.zs as wordCount,
             gxky0308.zzbh,
             gxky0301.dyzzmc as firstAuthor,
@@ -40,7 +44,6 @@
         join gxky0301 on gxky0301.id = gxky0308.zzbh
         join gxjg0101 on gxjg0101.gh = gxky0308.zzzgh
         join department on department.id = gxjg0101.dwh
-        LEFT JOIN DM_BOOK_TYPE ON DM_BOOK_TYPE.ID = gxky0301.zzlx
         <where>
             gxky0301.shzt = 2
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>

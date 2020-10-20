@@ -7,6 +7,6 @@ import top.alvinsite.demo.model.params.PerformanceQuery;
 
 import java.util.List;
 
-public interface SummaryService extends IService<ResearcherPerformance> {
+public interface SummaryService extends IService<ResearcherPerformance>, BasePerformanceService {
     List<ResearcherPerformance> findAll(PerformanceQuery performanceQuery);
 }

@@ -1,6 +1,8 @@
 package top.alvinsite.demo.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,20 +18,14 @@ public enum HonorGrade implements IEnum<String> {
     others("9", "其他奖"),
         ;
 
+    @EnumValue
     private final String value;
+
+    @JsonValue
     private final String name;
 
     public String getValue() {
         return value;
-    }
-
-    public static HonorGrade getEnumById(String id) {
-        for (HonorGrade type : HonorGrade.values()) {
-            if (type.getValue().equals(id)) {
-                return type;
-            }
-        }
-        return null;
     }
 
     @Override

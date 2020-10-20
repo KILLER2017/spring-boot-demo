@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.type.*;
 import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.dto.type.*;
+import top.alvinsite.demo.model.entity.type.ProjectType;
 import top.alvinsite.demo.model.support.UserInfo;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class CommonController {
     }
 
     @GetMapping("project-type")
-    public List<ProjectTypeDTO> getProjectTypeList() {
+    public List<ProjectType> getProjectTypeList() {
         return projectTypeDao.findAll();
     }
 

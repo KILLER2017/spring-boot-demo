@@ -1,5 +1,6 @@
 package top.alvinsite.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Department implements Serializable {
     private String id;
+
+    @JsonValue
     private String title;
+
+    @Override
+    public String toString() {
+        return this.title;
+    }
 }

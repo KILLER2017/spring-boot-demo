@@ -6,7 +6,6 @@ spring:
     #url: jdbc:mysql://localhost:3306/research_performance?serverTimezone=UTC
     #username: root
     #password: root
-
     url: jdbc:mysql://172.31.150.19:3306/performance?serverTimezone=UTC
     username: performance
     password: RBE872d6Y8KzX5HK
@@ -17,6 +16,9 @@ spring:
       max-idle: 10
       max-wait: 10000
       initial-size: 5
+    hikari:
+      max-lifetime: 1800000
+
 
   redis:
     database: 0

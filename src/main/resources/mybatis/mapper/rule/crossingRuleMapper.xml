@@ -18,10 +18,6 @@
         </where>
     </select>
 
-    <delete id="delete">
-        delete from crossing_project_rule where department = #{department} and year = #{year}
-    </delete>
-
     <insert id="saveBatch">
         INSERT INTO crossing_project_rule (id, department, year, min, max, score) values
         <foreach collection="list" item="item" separator=",">

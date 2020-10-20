@@ -1,6 +1,7 @@
 package top.alvinsite.demo.service.impl.rule;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
 @Slf4j
 @Service
-public class CrossingRuleServiceImpl implements CrossingRuleService{
+public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, CrossingProjectRule> implements CrossingRuleService{
     @Autowired
     private CrossingRuleDao crossingRuleDao;
 
@@ -44,6 +45,8 @@ public class CrossingRuleServiceImpl implements CrossingRuleService{
     @Override
     public CrossingProjectRule findOneByCrossingProject(CrossingProject project) {
         CrossingProjectRule rule = crossingRuleDao.selectOne(Wrappers.<CrossingProjectRule>lambdaQuery()
+                .eq(CrossingProjectRule::getYear, project.getApprovalProjectYear())
+                .eq(CrossingProjectRule::getDepartment, project.getDepartment().getId())
                 .le(CrossingProjectRule::getMin, project.getBudget())
                 .gt(CrossingProjectRule::getMax, project.getBudget())
                 );
@@ -53,5 +56,23 @@ public class CrossingRuleServiceImpl implements CrossingRuleService{
         }
 
         return rule;
+    }
+
+    @Override
+    public float getScore(CrossingProject crossingProject) {
+        CrossingProjectRule rule = findOneByCrossingProject(crossingProject);
+
+        // 计算项目总分
+        float budgetScore = 0f;
+        float projectScore = 0f;
+
+        if (rule != null) {
+            budgetScore = crossingProject.getBudget() / rule.getBudgetScoreFactor();
+            projectScore = rule.getProjectScore();
+        }
+        crossingProject.setBudgetScore(budgetScore);
+        crossingProject.setProjectScore(projectScore);
+        crossingProject.setScore(budgetScore + projectScore);
+        return budgetScore + projectScore;
     }
 }

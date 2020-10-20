@@ -6,13 +6,18 @@
     <resultMap id="findPaperResult" type="Paper">
         <id property="id" column="id" />
         <result property="title" column="title" />
-        <result property="department" column="department" />
         <result property="nickname" column="nickname" />
-        <result property="nickname" column="nickname" />
-
         <result property="periodical" column="fbqk" />
-        <result property="type" column="type" />
         <result property="score" column="score" />
+
+        <association property="department" javaType="Department" >
+            <id property="id" column="departmentId" />
+            <result property="title" column="department" />
+        </association>
+        <collection property="publicationType" ofType="PaperType" column="lwbh" select="findPublicationTypeById">
+            <id property="id" column="id" />
+            <result property="title" column="title" />
+        </collection>
         <collection property="authors" ofType="top.alvinsite.demo.model.dto.auth.ManagerUserDTO" column="lwbh"  select="findAuthorsById">
             <id property="account" column="account"/>
             <result property="nickname" column="nickname"/>
@@ -31,25 +36,13 @@
             year(gxky0316.fbrq) as ApprovalProjectYear,
             gxky0316.zzrs as memberNum,
             gxky0312.smsx as SignedOrder,
-            dm_paper_type.NAME as type,
-        (
-            case gxky0312.smsx
-            when 1 then rule.score1
-            when 2 then rule.score2
-            when 3 then rule.score3
-            when 4 then rule.score4
-            when 5 then rule.score5
-            when 6 then rule.score6
-            when 7 then rule.score7
-            when 8 then rule.score8
-            end
-        ) as score
+            DM_PAPER_TYPE.NAME as type
 
         from gxky0312
         join gxky0316 on gxky0312.lwbh = gxky0316.id
         join gxjg0101 on gxjg0101.gh = gxky0312.zzzgh
         join department on department.id = gxjg0101.dwh
-        left join dm_paper_type on gxky0316.lwfl = dm_paper_type.id
+        left join DM_PAPER_TYPE on gxky0316.lwfl = DM_PAPER_TYPE.id
         left join paper_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and gxky0316.lwfl = rule.type
         <where>
             gxky0316.shzt = 2
@@ -62,7 +55,7 @@
         order by gxky0312.id
     </select>
 
-    <select id="findAuthorsById"  parameterType="String" resultType="ManagerUserDTO">
+    <select id="findAuthorsById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
         SELECT DISTINCT
             gxjg0101.xm as nickname,
             gxjg0101.gh as account
@@ -70,6 +63,15 @@
         join gxjg0101 on gxjg0101.gh = gxky0312.zzzgh
         where gxky0312.lwbh = #{id}
         order by gxky0312.smsx
+    </select>
+
+    <select id="findPublicationTypeById" parameterType="java.lang.String" resultType="PaperType">
+        SELECT
+            DM_PAPER_TYPE.ID as id,
+            DM_PAPER_TYPE.NAME as title
+        FROM gxky0313
+        LEFT JOIN DM_PAPER_TYPE ON DM_PAPER_TYPE.ID = gxky0313.flbh
+        WHERE gxky0313.lwbh = #{id}
     </select>
 
     <select id="calcPaperTotalPoints" resultType="java.lang.Float" >

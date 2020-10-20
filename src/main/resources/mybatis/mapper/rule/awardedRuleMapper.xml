@@ -5,7 +5,7 @@
 <mapper namespace="top.alvinsite.demo.dao.rule.AwardedRuleDao">
 
 
-    <select id="findAll"  resultType="AwardedRuleDTO">
+    <select id="findAll"  resultType="AwardedRule">
         select
             *
         from awarded_rule rule
@@ -14,10 +14,6 @@
             <if test="year != null">and year = #{year}</if>
         </where>
     </select>
-
-    <delete id="delete">
-        delete from awarded_rule where department = #{department} and year = #{year}
-    </delete>
 
     <insert id="saveBatch">
         INSERT INTO awarded_rule (id, department, year, level, grade, score1, score2, score3, score4, score5, score6, score7, score8) values
