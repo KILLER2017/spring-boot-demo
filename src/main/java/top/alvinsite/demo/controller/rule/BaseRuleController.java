@@ -9,10 +9,7 @@ import org.apache.ibatis.type.EnumOrdinalTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.rule.BaseRuleEntity;
 import top.alvinsite.demo.model.entity.rule.ScoreDistributionConfig;
 import top.alvinsite.demo.model.params.RuleQuery;
@@ -52,7 +49,7 @@ public abstract class BaseRuleController<M extends IRuleService<T>, T extends Ba
     }
 
 
-    @GetMapping
+    @GetMapping()
     public RuleVO get(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery) {
         log.info("request base controller");
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
@@ -69,9 +66,9 @@ public abstract class BaseRuleController<M extends IRuleService<T>, T extends Ba
         return ruleVO;
     };
 
-    @PostMapping
+    @PostMapping("{department}/{year}/{useScoreDistribution}")
     @Transactional
-    public void post(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, boolean useScoreDistribution, @RequestBody @Valid List<T> rules) {
+    public void post(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @PathVariable boolean useScoreDistribution, @RequestBody @Valid List<T> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
         addManagerLimit(userInfo, ruleQuery);
 

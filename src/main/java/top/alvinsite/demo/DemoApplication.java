@@ -6,6 +6,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.config.LoginConfig;
 
 @EnableConfigurationProperties(LoginConfig.class)
-@SpringBootApplication(scanBasePackages = {"top.alvinsite.demo"})
+@SpringBootApplication(scanBasePackages = {"top.alvinsite"}, exclude = { SecurityAutoConfiguration.class })
 // 定义MyBatis的扫描
 @MapperScan(
         // 指定扫描包

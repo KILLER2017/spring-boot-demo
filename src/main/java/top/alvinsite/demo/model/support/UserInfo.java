@@ -10,13 +10,19 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
     @NotBlank
     private String nickname;
+
     @NotBlank
     private String account;
+
     private Department department;
     @NotBlank
     private String userGroup;
+
     private String manageUnitId;
+
     private String[] manageUnits;
+
     private String openId;
+
     private String wxOpenId;
 }

@@ -3,6 +3,8 @@ package top.alvinsite.demo.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.jexl3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.salary.LevelFactorDao;
@@ -81,5 +83,15 @@ public class TestController {
     @RequestMapping("test3")
     public ProjectLevel test3(ProjectLevel level) {
         return level;
+    }
+
+    /**
+     * 获取用户认证信息 方法三
+     * @param userDetails
+     * @return
+     */
+    @RequestMapping("getAuthentication-3")
+    public Object getAuthentication(@AuthenticationPrincipal UserDetails userDetails) {
+        return userDetails;
     }
 }

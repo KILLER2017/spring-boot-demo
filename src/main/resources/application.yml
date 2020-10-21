@@ -2,6 +2,7 @@ spring:
   application:
     name: demo
 
+
   datasource:
     #url: jdbc:mysql://localhost:3306/research_performance?serverTimezone=UTC
     #username: root
@@ -61,3 +62,7 @@ xcz:
 
   parameter:
     enable: true
+
+security:
+  basic:
+    enabled: false
