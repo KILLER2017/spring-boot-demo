@@ -2,7 +2,6 @@ package top.alvinsite.demo.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.jexl3.*;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,12 +9,12 @@ import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
+import top.alvinsite.demo.model.enums.ProjectLevel;
 import top.alvinsite.demo.utils.ExcelUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.logging.Level;
 
 @Slf4j
 @RestController
@@ -77,5 +76,10 @@ public class TestController {
         LevelFactor item = levelFactorDao.findOne(29);
         log.info(String.valueOf(item));
         return "success";
+    }
+
+    @RequestMapping("test3")
+    public ProjectLevel test3(ProjectLevel level) {
+        return level;
     }
 }

@@ -28,6 +28,7 @@ spring:
 
 mybatis-plus:
   # configuration:
+    # default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
   #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mybatis/mapper/**/*Mapper.xml
   type-aliases-package: top.alvinsite.demo.model.entity,top.alvinsite.demo.model.dto,top.alvinsite.demo.model.dto.auth,top.alvinsite.demo.model.params

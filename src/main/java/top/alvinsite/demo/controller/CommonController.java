@@ -11,8 +11,11 @@ import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.dto.type.*;
 import top.alvinsite.demo.model.entity.type.ProjectType;
 import top.alvinsite.demo.model.support.UserInfo;
+import top.alvinsite.demo.model.vo.DepartmentVO;
 
 import java.util.List;
+
+import static top.alvinsite.demo.utils.BeanUtils.transformFromInBatch;
 
 @Slf4j
 @RestController
@@ -53,12 +56,20 @@ public class CommonController {
     }
 
     @GetMapping("department")
-    public List<Department> getDepartmentList(@RequestHeader("authorization") UserInfo userInfo) {
+    public List<DepartmentVO> getDepartmentList(@RequestHeader("authorization") UserInfo userInfo) {
+        List<Department> departments = null;
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
         if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
-            return departmentDao.findManageUnit(userInfo.getAccount());
+            departments = departmentDao.findManageUnit(userInfo.getAccount());
+        } else {
+            departments =departmentDao.findAll();
         }
-        return departmentDao.findAll();
+
+        return transformFromInBatch(departments, DepartmentVO.class);
+    }
+
+    Department converterDepartmentDTO(Department department) {
+        return null;
     }
 
     @GetMapping("project-type")

@@ -22,6 +22,7 @@ public class LongitudinalProjectRule extends BaseRuleEntity  {
     private Integer id;
 
     private String department;
+
     private Integer year;
 
     @NotNull(message = "项目分类不能为空")
