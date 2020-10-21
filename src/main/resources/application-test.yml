@@ -1,12 +1,14 @@
 
 spring:
   datasource:
-    url: jdbc:mysql://172.31.40.7:3306/performance?serverTimezone=UTC
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://172.31.40.7:3306/performance?characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     username: performance
     password: xkmaGKwEbN4WKShr
 
   redis:
     host: 172.31.40.7
+    password: candy.123
 
 
 logging:
@@ -23,7 +25,13 @@ cas:
     app-secret: caea6429f3b2
 server:
   address: 0.0.0.0
-  port: 8081
+  port: 8083
 
 debug: false
 
+logging:
+  level:
+    root: info
+    top.alvinsite.demo: info
+
+debug: false
