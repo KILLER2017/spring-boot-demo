@@ -12,5 +12,4 @@ import java.util.List;
 @Repository
 public interface PatentDao extends BaseMapper<Patent> {
     List<Patent> findPatent(PerformanceQuery performanceQuery);
-    public Float calcPatentTotalPoints(TotalPointsParam totalPointsParam);
 }

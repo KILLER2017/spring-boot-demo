@@ -57,28 +57,4 @@
         order by gxky0306.smsx
     </select>
 
-    <select id="calcCopyrightTotalPoints" resultType="java.lang.Float" >
-        select
-            sum((
-            case gxky0306.smsx
-            when 1 then rule.score1
-            when 2 then rule.score2
-            when 3 then rule.score3
-            when 4 then rule.score4
-            when 5 then rule.score5
-            when 6 then rule.score6
-            when 7 then rule.score7
-            when 8 then rule.score8
-            end
-            ))
-        from gxky0306
-        join gxky0305 on gxky0305.id = gxky0306.zzqbh
-        left join gxjg0101 on gxjg0101.gh = gxky0306.zzzgh
-        left join copyright_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
-        <where>
-            gxky0305.shzt = 2
-            and gxjg0101.gh = #{account}
-            and year(gxky0305.cbrq) = #{year}
-        </where>
-    </select>
 </mapper>

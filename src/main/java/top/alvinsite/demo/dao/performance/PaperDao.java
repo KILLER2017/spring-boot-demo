@@ -12,5 +12,4 @@ import java.util.List;
 @Repository
 public interface PaperDao extends BaseMapper<Paper> {
     public List<Paper> findPaper(PerformanceQuery performanceQuery);
-    public Float calcPaperTotalPoints(TotalPointsParam totalPointsParam);
 }

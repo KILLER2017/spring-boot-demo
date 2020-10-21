@@ -59,28 +59,4 @@
         order by gxky0310.smsx
     </select>
 
-    <select id="calcAwardedTotalPoints" resultType="java.lang.Float" >
-        select
-            sum( (
-            case gxky0310.smsx
-            when 1 then rule.score1
-            when 2 then rule.score2
-            when 3 then rule.score3
-            when 4 then rule.score4
-            when 5 then rule.score5
-            when 6 then rule.score6
-            when 7 then rule.score7
-            when 8 then rule.score8
-            end
-            ))
-        from gxky0310
-        join gxky0309 on gxky0309.id = gxky0310.hjbh
-        left join gxjg0101 on gxjg0101.gh = gxky0310.wcrzgh
-        left join awarded_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and rule.level = gxky0309.hjjb and rule.grade = gxky0309.hjdj
-        <where>
-            gxky0309.shzt = 2
-            and gxjg0101.gh = #{account}
-            and year(gxky0309.hjrq) = #{year}
-        </where>
-    </select>
 </mapper>

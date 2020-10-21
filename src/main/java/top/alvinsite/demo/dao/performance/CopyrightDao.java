@@ -12,5 +12,4 @@ import java.util.List;
 @Repository
 public interface CopyrightDao extends BaseMapper<Copyright> {
     List<Copyright> findCopyright(PerformanceQuery performanceQuery);
-    public Float calcCopyrightTotalPoints(TotalPointsParam totalPointsParam);
 }

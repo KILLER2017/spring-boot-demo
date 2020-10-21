@@ -16,5 +16,4 @@ import java.util.List;
 @Repository
 public interface LiteratureDao extends BaseMapper<Literature> {
     public List<Literature> findLiterature(PerformanceQuery performanceQuery);
-    public Float calcLiteratureTotalPoints(TotalPointsParam totalPointsParam);
 }

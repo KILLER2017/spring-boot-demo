@@ -14,6 +14,5 @@ import java.util.List;
 public interface ProjectDao {
     public List<LongitudinalProject> findLongitudinalProject(PerformanceQuery performanceQuery);
     public List<CrossingProject> findCrossingProject(PerformanceQuery performanceQuery);
-    public Float calcLongitudinalTotalPoints(TotalPointsParam totalPointsParam);
-    public Float calcCrossingTotalPoints(TotalPointsParam totalPointsParam);
+
 }

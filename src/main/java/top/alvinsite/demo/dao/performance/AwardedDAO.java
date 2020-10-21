@@ -12,5 +12,4 @@ import java.util.List;
 @Repository
 public interface AwardedDAO extends BaseMapper<Awarded> {
     List<Awarded> findAwarded(PerformanceQuery performanceQuery);
-    public Float calcAwardedTotalPoints(TotalPointsParam totalPointsParam);
 }

@@ -118,37 +118,4 @@
         order by gxky0107.pxh
     </select>
 
-    <select id="calcLongitudinalTotalPoints" resultType="java.lang.Float">
-        select
-            sum(rule.score)
-        from gxky0101
-        join gxky0201 on gxky0101.fzrbh = gxky0201.id
-        join gxjg0101 on gxjg0101.gh = gxky0201.dlxtzh
-        left join gxky0117 on gxky0101.xmflbh = gxky0117.bzm
-        left join longitudinal_project_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
-        and rule.type = gxky0101.xmflbh and rule.level = gxky0101.xmjb
-        and rule.min &lt;= gxky0101.htjf and rule.max &gt; gxky0101.htjf
-        <where>
-            gxky0101.xmxzbh = 0
-            and gxky0101.shztbh = 2
-            and gxjg0101.gh = #{account}
-            and gxky0101.lxsj = concat(#{year}, '%')
-        </where>
-    </select>
-
-    <select id="calcCrossingTotalPoints" resultType="java.lang.Float">
-        select
-            sum(rule.score)
-        from gxky0101
-        join gxky0201 on gxky0101.fzrbh = gxky0201.id
-        join gxjg0101 on gxjg0101.gh = gxky0201.dlxtzh
-        left join crossing_project_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year}
-        and rule.min &lt;= gxky0101.htjf and rule.max &gt; gxky0101.htjf
-        <where>
-            gxky0101.xmxzbh = 1
-            and gxky0101.shztbh = 2
-            and gxky0201.dlxtzh = #{account}
-            and gxky0101.lxsj = concat(#{year}, '%')
-        </where>
-    </select>
 </mapper>

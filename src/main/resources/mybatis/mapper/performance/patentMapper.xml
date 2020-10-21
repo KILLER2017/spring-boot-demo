@@ -49,7 +49,7 @@
         </where>
     </select>
 
-    <select id="findAuthorsById"  parameterType="String" resultType="ManagerUserDTO">
+    <select id="findAuthorsById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
         SELECT
             gxjg0101.xm as nickname,
             gxjg0101.gh as account
@@ -59,28 +59,4 @@
         order by gxky0314.smsx
     </select>
 
-    <select id="calcPatentTotalPoints" resultType="java.lang.Float" >
-        select
-            sum((
-                case gxky0314.smsx
-                when 1 then rule.score1
-                when 2 then rule.score2
-                when 3 then rule.score3
-                when 4 then rule.score4
-                when 5 then rule.score5
-                when 6 then rule.score6
-                when 7 then rule.score7
-                when 8 then rule.score8
-                end
-            ))
-        from gxky0314
-        join gxky0302 on gxky0302.id = gxky0314.zlbh
-        join gxjg0101 on gxjg0101.gh = gxky0314.fmrzgh
-        left join patent_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and rule.type = gxky0302.zllx and rule.scope = gxky0302.zlfw
-        <where>
-            gxky0302.shzt = 2
-            and gxjg0101.gh = #{account}
-            and year(gxky0302.gkrq) = #{year}
-        </where>
-    </select>
 </mapper>
