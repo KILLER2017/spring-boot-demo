@@ -36,7 +36,7 @@ public class ControllerLogAop {
     public void controller() {
     }
 
-    // @Around("controller()")
+    @Around("controller()")
     public Object controller(ProceedingJoinPoint joinPoint) throws Throwable {
         String className = joinPoint.getTarget().getClass().getSimpleName();
         String methodName = joinPoint.getSignature().getName();
@@ -55,7 +55,7 @@ public class ControllerLogAop {
 
 
     private void printRequestLog(HttpServletRequest request, String clazzName, String methodName, Object[] args) throws JsonProcessingException {
-        log.debug("Request URL: [{}], URI: [{}], Request Method: [{}], IP: [{}]",
+        log.info("Request URL: [{}], URI: [{}], Request Method: [{}], IP: [{}]",
             request.getRequestURL(),
             request.getRequestURI(),
             request.getMethod(),
@@ -85,7 +85,7 @@ public class ControllerLogAop {
                 requestBody = String.valueOf(args);
             }
 
-            log.debug("{}.{} Parameters: [{}]", clazzName, methodName, requestBody);
+            log.info("{}.{} Parameters: [{}]", clazzName, methodName, requestBody);
         }
     }
 
@@ -106,7 +106,7 @@ public class ControllerLogAop {
                 }
 
             }
-            log.debug("{}.{} Response: [{}], usage: [{}]ms", className, methodName, returnData, usage);
+            log.info("{}.{} Response: [{}], usage: [{}]ms", className, methodName, returnData, usage);
         }
     }
 
