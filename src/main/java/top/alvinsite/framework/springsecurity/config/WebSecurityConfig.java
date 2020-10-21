@@ -1,7 +1,6 @@
 package top.alvinsite.framework.springsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,26 +10,24 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import top.alvinsite.framework.springsecurity.provider.MyAuthenticationProvider;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 
 
-// @EnableWebSecurity
-// @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> myWebAuthenticationDetailsSource;
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
+
+    @Autowired
+    private CasAuthenticationSecurityConfig casAuthenticationSecurityConfig;
 
 
     @Bean
@@ -47,18 +44,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.apply(casAuthenticationSecurityConfig)
+            .and().authorizeRequests()
                 .antMatchers("/performance/**").hasRole("ADMIN")
                 .antMatchers("/user/api/**").hasRole("USER")
                 .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .authenticationDetailsSource(myWebAuthenticationDetailsSource)
-                //.loginPage("/myLogin.html")
-                .loginProcessingUrl("/index")
-                .permitAll()
-                .and()
-                .csrf().disable();
+            .and().csrf().disable();
     }
 
     @Override

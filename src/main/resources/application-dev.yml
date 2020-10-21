@@ -22,7 +22,7 @@ cas:
 logging:
   level:
     root: info
-    top.alvinsite.demo: debug
+    top.alvinsite.demo.controller: debug
     top.alvinsite.demo.core: debug
 
 debug: false

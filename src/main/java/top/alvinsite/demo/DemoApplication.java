@@ -15,7 +15,8 @@ import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.config.LoginConfig;
 
 @EnableConfigurationProperties(LoginConfig.class)
-@SpringBootApplication(scanBasePackages = {"top.alvinsite"}, exclude = { SecurityAutoConfiguration.class })
+// @SpringBootApplication(scanBasePackages = {"top.alvinsite"}, exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication(scanBasePackages = {"top.alvinsite"})
 // 定义MyBatis的扫描
 @MapperScan(
         // 指定扫描包

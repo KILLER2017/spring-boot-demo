@@ -12,6 +12,7 @@ import top.alvinsite.demo.model.dto.type.*;
 import top.alvinsite.demo.model.entity.type.ProjectType;
 import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.model.vo.DepartmentVO;
+import top.alvinsite.demo.model.vo.ProjectTypeVO;
 
 import java.util.List;
 
@@ -68,13 +69,10 @@ public class CommonController {
         return transformFromInBatch(departments, DepartmentVO.class);
     }
 
-    Department converterDepartmentDTO(Department department) {
-        return null;
-    }
-
     @GetMapping("project-type")
-    public List<ProjectType> getProjectTypeList() {
-        return projectTypeDao.findAll();
+    public List<ProjectTypeVO> getProjectTypeList() {
+        List<ProjectType> projectTypes = projectTypeDao.findAll();
+        return transformFromInBatch(projectTypes, ProjectTypeVO.class);
     }
 
     @GetMapping("project-level")
