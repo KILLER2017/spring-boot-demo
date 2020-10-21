@@ -28,10 +28,3 @@ server:
   port: 8083
 
 debug: false
-
-logging:
-  level:
-    root: info
-    top.alvinsite.demo: info
-
-debug: false
