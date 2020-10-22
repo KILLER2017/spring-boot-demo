@@ -45,8 +45,8 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
     }
 
 
-    @PostMapping("funding-source")
-    public void postFundingSource(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @Valid List<LiteratureRuleFundingSource> rules) {
+    @PostMapping("funding-source/{department}/{year}")
+    public void postFundingSource(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleFundingSource> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
         addManagerLimit(userInfo, ruleQuery);
 
@@ -59,8 +59,8 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
         baseService.saveFundingSourceRules(rules);
     }
 
-    @PostMapping("topic-with-dongguan")
-    public void postTopicWithDongguan(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @Valid List<LiteratureRuleTopicWithDongguan> rules) {
+    @PostMapping("topic-with-dongguan/{department}/{year}")
+    public void postTopicWithDongguan(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleTopicWithDongguan> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
         addManagerLimit(userInfo, ruleQuery);
 
@@ -74,8 +74,8 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
     }
 
 
-    @PostMapping("revised")
-    public void postRevised(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @Valid List<LiteratureRuleRevised> rules) {
+    @PostMapping("revised/{department}/{year}")
+    public void postRevised(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleRevised> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
         addManagerLimit(userInfo, ruleQuery);
 

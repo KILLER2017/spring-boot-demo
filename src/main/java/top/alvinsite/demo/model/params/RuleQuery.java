@@ -14,6 +14,5 @@ public class RuleQuery {
     private String department;
 
     @NotNull(message = "年份不能为空")
-    @Range(min = 1993, max = 2040)
     private Integer year;
 }

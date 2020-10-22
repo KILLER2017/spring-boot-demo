@@ -110,7 +110,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
                 .eq(LiteratureRuleRevised::getYear, literature.getApprovalProjectYear())
                 .eq(LiteratureRuleRevised::getDepartment, literature.getDepartment().getId())
                 .eq(LiteratureRuleRevised::isRevised, literature.isRevised()));
-        return revised == null ? 0 : revised.getScore();
+        return revised == null ? 1 : revised.getScore();
     }
 
     public List<LiteratureRuleFundingSource> getFundingSourceRules(RuleQuery ruleQuery) {
@@ -139,7 +139,8 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
             // 筛选条件
             LambdaQueryWrapper<LiteratureRuleFundingSource> lambdaQueryWrapper = Wrappers.<LiteratureRuleFundingSource>lambdaQuery()
                     .eq(LiteratureRuleFundingSource::getDepartment, rule.getDepartment())
-                    .eq(LiteratureRuleFundingSource::getYear, rule.getYear());
+                    .eq(LiteratureRuleFundingSource::getYear, rule.getYear())
+                    .eq(LiteratureRuleFundingSource::getType, rule.getType());
 
             LiteratureRuleFundingSource ruleRevised = literatureRuleFundingSourceDao.selectOne(lambdaQueryWrapper);
             if (ruleRevised == null) {
@@ -155,7 +156,8 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
             // 筛选条件
             LambdaQueryWrapper<LiteratureRuleTopicWithDongguan> lambdaQueryWrapper = Wrappers.<LiteratureRuleTopicWithDongguan>lambdaQuery()
                     .eq(LiteratureRuleTopicWithDongguan::getDepartment, rule.getDepartment())
-                    .eq(LiteratureRuleTopicWithDongguan::getYear, rule.getYear());
+                    .eq(LiteratureRuleTopicWithDongguan::getYear, rule.getYear())
+                    .eq(LiteratureRuleTopicWithDongguan::isTopicWithDongguan, rule.isTopicWithDongguan());
 
             LiteratureRuleTopicWithDongguan ruleRevised = literatureRuleTopicWithDongguanDao.selectOne(lambdaQueryWrapper);
             if (ruleRevised == null) {
@@ -171,7 +173,8 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
             // 筛选条件
             LambdaQueryWrapper<LiteratureRuleRevised> lambdaQueryWrapper = Wrappers.<LiteratureRuleRevised>lambdaQuery()
                     .eq(LiteratureRuleRevised::getDepartment, rule.getDepartment())
-                    .eq(LiteratureRuleRevised::getYear, rule.getYear());
+                    .eq(LiteratureRuleRevised::getYear, rule.getYear())
+                    .eq(LiteratureRuleRevised::isRevised, rule.isRevised());
 
             LiteratureRuleRevised ruleRevised = literatureRuleRevisedDao.selectOne(lambdaQueryWrapper);
             if (ruleRevised == null) {
