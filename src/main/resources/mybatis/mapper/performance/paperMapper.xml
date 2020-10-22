@@ -35,15 +35,11 @@
             gxky0316.fbqk,
             year(gxky0316.fbrq) as ApprovalProjectYear,
             gxky0316.zzrs as memberNum,
-            gxky0312.smsx as SignedOrder,
-            DM_PAPER_TYPE.NAME as type
-
+            gxky0312.smsx as SignedOrder
         from gxky0312
         join gxky0316 on gxky0312.lwbh = gxky0316.id
         join gxjg0101 on gxjg0101.gh = gxky0312.zzzgh
         join department on department.id = gxjg0101.dwh
-        left join DM_PAPER_TYPE on gxky0316.lwfl = DM_PAPER_TYPE.id
-        left join paper_rule rule on rule.department = gxjg0101.dwh and rule.year = #{year} and gxky0316.lwfl = rule.type
         <where>
             gxky0316.shzt = 2
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>

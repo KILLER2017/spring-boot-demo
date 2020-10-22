@@ -36,6 +36,8 @@ mybatis-plus:
   # type-handlers-package: top.alvinsite.demo.typehandler
   config-location: classpath:mybatis/mybatis-config.xml
   type-enums-package: top.alvinsite.demo.model.enums
+  global-config:
+    banner: false
 
 
 

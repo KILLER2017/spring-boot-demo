@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
+import top.alvinsite.demo.model.enums.BookType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -4,15 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.rule.PaperRuleDao">
 
-    <select id="findAll"  resultType="top.alvinsite.demo.model.dto.rule.PaperRuleDTO">
+    <select id="findAll"  parameterType="RuleQuery" resultType="top.alvinsite.demo.model.dto.rule.PaperRuleDTO">
         select
-            *
+            paper_rule.id,
+            paper_rule.department,
+            paper_rule.year,
+            DM_PAPER_TYPE.NAME AS type,
+            paper_rule.score
         from paper_rule
+        left join DM_PAPER_TYPE on gxky0316.lwfl = DM_PAPER_TYPE.id
         <where>
             <if test="department != null">department = #{department}</if>
             <if test="year != null">and year = #{year}</if>
         </where>
     </select>
+
+
 
 
     <insert id="saveBatch">

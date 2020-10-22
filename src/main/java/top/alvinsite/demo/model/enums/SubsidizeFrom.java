@@ -8,12 +8,11 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum PublisherLevel implements IEnum<String> {
-
-    A("1", "A类"),
-    B("2", "B类"),
-    C("3", "C类"),
-    NOT_PUBLISH("4", "未出版"),
+public enum SubsidizeFrom implements IEnum<String> {
+    COUNTRY("6", "国家出版基金"),
+    PROVINCE("2", "省出版基金"),
+    SCHOOL("3", "学校专项"),
+    NONE("4", "无"),
     ;
 
     @EnumValue
@@ -21,6 +20,7 @@ public enum PublisherLevel implements IEnum<String> {
 
     @JsonValue
     private final String title;
+
 
     @Override
     public String toString() {

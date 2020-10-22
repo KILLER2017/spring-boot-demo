@@ -27,7 +27,7 @@ import java.util.Objects;
  * @author johnniang
  */
 
-//@Aspect
+@Aspect
 @Component
 @Slf4j
 public class ControllerLogAop {
@@ -55,7 +55,7 @@ public class ControllerLogAop {
 
 
     private void printRequestLog(HttpServletRequest request, String clazzName, String methodName, Object[] args) throws JsonProcessingException {
-        log.info("Request URL: [{}], URI: [{}], Request Method: [{}], IP: [{}]",
+        log.debug("Request URL: [{}], URI: [{}], Request Method: [{}], IP: [{}]",
             request.getRequestURL(),
             request.getRequestURI(),
             request.getMethod(),
@@ -85,7 +85,7 @@ public class ControllerLogAop {
                 requestBody = String.valueOf(args);
             }
 
-            log.info("{}.{} Parameters: [{}]", clazzName, methodName, requestBody);
+            log.debug("{}.{} Parameters: [{}]", clazzName, methodName, requestBody);
         }
     }
 
@@ -106,7 +106,7 @@ public class ControllerLogAop {
                 }
 
             }
-            log.info("{}.{} Response: [{}], usage: [{}]ms", className, methodName, returnData, usage);
+            log.debug("{}.{} Response: [{}], usage: [{}]ms", className, methodName, returnData, usage);
         }
     }
 

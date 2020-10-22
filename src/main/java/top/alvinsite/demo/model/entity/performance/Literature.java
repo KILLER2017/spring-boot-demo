@@ -8,6 +8,7 @@ import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.enums.BookType;
 import top.alvinsite.demo.model.enums.PublisherLevel;
+import top.alvinsite.demo.model.enums.SubsidizeFrom;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class Literature extends BaseEntity  {
 
     // 资助来源
     @TableField(value = "zzlz")
-    private String fundingSource;
+    private SubsidizeFrom fundingSource;
 
     // 是否研究东莞问题专著
     private boolean isTopicWithDongguan = false;

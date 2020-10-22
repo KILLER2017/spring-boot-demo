@@ -1,5 +1,6 @@
 package top.alvinsite.demo.service.impl.rule;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -26,24 +27,15 @@ public class PaperRuleServiceImpl extends ServiceImpl<PaperRuleDao, PaperRule> i
     private PaperRuleDao paperRuleDao;
 
     @Override
+    public List<PaperRule> list(Wrapper<PaperRule> queryWrapper) {
+        return paperRuleDao.findAllByWrapper(queryWrapper);
+    }
+
+    @Override
     public List<PaperRuleDTO> list(RuleQuery ruleQuery) {
         return paperRuleDao.findAll(ruleQuery);
     }
 
-    @Override
-    public void save(List<PaperRule> paperRules) {
-        // 删除旧的规则
-        if (paperRules != null && !paperRules.isEmpty()) {
-            PaperRule firstRule =  paperRules.get(0);
-
-            RuleQuery ruleQuery = new RuleQuery();
-            updateProperties(firstRule, ruleQuery);
-            paperRuleDao.delete(ruleQuery);
-        }
-
-        // 保存新的规则
-        paperRuleDao.saveBatch(paperRules);
-    }
 
     @Override
     public PaperRule findRule(Paper paper) {

@@ -16,8 +16,7 @@ import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.TotalPointsParam;
 import top.alvinsite.demo.model.support.UserInfo;
-import top.alvinsite.demo.service.performance.PaperService;
-import top.alvinsite.demo.service.performance.SummaryService;
+import top.alvinsite.demo.service.performance.*;
 import top.alvinsite.demo.utils.ExcelUtils;
 import xcz.annotation.IgnorePermission;
 import xcz.annotation.PermissionClass;
@@ -28,36 +27,35 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("performance-old")
+@RequestMapping("performance/export")
 @PermissionClass
 public class IndexController {
 
 
 
     @Autowired
-    private ProjectDao projectDao;
+    private LongitudinalProjectService longitudinalProjectService;
 
     @Autowired
-    private PaperDao paperDao;
+    private CrossingProjectService crossingProjectService;
 
     @Autowired
-    private LiteratureDao literatureDao;
+    private PaperService paperService;
 
     @Autowired
-    private PatentDao patentDao;
+    private LiteratureService literatureService;
+
     @Autowired
-    private CopyrightDao copyrightDao;
+    private PatentService patentService;
+
     @Autowired
-    private AwardedDAO awardedDAO;
+    private CopyrightService copyrightService;
+
+    @Autowired
+    private AwardedService awardedService;
 
     @Autowired
     private SummaryService summaryService;
-
-    @GetMapping
-    @IgnorePermission
-    public String index() {
-        return "this is index page!";
-    }
 
     protected void addManagerLimit(UserInfo userInfo, PerformanceQuery performanceQuery) {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
@@ -66,44 +64,36 @@ public class IndexController {
         }
     }
 
-    @GetMapping("summaries")
-    public PageInfo<ResearcherPerformance> summaries(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
-        addManagerLimit(userInfo, performanceQuery);
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<ResearcherPerformance> list = summaryService.findAll(performanceQuery);
-        return new PageInfo<>(list);
-    }
 
-
-    @GetMapping("export-excel")
+    @GetMapping
     public void exportExcel(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery, HttpServletResponse response) {
         addManagerLimit(userInfo, performanceQuery);
         // 汇总
-        // List<ResearcherPerformance> researcherPerformanceList = summaryService.findAll(performanceQuery);
+        List<ResearcherPerformance> researcherPerformanceList = summaryService.findAll(performanceQuery);
         // 纵向项目
-        // List<LongitudinalProject> longitudinalProjectList = projectDao.findLongitudinalProject(performanceQuery);
+        List<LongitudinalProject> longitudinalProjectList = longitudinalProjectService.findAll(performanceQuery);
         // 横向项目
-        // List<CrossingProject> crossingProjectList = projectDao.findCrossingProject(performanceQuery);
+        List<CrossingProject> crossingProjectList = crossingProjectService.findAll(performanceQuery);
         // 论文成果
-        // List<Paper> paperList = paperDao.findPaper(performanceQuery);
+        List<Paper> paperList = paperService.findAll(performanceQuery);
         // 著作成果
-        List<Literature> literatureList = literatureDao.findLiterature(performanceQuery);
+        List<Literature> literatureList = literatureService.findAll(performanceQuery);
         // 专利成果
-        // List<Patent> patentList = patentDao.findPatent(performanceQuery);
+        List<Patent> patentList = patentService.findAll(performanceQuery);
         // 著作权
-        // List<Copyright> copyrightList = copyrightDao.findCopyright(performanceQuery);
+        List<Copyright> copyrightList = copyrightService.findAll(performanceQuery);
         // 科研获奖
-        // List<Awarded> awardedList = awardedDAO.findAwarded(performanceQuery);
+        List<Awarded> awardedList = awardedService.findAll(performanceQuery);
 
         new ExcelUtils.Builder()
-                // .addSheet("汇总", researcherPerformanceList, ResearcherPerformance.class)
-                // .addSheet("纵向项目", longitudinalProjectList, LongitudinalProject.class)
-                // .addSheet("横向项目", crossingProjectList, CrossingProject.class)
-                // .addSheet("论文成果", paperList, Paper.class)
+                .addSheet("汇总", researcherPerformanceList, ResearcherPerformance.class)
+                .addSheet("纵向项目", longitudinalProjectList, LongitudinalProject.class)
+                .addSheet("横向项目", crossingProjectList, CrossingProject.class)
+                .addSheet("论文成果", paperList, Paper.class)
                 .addSheet("著作成果", literatureList, Literature.class)
-                // .addSheet("专利成果", patentList, Patent.class)
-                // .addSheet("著作权", copyrightList, Copyright.class)
-                // .addSheet("科研获奖", awardedList, Awarded.class)
+                .addSheet("专利成果", patentList, Patent.class)
+                .addSheet("著作权", copyrightList, Copyright.class)
+                .addSheet("科研获奖", awardedList, Awarded.class)
                 .setResponse(response)
                 .build();
     }

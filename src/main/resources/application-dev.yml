@@ -13,6 +13,10 @@ spring:
     host: 127.0.0.1
     password:
 
+  devtools:
+    restart:
+      enabled: true
+
 cas:
   dgut:
     domain: cas.zemcho.com
@@ -22,7 +26,7 @@ cas:
 logging:
   level:
     root: info
-    top.alvinsite.demo.controller: debug
+    top.alvinsite.demo.controller: info
     top.alvinsite.demo.core: debug
 
 debug: false

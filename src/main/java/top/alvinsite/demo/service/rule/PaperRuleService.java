@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface PaperRuleService extends IRuleService<PaperRule> {
     List<PaperRuleDTO> list(RuleQuery ruleQuery);
-    void save(List<PaperRule> paperRules);
     PaperRule findRule(Paper paper);
     float getScore(Paper paper);
 }

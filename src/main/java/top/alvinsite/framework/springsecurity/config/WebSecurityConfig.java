@@ -17,8 +17,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import javax.servlet.http.HttpServletRequest;
 
 
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+// @EnableWebSecurity
+// @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> myWebAuthenticationDetailsSource;
