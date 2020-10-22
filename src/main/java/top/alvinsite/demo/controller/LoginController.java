@@ -25,6 +25,8 @@ import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.entity.Researcher;
 import top.alvinsite.demo.model.entity.Teacher;
 import top.alvinsite.demo.model.support.UserInfo;
+import top.alvinsite.demo.model.vo.DepartmentVO;
+import top.alvinsite.demo.model.vo.UserInfoVO;
 import top.alvinsite.demo.utils.ExceptionUtils;
 
 import javax.jws.soap.SOAPBinding;
@@ -36,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static top.alvinsite.demo.utils.BeanUtils.transformFrom;
 import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
 @Slf4j
@@ -161,14 +164,18 @@ public class LoginController {
     }
 
     @GetMapping("getUserInfo")
-    public UserInfo getUserInfo(String authorization) {
+    public UserInfoVO getUserInfo(String authorization) {
         ValueOperations<String, UserInfo> opsForValue = redisTemplate.opsForValue();
-        return opsForValue.get(authorization);
+        UserInfo userInfo = opsForValue.get(authorization);
+
+        UserInfoVO userInfoVO = transformFrom(userInfo, UserInfoVO.class);
+        userInfoVO.setDepartment(transformFrom(userInfo.getDepartment(), DepartmentVO.class));
+
+        return userInfoVO;
     }
 
     @GetMapping("protectedLogin")
     public Map<String, String> protectedLogin(@Valid @NonNull String account, @NonNull String password) {
-        log.info(domain);
         if (!log.isDebugEnabled()) {
             throw new ForbiddenException("访问错误");
         }

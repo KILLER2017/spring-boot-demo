@@ -64,7 +64,4 @@ xcz:
 
   parameter:
     enable: true
-
-security:
-  basic:
-    enabled: false
+debug: false
