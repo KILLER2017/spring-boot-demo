@@ -3,6 +3,7 @@ package top.alvinsite.demo.controller.salary;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.dao.salary.RuleDao;
 import top.alvinsite.demo.model.entity.salary.Rule;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("salary/rule")
 @PermissionClass
+@Validated
 public class RuleController {
     @Autowired
     private RuleService ruleService;
@@ -28,11 +30,8 @@ public class RuleController {
     }
 
     @PostMapping
-    public void save(String deleteIds, @RequestBody List<Rule> rules) {
-        for (Rule item : rules) {
-            Assert.notNull(item.getPostType(), "类型岗位不能为空");
-            Assert.notNull(item.getRule(), String.format("%s的计算规则不能为空", item.getPostType()));
-        }
+    public void save(String deleteIds, @RequestBody @Valid List<Rule> rules) {
+        Assert.notEmpty(rules, "请添加规则后再进行保存");
         ruleService.saveBatch(deleteIds, rules);
     }
 
