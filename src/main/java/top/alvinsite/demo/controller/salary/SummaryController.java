@@ -64,6 +64,13 @@ public class SummaryController {
     }
 
     private SalarySummary calcTotalSalary(SalarySummary salarySummary, Integer year) {
+        if (salarySummary.getLevel() == null ||
+                salarySummary.getPostType() == null
+        ) {
+            log.info("职务级别或类型岗位为空，跳过绩效工资计算：" + salarySummary);
+            return salarySummary;
+        }
+
         JexlContext jexlContext = new MapContext();
 
         jexlContext.set("a", salarySummary.getIncentiveWage());   // 激励绩效工资
@@ -74,7 +81,7 @@ public class SummaryController {
 
         LevelFactorParam levelFactorParam = new LevelFactorParam(salarySummary.getType(), salarySummary.getLevel());
         LevelFactor levelFactor = levelFactorDao.findOneByTypeAndLevel(levelFactorParam);
-        Assert.notNull(levelFactor, "对应级差系数不能为空：" + String.valueOf(levelFactorParam));
+        Assert.notNull(levelFactor, "对应级差系数不能为空：" + levelFactorParam);
         jexlContext.set("d", levelFactor.getFactor());               // 级差系数
 
         WorkloadTargetParam workloadTargetParam = new WorkloadTargetParam(salarySummary.getLevel(), salarySummary.getPostType());

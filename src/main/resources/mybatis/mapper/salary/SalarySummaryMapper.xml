@@ -5,10 +5,10 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.SalarySummaryDao">
     <select id="findAll" resultType="SalarySummary">
         select
-            salary_summaries.id,
-            salary_summaries.year,
-            salary_summaries.account,
-            salary_summaries.nickname,
+            gxjg0101.gh as id,
+            #{year} as year,
+            gxjg0101.gh as account,
+            gxjg0101.xm as nickname,
             salary_summaries.type,
             salary_summaries.level,
             salary_summaries.post,
@@ -23,10 +23,10 @@
             job_subsidy as jobSubsidy,
             special_subsidy AS specialSubsidy,
             total_salary as totalSalary
-        from salary_summaries
-        join gxjg0101 on gxjg0101.gh = salary_summaries.account
+        from gxjg0101
+        left join salary_summaries on gxjg0101.gh = salary_summaries.account and salary_summaries.year = #{year}
         <where>
-            year = #{year}
+            gxjg0101.type != 3
             <if test="departmentScope != null">
                 and gxjg0101.dwh in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
@@ -34,6 +34,7 @@
                 </foreach>
             </if>
         </where>
+        order by gxjg0101.dwh, gxjg0101.gh
     </select>
 
     <select id="findOneByAccountAndYear"  resultType="SalarySummary">
