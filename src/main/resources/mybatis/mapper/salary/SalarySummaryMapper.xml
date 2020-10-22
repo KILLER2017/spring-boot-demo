@@ -25,8 +25,12 @@
             total_salary as totalSalary
         from gxjg0101
         left join salary_summaries on gxjg0101.gh = salary_summaries.account and salary_summaries.year = #{year}
+        left join department on department.id = gxjg0101.dwh
         <where>
             gxjg0101.type != 3
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentScope != null">
                 and gxjg0101.dwh in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
