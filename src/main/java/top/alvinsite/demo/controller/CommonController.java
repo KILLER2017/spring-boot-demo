@@ -1,5 +1,6 @@
 package top.alvinsite.demo.controller;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import top.alvinsite.demo.model.vo.DepartmentVO;
 import top.alvinsite.demo.model.vo.ProjectTypeVO;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static top.alvinsite.demo.utils.BeanUtils.transformFromInBatch;
@@ -177,8 +179,17 @@ public class CommonController {
         List<EnumVO> enumVOS = new ArrayList<>();
         for (SubsidizeFrom item : SubsidizeFrom.values()) {
             enumVOS.add(new EnumVO(item.ordinal(), item.getTitle()));
+
         }
 
+        return enumVOS;
+    }
+
+    private List<EnumVO> get(BasicEnum t){
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (BasicEnum item : t.getAll()){
+            enumVOS.add(new EnumVO(item.ordinal(), item.getTitle()));
+        }
         return enumVOS;
     }
 }

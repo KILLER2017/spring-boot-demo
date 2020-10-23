@@ -6,9 +6,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
-public enum SubsidizeFrom implements IEnum<String> {
+public enum SubsidizeFrom implements IEnum<String>,BasicEnum {
     COUNTRY("6", "国家出版基金"),
     PROVINCE("2", "省出版基金"),
     SCHOOL("3", "学校专项"),
@@ -21,6 +25,10 @@ public enum SubsidizeFrom implements IEnum<String> {
     @JsonValue
     private final String title;
 
+    @Override
+    public List<BasicEnum> getAll(){
+        return Arrays.asList(values());
+    }
 
     @Override
     public String toString() {

@@ -80,6 +80,12 @@ public class PaperRuleServiceImpl extends ServiceImpl<PaperRuleDao, PaperRule> i
             scores.add(score);
         }
 
-        return Collections.max(scores);
+        if (scores.size() > 0) {
+            return Collections.max(scores);
+        } else {
+            return 0;
+        }
+
+
     }
 }
