@@ -27,6 +27,7 @@
     <select id="findPaper" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findPaperResult">
         select
             gxky0312.id as id,
+            gxjg0101.gh as account,
             gxky0312.zzmc as nickname,
             department.id as departmentId,
             department.title as department,

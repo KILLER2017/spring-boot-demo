@@ -25,6 +25,7 @@
     <select id="findLiterature" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findLiteratureResult">
         select
             gxky0308.id as id,
+            gxjg0101.gh as account,
             gxjg0101.xm as nickname,
             department.id as departmentId,
             department.title as department,

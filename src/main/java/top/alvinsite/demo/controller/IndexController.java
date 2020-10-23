@@ -4,10 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.performance.*;
 import top.alvinsite.demo.model.dto.performance.*;
@@ -66,7 +63,7 @@ public class IndexController {
 
 
     @GetMapping
-    public void exportExcel(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery, HttpServletResponse response) {
+    public void exportExcel(@RequestParam("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery, HttpServletResponse response) {
         addManagerLimit(userInfo, performanceQuery);
         // 汇总
         List<ResearcherPerformance> researcherPerformanceList = summaryService.findAll(performanceQuery);

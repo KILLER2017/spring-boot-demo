@@ -16,6 +16,8 @@ import java.util.List;
 public class Paper extends BaseEntity  {
     private String id;
 
+    private String account;
+
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 

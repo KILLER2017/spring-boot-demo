@@ -25,6 +25,7 @@
         select
             gxky0306.id as id,
             gxky0306.zzqbh,
+            gxjg0101.gh as account,
             gxjg0101.xm as nickname,
             department.id as departmentId,
             department.title as department,

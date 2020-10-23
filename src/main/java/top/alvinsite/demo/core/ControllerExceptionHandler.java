@@ -69,7 +69,7 @@ public class ControllerExceptionHandler {
     public BaseResponse handleConstraintViolationException(ConstraintViolationException e) {
         BaseResponse<Map<String, String>> baseResponse = handleBaseException(e);
         baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-        baseResponse.setMessage("字段验证错误，请完善后重试！");
+        baseResponse.setMessage("数据验证错误，请完善后重试！");
         baseResponse.setData(ValidationUtils.mapWithValidError(e.getConstraintViolations()));
         return baseResponse;
 
@@ -130,7 +130,7 @@ public class ControllerExceptionHandler {
         BaseResponse baseResponse = handleBaseException(e);
         HttpStatus status = HttpStatus.BAD_REQUEST;
         baseResponse.setStatus(status.value());
-        baseResponse.setMessage("字段验证错误，请完善后重试！");
+        baseResponse.setMessage("数据验证错误，请完善后重试！");
         Map<String, String> errMap = ValidationUtils.mapWithFieldError(e.getBindingResult().getFieldErrors());
         baseResponse.setData(errMap);
         return baseResponse;
@@ -141,7 +141,7 @@ public class ControllerExceptionHandler {
     public BaseResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         BaseResponse<Map<String, String>> baseResponse = handleBaseException(e);
         baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-        baseResponse.setMessage("字段验证错误，请完善后重试！");
+        baseResponse.setMessage("数据验证错误，请完善后重试！");
         Map<String, String> errMap = ValidationUtils.mapWithFieldError(e.getBindingResult().getFieldErrors());
         baseResponse.setData(errMap);
         return baseResponse;

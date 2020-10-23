@@ -13,6 +13,8 @@ import java.util.List;
 public class CrossingProject extends BaseEntity  {
     protected String id;
 
+    private String account;
+
     @ExcelColumn(value = "姓名", col = 1)
     protected String nickname;
 

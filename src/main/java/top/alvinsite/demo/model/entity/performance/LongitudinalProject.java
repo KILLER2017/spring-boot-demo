@@ -19,6 +19,8 @@ public class LongitudinalProject extends BaseEntity  {
 
     private String id;
 
+    private String account;
+
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 

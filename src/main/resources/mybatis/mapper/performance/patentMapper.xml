@@ -25,6 +25,7 @@
     <select id="findPatent" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findPatentResult">
         select
             gxky0314.id as id,
+            gxjg0101.gh as account,
             gxjg0101.xm as nickname,
             department.id as departmentId,
             department.title as department,
