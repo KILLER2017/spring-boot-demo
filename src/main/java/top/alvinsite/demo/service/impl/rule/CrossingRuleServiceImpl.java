@@ -67,7 +67,7 @@ public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, Crossi
         float projectScore = 0f;
 
         if (rule != null) {
-            budgetScore = crossingProject.getBudget() / rule.getBudgetScoreFactor();
+            budgetScore = crossingProject.getBudget() * rule.getBudgetScoreFactor();
             projectScore = rule.getProjectScore();
         }
         crossingProject.setBudgetScore(budgetScore);

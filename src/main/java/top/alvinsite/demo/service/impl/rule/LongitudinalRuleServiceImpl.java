@@ -68,7 +68,7 @@ public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao
         float projectScore = 0f;
 
         if (rule != null) {
-            budgetScore = longitudinalProject.getBudget() / rule.getBudgetScoreFactor();
+            budgetScore = longitudinalProject.getBudget() * rule.getBudgetScoreFactor();
             projectScore = rule.getProjectScore();
         }
         longitudinalProject.setBudgetScore(budgetScore);
