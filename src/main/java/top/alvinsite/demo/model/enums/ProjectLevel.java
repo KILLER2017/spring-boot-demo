@@ -8,24 +8,29 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ProjectLevel implements IEnum<Integer> {
-    COUNTRY_LEVEL(1, "国家级"),
-    PROVINCE_LEVEL(2, "省部级"),
-    CITY_LEVEL(3, "市厅级"),
-    SCHOOL_LEVEL(4, "校级"),
-    OTHERS(5, "其他");
+public enum ProjectLevel implements IEnum<String> {
+    COUNTRY_LEVEL("1", "国家级"),
+    PROVINCE_LEVEL("2", "省部级"),
+    CITY_LEVEL("3", "市厅级"),
+    SCHOOL_LEVEL("4", "校级"),
+    OTHERS("5", "其他");
 
     @EnumValue
-    private final int value;
+    private final String id;
     @JsonValue
-    private final String name;
+    private final String title;
 
-    public Integer getValue() {
-        return value;
+    public String getId() {
+        return id;
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.title;
+    }
+
+    @Override
+    public String getValue() {
+        return id;
     }
 }

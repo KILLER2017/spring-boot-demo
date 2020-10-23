@@ -10,9 +10,7 @@ import top.alvinsite.demo.dao.type.*;
 import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.dto.type.*;
 import top.alvinsite.demo.model.entity.type.ProjectType;
-import top.alvinsite.demo.model.enums.CopyrightType;
-import top.alvinsite.demo.model.enums.PublisherLevel;
-import top.alvinsite.demo.model.enums.SubsidizeFrom;
+import top.alvinsite.demo.model.enums.*;
 import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.model.vo.EnumVO;
 import top.alvinsite.demo.model.vo.DepartmentVO;
@@ -80,14 +78,29 @@ public class CommonController {
         return transformFromInBatch(projectTypes, ProjectTypeVO.class);
     }
 
+
+
+
     @GetMapping("project-level")
-    public List<ProjectLevelDTO> getProjectLevelList() {
-        return projectLevelDao.findAll();
+    public List<EnumVO> getProjectLevelList() {
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (ProjectLevel projectLevel : ProjectLevel.values()) {
+            enumVOS.add(new EnumVO(projectLevel.ordinal(), projectLevel.getTitle()));
+        }
+
+        return enumVOS;
     }
 
+
     @GetMapping("book-type")
-    public List<BookTypeDTO> getBookTypeList() {
-        return bookTypeDao.findAll();
+    public List<EnumVO> getBookTypeList() {
+
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (BookType item : BookType.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getName()));
+        }
+
+        return enumVOS;
     }
 
     @GetMapping("paper-type")
@@ -96,56 +109,76 @@ public class CommonController {
     }
 
     @GetMapping("patent-type")
-    public List<PatentTypeDTO> getPatentTypeList() {
-        return patentTypeDao.findAll();
+    public List<EnumVO> getPatentTypeList() {
+        List<EnumVO> enumVOS = new ArrayList<>();
+            for (PatentType item : PatentType.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getName()));
+        }
+
+        return enumVOS;
     }
 
     @GetMapping("patent-scope")
-    public List<PatentScopeDTO> getPatentScopeList() {
-        return patentScopeDao.findAll();
+    public List<EnumVO> getPatentScopeList() {
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (PatentScope item : PatentScope.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getName()));
+        }
+
+        return enumVOS;
     }
 
     @GetMapping("honor-level")
-    public List<HonorLevelDTO> getHonorLevelList() {
-        return honorLevelDao.findAll();
+    public List<EnumVO> getHonorLevelList() {
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (HonorLevel item : HonorLevel.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getName()));
+        }
+
+        return enumVOS;
     }
 
     @GetMapping("honor-grade")
-    public List<HonorGradeDTO> getHonorGradeList() {
-        return honorGradeDao.findAll();
+    public List<EnumVO> getHonorGradeList() {
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (HonorGrade item : HonorGrade.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getName()));
+        }
+
+        return enumVOS;
     }
 
 
     // 出版社级别
     @GetMapping("publisher-level")
     public List<EnumVO> getPublisherLevelList() {
-        List<PublisherLevel> publisherLevels = new ArrayList<>();
-        publisherLevels.add(PublisherLevel.A);
-        publisherLevels.add(PublisherLevel.B);
-        publisherLevels.add(PublisherLevel.C);
-        publisherLevels.add(PublisherLevel.NOT_PUBLISH);
-        return transformFromInBatch(publisherLevels, EnumVO.class);
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (PublisherLevel item : PublisherLevel.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getTitle()));
+        }
+
+        return enumVOS;
     }
 
     // 著作权类型
     @GetMapping("copyright-type")
-    public List<EnumVO> getCopyrightList() {
-        List<CopyrightType> copyrightTypes = new ArrayList<>();
-        copyrightTypes.add(CopyrightType.AUDIO_OR_VIDEO);
-        copyrightTypes.add(CopyrightType.SOFTWARE);
+    public List<EnumVO> getCopyrightTypeList() {
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (CopyrightType item : CopyrightType.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getTitle()));
+        }
 
-        return transformFromInBatch(copyrightTypes, EnumVO.class);
+        return enumVOS;
     }
 
     // 资助来源
     @GetMapping("subsidize-from")
     public List<EnumVO> getSubsidizeFromList() {
-        List<SubsidizeFrom> subsidizeFroms = new ArrayList<>();
-        subsidizeFroms.add(SubsidizeFrom.COUNTRY);
-        subsidizeFroms.add(SubsidizeFrom.PROVINCE);
-        subsidizeFroms.add(SubsidizeFrom.SCHOOL);
-        subsidizeFroms.add(SubsidizeFrom.NONE);
+        List<EnumVO> enumVOS = new ArrayList<>();
+        for (SubsidizeFrom item : SubsidizeFrom.values()) {
+            enumVOS.add(new EnumVO(item.ordinal(), item.getTitle()));
+        }
 
-        return transformFromInBatch(subsidizeFroms, EnumVO.class);
+        return enumVOS;
     }
 }
