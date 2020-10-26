@@ -46,7 +46,7 @@ public class AwardedRuleController extends BaseRuleController<AwardedRuleService
     }
 
     @Override
-    public void post(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, boolean useScoreDistribution, @Valid List<AwardedRule> rules) {
+    public void post(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, boolean useScoreDistribution, @RequestBody @Valid List<AwardedRule> rules) {
         super.post(userInfo, ruleQuery, useScoreDistribution, rules);
     }
 }
