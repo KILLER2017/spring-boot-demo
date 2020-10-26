@@ -9,7 +9,7 @@
             paper_rule.id,
             paper_rule.department,
             paper_rule.year,
-            DM_PAPER_TYPE.NAME AS type,
+            DM_PAPER_TYPE.ID AS type,
             paper_rule.score
         from paper_rule
         left join DM_PAPER_TYPE on gxky0316.lwfl = DM_PAPER_TYPE.id

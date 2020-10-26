@@ -22,7 +22,7 @@ public interface PaperRuleDao extends BaseMapper<PaperRule> {
             "    paper_rule.id,\n" +
             "    paper_rule.department,\n" +
             "    paper_rule.year,\n" +
-            "    DM_PAPER_TYPE.NAME AS type,\n" +
+            "    DM_PAPER_TYPE.ID AS type,\n" +
             "    paper_rule.score\n" +
             "    from paper_rule\n" +
             "    left join DM_PAPER_TYPE on paper_rule.type = DM_PAPER_TYPE.id\n" +
