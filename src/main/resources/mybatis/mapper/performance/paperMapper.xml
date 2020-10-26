@@ -73,7 +73,7 @@
             DM_PAPER_TYPE.ID as id,
             DM_PAPER_TYPE.NAME as title
         FROM gxky0313
-        LEFT JOIN DM_PAPER_TYPE ON DM_PAPER_TYPE.ID = gxky0313.flbh
+        JOIN DM_PAPER_TYPE ON DM_PAPER_TYPE.ID = gxky0313.flbh
         WHERE gxky0313.lwbh = #{id}
     </select>
 

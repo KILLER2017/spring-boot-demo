@@ -348,9 +348,9 @@ public class ExcelUtils {
             return this;
         }
 
-        public void build() {
-            Assert.notNull(response, "response must be not null!");
-            buildExcelDocument(excelName, workbook, response);
+        public Workbook build() {
+            // buildExcelDocument(excelName, workbook, response);
+            return workbook;
         }
 
         public void save(String filename) {
@@ -367,7 +367,7 @@ public class ExcelUtils {
      * @param response
      */
 
-    private static void buildExcelDocument(String fileName, Workbook wb, HttpServletResponse response){
+    public static void buildExcelDocument(String fileName, Workbook wb, HttpServletResponse response){
         try {
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
             response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(fileName, "utf-8"));
@@ -377,6 +377,8 @@ public class ExcelUtils {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 生成excel文件

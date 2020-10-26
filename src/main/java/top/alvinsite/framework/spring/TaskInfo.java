@@ -1,5 +1,7 @@
 package top.alvinsite.framework.spring;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class TaskInfo implements Serializable {
     private Date startTime;
     private Date endTime;
     private String totalTime;
+
     private Object result;
     private String message;
 
