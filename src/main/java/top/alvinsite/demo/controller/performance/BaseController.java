@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
@@ -29,7 +30,7 @@ public class BaseController<M extends BasePerformanceService, T> {
     }
 
     @GetMapping
-    public PageInfo<T> get(UserInfo userInfo, Page page, PerformanceQuery performanceQuery) throws Exception {
+    public PageInfo<T> get(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) throws Exception {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
         addManagerLimit(userInfo, performanceQuery);
 
