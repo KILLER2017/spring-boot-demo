@@ -11,10 +11,12 @@ import xcz.annotation.PermissionClass;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/score-distribution")
@@ -45,7 +47,7 @@ public class ScoreDistributionController {
 
             scoreDistribution.setId(oldRow.getId());
             return scoreDistribution;
-        }).collect(Collectors.toList());
+        });
 
         scoreDistributionService.saveOrUpdateBatch(scoreDistributions);
     }

@@ -8,8 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,7 +15,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.config.LoginConfig;
 
-// @ConfigurationPropertiesScan
+/**
+ * @author Alvin
+ */ // @ConfigurationPropertiesScan
 @EnableConfigurationProperties(LoginConfig.class)
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 // @SpringBootApplication(scanBasePackages = {"top.alvinsite"})

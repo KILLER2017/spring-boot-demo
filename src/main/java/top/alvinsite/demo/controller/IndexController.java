@@ -31,11 +31,16 @@ import java.util.stream.Collectors;
 
 import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/export")
 @PermissionClass
 public class IndexController {
+
+    private final static String SUPER_USER_GROUP = "admin";
 
     @Value("${app.domain}")
     private String domain;
@@ -64,13 +69,15 @@ public class IndexController {
     @Autowired
     private SummaryService summaryService;
 
-    //注入异步任务管理器
+    /**
+     * 注入异步任务管理器
+     */
     @Autowired
     AsyncTaskManager asyncTaskManager;
 
     protected void addManagerLimit(UserInfo userInfo, PerformanceQuery performanceQuery) {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
+        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnitId() != null) {
             performanceQuery.setDepartmentId(userInfo.getManageUnitId());
         }
     }

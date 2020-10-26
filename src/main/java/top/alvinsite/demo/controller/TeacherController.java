@@ -11,6 +11,9 @@ import xcz.annotation.PermissionClass;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("auth/permission/user")

@@ -3,6 +3,9 @@ package top.alvinsite.demo.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author Alvin
+ */
 @ConfigurationProperties(
         prefix = "cas.dgut"
 )

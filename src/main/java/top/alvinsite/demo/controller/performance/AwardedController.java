@@ -7,6 +7,9 @@ import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.service.performance.AwardedService;
 import xcz.annotation.PermissionClass;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/awarded")

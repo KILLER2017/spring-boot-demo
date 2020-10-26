@@ -7,6 +7,9 @@ import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.service.performance.SummaryService;
 import xcz.annotation.PermissionClass;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/summaries")

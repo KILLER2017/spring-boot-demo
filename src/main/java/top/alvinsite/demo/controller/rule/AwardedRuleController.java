@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/awarded")

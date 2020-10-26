@@ -27,11 +27,16 @@ import java.util.stream.Collectors;
 
 import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @Validated
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class BaseRuleController<M extends IRuleService<T>, T extends BaseRuleEntity> {
+
+    private final static String SUPER_USER_GROUP = "admin";
 
     @Setter
     private String performance;
@@ -44,7 +49,7 @@ public abstract class BaseRuleController<M extends IRuleService<T>, T extends Ba
 
     protected void addManagerLimit(UserInfo userInfo, RuleQuery ruleQuery) {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
+        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnitId() != null) {
             if (ruleQuery.getDepartment() != null) {
                 List<String> list = Arrays.asList(userInfo.getManageUnits());
 
@@ -77,7 +82,7 @@ public abstract class BaseRuleController<M extends IRuleService<T>, T extends Ba
     };
 
     @PostMapping("{department}/{year}/{useScoreDistribution}")
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void post(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @PathVariable boolean useScoreDistribution, @RequestBody @Valid List<T> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
         addManagerLimit(userInfo, ruleQuery);

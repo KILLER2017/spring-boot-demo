@@ -3,6 +3,9 @@ package top.alvinsite.demo.config.properties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author Alvin
+ */
 @Data
 @ConfigurationProperties("app")
 public class AppProperties {

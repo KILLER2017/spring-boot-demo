@@ -7,6 +7,9 @@ import top.alvinsite.demo.model.entity.performance.Patent;
 import top.alvinsite.demo.service.performance.PatentService;
 import xcz.annotation.PermissionClass;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/patent")

@@ -16,6 +16,9 @@ import xcz.annotation.PermissionClass;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/longitudinal-project")
@@ -23,8 +26,7 @@ import java.util.List;
 public class LongitudinalProjectController extends BaseController<LongitudinalProjectService, LongitudinalProject> {
     @Override
     public PageInfo<LongitudinalProject> get(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) throws Exception {
-        PageInfo<LongitudinalProject> pageInfo = super.get(userInfo, page, performanceQuery);
 
-        return pageInfo;
+        return (PageInfo<LongitudinalProject>) super.get(userInfo, page, performanceQuery);
     }
 }

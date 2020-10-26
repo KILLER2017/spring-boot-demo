@@ -8,6 +8,9 @@ import top.alvinsite.demo.model.params.PerformanceQuery;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Repository
 public interface ResearcherDao extends BaseMapper<ResearcherPerformance> {
     public List<ResearcherPerformance> findAll(PerformanceQuery performanceQuery);

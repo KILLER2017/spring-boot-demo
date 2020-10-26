@@ -1,19 +1,18 @@
 package top.alvinsite.demo.controller;
 
-import cn.edu.dgut.properties.CasProperties;
 import cn.edu.dgut.service.CasService;
 import cn.edu.dgut.utils.IpUtil;
-import com.github.tomakehurst.wiremock.admin.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
-import top.alvinsite.demo.config.LoginConfig;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.TeacherDao;
 import top.alvinsite.demo.dao.auth.AdminDao;
@@ -21,15 +20,11 @@ import top.alvinsite.demo.dao.auth.ManagerDao;
 import top.alvinsite.demo.exception.ForbiddenException;
 import top.alvinsite.demo.model.dto.auth.AdminDTO;
 import top.alvinsite.demo.model.dto.auth.ManagerDTO;
-import top.alvinsite.demo.model.entity.Department;
-import top.alvinsite.demo.model.entity.Researcher;
 import top.alvinsite.demo.model.entity.Teacher;
 import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.model.vo.DepartmentVO;
 import top.alvinsite.demo.model.vo.UserInfoVO;
-import top.alvinsite.demo.utils.ExceptionUtils;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -41,6 +36,9 @@ import java.util.concurrent.TimeUnit;
 import static top.alvinsite.demo.utils.BeanUtils.transformFrom;
 import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("auth")
@@ -69,9 +67,9 @@ public class LoginController {
 
     /**
      * 用户登录
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request 请求
+     * @param response 响应
+     * @throws IOException IO异常
      */
     @RequestMapping(value = "login", method = {RequestMethod.POST, RequestMethod.GET})
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -109,15 +107,16 @@ public class LoginController {
 
     /**
      * 中央认证回调接口
-     * @param request
-     * @param httpResponse
-     * @throws IOException
+     * @param request 请求
+     * @param httpResponse 响应
+     * @throws IOException IO异常
      */
     @RequestMapping(value = "loginCallback", method = {RequestMethod.POST,RequestMethod.GET})
     public void loginCallback(HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
         log.info("=========================后台管理系统--进入--中央认证回调url===================");
-        String token = request.getParameter("token"); // 获取token
-        String state = request.getParameter("state"); // 获取状态码
+
+        // 获取token
+        String token = request.getParameter("token");
 
         String userIp = IpUtil.getRequestIp(request);
 
@@ -132,7 +131,10 @@ public class LoginController {
         }
 
         ValueOperations<String, UserInfo> opsForValue = redisTemplate.opsForValue();
-        opsForValue.set(token, userInfo, 3600, TimeUnit.SECONDS);// 写入缓存，一小时过期
+
+        // 写入缓存，一小时过期
+        assert userInfo != null;
+        opsForValue.set(token, userInfo, 3600, TimeUnit.SECONDS);
 
         httpResponse.sendRedirect(String.format("http://%s/Loading?authorization=%s", domain, token));
     }
@@ -168,7 +170,12 @@ public class LoginController {
         ValueOperations<String, UserInfo> opsForValue = redisTemplate.opsForValue();
         UserInfo userInfo = opsForValue.get(authorization);
 
+        assert userInfo != null;
+
         UserInfoVO userInfoVO = transformFrom(userInfo, UserInfoVO.class);
+
+        assert userInfoVO != null;
+
         userInfoVO.setDepartment(transformFrom(userInfo.getDepartment(), DepartmentVO.class));
 
         return userInfoVO;
@@ -188,7 +195,7 @@ public class LoginController {
         if (userInfo == null || userInfo.getUserGroup() == null) {
             throw new ForbiddenException("您使用的账号不能登录该系统");
         }
-        Map<String, String> result = new HashMap<>();
+        Map<String, String> result = new HashMap<>(2);
         result.put("authorization", token);
         opsForValue.set(token, userInfo);
         return result;

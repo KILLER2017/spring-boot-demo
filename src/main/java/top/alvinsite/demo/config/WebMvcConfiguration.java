@@ -15,6 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.alvinsite.demo.core.converter.EnumConvertFactory;
 import top.alvinsite.demo.core.converter.StringToUserInfoConverter;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = "top.alvinsite.demo.controller")

@@ -1,6 +1,5 @@
 package top.alvinsite.demo.controller;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +17,20 @@ import top.alvinsite.demo.model.vo.DepartmentVO;
 import top.alvinsite.demo.model.vo.ProjectTypeVO;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import static top.alvinsite.demo.utils.BeanUtils.transformFromInBatch;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("common")
 public class CommonController {
+
+    private final static String SUPER_USER_GROUP = "admin";
+
     @Autowired
     private DepartmentDao departmentDao;
 
@@ -34,26 +38,7 @@ public class CommonController {
     private ProjectTypeDao projectTypeDao;
 
     @Autowired
-    private ProjectLevelDao projectLevelDao;
-
-    @Autowired
-    private BookTypeDao bookTypeDao;
-
-    @Autowired
     private PaperTypeDao paperTypeDao;
-
-    @Autowired
-    private PatentTypeDao patentTypeDao;
-
-    @Autowired
-    private PatentScopeDao patentScopeDao;
-
-    @Autowired
-    private HonorLevelDao honorLevelDao;
-
-    @Autowired
-    private HonorGradeDao honorGradeDao;
-
 
 
     @GetMapping("index")
@@ -63,9 +48,9 @@ public class CommonController {
 
     @GetMapping("department")
     public List<DepartmentVO> getDepartmentList(@RequestHeader("authorization") UserInfo userInfo) {
-        List<Department> departments = null;
+        List<Department> departments;
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
+        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnitId() != null) {
             departments = departmentDao.findManageUnit(userInfo.getAccount());
         } else {
             departments =departmentDao.findAll();
@@ -85,12 +70,12 @@ public class CommonController {
 
     @GetMapping("project-level")
     public List<EnumVO> getProjectLevelList() {
-        List<EnumVO> enumVOS = new ArrayList<>();
+        List<EnumVO> enumVOs = new ArrayList<>();
         for (ProjectLevel projectLevel : ProjectLevel.values()) {
-            enumVOS.add(new EnumVO(projectLevel.ordinal(), projectLevel.getTitle()));
+            enumVOs.add(new EnumVO(projectLevel.ordinal(), projectLevel.getTitle()));
         }
 
-        return enumVOS;
+        return enumVOs;
     }
 
 
@@ -151,7 +136,9 @@ public class CommonController {
     }
 
 
-    // 出版社级别
+    /**
+     * 出版社级别
+     */
     @GetMapping("publisher-level")
     public List<EnumVO> getPublisherLevelList() {
         List<EnumVO> enumVOS = new ArrayList<>();
@@ -162,7 +149,10 @@ public class CommonController {
         return enumVOS;
     }
 
-    // 著作权类型
+    /**
+     * 著作权类型
+     * @return 著作权类型列表
+     */
     @GetMapping("copyright-type")
     public List<EnumVO> getCopyrightTypeList() {
         List<EnumVO> enumVOS = new ArrayList<>();
@@ -173,7 +163,10 @@ public class CommonController {
         return enumVOS;
     }
 
-    // 资助来源
+    /**
+     * 资助来源
+     * @return 资助来源类型列表
+     */
     @GetMapping("subsidize-from")
     public List<EnumVO> getSubsidizeFromList() {
         List<EnumVO> enumVOS = new ArrayList<>();

@@ -7,6 +7,9 @@ import top.alvinsite.demo.model.entity.performance.Literature;
 import top.alvinsite.demo.service.performance.LiteratureService;
 import xcz.annotation.PermissionClass;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/literature")

@@ -7,6 +7,9 @@ import top.alvinsite.demo.model.entity.performance.Copyright;
 import top.alvinsite.demo.service.performance.CopyrightService;
 import xcz.annotation.PermissionClass;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @RestController
 @RequestMapping("performance/copyright")
