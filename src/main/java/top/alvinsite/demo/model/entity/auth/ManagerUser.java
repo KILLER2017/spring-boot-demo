@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author Alvin
+ */
 @Data
 public class ManagerUser {
     private Integer id;

@@ -13,6 +13,9 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Literature")
 @EqualsAndHashCode(callSuper = false)

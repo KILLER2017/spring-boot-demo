@@ -1,20 +1,23 @@
 package top.alvinsite.demo.model.entity.rule;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.enums.ProjectLevel;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Alvin
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Alias("LongitudinalProjectRule")
 public class LongitudinalProjectRule extends BaseRuleEntity  {
 

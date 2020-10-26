@@ -3,14 +3,17 @@ package top.alvinsite.demo.model.entity.rule;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
-import top.alvinsite.demo.model.enums.BookType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Alias("PaperRule")
 public class PaperRule extends BaseRuleEntity  {
     @TableId(type = IdType.AUTO)

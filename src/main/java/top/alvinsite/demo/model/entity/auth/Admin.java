@@ -5,6 +5,9 @@ import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Admin")
 public class Admin {

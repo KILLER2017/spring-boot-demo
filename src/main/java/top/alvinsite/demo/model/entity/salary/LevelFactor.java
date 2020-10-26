@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("LevelFactor")
 @AllArgsConstructor

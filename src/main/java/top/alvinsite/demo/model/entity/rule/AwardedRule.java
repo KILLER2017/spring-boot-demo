@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
-import top.alvinsite.demo.model.dto.rule.BaseRuleDTO;
 import top.alvinsite.demo.model.enums.HonorGrade;
 import top.alvinsite.demo.model.enums.HonorLevel;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("AwardedRule")
 public class AwardedRule extends BaseRuleEntity {

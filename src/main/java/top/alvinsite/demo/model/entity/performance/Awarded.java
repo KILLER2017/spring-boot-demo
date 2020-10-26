@@ -11,6 +11,9 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Awarded")
 @EqualsAndHashCode(callSuper = false)

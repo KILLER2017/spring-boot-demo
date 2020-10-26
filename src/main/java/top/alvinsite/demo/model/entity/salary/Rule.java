@@ -8,6 +8,9 @@ import org.apache.ibatis.type.Alias;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Rule")
 @AllArgsConstructor

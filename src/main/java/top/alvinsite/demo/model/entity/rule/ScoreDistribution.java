@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("ScoreDistribution")
 public class ScoreDistribution {

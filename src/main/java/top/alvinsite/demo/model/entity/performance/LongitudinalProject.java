@@ -1,6 +1,5 @@
 package top.alvinsite.demo.model.entity.performance;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
@@ -12,6 +11,9 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("LongitudinalProject")
 @EqualsAndHashCode(callSuper = false)

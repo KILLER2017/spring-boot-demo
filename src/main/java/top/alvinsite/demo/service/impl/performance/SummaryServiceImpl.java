@@ -7,9 +7,7 @@ import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.performance.*;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.TotalPointsParam;
 import top.alvinsite.demo.service.performance.*;
-import top.alvinsite.demo.service.rule.LiteratureRuleService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +28,7 @@ public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPer
     private CopyrightDao copyrightDao;
 
     @Autowired
-    private AwardedDAO awardedDAO;
+    private AwardedDao awardedDAO;
 
     @Autowired
     private AwardedService awardedService;

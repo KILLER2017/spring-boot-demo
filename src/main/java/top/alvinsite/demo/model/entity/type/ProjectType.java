@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("ProjectType")
 public class ProjectType {

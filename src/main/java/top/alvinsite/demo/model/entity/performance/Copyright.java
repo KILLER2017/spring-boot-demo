@@ -9,6 +9,9 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Copyright")
 public class Copyright extends BaseEntity  {

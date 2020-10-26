@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleRevised;
 
+/**
+ * @author Alvin
+ */
 @Repository
 public interface LiteratureRuleRevisedDao extends BaseMapper<LiteratureRuleRevised> {
 }

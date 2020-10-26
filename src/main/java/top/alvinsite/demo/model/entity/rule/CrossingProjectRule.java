@@ -9,6 +9,9 @@ import org.apache.ibatis.type.Alias;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Alvin
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

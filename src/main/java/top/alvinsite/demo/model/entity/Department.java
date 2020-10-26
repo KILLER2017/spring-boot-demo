@@ -8,6 +8,9 @@ import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Department")
 @AllArgsConstructor

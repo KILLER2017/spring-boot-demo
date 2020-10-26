@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
+/**
+ * @author Alvin
+ */
 @Alias("PaperType")
 @Data
 @TableName(value = "DM_PAPER_TYPE")

@@ -8,6 +8,9 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Repository
 public interface LongitudinalRuleDao extends BaseMapper<LongitudinalProjectRule> {
     List<LongitudinalRuleDTO> findAll(RuleQuery ruleQuery);

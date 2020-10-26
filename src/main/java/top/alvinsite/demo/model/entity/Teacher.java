@@ -5,6 +5,9 @@ import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 
+/**
+ * @author Alvin
+ */
 @Data
 @Alias("Teacher")
 public class Teacher implements Serializable {

@@ -2,14 +2,15 @@ package top.alvinsite.demo.dao.performance;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
-import top.alvinsite.demo.model.dto.performance.AwardedDTO;
 import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.TotalPointsParam;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Repository
-public interface AwardedDAO extends BaseMapper<Awarded> {
+public interface AwardedDao extends BaseMapper<Awarded> {
     List<Awarded> findAwarded(PerformanceQuery performanceQuery);
 }

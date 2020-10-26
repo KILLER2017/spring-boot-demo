@@ -7,11 +7,13 @@ import top.alvinsite.demo.model.entity.rule.LiteratureRule;
 import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
-import java.util.ListIterator;
 
+/**
+ * @author Alvin
+ */
 @Repository
 public interface LiteratureRuleDao extends BaseMapper<LiteratureRule> {
-    public List<LiteratureRuleDTO> findAll(RuleQuery ruleQuery);
-    public void saveBatch(List<LiteratureRuleDTO> literatureRuleDTOS);
-    public void delete(RuleQuery ruleQuery);
+    List<LiteratureRuleDTO> findAll(RuleQuery ruleQuery);
+    void saveBatch(List<LiteratureRuleDTO> literatureRuleDTOS);
+    void delete(RuleQuery ruleQuery);
 }

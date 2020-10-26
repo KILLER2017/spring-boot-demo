@@ -5,8 +5,11 @@ import top.alvinsite.demo.model.entity.rule.SequencePoints;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Repository
 public interface SequencePointsDao {
-    public void saveBatch(List<SequencePoints> sequencePoints);
+    void saveBatch(List<SequencePoints> sequencePoints);
     void delete(String ruleType, String ruleId);
 }

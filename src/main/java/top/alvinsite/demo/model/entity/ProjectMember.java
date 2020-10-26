@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+/**
+ * @author Alvin
+ */
 @Data
 @TableName(value = "gxky0107")
 public class ProjectMember {
