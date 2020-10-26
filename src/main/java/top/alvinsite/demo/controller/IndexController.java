@@ -97,6 +97,7 @@ public class IndexController {
                 .addSheet("专利成果", patentList, Patent.class)
                 .addSheet("著作权", copyrightList, Copyright.class)
                 .addSheet("科研获奖", awardedList, Awarded.class)
+                .setExcelName("科研绩效")
                 .setResponse(response)
                 .build();
     }
