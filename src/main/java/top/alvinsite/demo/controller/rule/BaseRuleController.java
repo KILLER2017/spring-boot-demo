@@ -19,6 +19,7 @@ import top.alvinsite.demo.service.rule.IRuleService;
 import top.alvinsite.demo.service.rule.ScoreDistributionConfigService;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,15 @@ public abstract class BaseRuleController<M extends IRuleService<T>, T extends Ba
     protected void addManagerLimit(UserInfo userInfo, RuleQuery ruleQuery) {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
         if (userInfo.getUserGroup() != "admin" && userInfo.getManageUnitId() != null) {
+            if (ruleQuery.getDepartment() != null) {
+                List<String> list = Arrays.asList(userInfo.getManageUnits());
+
+                // 若用户选择的单位在权限范围内，则直接返回
+                if (list.contains(ruleQuery.getDepartment())) {
+                    return;
+                }
+            }
+
             ruleQuery.setDepartment(userInfo.getManageUnitId());
         }
     }

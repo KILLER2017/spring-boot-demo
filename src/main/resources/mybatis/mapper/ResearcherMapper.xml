@@ -34,6 +34,12 @@
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="departmentScope != null">
+                and gxjg0101.dwh in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
         </where>
         order by gxjg0101.dwh asc
     </select>
