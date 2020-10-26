@@ -1,5 +1,6 @@
 package top.alvinsite.framework.spring;
 
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -24,5 +25,10 @@ public class AsyncConfig implements AsyncConfigurer {
         // 初始化
         taskExecutor.initialize();
         return taskExecutor;
+    }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return null;
     }
 }

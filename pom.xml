@@ -180,7 +180,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>top.alvinsite.demo.DemoApplication</mainClass>
+                    <mainClass>top.alvinsite.DemoApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

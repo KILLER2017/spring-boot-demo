@@ -353,6 +353,10 @@ public class ExcelUtils {
             buildExcelDocument(excelName, workbook, response);
         }
 
+        public void save(String filename) {
+            buildExcelFile(filename, workbook);
+        }
+
     }
 
 

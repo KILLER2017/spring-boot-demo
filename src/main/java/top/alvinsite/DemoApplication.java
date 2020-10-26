@@ -1,4 +1,4 @@
-package top.alvinsite.demo;
+package top.alvinsite;
 
 
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.config.LoginConfig;
 
 @EnableConfigurationProperties(LoginConfig.class)
-@SpringBootApplication(scanBasePackages = {"top.alvinsite"}, exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 // @SpringBootApplication(scanBasePackages = {"top.alvinsite"})
 // 定义MyBatis的扫描
 @MapperScan(
@@ -24,13 +24,12 @@ import top.alvinsite.demo.config.LoginConfig;
         // 限定注解
         annotationClass = Repository.class
 )
-public class DemoApplication extends SpringBootServletInitializer {
+public class DemoApplication {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer customizer(){
         return builder -> builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
     }
     public static void main(String[] args) {
-        new WebMvcAutoConfiguration();
         SpringApplication.run(DemoApplication.class, args);
     }
 
