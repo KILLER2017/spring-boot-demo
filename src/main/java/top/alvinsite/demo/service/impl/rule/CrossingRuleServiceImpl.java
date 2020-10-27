@@ -14,8 +14,6 @@ import top.alvinsite.demo.service.rule.CrossingRuleService;
 
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
-
 @Slf4j
 @Service
 public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, CrossingProjectRule> implements CrossingRuleService{
@@ -29,26 +27,15 @@ public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, Crossi
 
     @Override
     public void save(List<CrossingProjectRule> crossingProjectRules) {
-        // 删除旧的规则
-        if (crossingProjectRules != null && !crossingProjectRules.isEmpty()) {
-            CrossingProjectRule firstRule =  crossingProjectRules.get(0);
 
-            RuleQuery ruleQuery = new RuleQuery();
-            updateProperties(firstRule, ruleQuery);
-            crossingRuleDao.delete(ruleQuery);
-        }
-
-        // 保存新的规则
-        crossingRuleDao.saveBatch(crossingProjectRules);
     }
+
 
     @Override
     public CrossingProjectRule findOneByCrossingProject(CrossingProject project) {
         CrossingProjectRule rule = crossingRuleDao.selectOne(Wrappers.<CrossingProjectRule>lambdaQuery()
                 .eq(CrossingProjectRule::getYear, project.getApprovalProjectYear())
                 .eq(CrossingProjectRule::getDepartment, project.getDepartment().getId())
-                .le(CrossingProjectRule::getMin, project.getBudget())
-                .gt(CrossingProjectRule::getMax, project.getBudget())
                 );
 
         if (null == rule) {
@@ -67,8 +54,13 @@ public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, Crossi
         float projectScore = 0f;
 
         if (rule != null) {
-            budgetScore = crossingProject.getBudget() * rule.getBudgetScoreFactor();
-            projectScore = rule.getProjectScore();
+            if (rule.getMin() <= crossingProject.getBudget() && crossingProject.getBudget() < rule.getMax()) {
+                budgetScore = crossingProject.getBudget() * rule.getBudgetScoreFactor();
+                projectScore = rule.getProjectScore();
+            } else if (rule.getThreshold() <= crossingProject.getBudget()) {
+                budgetScore = crossingProject.getBudget() * rule.getThresholdBudgetScoreFactor();
+                projectScore = rule.getProjectScore() / rule.getThresholdProjectScorePer() * rule.getThresholdProjectScoreFactor();
+            }
         }
         crossingProject.setBudgetScore(budgetScore);
         crossingProject.setProjectScore(projectScore);

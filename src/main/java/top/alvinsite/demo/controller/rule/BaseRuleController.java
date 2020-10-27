@@ -92,7 +92,7 @@ public abstract class BaseRuleController<M extends IRuleService<T>, T extends Ba
             return rule;
         })).collect(Collectors.toList());
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(20);
 
         map.put("department", ruleQuery.getDepartment());
         map.put("year", ruleQuery.getYear());

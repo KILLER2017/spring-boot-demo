@@ -23,14 +23,25 @@ public class CrossingProjectRule extends BaseRuleEntity  {
     private Integer year;
 
     @NotNull(message = "合同经费缺少最小值")
-    private Integer min;
+    private Float min;
 
     @NotNull(message = "合同经费缺少最小值")
-    private Integer max;
+    private Float max;
 
     @NotNull(message = "项目分不能为空")
     private Float projectScore;
 
     @NotNull(message = "经费分因子不能为空")
     private Float budgetScoreFactor;
+
+    @NotNull(message = "合同经费规则二上限不能为空")
+    private Float threshold;
+
+    @NotNull(message = "合同经费规则二项目分因子不能为空")
+    private Float thresholdProjectScoreFactor;
+
+    private Float thresholdProjectScorePer;
+
+    @NotNull(message = "合同经费规则二经费分因子不能为空")
+    private Float thresholdBudgetScoreFactor;
 }

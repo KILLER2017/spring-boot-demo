@@ -28,9 +28,4 @@ public interface CrossingRuleDao extends BaseMapper<CrossingProjectRule> {
      */
     void saveBatch(List<CrossingProjectRule> crossingProjectRules);
 
-    /**
-     * 删除横向项目绩效规则
-     * @param ruleQuery 过滤条件
-     */
-    void delete(RuleQuery ruleQuery);
 }
