@@ -10,11 +10,12 @@ import top.alvinsite.demo.dao.rule.LiteratureRuleDao;
 import top.alvinsite.demo.dao.rule.LiteratureRuleFundingSourceDao;
 import top.alvinsite.demo.dao.rule.LiteratureRuleRevisedDao;
 import top.alvinsite.demo.dao.rule.LiteratureRuleTopicWithDongguanDao;
-import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.dto.rule.LiteratureRuleDTO;
 import top.alvinsite.demo.model.entity.performance.Literature;
-import top.alvinsite.demo.model.entity.rule.*;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.entity.rule.LiteratureRule;
+import top.alvinsite.demo.model.entity.rule.LiteratureRuleFundingSource;
+import top.alvinsite.demo.model.entity.rule.LiteratureRuleRevised;
+import top.alvinsite.demo.model.entity.rule.LiteratureRuleTopicWithDongguan;
 import top.alvinsite.demo.model.params.RuleQuery;
 import top.alvinsite.demo.service.rule.LiteratureRuleService;
 

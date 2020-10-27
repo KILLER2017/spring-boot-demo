@@ -3,7 +3,6 @@ package top.alvinsite.demo.model.dto.performance;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.entity.type.ProjectType;
-import top.alvinsite.demo.model.enums.ProjectLevel;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 @Data

@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("salary/level-factor")
 @PermissionClass
-public class LevelFacotrController {
+public class LevelFactorController {
     @Autowired
     private LevelFactorDao levelFactorDao;
 
@@ -35,11 +35,11 @@ public class LevelFacotrController {
     }
 
     @PostMapping("importExcel")
-    public void importExcel(@RequestParam(value="uploadFile", required = true) MultipartFile file) {
+    public void importExcel(@RequestParam(value="uploadFile") MultipartFile file) {
         long t1 = System.currentTimeMillis();
         List<LevelFactor> list = ExcelUtils.readExcel("", LevelFactor.class, file);
         long t2 = System.currentTimeMillis();
-        System.out.println(String.format("read over! cost:%sms", (t2 - t1)));
+        System.out.printf("read over! cost: %sms\n", t2 - t1);
 
         list.forEach(
             item -> {

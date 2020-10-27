@@ -1,7 +1,6 @@
 package top.alvinsite.framework.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 

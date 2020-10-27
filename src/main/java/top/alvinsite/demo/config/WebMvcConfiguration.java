@@ -3,14 +3,10 @@ package top.alvinsite.demo.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.alvinsite.demo.core.converter.EnumConvertFactory;
 import top.alvinsite.demo.core.converter.StringToUserInfoConverter;
@@ -23,8 +19,6 @@ import top.alvinsite.demo.core.converter.StringToUserInfoConverter;
 @ComponentScan(basePackages = "top.alvinsite.demo.controller")
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    WebMvcAutoConfiguration webMvcAutoConfiguration;
-    private static ApplicationContext applicationContext;
     @Autowired
     StringToUserInfoConverter stringToUserInfoConverter;
 
@@ -32,7 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     EnumConvertFactory enumConvertFactory;
 
     @Override
-    public void addFormatters(FormatterRegistry registry) {
+    public void addFormatters(@NonNull FormatterRegistry registry) {
         // StringToCollectionConverter stringToCollectionConverter;
     }
 }

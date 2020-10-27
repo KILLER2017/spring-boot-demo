@@ -1,6 +1,5 @@
 package top.alvinsite.demo.service.rule;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import top.alvinsite.demo.model.entity.performance.Copyright;
 import top.alvinsite.demo.model.entity.rule.CopyrightRule;
 import top.alvinsite.demo.model.params.RuleQuery;

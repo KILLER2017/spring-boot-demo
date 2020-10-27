@@ -4,12 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.*;
-import top.alvinsite.demo.model.dto.rule.AwardedRuleDTO;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.rule.AwardedRule;
-import top.alvinsite.demo.model.entity.rule.ScoreDistributionConfig;
 import top.alvinsite.demo.model.params.RuleQuery;
 import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.model.vo.RuleVO;
@@ -17,12 +16,7 @@ import top.alvinsite.demo.service.rule.AwardedRuleService;
 import xcz.annotation.PermissionClass;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
 
 /**

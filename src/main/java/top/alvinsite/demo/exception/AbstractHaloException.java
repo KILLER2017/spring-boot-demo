@@ -31,7 +31,6 @@ public abstract class AbstractHaloException extends RuntimeException {
      *
      * @return {@link HttpStatus}
      */
-    @NonNull
     public abstract HttpStatus getStatus();
 
     @Nullable

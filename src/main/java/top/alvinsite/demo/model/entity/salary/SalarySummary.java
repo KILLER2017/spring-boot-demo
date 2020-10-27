@@ -10,14 +10,14 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Data
 @Alias("SalarySummary")
 public class SalarySummary {
-    private Integer id;
+    private String id;
 
     private Integer year;
 
-    @ExcelColumn(value = "账号", col = 2)
+    @ExcelColumn(value = "账号", col = 2, width = 15)
     private String account;
 
-    @ExcelColumn(value = "姓名", col = 1)
+    @ExcelColumn(value = "姓名", col = 1, width = 15)
     private String nickname;
 
     @ExcelColumn(value = "人员类别", col = 3)

@@ -1,7 +1,6 @@
 package top.alvinsite.demo.model.vo;
 
 import lombok.Data;
-import top.alvinsite.demo.model.entity.Department;
 
 import javax.validation.constraints.NotBlank;
 

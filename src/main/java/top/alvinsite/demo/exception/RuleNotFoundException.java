@@ -2,6 +2,9 @@ package top.alvinsite.demo.exception;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * @author Alvin
+ */
 public class RuleNotFoundException extends AbstractHaloException {
     public RuleNotFoundException(String message) {
         super(message);

@@ -3,22 +3,14 @@ package top.alvinsite.demo.service.impl.rule;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import top.alvinsite.demo.dao.rule.AwardedRuleDao;
-import top.alvinsite.demo.dao.rule.ScoreDistributionConfigDao;
-import top.alvinsite.demo.model.dto.rule.AwardedRuleDTO;
 import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.model.entity.rule.AwardedRule;
-import top.alvinsite.demo.model.entity.rule.CopyrightRule;
-import top.alvinsite.demo.model.entity.rule.ScoreDistributionConfig;
 import top.alvinsite.demo.model.params.RuleQuery;
 import top.alvinsite.demo.service.rule.AwardedRuleService;
 
 import java.util.List;
-
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
 @Slf4j
 @Service

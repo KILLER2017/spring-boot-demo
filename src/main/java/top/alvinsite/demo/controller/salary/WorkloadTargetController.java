@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
-import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.demo.model.params.LevelFactorParam;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.WorkloadTargetParam;
 import top.alvinsite.demo.utils.ExcelUtils;
@@ -17,6 +15,9 @@ import xcz.annotation.PermissionClass;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @RestController
 @RequestMapping("salary/workload-target")
@@ -37,7 +38,7 @@ public class WorkloadTargetController {
     }
 
     @PostMapping("importExcel")
-    public void importExcel(@RequestParam(value="uploadFile", required = true) MultipartFile file) {
+    public void importExcel(@RequestParam(value="uploadFile") MultipartFile file) {
         long t1 = System.currentTimeMillis();
         List<WorkloadTarget> list = ExcelUtils.readExcel("", WorkloadTarget.class, file);
         long t2 = System.currentTimeMillis();

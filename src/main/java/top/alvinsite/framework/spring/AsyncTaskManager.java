@@ -2,11 +2,7 @@ package top.alvinsite.framework.spring;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.framework.spring.service.AsyncTaskConstructor;
 import top.alvinsite.framework.spring.service.AsyncTaskExecutor;
 

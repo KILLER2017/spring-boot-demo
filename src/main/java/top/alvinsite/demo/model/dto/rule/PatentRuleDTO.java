@@ -2,9 +2,6 @@ package top.alvinsite.demo.model.dto.rule;
 
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
-import top.alvinsite.demo.model.entity.rule.SequencePoints;
-
-import java.util.List;
 
 @Data
 @Alias("PatentRuleDTO")

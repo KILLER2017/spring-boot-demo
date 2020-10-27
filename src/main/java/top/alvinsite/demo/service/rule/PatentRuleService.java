@@ -1,8 +1,5 @@
 package top.alvinsite.demo.service.rule;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import top.alvinsite.demo.model.dto.rule.PatentRuleDTO;
-import top.alvinsite.demo.model.entity.performance.Copyright;
 import top.alvinsite.demo.model.entity.performance.Patent;
 import top.alvinsite.demo.model.entity.rule.PatentRule;
 import top.alvinsite.demo.model.params.RuleQuery;

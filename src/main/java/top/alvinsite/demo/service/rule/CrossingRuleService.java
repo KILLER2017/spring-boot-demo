@@ -1,6 +1,5 @@
 package top.alvinsite.demo.service.rule;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import top.alvinsite.demo.model.dto.rule.CrossingRuleDTO;
 import top.alvinsite.demo.model.entity.performance.CrossingProject;
 import top.alvinsite.demo.model.entity.rule.CrossingProjectRule;

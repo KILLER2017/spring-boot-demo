@@ -7,8 +7,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import top.alvinsite.demo.model.support.UserInfo;
 
-import javax.validation.constraints.NotNull;
-
 @Component
 public class StringToUserInfoConverter implements Converter<String, UserInfo> {
 

@@ -2,7 +2,6 @@ package top.alvinsite.demo.model.dto.performance;
 
 import lombok.Data;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.enums.BookType;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;

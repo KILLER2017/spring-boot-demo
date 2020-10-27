@@ -1,12 +1,8 @@
 package top.alvinsite.demo.service.performance;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
-import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.model.entity.performance.BaseEntity;
 import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.service.ScoreDistributionService;
-import top.alvinsite.demo.service.rule.ScoreDistributionConfigService;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package top.alvinsite.demo.service.rule;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import top.alvinsite.demo.model.dto.rule.LiteratureRuleDTO;
 import top.alvinsite.demo.model.entity.performance.Literature;
 import top.alvinsite.demo.model.entity.rule.LiteratureRule;
@@ -8,7 +7,6 @@ import top.alvinsite.demo.model.entity.rule.LiteratureRuleFundingSource;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleRevised;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleTopicWithDongguan;
 import top.alvinsite.demo.model.params.RuleQuery;
-import top.alvinsite.demo.service.performance.BasePerformanceService;
 
 import java.util.List;
 

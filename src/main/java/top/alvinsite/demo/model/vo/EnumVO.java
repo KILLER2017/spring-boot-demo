@@ -1,8 +1,6 @@
 package top.alvinsite.demo.model.vo;
 
 
-import io.swagger.models.auth.In;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

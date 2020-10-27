@@ -3,7 +3,6 @@ package top.alvinsite.demo.model.dto.performance;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.enums.ContractType;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.List;

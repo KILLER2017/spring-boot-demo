@@ -23,6 +23,9 @@ cas:
     app-id: donationdev
     app-secret: e41690c440fa
 
+app:
+  domain: 127.0.0.1:8080
+
 logging:
   level:
     root: info
