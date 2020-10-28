@@ -152,13 +152,15 @@ public class LoginController {
         // 获取用户组：系统管理员、机构管理员
         AdminDTO adminDTO = adminDao.findOneByAccount(account);
         ManagerDTO managerDTO = managerDao.findOneByAccount(account);
-        String[] unitIds = managerDao.findUnitIdsByAccount(account);
+
 
         if (adminDTO != null) {
             userInfo.setUserGroup("admin");
         } else if (managerDTO != null) {
             userInfo.setUserGroup("manager");
             userInfo.setManageUnitId(managerDTO.getDepartment());
+
+            String[] unitIds = managerDao.findUnitIdsByAccount(account);
             userInfo.setManageUnits(unitIds);
         }
 

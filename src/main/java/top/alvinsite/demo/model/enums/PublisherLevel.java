@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author Administrator
+ */
+
 @Getter
 @AllArgsConstructor
 public enum PublisherLevel implements IEnum<String> {

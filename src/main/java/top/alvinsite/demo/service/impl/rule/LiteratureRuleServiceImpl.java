@@ -23,6 +23,9 @@ import java.util.List;
 
 import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @Service
 public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, LiteratureRule> implements LiteratureRuleService {
@@ -114,6 +117,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         return revised == null ? 1 : revised.getScore();
     }
 
+    @Override
     public List<LiteratureRuleFundingSource> getFundingSourceRules(RuleQuery ruleQuery) {
         return literatureRuleFundingSourceDao.selectList(Wrappers.<LiteratureRuleFundingSource>lambdaQuery()
                 .eq(LiteratureRuleFundingSource::getDepartment, ruleQuery.getDepartment())
@@ -121,6 +125,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         );
     }
 
+    @Override
     public List<LiteratureRuleTopicWithDongguan> getTopicWithDongguanRules(RuleQuery ruleQuery) {
         return literatureRuleTopicWithDongguanDao.selectList(Wrappers.<LiteratureRuleTopicWithDongguan>lambdaQuery()
                 .eq(LiteratureRuleTopicWithDongguan::getDepartment, ruleQuery.getDepartment())
@@ -128,6 +133,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         );
     }
 
+    @Override
     public List<LiteratureRuleRevised> getRevisedRules(RuleQuery ruleQuery) {
         return literatureRuleRevisedDao.selectList(Wrappers.<LiteratureRuleRevised>lambdaQuery()
                 .eq(LiteratureRuleRevised::getDepartment, ruleQuery.getDepartment())
@@ -135,6 +141,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         );
     }
 
+    @Override
     public void saveFundingSourceRules(List<LiteratureRuleFundingSource> rules) {
         for (LiteratureRuleFundingSource rule: rules) {
             // 筛选条件
@@ -152,6 +159,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         }
     }
 
+    @Override
     public void saveTopicWithDongguanRules(List<LiteratureRuleTopicWithDongguan> rules) {
         for (LiteratureRuleTopicWithDongguan rule: rules) {
             // 筛选条件
@@ -169,6 +177,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         }
     }
 
+    @Override
     public void saveRevisedRules(List<LiteratureRuleRevised> rules) {
         for (LiteratureRuleRevised rule: rules) {
             // 筛选条件

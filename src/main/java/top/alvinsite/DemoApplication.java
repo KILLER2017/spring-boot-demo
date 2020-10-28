@@ -20,11 +20,11 @@ import top.alvinsite.demo.config.LoginConfig;
  */ // @ConfigurationPropertiesScan
 @EnableConfigurationProperties(LoginConfig.class)
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-// @SpringBootApplication(scanBasePackages = {"top.alvinsite"})
+// @SpringBootApplication
 // 定义MyBatis的扫描
 @MapperScan(
         // 指定扫描包
-        basePackages = "top.alvinsite.demo.dao",
+        basePackages = {"top.alvinsite.demo.dao", "top.alvinsite.framework.*.dao"},
         // 限定注解
         annotationClass = Repository.class
 )
@@ -54,4 +54,6 @@ public class DemoApplication extends SpringBootServletInitializer  {
         thread.setDaemon(false);
         thread.start();
     }
+
+
 }

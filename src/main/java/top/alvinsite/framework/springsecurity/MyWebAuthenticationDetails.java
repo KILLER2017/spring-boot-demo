@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 自定义 WebAuthenticationDetails，添加验证码逻辑
+ * @author Administrator
  */
 
 public class MyWebAuthenticationDetails extends WebAuthenticationDetails {

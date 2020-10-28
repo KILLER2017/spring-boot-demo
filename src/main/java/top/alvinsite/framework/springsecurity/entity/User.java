@@ -1,48 +1,45 @@
 package top.alvinsite.framework.springsecurity.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import top.alvinsite.demo.model.entity.Department;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 
 
+/**
+ * @author Administrator
+ */
 @Data
-@TableName(value = "auth_user")
+@TableName(value = "gxjg0101")
 public class User implements UserDetails {
 
-    @TableId(type = IdType.AUTO)
-    private Long id;
-
+    @TableField(exist = false)
     private String password;
 
-    private LocalDateTime lastLogin;
-
-    @TableField(value = "is_superuser")
-    private Boolean superuser;
-
     @NotBlank(message = "账号不能为空")
+    @TableId(value = "gh")
     private String username;
-    private String firstName;
-    private String lastName;
 
-    @NotBlank(message = "邮箱不能为空")
-    @Email(message = "邮箱格式错误")
-    private String email;
+    @TableField(value = "xm")
+    private String nickname;
 
-    @TableField(value = "is_staff")
-    private Boolean staff;
+    @TableField(exist = false)
+    private Department department;
 
-    @TableField(value = "is_active")
-    private Boolean active;
+    @TableField(exist = false)
+    private String userGroup;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime dateJoined;
+    @TableField(exist = false)
+    private String manageUnitId;
+
+    private String[] manageUnits;
 
     @TableField(exist = false)
     private Set<GrantedAuthority> grantedAuthorities;
@@ -84,7 +81,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object object) {
-        return object instanceof User ? this.username.equals(((User) object).username) : false;
+        return object instanceof User && this.username.equals(((User) object).username);
     }
 
     @Override

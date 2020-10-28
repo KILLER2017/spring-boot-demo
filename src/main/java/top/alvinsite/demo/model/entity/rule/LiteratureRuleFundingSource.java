@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.enums.SubsidizeFrom;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Alvin
  */
@@ -18,6 +20,10 @@ public class LiteratureRuleFundingSource extends BaseRuleEntity  {
     private Integer id;
     private String department;
     private Integer year;
+
+    @NotNull(message = "资助来源类型不能为空")
     private SubsidizeFrom type;
+
+    @NotNull(message = "资助来源绩效分数不能为空")
     private Float score;
 }

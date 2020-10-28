@@ -2,7 +2,6 @@ package top.alvinsite.framework.springsecurity.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,9 +16,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @Service
-@Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 将自定义的WebAuthenticationDetails添加到AuthenticationDetailsSource
+ * @author Administrator
  */
 
 @Component
