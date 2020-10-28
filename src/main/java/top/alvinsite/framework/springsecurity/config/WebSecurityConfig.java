@@ -21,8 +21,8 @@ import java.util.Arrays;
 /**
  * @author Administrator
  */
-// @EnableWebSecurity
-// @EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

@@ -71,7 +71,6 @@ public class ControllerExceptionHandler {
         baseResponse.setMessage("数据验证错误，请完善后重试！");
         baseResponse.setData(ValidationUtils.mapWithValidError(e.getConstraintViolations()));
         return baseResponse;
-
     }
 
     @ExceptionHandler(MultipartException.class)

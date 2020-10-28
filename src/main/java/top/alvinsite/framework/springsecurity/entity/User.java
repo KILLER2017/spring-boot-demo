@@ -20,11 +20,14 @@ import java.util.Set;
 @TableName(value = "gxjg0101")
 public class User implements UserDetails {
 
+    @TableId(value = "gh")
+    private String id;
+
     @TableField(exist = false)
     private String password;
 
     @NotBlank(message = "账号不能为空")
-    @TableId(value = "gh")
+    @TableField(value = "gh")
     private String username;
 
     @TableField(value = "xm")
@@ -39,6 +42,7 @@ public class User implements UserDetails {
     @TableField(exist = false)
     private String manageUnitId;
 
+    @TableField(exist = false)
     private String[] manageUnits;
 
     @TableField(exist = false)

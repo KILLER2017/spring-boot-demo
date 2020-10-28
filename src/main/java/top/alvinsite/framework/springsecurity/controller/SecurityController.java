@@ -4,9 +4,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.demo.model.vo.UserInfoVO;
+import top.alvinsite.framework.springsecurity.entity.User;
+
+import static top.alvinsite.demo.utils.BeanUtils.transformFrom;
 
 /**
  * @author Alvin
@@ -49,9 +54,12 @@ public class SecurityController {
      * @PreAuthorize、@PostAuthorize、@PreFilter、@PostFilter
      */
 
-    public UserInfoVO getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
+    @GetMapping("getUserInfo")
+    public BaseResponse getUserInfo(@AuthenticationPrincipal User userDetails) {
+        UserInfoVO userInfoVO = transformFrom(userDetails, UserInfoVO.class);
+        userInfoVO.setDepartment(userDetails.getDepartment());
+        userInfoVO.setAccount(userDetails.getUsername());
 
-
-        return null;
+        return BaseResponse.ok("操作成功", userInfoVO);
     }
 }

@@ -122,6 +122,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         return literatureRuleFundingSourceDao.selectList(Wrappers.<LiteratureRuleFundingSource>lambdaQuery()
                 .eq(LiteratureRuleFundingSource::getDepartment, ruleQuery.getDepartment())
                 .eq(LiteratureRuleFundingSource::getYear, ruleQuery.getYear())
+                .orderByAsc(LiteratureRuleFundingSource::getId)
         );
     }
 
@@ -130,6 +131,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         return literatureRuleTopicWithDongguanDao.selectList(Wrappers.<LiteratureRuleTopicWithDongguan>lambdaQuery()
                 .eq(LiteratureRuleTopicWithDongguan::getDepartment, ruleQuery.getDepartment())
                 .eq(LiteratureRuleTopicWithDongguan::getYear, ruleQuery.getYear())
+                .orderByAsc(LiteratureRuleTopicWithDongguan::getId)
         );
     }
 
@@ -138,6 +140,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
         return literatureRuleRevisedDao.selectList(Wrappers.<LiteratureRuleRevised>lambdaQuery()
                 .eq(LiteratureRuleRevised::getDepartment, ruleQuery.getDepartment())
                 .eq(LiteratureRuleRevised::getYear, ruleQuery.getYear())
+                .orderByAsc(LiteratureRuleRevised::getId)
         );
     }
 

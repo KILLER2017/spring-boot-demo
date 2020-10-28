@@ -21,7 +21,7 @@ import top.alvinsite.demo.model.support.BaseResponse;
  * @author johnniang
  */
 
-@ControllerAdvice("top.alvinsite.demo.controller")
+@ControllerAdvice(basePackages = {"top.alvinsite.demo.controller", "top.alvinsite.framework.*.controller"})
 public class CommonResultControllerAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

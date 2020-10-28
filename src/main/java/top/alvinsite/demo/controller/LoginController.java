@@ -22,7 +22,6 @@ import top.alvinsite.demo.model.dto.auth.AdminDTO;
 import top.alvinsite.demo.model.dto.auth.ManagerDTO;
 import top.alvinsite.demo.model.entity.Teacher;
 import top.alvinsite.demo.model.support.UserInfo;
-import top.alvinsite.demo.model.vo.DepartmentVO;
 import top.alvinsite.demo.model.vo.UserInfoVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -178,7 +177,7 @@ public class LoginController {
 
         assert userInfoVO != null;
 
-        userInfoVO.setDepartment(transformFrom(userInfo.getDepartment(), DepartmentVO.class));
+        userInfoVO.setDepartment(userInfo.getDepartment());
 
         return userInfoVO;
     }

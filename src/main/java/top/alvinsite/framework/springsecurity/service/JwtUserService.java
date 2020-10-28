@@ -2,7 +2,6 @@ package top.alvinsite.framework.springsecurity.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -74,8 +73,7 @@ public class JwtUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.selectOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getUsername, username));
+        User user = userDao.findOneByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
