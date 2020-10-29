@@ -59,8 +59,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             throw new NonceExpiredException("登录凭证已过期，请重新登录");
         }
 
-        String username = jwt.getSubject();
-        UserDetails user = userService.getUserLoginInfo(username);
+        String keyId = jwt.getKeyId();
+        UserDetails user = userService.getUserLoginInfo(keyId);
 
         // 判断用户是否存在
         // if(user == null || user.getPassword() == null) {

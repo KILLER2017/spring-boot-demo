@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.Getter;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.UUID;
  */
 public class JwtUtils {
 
+    @Getter
     private static final long EXPIRE_TIME = 15 * 60 * 1000;
 
     private static final String ENCRYPT_KEY = "privateKey";

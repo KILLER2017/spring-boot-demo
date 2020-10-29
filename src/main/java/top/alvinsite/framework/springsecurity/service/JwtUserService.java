@@ -88,23 +88,23 @@ public class JwtUserService implements UserDetailsService {
     }
 
     public String saveUserLoginInfo(UserDetails user) {
-        redisTemplate.opsForValue().set(user.getUsername(), user);
+        redisTemplate.opsForValue().set(user.getUsername(), user, JwtUtils.getEXPIRE_TIME() + 100);
         return JwtUtils.sign(user.getUsername());
     }
 
     /**
      * Jwt校验时，通过该方法获取用户信息
-     * @param username
+     * @param key
      * @return
      */
-    public UserDetails getUserLoginInfo(String username) {
-        return (UserDetails) redisTemplate.opsForValue().get(username);
+    public UserDetails getUserLoginInfo(String key) {
+        return (UserDetails) redisTemplate.opsForValue().get(key);
     }
 
-    public void deleteUserLoginInfo(String username) {
+    public void deleteUserLoginInfo(String key) {
         /**
          * @todo 清除数据库或者缓存中登录salt
          */
-        redisTemplate.delete(username);
+        redisTemplate.delete(key);
     }
 }
