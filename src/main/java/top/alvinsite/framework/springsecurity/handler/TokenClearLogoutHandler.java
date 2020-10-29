@@ -35,8 +35,14 @@ public class TokenClearLogoutHandler implements LogoutHandler {
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		String token = getJwtToken(request);
-		DecodedJWT jwt = JWT.decode(token);
-		clearToken(jwt.getKeyId());
+		if (!StringUtils.isBlank(token)) {
+			DecodedJWT jwt = JWT.decode(token);
+			String key = jwt.getKeyId();
+			if (key != null) {
+				clearToken(key);
+			}
+		}
+
 		casService.redirectCasLogout("admin", response);
 	}
 
