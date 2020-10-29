@@ -1,5 +1,6 @@
 package top.alvinsite.framework.springsecurity.service;
 
+import com.auth0.jwt.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.GrantedAuthority;
@@ -88,8 +89,10 @@ public class JwtUserService implements UserDetailsService {
     }
 
     public String saveUserLoginInfo(UserDetails user) {
-        redisTemplate.opsForValue().set(user.getUsername(), user, JwtUtils.getEXPIRE_TIME() + 100);
-        return JwtUtils.sign(user.getUsername());
+        String token = JwtUtils.sign(user.getUsername());
+        String key = JWT.decode(token).getKeyId();
+        redisTemplate.opsForValue().set(key, user);
+        return token;
     }
 
     /**
