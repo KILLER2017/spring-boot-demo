@@ -27,10 +27,10 @@ public class MyAuthenticationFailureHandler implements org.springframework.secur
 
         log.info("登录失败");
 
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json;charset=UTF-8");
 
-        BaseResponse baseResponse = new BaseResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), null);
+        BaseResponse baseResponse = new BaseResponse(HttpStatus.UNAUTHORIZED.value(), exception.getMessage(), null);
         response.getWriter().write(objectMapper.writeValueAsString(baseResponse));
     }
 }
