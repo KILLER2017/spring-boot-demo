@@ -8,6 +8,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Alvin
@@ -19,6 +20,10 @@ public class JwtUtils {
     private static final String ENCRYPT_KEY = "privateKey";
 
     public static String sign(String username) {
+        return sign(username, UUID.randomUUID().toString());
+    }
+
+    public static String sign(String username, String keyId) {
         // 设置过期时间
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         // 私钥和加密算法
@@ -34,6 +39,7 @@ public class JwtUtils {
                 .withSubject(username)
                 .withExpiresAt(date)
                 .withIssuedAt(new Date())
+                .withKeyId(keyId)
                 .sign(algorithm);
     }
 

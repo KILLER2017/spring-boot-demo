@@ -1,6 +1,7 @@
 package top.alvinsite.framework.springsecurity.provider;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,8 +20,11 @@ import java.util.Calendar;
  * JWT校验逻辑
  * @author Alvin
  */
+@Slf4j
 @Component
 public class JwtAuthenticationProvider implements AuthenticationProvider {
+
+
 
     @Autowired
     private JwtUserService userService;
@@ -40,7 +44,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         try {
             JwtUtils.verify(jwt);
         } catch (Exception e) {
-            throw new BadCredentialsException("JWT token verify fail", e);
+            log.info("JWT token verify fail", e);
+            throw new BadCredentialsException("登录凭证验证失败", e);
         }
     }
 
@@ -48,9 +53,10 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         DecodedJWT jwt = ((JwtAuthenticationToken)authentication).getToken();
 
+
         // 判断token是否过期
         if(jwt.getExpiresAt().before(Calendar.getInstance().getTime())) {
-            throw new NonceExpiredException("Token expires");
+            throw new NonceExpiredException("登录凭证已过期，请重新登录");
         }
 
         String username = jwt.getSubject();
@@ -59,7 +65,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         // 判断用户是否存在
         // if(user == null || user.getPassword() == null) {
         if(user == null) {
-            throw new NonceExpiredException("Token expires");
+            throw new NonceExpiredException("登录凭证已过期，请重新登录");
         }
 
         additionalAuthenticationChecks(user, jwt);

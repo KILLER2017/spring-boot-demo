@@ -1,6 +1,7 @@
 package top.alvinsite.framework.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,9 @@ import java.util.Set;
 public class JwtUserService implements UserDetailsService {
 
     @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
     private UserDao userDao;
 
     @Autowired
@@ -42,32 +46,9 @@ public class JwtUserService implements UserDetailsService {
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    /**
-     * Jwt校验时，通过该方法获取用户信息
-     * @param username
-     * @return
-     */
-    public UserDetails getUserLoginInfo(String username) {
-        String salt = "123456ef";
-        /**
-         * @todo 从数据库或者缓存中取出jwt token生成时用的salt
-         * salt = redisTemplate.opsForValue().get("token:"+username);
-         */
-        UserDetails user = loadUserByUsername(username);
-        //将salt放到password字段返回
-        // return User.builder().username(user.getUsername()).password(salt).authorities(user.getAuthorities()).build();
-        return user;
-    }
 
-    public String saveUserLoginInfo(UserDetails user) {
 
-        /**
-         * @todo 将salt保存到数据库或者缓存中
-         * redisTemplate.opsForValue().set("token:"+username, salt, 3600, TimeUnit.SECONDS);
-         */
 
-        return JwtUtils.sign(user.getUsername());
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -106,9 +87,24 @@ public class JwtUserService implements UserDetailsService {
          */
     }
 
+    public String saveUserLoginInfo(UserDetails user) {
+        redisTemplate.opsForValue().set(user.getUsername(), user);
+        return JwtUtils.sign(user.getUsername());
+    }
+
+    /**
+     * Jwt校验时，通过该方法获取用户信息
+     * @param username
+     * @return
+     */
+    public UserDetails getUserLoginInfo(String username) {
+        return (UserDetails) redisTemplate.opsForValue().get(username);
+    }
+
     public void deleteUserLoginInfo(String username) {
         /**
          * @todo 清除数据库或者缓存中登录salt
          */
+        redisTemplate.delete(username);
     }
 }
