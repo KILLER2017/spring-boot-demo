@@ -1,6 +1,8 @@
 package top.alvinsite.framework.springsecurity.handler;
 
 
+import cn.edu.dgut.service.CasService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class TokenClearLogoutHandler implements LogoutHandler {
+	@Autowired
+	private CasService casService;
 
 	@Autowired
 	private JwtUserService jwtUserService;
@@ -24,9 +28,11 @@ public class TokenClearLogoutHandler implements LogoutHandler {
 		this.jwtUserService = jwtUserService;
 	}
 
+	@SneakyThrows
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		clearToken(authentication);
+		casService.redirectCasLogout("admin", response);
 	}
 	
 	protected void clearToken(Authentication authentication) {

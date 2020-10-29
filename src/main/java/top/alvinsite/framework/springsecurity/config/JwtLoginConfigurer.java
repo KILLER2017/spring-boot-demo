@@ -6,11 +6,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.stereotype.Component;
 import top.alvinsite.framework.springsecurity.filter.JwtAuthenticationFilter;
-import top.alvinsite.framework.springsecurity.handler.AuthenticationFailureHandler;
 import top.alvinsite.framework.springsecurity.provider.JwtAuthenticationProvider;
 
 /**
@@ -22,7 +22,7 @@ public class JwtLoginConfigurer extends SecurityConfigurerAdapter<DefaultSecurit
     /**
      * 过滤器
      */
-    private JwtAuthenticationFilter authenticationFilter;
+    private final JwtAuthenticationFilter authenticationFilter;
 
     /**
      * 登录校验逻辑

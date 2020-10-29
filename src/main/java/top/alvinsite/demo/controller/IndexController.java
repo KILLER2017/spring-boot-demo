@@ -9,7 +9,6 @@ import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.service.performance.*;
 import top.alvinsite.framework.spring.AsyncTaskManager;
-import xcz.annotation.PermissionClass;
 
 /**
  * @author Alvin
@@ -17,7 +16,6 @@ import xcz.annotation.PermissionClass;
 @Slf4j
 @RestController
 @RequestMapping("performance/export")
-@PermissionClass
 public class IndexController {
 
     private final static String SUPER_USER_GROUP = "admin";

@@ -1,8 +1,5 @@
 package top.alvinsite.framework.springsecurity.provider;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,6 +11,7 @@ import org.springframework.security.web.authentication.www.NonceExpiredException
 import org.springframework.stereotype.Component;
 import top.alvinsite.framework.springsecurity.service.JwtUserService;
 import top.alvinsite.framework.springsecurity.token.JwtAuthenticationToken;
+import top.alvinsite.utils.JwtUtils;
 
 import java.util.Calendar;
 
@@ -38,16 +36,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
      * @throws AuthenticationException
      */
     protected void additionalAuthenticationChecks(UserDetails userDetails, DecodedJWT jwt) throws AuthenticationException {
-        // String encryptSalt = userDetails.getPassword();
-        String encryptSalt = "123456ef";
-        String username = jwt.getSubject();
 
         try {
-            Algorithm algorithm = Algorithm.HMAC256(encryptSalt);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withSubject(username)
-                    .build();
-            verifier.verify(jwt.getToken());
+            JwtUtils.verify(jwt);
         } catch (Exception e) {
             throw new BadCredentialsException("JWT token verify fail", e);
         }

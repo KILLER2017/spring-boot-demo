@@ -4,22 +4,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.*;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.support.BaseResponse;
-import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.service.performance.*;
 import top.alvinsite.demo.utils.ExcelUtils;
 import top.alvinsite.framework.spring.AsyncTaskManager;
 import top.alvinsite.framework.spring.TaskInfo;
 import top.alvinsite.framework.spring.TaskStatusEnum;
-import xcz.annotation.PermissionClass;
+import top.alvinsite.framework.springsecurity.entity.User;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -32,7 +31,6 @@ import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 @Slf4j
 @RestController
 @RequestMapping("performance/report")
-@PermissionClass
 public class ReportController {
     private final static String SUPER_USER_GROUP = "admin";
 
@@ -68,10 +66,11 @@ public class ReportController {
     @Autowired
     AsyncTaskManager asyncTaskManager;
 
-    protected void addManagerLimit(UserInfo userInfo, PerformanceQuery performanceQuery) {
+    protected void addManagerLimit(PerformanceQuery performanceQuery) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnitId() != null) {
-            performanceQuery.setDepartmentId(userInfo.getManageUnitId());
+        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnitId() != null) {
+            performanceQuery.setDepartmentId(user.getManageUnitId());
         }
     }
 
@@ -81,9 +80,9 @@ public class ReportController {
      * @return 任务信息
      */
     @GetMapping("generate")
-    public TaskInfo generate(@RequestHeader("authorization") UserInfo userInfo, PerformanceQuery performanceQuery) throws Exception {
+    public TaskInfo generate(PerformanceQuery performanceQuery) throws Exception {
 
-        addManagerLimit(userInfo, performanceQuery);
+        addManagerLimit(performanceQuery);
 
         return asyncTaskManager.submit(() -> {
             Workbook workbook = generateExcel(performanceQuery);

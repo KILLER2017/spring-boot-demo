@@ -11,7 +11,6 @@ import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.WorkloadTargetParam;
 import top.alvinsite.demo.utils.ExcelUtils;
-import xcz.annotation.PermissionClass;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("salary/workload-target")
-@PermissionClass
 public class WorkloadTargetController {
     @Autowired
     private WorkloadTargetDao workloadTargetDao;

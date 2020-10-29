@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.rule.PaperRule;
 import top.alvinsite.demo.service.rule.PaperRuleService;
-import xcz.annotation.PermissionClass;
 
 /**
  * @author Alvin
@@ -13,7 +12,6 @@ import xcz.annotation.PermissionClass;
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/paper")
-@PermissionClass
 public class PaperRuleController extends BaseRuleController<PaperRuleService, PaperRule> {
 
     public static String performance = "paper";

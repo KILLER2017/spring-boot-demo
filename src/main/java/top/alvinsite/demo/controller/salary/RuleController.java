@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.Rule;
 import top.alvinsite.demo.service.salary.RuleService;
-import xcz.annotation.PermissionClass;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("salary/rule")
-@PermissionClass
 @Validated
 public class RuleController {
     @Autowired

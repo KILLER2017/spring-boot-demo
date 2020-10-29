@@ -35,6 +35,7 @@ import java.util.List;
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
+    private final static String AUTHORIZATION_KEY = "authorization";
     private RequestMatcher requiresAuthenticationRequestMatcher;
     private List<RequestMatcher> permissiveRequestMatchers;
     private AuthenticationManager authenticationManager;
@@ -56,6 +57,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     protected String getJwtToken(HttpServletRequest request) {
         String authInfo = request.getHeader("Authorization");
+
+        if (StringUtils.isBlank(authInfo)) {
+            authInfo = request.getParameter(AUTHORIZATION_KEY);
+        }
+
         return StringUtils.removeStart(authInfo, "Bearer ");
     }
 
@@ -122,7 +128,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     protected boolean requiresAuthentication(HttpServletRequest request,
                                              HttpServletResponse response) {
-        return requiresAuthenticationRequestMatcher.matches(request);
+        return requiresAuthenticationRequestMatcher.matches(request) || !StringUtils.isBlank(request.getParameter(AUTHORIZATION_KEY));
     }
 
     protected boolean permissiveRequest(HttpServletRequest request) {

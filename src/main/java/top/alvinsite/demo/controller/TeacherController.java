@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.TeacherDao;
 import top.alvinsite.demo.model.entity.Teacher;
-import xcz.annotation.PermissionClass;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("auth/permission/user")
-@PermissionClass
 public class TeacherController {
     @Autowired
     private TeacherDao teacherDao;

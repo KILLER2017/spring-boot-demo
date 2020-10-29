@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.rule.ScoreDistribution;
 import top.alvinsite.demo.service.ScoreDistributionService;
-import xcz.annotation.PermissionClass;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -19,7 +18,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/score-distribution")
-@PermissionClass
 @Validated
 public class ScoreDistributionController {
 

@@ -18,7 +18,7 @@ import static top.alvinsite.demo.utils.BeanUtils.transformFrom;
  */
 
 @RestController
-@RequestMapping("test/security")
+@RequestMapping("auth")
 public class SecurityController {
 
     /**

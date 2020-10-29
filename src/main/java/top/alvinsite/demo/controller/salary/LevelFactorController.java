@@ -11,14 +11,12 @@ import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.params.LevelFactorParam;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.utils.ExcelUtils;
-import xcz.annotation.PermissionClass;
 
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("salary/level-factor")
-@PermissionClass
 public class LevelFactorController {
     @Autowired
     private LevelFactorDao levelFactorDao;

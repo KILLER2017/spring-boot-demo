@@ -12,7 +12,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.TeacherDao;
 import top.alvinsite.demo.dao.auth.AdminDao;
@@ -39,8 +38,8 @@ import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
  * @author Alvin
  */
 @Slf4j
-@RestController
-@RequestMapping("auth")
+// @RestController
+// @RequestMapping("auth")
 public class LoginController {
 
     @Value("${app.domain}")

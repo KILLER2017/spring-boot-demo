@@ -2,8 +2,9 @@ package top.alvinsite.framework.springsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -21,8 +22,8 @@ import java.util.Arrays;
 /**
  * @author Administrator
  */
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -32,15 +33,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected JwtLoginConfigurer jwtLoginConfigurer;
 
     @Autowired
+    protected CasLoginConfigurer casLoginConfigurer;
+
+    @Autowired
     protected LogoutHandler logoutHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/image/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/article/**").hasRole("USER")
-                .anyRequest().authenticated()
+                // .antMatchers("/image/**").permitAll()
+                .antMatchers("/performance/**").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/salary/**").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/auth/permission/**").hasRole("ADMIN")
+                .antMatchers("/auth/getUserInfo").hasAnyRole("ADMIN", "MANAGER")
+                .anyRequest().permitAll()
                 .and()
                 .csrf().disable()
                 .formLogin().disable()
@@ -56,18 +62,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .apply(jwtLoginConfigurer)
                 .and()
+                .apply(casLoginConfigurer)
+                .and()
                 .logout()
-//		        .logoutUrl("/logout")   //默认就是"/logout"
+		        .logoutUrl("/auth/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
                 .and()
                 .sessionManagement().disable();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 已在configurer中注册provider，此处无需再次注册
-        // auth.authenticationProvider(daoAuthenticationProvider()).authenticationProvider(jwtAuthenticationProvider());
     }
 
 

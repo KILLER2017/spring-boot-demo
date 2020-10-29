@@ -1,17 +1,18 @@
 package top.alvinsite.demo.controller.rule;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.rule.LiteratureRule;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleFundingSource;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleRevised;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleTopicWithDongguan;
 import top.alvinsite.demo.model.params.RuleQuery;
-import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.model.vo.LiteratureRuleVO;
 import top.alvinsite.demo.model.vo.RuleVO;
 import top.alvinsite.demo.service.rule.LiteratureRuleService;
-import xcz.annotation.PermissionClass;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,7 +26,6 @@ import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/literature")
-@PermissionClass
 public class LiteratureRuleController extends BaseRuleController<LiteratureRuleService, LiteratureRule> {
 
     public static String performance = "literature";
@@ -35,8 +35,8 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
     }
 
     @Override
-    public RuleVO get(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery) {
-        RuleVO ruleVO = super.get(userInfo, ruleQuery);
+    public RuleVO get(@Valid RuleQuery ruleQuery) {
+        RuleVO ruleVO = super.get(ruleQuery);
 
         LiteratureRuleVO literatureRuleVO = new LiteratureRuleVO();
         updateProperties(ruleVO, literatureRuleVO);
@@ -50,9 +50,9 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
 
 
     @PostMapping("funding-source/{department}/{year}")
-    public void postFundingSource(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleFundingSource> rules) {
+    public void postFundingSource(@Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleFundingSource> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
-        addManagerLimit(userInfo, ruleQuery);
+        addManagerLimit(ruleQuery);
 
         rules.stream().map((rule -> {
             rule.setDepartment(ruleQuery.getDepartment());
@@ -64,9 +64,9 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
     }
 
     @PostMapping("topic-with-dongguan/{department}/{year}")
-    public void postTopicWithDongguan(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleTopicWithDongguan> rules) {
+    public void postTopicWithDongguan(@Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleTopicWithDongguan> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
-        addManagerLimit(userInfo, ruleQuery);
+        addManagerLimit(ruleQuery);
 
         rules.stream().map((rule -> {
             rule.setDepartment(ruleQuery.getDepartment());
@@ -79,9 +79,9 @@ public class LiteratureRuleController extends BaseRuleController<LiteratureRuleS
 
 
     @PostMapping("revised/{department}/{year}")
-    public void postRevised(@RequestHeader("authorization") UserInfo userInfo, @Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleRevised> rules) {
+    public void postRevised(@Valid RuleQuery ruleQuery, @RequestBody @Valid List<LiteratureRuleRevised> rules) {
         // 如果用户不是系统管理员，则限定只能保存自己管理机构的数据
-        addManagerLimit(userInfo, ruleQuery);
+        addManagerLimit(ruleQuery);
 
         rules.stream().map((rule -> {
             rule.setDepartment(ruleQuery.getDepartment());

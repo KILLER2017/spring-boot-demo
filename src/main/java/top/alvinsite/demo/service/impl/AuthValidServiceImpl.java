@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import top.alvinsite.demo.exception.ForbiddenException;
 import top.alvinsite.demo.model.support.UserInfo;
@@ -12,7 +11,6 @@ import xcz.entity.AuthValid;
 import xcz.service.AuthValidService;
 
 @Slf4j
-@Service
 public class AuthValidServiceImpl implements AuthValidService {
 
     @Autowired

@@ -4,10 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.type.ProjectTypeDao">
     <select id="findAll" resultType="top.alvinsite.demo.model.entity.type.ProjectType">
-        select
+        select distinct
             bzm as id,
             flmc as title
         from gxky0117
+        join gxky0101 on gxky0101.xmflbh = gxky0117.bzm and gxky0101.xmxzbh = 0 and gxky0101.shztbh = 2
+        <where>
+            <if test="year != null">and year(gxky0101.lxsj) = #{year}</if>
+        </where>
         order by ID ASC
     </select>
 

@@ -60,7 +60,7 @@ cas:
     user-info-server: https://${cas.dgut.domain}/oauth/getUserInfo
 xcz:
   permission:
-    enable: true
+    enable: false
 
   parameter:
     enable: true

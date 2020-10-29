@@ -2,8 +2,8 @@ package top.alvinsite.demo.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.type.DepartmentDao;
@@ -13,10 +13,11 @@ import top.alvinsite.demo.model.dto.type.PaperTypeDTO;
 import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.entity.type.ProjectType;
 import top.alvinsite.demo.model.enums.*;
-import top.alvinsite.demo.model.support.UserInfo;
+import top.alvinsite.demo.model.params.RuleQuery;
 import top.alvinsite.demo.model.vo.DepartmentVO;
 import top.alvinsite.demo.model.vo.EnumVO;
 import top.alvinsite.demo.model.vo.ProjectTypeVO;
+import top.alvinsite.framework.springsecurity.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,11 @@ public class CommonController {
     }
 
     @GetMapping("department")
-    public List<DepartmentVO> getDepartmentList(@RequestHeader("authorization") UserInfo userInfo) {
+    public List<DepartmentVO> getDepartmentList(@AuthenticationPrincipal User user) {
         List<Department> departments;
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnitId() != null) {
-            departments = departmentDao.findManageUnit(userInfo.getAccount());
+        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnitId() != null) {
+            departments = departmentDao.findManageUnit(user.getUsername());
         } else {
             departments =departmentDao.findAll();
         }
@@ -62,8 +63,8 @@ public class CommonController {
     }
 
     @GetMapping("project-type")
-    public List<ProjectTypeVO> getProjectTypeList() {
-        List<ProjectType> projectTypes = projectTypeDao.findAll();
+    public List<ProjectTypeVO> getProjectTypeList(RuleQuery ruleQuery) {
+        List<ProjectType> projectTypes = projectTypeDao.findAll(ruleQuery);
         return transformFromInBatch(projectTypes, ProjectTypeVO.class);
     }
 

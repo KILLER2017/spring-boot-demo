@@ -20,8 +20,8 @@ spring:
 cas:
   dgut:
     domain: cas.zemcho.com
-    app-id: donationdev
-    app-secret: e41690c440fa
+    app-id: security
+    app-secret: 63ea3412464a
 
 app:
   domain: 127.0.0.1:8080

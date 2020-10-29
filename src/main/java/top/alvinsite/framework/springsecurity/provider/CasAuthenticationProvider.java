@@ -3,6 +3,8 @@ package top.alvinsite.framework.springsecurity.provider;
 import cn.edu.dgut.service.CasService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -10,17 +12,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.stereotype.Component;
 import top.alvinsite.framework.springsecurity.token.CasAuthenticationToken;
 
 import java.util.Map;
 
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @Data
+@Component
 public class CasAuthenticationProvider implements AuthenticationProvider {
 
+    @Autowired
     private CasService casService;
 
+    @Qualifier("jwtUserService")
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override

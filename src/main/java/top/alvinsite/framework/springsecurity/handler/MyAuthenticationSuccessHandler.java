@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.framework.springsecurity.service.JwtUserService;
@@ -19,8 +19,8 @@ import java.util.HashMap;
  * @author Administrator
  */
 @Slf4j
-@Component("MyAuthenticationSuccessHandler")
-public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+@Component
+public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     private JwtUserService jwtUserService;

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.rule.PatentRule;
 import top.alvinsite.demo.service.rule.PatentRuleService;
-import xcz.annotation.PermissionClass;
 
 /**
  * @author Alvin
@@ -13,7 +12,6 @@ import xcz.annotation.PermissionClass;
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/patent")
-@PermissionClass
 public class PatentRuleController extends BaseRuleController<PatentRuleService, PatentRule>{
 
     public static String performance = "patent";

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.dao.TeacherDao;
 import top.alvinsite.demo.dao.auth.ManagerDao;
@@ -13,8 +14,7 @@ import top.alvinsite.demo.model.entity.auth.ManagerUser;
 import top.alvinsite.demo.model.params.ManagerUserQuery;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.support.UserInfo;
-import xcz.annotation.PermissionClass;
+import top.alvinsite.framework.springsecurity.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("auth/permission/manager")
-@PermissionClass
 public class ManagerController {
 
     @Autowired
@@ -38,7 +37,7 @@ public class ManagerController {
     }
 
     @PostMapping
-    public void saveManager(@RequestHeader("authorization") UserInfo userInfo, @RequestParam Integer id, @RequestBody List<ManagerUser> managerUsers) {
+    public void saveManager(@AuthenticationPrincipal User user, @RequestParam Integer id, @RequestBody List<ManagerUser> managerUsers) {
         // 删除旧的机构管理员
         managerDao.deleteManagerUser(id);
         String departmentId = managerDao.findDepartmentById(id);
@@ -50,7 +49,7 @@ public class ManagerController {
         managerDao.saveBatch(managerUsers);
 
         PerformanceQuery operatorParam = new PerformanceQuery();
-        operatorParam.setAccount(userInfo.getAccount());
+        operatorParam.setAccount(user.getUsername());
         operatorParam.setDepartmentId(departmentId);
         managerDao.updateOperator(operatorParam);
     }

@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.stereotype.Component;
 import top.alvinsite.framework.springsecurity.filter.MyUsernamePasswordAuthenticationFilter;
-import top.alvinsite.framework.springsecurity.handler.AuthenticationFailureHandler;
+import top.alvinsite.framework.springsecurity.handler.MyAuthenticationFailureHandler;
 
 /**
  * @author Alvin
@@ -35,7 +35,7 @@ public class UsernamePasswordLoginConfigurer extends SecurityConfigurerAdapter<D
     /**
      * 登录成功处理器
      */
-    @Qualifier("MyAuthenticationSuccessHandler")
+    @Qualifier("myAuthenticationSuccessHandler")
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
@@ -43,7 +43,7 @@ public class UsernamePasswordLoginConfigurer extends SecurityConfigurerAdapter<D
      * 登录失败处理器
      */
     @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
+    private MyAuthenticationFailureHandler authenticationFailureHandler;
 
     public UsernamePasswordLoginConfigurer() {
         this.authenticationFilter = new MyUsernamePasswordAuthenticationFilter();

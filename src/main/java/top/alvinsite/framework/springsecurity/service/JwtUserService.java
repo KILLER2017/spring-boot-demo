@@ -1,8 +1,8 @@
 package top.alvinsite.framework.springsecurity.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,8 +15,10 @@ import top.alvinsite.demo.model.dto.auth.AdminDTO;
 import top.alvinsite.demo.model.dto.auth.ManagerDTO;
 import top.alvinsite.framework.springsecurity.dao.UserDao;
 import top.alvinsite.framework.springsecurity.entity.User;
+import top.alvinsite.utils.JwtUtils;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Alvin
@@ -40,6 +42,11 @@ public class JwtUserService implements UserDetailsService {
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    /**
+     * Jwt校验时，通过该方法获取用户信息
+     * @param username
+     * @return
+     */
     public UserDetails getUserLoginInfo(String username) {
         String salt = "123456ef";
         /**
@@ -53,22 +60,13 @@ public class JwtUserService implements UserDetailsService {
     }
 
     public String saveUserLoginInfo(UserDetails user) {
-        String salt = "123456ef";
-        // BCrypt.gensalt();  正式开发时可以调用该方法实时生成加密的salt
 
         /**
          * @todo 将salt保存到数据库或者缓存中
          * redisTemplate.opsForValue().set("token:"+username, salt, 3600, TimeUnit.SECONDS);
          */
-        Algorithm algorithm = Algorithm.HMAC256(salt);
 
-        // 设置1小时后过期
-        Date date = new Date(System.currentTimeMillis()+3600*1000);
-        return JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(date)
-                .withIssuedAt(new Date())
-                .sign(algorithm);
+        return JwtUtils.sign(user.getUsername());
     }
 
     @Override
@@ -80,19 +78,23 @@ public class JwtUserService implements UserDetailsService {
         }
 
         // 获取用户组：系统管理员、机构管理员
+        Set<GrantedAuthority> authorities = new HashSet<>();
         AdminDTO adminDTO = adminDao.findOneByAccount(user.getUsername());
         ManagerDTO managerDTO = managerDao.findOneByAccount(user.getUsername());
 
 
         if (adminDTO != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             user.setUserGroup("admin");
         } else if (managerDTO != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
             user.setUserGroup("manager");
             user.setManageUnitId(managerDTO.getDepartment());
 
             String[] unitIds = managerDao.findUnitIdsByAccount(user.getUsername());
             user.setManageUnits(unitIds);
         }
+        user.setGrantedAuthorities(authorities);
 
         return user;
     }

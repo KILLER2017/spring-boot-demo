@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.performance.Paper;
 import top.alvinsite.demo.service.performance.PaperService;
-import xcz.annotation.PermissionClass;
 
 /**
  * @author Alvin
@@ -13,7 +12,6 @@ import xcz.annotation.PermissionClass;
 @Slf4j
 @RestController
 @RequestMapping("performance/paper")
-@PermissionClass
 public class PaperController extends BaseController<PaperService, Paper> {
 
 }

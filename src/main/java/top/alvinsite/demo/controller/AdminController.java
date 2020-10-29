@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.dao.TeacherDao;
 import top.alvinsite.demo.dao.auth.AdminDao;
@@ -12,9 +13,8 @@ import top.alvinsite.demo.model.dto.auth.AdminDTO;
 import top.alvinsite.demo.model.entity.auth.Admin;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.support.UserInfo;
+import top.alvinsite.framework.springsecurity.entity.User;
 import xcz.annotation.ParameterClass;
-import xcz.annotation.PermissionClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("auth/permission/admin")
-@PermissionClass
 @ParameterClass
 public class AdminController {
     @Autowired
@@ -41,10 +40,10 @@ public class AdminController {
     }
 
     @PostMapping
-    public void saveAdmin(@RequestHeader("authorization") UserInfo userInfo, @RequestBody List<Admin> admins) {
+    public void saveAdmin(@AuthenticationPrincipal User user, @RequestBody List<Admin> admins) {
         admins.stream().map(admin -> {
-            admin.setCreateBy(userInfo.getAccount());
-            admin.setUpdateBy(userInfo.getAccount());
+            admin.setCreateBy(user.getUsername());
+            admin.setUpdateBy(user.getUsername());
             return admin;
         }).collect(Collectors.toList());
 

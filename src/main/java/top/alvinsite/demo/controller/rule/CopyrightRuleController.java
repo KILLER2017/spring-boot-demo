@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.rule.CopyrightRule;
 import top.alvinsite.demo.service.rule.CopyrightRuleService;
-import xcz.annotation.PermissionClass;
 
 /**
  * @author Alvin
@@ -13,7 +12,6 @@ import xcz.annotation.PermissionClass;
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/copyright")
-@PermissionClass
 public class CopyrightRuleController extends BaseRuleController<CopyrightRuleService, CopyrightRule> {
 
     public static String performance = "copyright";

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.jexl3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,9 +18,8 @@ import top.alvinsite.demo.model.entity.salary.Rule;
 import top.alvinsite.demo.model.entity.salary.SalarySummary;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
 import top.alvinsite.demo.model.params.*;
-import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.utils.ExcelUtils;
-import xcz.annotation.PermissionClass;
+import top.alvinsite.framework.springsecurity.entity.User;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("salary/summaries")
-@PermissionClass
 public class SummaryController {
 
     private final static String SUPER_USER_GROUP = "admin";
@@ -49,11 +48,11 @@ public class SummaryController {
     private SalarySummaryDao salarySummaryDao;
 
     @GetMapping
-    public PageInfo<SalarySummary> list(@RequestHeader("authorization") UserInfo userInfo, Page page, PerformanceQuery performanceQuery) {
+    public PageInfo<SalarySummary> list(@AuthenticationPrincipal User user, Page page, PerformanceQuery performanceQuery) {
 
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnits() != null) {
-            performanceQuery.setDepartmentScope(userInfo.getManageUnits());
+        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnits() != null) {
+            performanceQuery.setDepartmentScope(user.getManageUnits());
         }
 
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
@@ -145,10 +144,10 @@ public class SummaryController {
     }
 
     @GetMapping("exportExcel")
-    public void exportExcel(@RequestParam("authorization") UserInfo userInfo, PerformanceQuery performanceQuery, HttpServletResponse response) {
+    public void exportExcel(@AuthenticationPrincipal User user, PerformanceQuery performanceQuery, HttpServletResponse response) {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnits() != null) {
-            performanceQuery.setDepartmentScope(userInfo.getManageUnits());
+        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnits() != null) {
+            performanceQuery.setDepartmentScope(user.getManageUnits());
         }
 
         List<SalarySummary> list = salarySummaryDao.findAll(performanceQuery);
