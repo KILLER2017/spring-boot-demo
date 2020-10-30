@@ -11,6 +11,7 @@ import top.alvinsite.framework.mail.Mail;
 import top.alvinsite.framework.mail.service.MailService;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Alvin
@@ -26,84 +27,107 @@ public  class MailServiceImpl implements MailService {
 
     @Async
     @Override
-    public Mail sendMail(Mail mailVo) {
+    public Mail sendMail(Mail mail) {
         try {
-            checkMail(mailVo); //1.检测邮件
-            sendMimeMail(mailVo); //2.发送邮件
-            return saveMail(mailVo); //3.保存邮件
+            // 1.检测邮件
+            checkMail(mail);
+            // 2.发送邮件
+            sendMimeMail(mail);
+            // 3.保存邮件
+            return saveMail(mail);
         } catch (Exception e) {
-            mailVo.setStatus("fail");
-            mailVo.setError(e.getMessage());
-            return mailVo;
+            mail.setStatus("fail");
+            mail.setError(e.getMessage());
+            return mail;
         }
     }
 
-    //检测邮件信息类
-    private void checkMail(Mail mailVo) {
-        if (StringUtils.isEmpty(mailVo.getTo())) {
+    /**
+     * // 检测邮件信息类
+     * @param mail 邮件
+     */
+    private void checkMail(Mail mail) {
+        if (StringUtils.isEmpty(mail.getTo())) {
             throw new RuntimeException("邮件收信人不能为空");
         }
-        if (StringUtils.isEmpty(mailVo.getSubject())) {
+        if (StringUtils.isEmpty(mail.getSubject())) {
             throw new RuntimeException("邮件主题不能为空");
         }
-        if (StringUtils.isEmpty(mailVo.getText())) {
+        if (StringUtils.isEmpty(mail.getText())) {
             throw new RuntimeException("邮件内容不能为空");
         }
     }
 
-    //构建复杂邮件信息类
-    private void sendMimeMail(Mail mailVo) {
+    /**
+     * //构建复杂邮件信息类
+     * @param mail 邮件
+     */
+    private void sendMimeMail(Mail mail) {
         try {
             // true表示支持复杂类型
             MimeMessageHelper messageHelper = new MimeMessageHelper(mailSender.createMimeMessage(), true);
 
             // 邮件发信人从配置项读取
-            // mailVo.setFrom(getMailSendFrom());
+            mail.setFrom(getMailSendFrom());
 
             // 邮件发信人
-            messageHelper.setFrom(mailVo.getFrom());
+            messageHelper.setFrom(mail.getFrom());
 
             // 邮件收信人
-            messageHelper.setTo(mailVo.getTo().split(","));
+            messageHelper.setTo(mail.getTo().split(","));
 
             // 邮件主题
-            messageHelper.setSubject(mailVo.getSubject());
+            messageHelper.setSubject(mail.getSubject());
 
             // 邮件内容
-            messageHelper.setText(mailVo.getText());
+            messageHelper.setText(mail.getText());
             // 抄送
-            if (!StringUtils.isEmpty(mailVo.getCc())) {
-                messageHelper.setCc(mailVo.getCc().split(","));
+            if (!StringUtils.isEmpty(mail.getCc())) {
+                messageHelper.setCc(mail.getCc().split(","));
             }
             // 密送
-            if (!StringUtils.isEmpty(mailVo.getBcc())) {
-                messageHelper.setCc(mailVo.getBcc().split(","));
+            if (!StringUtils.isEmpty(mail.getBcc())) {
+                messageHelper.setCc(mail.getBcc().split(","));
             }
-            if (mailVo.getMultipartFiles() != null) {//添加邮件附件
-                for (MultipartFile multipartFile : mailVo.getMultipartFiles()) {
-                    messageHelper.addAttachment(multipartFile.getOriginalFilename(), multipartFile);
+
+            // 添加邮件附件
+            if (mail.getMultipartFiles() != null) {
+                for (MultipartFile multipartFile : mail.getMultipartFiles()) {
+                    messageHelper.addAttachment(Objects.requireNonNull(multipartFile.getOriginalFilename()), multipartFile);
                 }
             }
-            if (mailVo.getSentDate() == null) {//发送时间
-                mailVo.setSentDate(new Date());
-                messageHelper.setSentDate(mailVo.getSentDate());
+
+            // 发送时间
+            if (mail.getSentDate() == null) {
+                mail.setSentDate(new Date());
+                messageHelper.setSentDate(mail.getSentDate());
             }
-            mailSender.send(messageHelper.getMimeMessage());//正式发送邮件
-            mailVo.setStatus("ok");
+
+            // 正式发送邮件
+            mailSender.send(messageHelper.getMimeMessage());
+            mail.setStatus("ok");
         } catch (Exception e) {
-            throw new RuntimeException(e);//发送失败
+            // 发送失败
+            throw new RuntimeException(e);
         }
     }
 
-    //保存邮件
-    private Mail saveMail(Mail mailVo) {
+    /**
+     * //保存邮件
+     * @param mail 被保存的邮件
+     * @return 已保存的邮件
+     */
+    private Mail saveMail(Mail mail) {
 
         //将邮件保存到数据库..
 
-        return mailVo;
+        return mail;
     }
 
-    //获取邮件发信人
+    /**
+     * 获取邮件发信人
+     * @return 发信人
+     */
     public String getMailSendFrom() {
         return mailSender.getJavaMailProperties().getProperty("from");
     }

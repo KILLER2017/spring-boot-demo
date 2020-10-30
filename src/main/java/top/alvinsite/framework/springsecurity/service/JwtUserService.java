@@ -3,6 +3,7 @@ package top.alvinsite.framework.springsecurity.service;
 import com.auth0.jwt.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -100,11 +101,11 @@ public class JwtUserService implements UserDetailsService {
      * @param key
      * @return
      */
-    public UserDetails getUserLoginInfo(String key) {
+    public UserDetails getUserLoginInfo(@NonNull String key) {
         return (UserDetails) redisTemplate.opsForValue().get(key);
     }
 
-    public void deleteUserLoginInfo(String key) {
+    public void deleteUserLoginInfo(@NonNull String key) {
         /**
          * @todo 清除数据库或者缓存中登录salt
          */
