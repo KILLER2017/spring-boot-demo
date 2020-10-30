@@ -21,7 +21,7 @@ public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao
     private LongitudinalRuleDao longitudinalRuleDao;
 
     @Override
-    public List<LongitudinalRuleDTO> findAll(RuleQuery ruleQuery) {
+    public List<LongitudinalProjectRule> findAll(RuleQuery ruleQuery) {
         return longitudinalRuleDao.findAll(ruleQuery);
     }
 

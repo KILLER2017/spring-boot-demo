@@ -19,16 +19,4 @@ public interface CopyrightRuleDao extends BaseMapper<CopyrightRule> {
      * @return 绩效规则列表
      */
     List<CopyrightRule> findAll(RuleQuery ruleQuery);
-
-    /**
-     * 批量保存著作权绩效规则
-     * @param copyrightRules 绩效规则列表
-     */
-    void saveBatch(List<CopyrightRule> copyrightRules);
-
-    /**
-     * 删除著作权绩效规则
-     * @param ruleQuery 过滤条件
-     */
-    void delete(RuleQuery ruleQuery);
 }

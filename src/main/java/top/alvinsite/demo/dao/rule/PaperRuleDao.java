@@ -31,6 +31,5 @@ public interface PaperRuleDao extends BaseMapper<PaperRule> {
             "    left join DM_PAPER_TYPE on paper_rule.type = DM_PAPER_TYPE.id\n" +
             "    ${ew.customSqlSegment}")
     List<PaperRule> findAllByWrapper(@Param(Constants.WRAPPER) Wrapper wrapper);
-    void saveBatch(List<PaperRule> paperRules);
 
 }

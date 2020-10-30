@@ -22,10 +22,4 @@ public interface CrossingRuleDao extends BaseMapper<CrossingProjectRule> {
      */
     List<CrossingRuleDTO> findAll(RuleQuery ruleQuery);
 
-    /**
-     * 批量保存绩效规则
-     * @param crossingProjectRules 横向项目绩效规则列表
-     */
-    void saveBatch(List<CrossingProjectRule> crossingProjectRules);
-
 }

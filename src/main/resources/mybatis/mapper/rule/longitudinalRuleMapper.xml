@@ -6,30 +6,13 @@
 
 
 
-    <select id="findAll" parameterType="top.alvinsite.demo.model.params.RuleQuery" resultType="top.alvinsite.demo.model.dto.rule.LongitudinalRuleDTO">
+    <select id="findAll" parameterType="top.alvinsite.demo.model.params.RuleQuery" resultType="LongitudinalProjectRule">
         select
-            id,
-            department,
-            year,
-            type,
-            level,
-            min,
-            max,
-            score
-
+            *
         from longitudinal_project_rule
         <where>
             <if test="department != null">department = #{department}</if>
             <if test="year != null">and year = #{year}</if>
         </where>
     </select>
-
-    <insert id="saveBatch">
-        INSERT INTO longitudinal_project_rule (id, department, year, type, level, min, max, score) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.department}, #{item.year}, #{item.type}, #{item.level}, #{item.min}, #{item.max}, #{item.score})
-        </foreach>
-        ON DUPLICATE KEY UPDATE department=values(department), year=values(year), type=values(type), level=values(level),
-        min=values(min), max=values(max), score=values(score)
-    </insert>
 </mapper>

@@ -37,7 +37,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
     private LiteratureRuleTopicWithDongguanDao literatureRuleTopicWithDongguanDao;
 
     @Override
-    public List<LiteratureRuleDTO> findAll(RuleQuery ruleQuery) {
+    public List<LiteratureRule> findAll(RuleQuery ruleQuery) {
         return baseMapper.findAll(ruleQuery);
     }
 

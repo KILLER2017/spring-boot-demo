@@ -15,13 +15,4 @@
         </where>
     </select>
 
-
-    <insert id="saveBatch">
-        INSERT INTO patent_rule (id, department, year, type, scope, score) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.department}, #{item.year}, #{item.type}, #{item.scope}, #{item.score})
-        </foreach>
-        ON DUPLICATE KEY UPDATE department=values(department), year=values(year), type=values(type), scope=values(scope), score=values(score)
-    </insert>
-
 </mapper>

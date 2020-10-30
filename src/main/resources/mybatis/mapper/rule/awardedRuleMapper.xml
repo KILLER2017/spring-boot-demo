@@ -15,15 +15,4 @@
         </where>
     </select>
 
-    <insert id="saveBatch">
-        INSERT INTO awarded_rule (id, department, year, level, grade, score1, score2, score3, score4, score5, score6, score7, score8) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.department}, #{item.year}, #{item.level}, #{item.grade}, #{item.score1}, #{item.score2}, #{item.score3},
-            #{item.score4}, #{item.score5}, #{item.score6}, #{item.score7}, #{item.score8})
-        </foreach>
-        ON DUPLICATE KEY UPDATE department=values(department), year=values(year),level=values(level),grade=values(grade), score1=values(score1)
-        , score2=values(score2), score3=values(score3), score4=values(score4), score5=values(score5), score6=values(score6)
-        , score7=values(score7), score8=values(score8)
-    </insert>
-
 </mapper>

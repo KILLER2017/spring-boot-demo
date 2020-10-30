@@ -14,7 +14,7 @@
         <foreach collection="list" item="item" separator=",">
             (#{item.id}, #{item.ruleType}, #{item.ruleId}, #{item.order}, #{item.score})
         </foreach>
-        ON DUPLICATE KEY UPDATE rule_type=values(ruleType), rule_id=values(ruleId), order=values(order), score=values(score)
+        ON DUPLICATE KEY UPDATE rule_type=values(rule_type), rule_id=values(rule_id), order=values(order), score=values(score)
     </insert>
 
 </mapper>

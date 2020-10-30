@@ -7,5 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRuleService<M, T> extends IService<T> {
 
-
+  /*  List<T> findAll(RuleQuery ruleQuery);
+    T findRule(M awarded);
+    float getScore(M awarded);*/
 }

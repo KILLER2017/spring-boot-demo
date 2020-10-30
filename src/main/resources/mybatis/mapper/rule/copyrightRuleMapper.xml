@@ -14,13 +14,5 @@
         </where>
     </select>
 
-    <insert id="saveBatch">
-        INSERT INTO copyright_rule (id, department, year, type, score) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.department}, #{item.year}, #{item.type}, #{item.score})
-        </foreach>
-        ON DUPLICATE KEY UPDATE department=values(department), year=values(year), type=values(type)
-        , score=values(score)
-    </insert>
 
 </mapper>
