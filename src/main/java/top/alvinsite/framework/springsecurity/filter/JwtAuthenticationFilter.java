@@ -80,7 +80,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
                 JwtAuthenticationToken authToken = new JwtAuthenticationToken(JWT.decode(token));
                 authResult = this.getAuthenticationManager().authenticate(authToken);
             } else {
-                failed = new InsufficientAuthenticationException("JWT is Empty");
+                failed = new InsufficientAuthenticationException("登录凭证不能为空");
             }
         } catch(JWTDecodeException e) {
             logger.error("JWT format error", e);

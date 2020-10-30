@@ -7,8 +7,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface PaperRuleService extends IRuleService<PaperRule> {
-    List<PaperRuleDTO> list(RuleQuery ruleQuery);
+public interface PaperRuleService extends IRuleService<Paper, PaperRule> {
+    List<PaperRuleDTO> findAll(RuleQuery ruleQuery);
     PaperRule findRule(Paper paper);
     float getScore(Paper paper);
 }

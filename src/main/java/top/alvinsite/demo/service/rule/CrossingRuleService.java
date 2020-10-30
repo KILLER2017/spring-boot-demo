@@ -7,9 +7,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface CrossingRuleService extends IRuleService<CrossingProjectRule> {
-    List<CrossingRuleDTO> list(RuleQuery ruleQuery);
-    void save(List<CrossingProjectRule> crossingProjectRules);
-    CrossingProjectRule findOneByCrossingProject(CrossingProject project);
+public interface CrossingRuleService extends IRuleService<CrossingProject, CrossingProjectRule> {
+    List<CrossingRuleDTO> findAll(RuleQuery ruleQuery);
+    CrossingProjectRule findRule(CrossingProject project);
     float getScore(CrossingProject crossingProject);
 }

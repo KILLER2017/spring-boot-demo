@@ -13,8 +13,6 @@ import top.alvinsite.demo.service.rule.CopyrightRuleService;
 
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
-
 @Slf4j
 @Service
 public class CopyrightRuleServiceImpl extends ServiceImpl<CopyrightRuleDao, CopyrightRule> implements CopyrightRuleService {
@@ -22,23 +20,8 @@ public class CopyrightRuleServiceImpl extends ServiceImpl<CopyrightRuleDao, Copy
     private CopyrightRuleDao copyrightRuleDao;
 
     @Override
-    public List<CopyrightRule> list(RuleQuery ruleQuery) {
+    public List<CopyrightRule> findAll(RuleQuery ruleQuery) {
         return copyrightRuleDao.findAll(ruleQuery);
-    }
-
-    @Override
-    public void save(List<CopyrightRule> copyrightRules) {
-        // 删除旧的规则
-        if (copyrightRules != null && !copyrightRules.isEmpty()) {
-            CopyrightRule firstRule =  copyrightRules.get(0);
-
-            RuleQuery ruleQuery = new RuleQuery();
-            updateProperties(firstRule, ruleQuery);
-            copyrightRuleDao.delete(ruleQuery);
-        }
-
-        // 保存新的规则
-        copyrightRuleDao.saveBatch(copyrightRules);
     }
 
     @Override

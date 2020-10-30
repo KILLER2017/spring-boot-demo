@@ -25,7 +25,7 @@ public class MyAuthenticationFailureHandler implements org.springframework.secur
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
 
-        log.info("登录失败");
+        log.info("登录失败：", exception);
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json;charset=UTF-8");

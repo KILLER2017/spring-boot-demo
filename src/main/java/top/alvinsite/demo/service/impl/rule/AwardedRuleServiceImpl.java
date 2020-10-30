@@ -17,7 +17,7 @@ import java.util.List;
 public class AwardedRuleServiceImpl extends ServiceImpl<AwardedRuleDao, AwardedRule> implements AwardedRuleService {
 
     @Override
-    public List<AwardedRule> list(RuleQuery ruleQuery) {
+    public List<AwardedRule> findAll(RuleQuery ruleQuery) {
         return baseMapper.findAll(ruleQuery);
     }
 

@@ -14,8 +14,6 @@ import top.alvinsite.demo.service.rule.LongitudinalRuleService;
 
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
-
 @Slf4j
 @Service
 public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao, LongitudinalProjectRule> implements LongitudinalRuleService {
@@ -23,27 +21,12 @@ public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao
     private LongitudinalRuleDao longitudinalRuleDao;
 
     @Override
-    public List<LongitudinalRuleDTO> list(RuleQuery ruleQuery) {
+    public List<LongitudinalRuleDTO> findAll(RuleQuery ruleQuery) {
         return longitudinalRuleDao.findAll(ruleQuery);
     }
 
     @Override
-    public void save(List<LongitudinalProjectRule> longitudinalProjectRules) {
-        // 删除旧的规则
-        if (longitudinalProjectRules != null && !longitudinalProjectRules.isEmpty()) {
-            LongitudinalProjectRule firstRule =  longitudinalProjectRules.get(0);
-
-            RuleQuery ruleQuery = new RuleQuery();
-            updateProperties(firstRule, ruleQuery);
-            longitudinalRuleDao.delete(ruleQuery);
-        }
-
-        // 保存新的规则
-        longitudinalRuleDao.saveBatch(longitudinalProjectRules);
-    }
-
-    @Override
-    public LongitudinalProjectRule findOneByLongitudinalProject(LongitudinalProject longitudinalProject) {
+    public LongitudinalProjectRule findRule(LongitudinalProject longitudinalProject) {
         LongitudinalProjectRule rule = longitudinalRuleDao.selectOne(Wrappers.<LongitudinalProjectRule>lambdaQuery()
                 .eq(LongitudinalProjectRule::getYear, longitudinalProject.getApprovalProjectYear())
                 .eq(LongitudinalProjectRule::getDepartment, longitudinalProject.getDepartment().getId())
@@ -61,7 +44,7 @@ public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao
     @Override
     public float getScore(LongitudinalProject longitudinalProject) {
         // 读取计分规则
-        LongitudinalProjectRule rule = findOneByLongitudinalProject(longitudinalProject);
+        LongitudinalProjectRule rule = findRule(longitudinalProject);
 
         // 计算项目总分
         float budgetScore = 0f;

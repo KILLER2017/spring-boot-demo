@@ -21,18 +21,12 @@ public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, Crossi
     private CrossingRuleDao crossingRuleDao;
 
     @Override
-    public List<CrossingRuleDTO> list(RuleQuery ruleQuery) {
+    public List<CrossingRuleDTO> findAll(RuleQuery ruleQuery) {
         return crossingRuleDao.findAll(ruleQuery);
     }
 
     @Override
-    public void save(List<CrossingProjectRule> crossingProjectRules) {
-
-    }
-
-
-    @Override
-    public CrossingProjectRule findOneByCrossingProject(CrossingProject project) {
+    public CrossingProjectRule findRule(CrossingProject project) {
         CrossingProjectRule rule = crossingRuleDao.selectOne(Wrappers.<CrossingProjectRule>lambdaQuery()
                 .eq(CrossingProjectRule::getYear, project.getApprovalProjectYear())
                 .eq(CrossingProjectRule::getDepartment, project.getDepartment().getId())
@@ -47,7 +41,7 @@ public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, Crossi
 
     @Override
     public float getScore(CrossingProject crossingProject) {
-        CrossingProjectRule rule = findOneByCrossingProject(crossingProject);
+        CrossingProjectRule rule = findRule(crossingProject);
 
         // 计算项目总分
         float budgetScore = 0f;

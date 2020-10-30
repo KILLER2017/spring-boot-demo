@@ -15,6 +15,7 @@ public class ScoreDistributionConfigServiceImpl extends ServiceImpl<ScoreDistrib
     @Autowired
     private ScoreDistributionConfigDao scoreDistributionConfigDao;
 
+    @Override
     public Boolean useScoreDistribute(Integer year, String department, String performance) {
         ScoreDistributionConfig config = scoreDistributionConfigDao.selectOne(Wrappers.<ScoreDistributionConfig>lambdaQuery()
                 .eq(ScoreDistributionConfig::getYear, year)
@@ -25,6 +26,7 @@ public class ScoreDistributionConfigServiceImpl extends ServiceImpl<ScoreDistrib
         return config == null ? false : config.getActive();
     }
 
+    @Override
     public void applyConfig(ScoreDistributionConfig newConfig) {
         LambdaQueryWrapper<ScoreDistributionConfig> query = Wrappers.<ScoreDistributionConfig>lambdaQuery()
                 .eq(ScoreDistributionConfig::getDepartment, newConfig.getDepartment())

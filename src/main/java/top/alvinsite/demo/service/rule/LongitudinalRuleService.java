@@ -7,9 +7,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface LongitudinalRuleService extends IRuleService<LongitudinalProjectRule> {
-    List<LongitudinalRuleDTO> list(RuleQuery ruleQuery);
-    void save(List<LongitudinalProjectRule> longitudinalProjectRules);
-    LongitudinalProjectRule findOneByLongitudinalProject(LongitudinalProject longitudinalProject);
+public interface LongitudinalRuleService extends IRuleService<LongitudinalProject, LongitudinalProjectRule> {
+    List<LongitudinalRuleDTO> findAll(RuleQuery ruleQuery);
+    LongitudinalProjectRule findRule(LongitudinalProject longitudinalProject);
     float getScore(LongitudinalProject longitudinalProject);
 }

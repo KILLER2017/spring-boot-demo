@@ -37,7 +37,7 @@ import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
 @Validated
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseRuleController<M extends IRuleService<T>, T extends BaseRuleEntity> {
+public abstract class BaseRuleController<M extends IRuleService, T extends BaseRuleEntity> {
 
     private final static String SUPER_USER_GROUP = "admin";
 

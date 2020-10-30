@@ -10,9 +10,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface LiteratureRuleService extends IRuleService<LiteratureRule> {
-    List<LiteratureRuleDTO> list(RuleQuery ruleQuery);
-    void save(List<LiteratureRuleDTO> literatureRuleDTOS);
+public interface LiteratureRuleService extends IRuleService<Literature, LiteratureRule> {
+    List<LiteratureRuleDTO> findAll(RuleQuery ruleQuery);
     LiteratureRule findRule(Literature literature);
     float getScore(Literature literature);
     List<LiteratureRuleFundingSource> getFundingSourceRules(RuleQuery ruleQuery);

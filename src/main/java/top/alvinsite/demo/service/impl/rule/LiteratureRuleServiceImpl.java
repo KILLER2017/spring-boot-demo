@@ -21,8 +21,6 @@ import top.alvinsite.demo.service.rule.LiteratureRuleService;
 
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
-
 /**
  * @author Administrator
  */
@@ -39,23 +37,8 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
     private LiteratureRuleTopicWithDongguanDao literatureRuleTopicWithDongguanDao;
 
     @Override
-    public List<LiteratureRuleDTO> list(RuleQuery ruleQuery) {
+    public List<LiteratureRuleDTO> findAll(RuleQuery ruleQuery) {
         return baseMapper.findAll(ruleQuery);
-    }
-
-    @Override
-    public void save(List<LiteratureRuleDTO> literatureRuleDTOS) {
-        // 删除旧的规则
-        if (literatureRuleDTOS != null && !literatureRuleDTOS.isEmpty()) {
-            LiteratureRuleDTO firstRule =  literatureRuleDTOS.get(0);
-
-            RuleQuery ruleQuery = new RuleQuery();
-            updateProperties(firstRule, ruleQuery);
-            baseMapper.delete(ruleQuery);
-        }
-
-        // 保存新的规则
-        baseMapper.saveBatch(literatureRuleDTOS);
     }
 
     @Override

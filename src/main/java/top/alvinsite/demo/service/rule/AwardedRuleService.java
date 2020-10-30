@@ -6,8 +6,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface AwardedRuleService extends IRuleService<AwardedRule> {
-    List<AwardedRule> list(RuleQuery ruleQuery);
+public interface AwardedRuleService extends IRuleService<Awarded, AwardedRule> {
+    List<AwardedRule> findAll(RuleQuery ruleQuery);
     AwardedRule findRule(Awarded awarded);
     float getScore(Awarded awarded);
 }

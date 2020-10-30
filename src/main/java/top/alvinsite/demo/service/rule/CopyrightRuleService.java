@@ -6,9 +6,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface CopyrightRuleService extends IRuleService<CopyrightRule> {
-    List<CopyrightRule> list(RuleQuery ruleQuery);
-    void save(List<CopyrightRule> copyrightRuleDTOS);
+public interface CopyrightRuleService extends IRuleService<Copyright, CopyrightRule> {
+    List<CopyrightRule> findAll(RuleQuery ruleQuery);
     CopyrightRule findRule(Copyright copyright);
     float getScore(Copyright copyright);
 }

@@ -30,7 +30,7 @@ public class PaperRuleServiceImpl extends ServiceImpl<PaperRuleDao, PaperRule> i
     }
 
     @Override
-    public List<PaperRuleDTO> list(RuleQuery ruleQuery) {
+    public List<PaperRuleDTO> findAll(RuleQuery ruleQuery) {
         return paperRuleDao.findAll(ruleQuery);
     }
 

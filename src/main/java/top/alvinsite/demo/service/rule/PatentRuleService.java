@@ -6,9 +6,8 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
-public interface PatentRuleService extends IRuleService<PatentRule> {
-    List<PatentRule> list(RuleQuery ruleQuery);
-    void save(List<PatentRule> patentRuleDTOS);
+public interface PatentRuleService extends IRuleService<Patent, PatentRule> {
+    List<PatentRule> findAll(RuleQuery ruleQuery);
     PatentRule findRule(Patent patent);
     float getScore(Patent patent);
 }

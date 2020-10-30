@@ -13,31 +13,14 @@ import top.alvinsite.demo.service.rule.PatentRuleService;
 
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
-
 @Slf4j
 @Service
 public class PatentRuleServiceImpl extends ServiceImpl<PatentRuleDao, PatentRule> implements PatentRuleService {
     @Autowired
     private PatentRuleDao patentRuleDao;
     @Override
-    public List<PatentRule> list(RuleQuery ruleQuery) {
+    public List<PatentRule> findAll(RuleQuery ruleQuery) {
         return patentRuleDao.findAll(ruleQuery);
-    }
-
-    @Override
-    public void save(List<PatentRule> patentRules) {
-        // 删除旧的规则
-        if (patentRules != null && !patentRules.isEmpty()) {
-            PatentRule firstRule =  patentRules.get(0);
-
-            RuleQuery ruleQuery = new RuleQuery();
-            updateProperties(firstRule, ruleQuery);
-            patentRuleDao.delete(ruleQuery);
-        }
-
-        // 保存新的规则
-        patentRuleDao.saveBatch(patentRules);
     }
 
     @Override
