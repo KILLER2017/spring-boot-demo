@@ -97,7 +97,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse handleIllegalArgumentException(Exception e) {
         BaseResponse baseResponse = handleBaseException(e);
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         baseResponse.setStatus(status.value());
         baseResponse.setMessage(e.getMessage());
         return baseResponse;
