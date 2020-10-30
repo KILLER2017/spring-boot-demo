@@ -19,7 +19,7 @@
         select
             bzm as id,
             flmc as title
-        from s_unit
+        from gxky0117
         where ID = #{id}
     </select>
 </mapper>

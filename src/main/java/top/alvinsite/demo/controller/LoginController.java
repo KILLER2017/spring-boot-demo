@@ -96,7 +96,6 @@ public class LoginController {
         try {
             redisTemplate.delete(token);
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("token不存在，直接重定向退出");
         }
         casService.redirectCasLogout(state, response);

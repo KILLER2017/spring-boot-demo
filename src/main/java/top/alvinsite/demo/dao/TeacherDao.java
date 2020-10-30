@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface TeacherDao {
     List<Teacher> findAll();
-    List<SalarySummaryDTO> findAllSalary(PerformanceQuery performanceQuery);
     Teacher findOne(String account);
     List<AdminCandidateDTO> findAdminCandidate(String searchKey);
     List<ManagerUserCandidateDTO> findManagerUserCandidate(String searchKey);

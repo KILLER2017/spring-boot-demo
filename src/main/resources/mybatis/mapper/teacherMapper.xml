@@ -26,24 +26,6 @@
     </select>
 
 
-
-
-    <select id="findAllSalary" resultType="SalarySummaryDTO">
-        select
-            gh,
-            xm
-        from gxjg0101
-        left join gxjg0301 on gxxx0301.gh = gxjg0101.gh
-        left join department on department.id = gxjg0101.dwh
-        <where>
-            gxjg0101.type != 3
-            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
-            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
-            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
-            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
-        </where>
-    </select>
-
     <select id="findOne"  resultMap="teacherResult">
         select
             gh as account,
