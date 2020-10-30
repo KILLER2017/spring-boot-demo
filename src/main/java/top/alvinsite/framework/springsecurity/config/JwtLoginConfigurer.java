@@ -46,6 +46,7 @@ public class JwtLoginConfigurer extends SecurityConfigurerAdapter<DefaultSecurit
     public JwtLoginConfigurer() {
         this.authenticationFilter = new JwtAuthenticationFilter();
         authenticationFilter.setPermissiveUrl("/auth/logout");
+        authenticationFilter.setPermissiveUrl("/auth/protectedLogin");
     }
 
     @Override
