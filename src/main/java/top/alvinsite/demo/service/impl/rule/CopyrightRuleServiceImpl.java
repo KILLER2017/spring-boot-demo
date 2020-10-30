@@ -25,23 +25,23 @@ public class CopyrightRuleServiceImpl extends ServiceImpl<CopyrightRuleDao, Copy
     }
 
     @Override
-    public CopyrightRule findRule(Copyright copyright) {
+    public CopyrightRule findRule(Copyright project) {
         CopyrightRule rule = copyrightRuleDao.selectOne(Wrappers.<CopyrightRule>lambdaQuery()
-                .eq(CopyrightRule::getYear, copyright.getApprovalProjectYear())
-                .eq(CopyrightRule::getDepartment, copyright.getDepartment().getId())
-                .eq(CopyrightRule::getType, copyright.getType())
+                .eq(CopyrightRule::getYear, project.getApprovalProjectYear())
+                .eq(CopyrightRule::getDepartment, project.getDepartment().getId())
+                .eq(CopyrightRule::getType, project.getType())
         );
 
         if (null == rule) {
-            log.info("找不到对应的绩效规则， {}", copyright);
+            log.info("找不到对应的绩效规则， {}", project);
         }
 
         return rule;
     }
 
     @Override
-    public float getScore(Copyright copyright) {
-        CopyrightRule rule = findRule(copyright);
+    public float getScore(Copyright project) {
+        CopyrightRule rule = findRule(project);
         return rule == null ? 0 : rule.getScore();
     }
 }

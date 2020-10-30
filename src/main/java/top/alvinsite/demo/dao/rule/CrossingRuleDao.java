@@ -2,7 +2,6 @@ package top.alvinsite.demo.dao.rule;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
-import top.alvinsite.demo.model.dto.rule.CrossingRuleDTO;
 import top.alvinsite.demo.model.entity.rule.CrossingProjectRule;
 import top.alvinsite.demo.model.params.RuleQuery;
 
@@ -20,6 +19,6 @@ public interface CrossingRuleDao extends BaseMapper<CrossingProjectRule> {
      * @param ruleQuery 过滤条件
      * @return 绩效规则列表
      */
-    List<CrossingRuleDTO> findAll(RuleQuery ruleQuery);
+    List<CrossingProjectRule> findAll(RuleQuery ruleQuery);
 
 }

@@ -32,7 +32,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
 
-        log.info("{}: 登录成功", "默认");
+        log.info("登录成功, {}", objectMapper.writeValueAsString(authentication));
 
         response.setContentType("application/json;charset=UTF-8");
 

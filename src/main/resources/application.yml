@@ -20,6 +20,18 @@ spring:
     hikari:
       max-lifetime: 1800000
 
+  mail:
+    host: smtp.exmail.qq.com
+    username: 20190089@dgut.edu.cn
+    password: Angel123
+    port: 465
+    properties:
+      from: 20190089@dgut.edu.cn
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
 
   redis:
     database: 0
@@ -44,6 +56,11 @@ mybatis-plus:
 logging:
   level:
     root: info
+  file:
+    path: logs
+    max-history: 30
+    max-size: 10MB
+    total-size-cap: 300MB
 
 app:
   domain: csjx.dgut.edu.cn

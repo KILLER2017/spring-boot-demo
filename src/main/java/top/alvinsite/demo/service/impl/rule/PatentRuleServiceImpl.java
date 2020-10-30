@@ -24,25 +24,25 @@ public class PatentRuleServiceImpl extends ServiceImpl<PatentRuleDao, PatentRule
     }
 
     @Override
-    public PatentRule findRule(Patent patent) {
+    public PatentRule findRule(Patent project) {
         PatentRule rule = patentRuleDao.selectOne(Wrappers.<PatentRule>lambdaQuery()
-                .eq(PatentRule::getYear, patent.getApprovalProjectYear())
-                .eq(PatentRule::getDepartment, patent.getDepartment().getId())
-                .eq(PatentRule::getType, patent.getType())
-                .eq(PatentRule::getScope, patent.getScope())
+                .eq(PatentRule::getYear, project.getApprovalProjectYear())
+                .eq(PatentRule::getDepartment, project.getDepartment().getId())
+                .eq(PatentRule::getType, project.getType())
+                .eq(PatentRule::getScope, project.getScope())
         );
 
         if (null == rule) {
-            log.info("找不到对应的绩效规则， {}", patent);
+            log.info("找不到对应的绩效规则， {}", project);
         }
 
         return rule;
     }
 
     @Override
-    public float getScore(Patent patent) {
+    public float getScore(Patent project) {
         // 读取计分规则
-        PatentRule rule = findRule(patent);
+        PatentRule rule = findRule(project);
         return rule == null ? 0 : rule.getScore();
     }
 }

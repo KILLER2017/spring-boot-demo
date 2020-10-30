@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.rule.PaperRuleDao">
 
-    <select id="findAll"  parameterType="RuleQuery" resultType="top.alvinsite.demo.model.dto.rule.PaperRuleDTO">
+    <select id="findAll"  parameterType="RuleQuery" resultType="PaperRule">
         select
             paper_rule.id,
             paper_rule.department,

@@ -26,37 +26,37 @@ public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao
     }
 
     @Override
-    public LongitudinalProjectRule findRule(LongitudinalProject longitudinalProject) {
+    public LongitudinalProjectRule findRule(LongitudinalProject project) {
         LongitudinalProjectRule rule = longitudinalRuleDao.selectOne(Wrappers.<LongitudinalProjectRule>lambdaQuery()
-                .eq(LongitudinalProjectRule::getYear, longitudinalProject.getApprovalProjectYear())
-                .eq(LongitudinalProjectRule::getDepartment, longitudinalProject.getDepartment().getId())
-                .eq(LongitudinalProjectRule::getType, longitudinalProject.getType().getId())
-                .eq(LongitudinalProjectRule::getLevel, longitudinalProject.getLevel()
+                .eq(LongitudinalProjectRule::getYear, project.getApprovalProjectYear())
+                .eq(LongitudinalProjectRule::getDepartment, project.getDepartment().getId())
+                .eq(LongitudinalProjectRule::getType, project.getType().getId())
+                .eq(LongitudinalProjectRule::getLevel, project.getLevel()
                 ));
 
         if (null == rule) {
-            log.info("找不到对应的绩效规则， {}", longitudinalProject);
+            log.info("找不到对应的绩效规则， {}", project);
         }
 
         return rule;
     }
 
     @Override
-    public float getScore(LongitudinalProject longitudinalProject) {
+    public float getScore(LongitudinalProject project) {
         // 读取计分规则
-        LongitudinalProjectRule rule = findRule(longitudinalProject);
+        LongitudinalProjectRule rule = findRule(project);
 
         // 计算项目总分
         float budgetScore = 0f;
         float projectScore = 0f;
 
         if (rule != null) {
-            budgetScore = longitudinalProject.getBudget() * rule.getBudgetScoreFactor();
+            budgetScore = project.getBudget() * rule.getBudgetScoreFactor();
             projectScore = rule.getProjectScore();
         }
-        longitudinalProject.setBudgetScore(budgetScore);
-        longitudinalProject.setProjectScore(projectScore);
-        longitudinalProject.setScore(budgetScore + projectScore);
+        project.setBudgetScore(budgetScore);
+        project.setProjectScore(projectScore);
+        project.setScore(budgetScore + projectScore);
         return budgetScore + projectScore;
     }
 }

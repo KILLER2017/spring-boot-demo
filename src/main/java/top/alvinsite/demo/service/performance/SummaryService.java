@@ -6,6 +6,10 @@ import top.alvinsite.demo.model.params.PerformanceQuery;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 public interface SummaryService extends IService<ResearcherPerformance>, BasePerformanceService {
+    @Override
     List<ResearcherPerformance> findAll(PerformanceQuery performanceQuery);
 }

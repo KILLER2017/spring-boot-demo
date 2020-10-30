@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.rule.PaperRuleDao;
-import top.alvinsite.demo.model.dto.rule.PaperRuleDTO;
 import top.alvinsite.demo.model.entity.performance.Paper;
 import top.alvinsite.demo.model.entity.rule.PaperRule;
 import top.alvinsite.demo.model.entity.type.PaperType;
@@ -30,21 +29,21 @@ public class PaperRuleServiceImpl extends ServiceImpl<PaperRuleDao, PaperRule> i
     }
 
     @Override
-    public List<PaperRuleDTO> findAll(RuleQuery ruleQuery) {
+    public List<PaperRule> findAll(RuleQuery ruleQuery) {
         return paperRuleDao.findAll(ruleQuery);
     }
 
 
     @Override
-    public PaperRule findRule(Paper paper) {
+    public PaperRule findRule(Paper project) {
         PaperRule rule = paperRuleDao.selectOne(Wrappers.<PaperRule>lambdaQuery()
-                .eq(PaperRule::getYear, paper.getApprovalProjectYear())
-                .eq(PaperRule::getDepartment, paper.getDepartment().getId())
+                .eq(PaperRule::getYear, project.getApprovalProjectYear())
+                .eq(PaperRule::getDepartment, project.getDepartment().getId())
                 .eq(PaperRule::getType, "")
         );
 
         if (null == rule) {
-            log.info("找不到对应的绩效规则， {}", paper);
+            log.info("找不到对应的绩效规则， {}", project);
         }
 
         return rule;
@@ -66,13 +65,13 @@ public class PaperRuleServiceImpl extends ServiceImpl<PaperRuleDao, PaperRule> i
     }
 
     @Override
-    public float getScore(Paper paper) {
+    public float getScore(Paper project) {
         // 读取计分规则
         List<Float> scores = new ArrayList<>();
 
-        int year = paper.getApprovalProjectYear();
-        String department = paper.getDepartment().getId();
-        for (PaperType type : paper.getPublicationType()) {
+        int year = project.getApprovalProjectYear();
+        String department = project.getDepartment().getId();
+        for (PaperType type : project.getPublicationType()) {
             PaperRule rule = findRule(year, department, type.getId());
             float score = rule == null ? 0 : rule.getScore();
             scores.add(score);

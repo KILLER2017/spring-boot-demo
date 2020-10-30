@@ -24,24 +24,24 @@ public class AwardedRuleServiceImpl extends ServiceImpl<AwardedRuleDao, AwardedR
 
 
     @Override
-    public AwardedRule findRule(Awarded awarded) {
+    public AwardedRule findRule(Awarded project) {
         AwardedRule rule = baseMapper.selectOne(Wrappers.<AwardedRule>lambdaQuery()
-                .eq(AwardedRule::getYear, awarded.getApprovalProjectYear())
-                .eq(AwardedRule::getDepartment, awarded.getDepartment().getId())
-                .eq(AwardedRule::getLevel, awarded.getLevel())
-                .eq(AwardedRule::getGrade, awarded.getGrade())
+                .eq(AwardedRule::getYear, project.getApprovalProjectYear())
+                .eq(AwardedRule::getDepartment, project.getDepartment().getId())
+                .eq(AwardedRule::getLevel, project.getLevel())
+                .eq(AwardedRule::getGrade, project.getGrade())
         );
 
         if (null == rule) {
-            log.info("找不到对应的绩效规则， {}", awarded);
+            log.info("找不到对应的绩效规则， {}", project);
         }
 
         return rule;
     }
 
     @Override
-    public float getScore(Awarded awarded) {
-        AwardedRule rule = findRule(awarded);
+    public float getScore(Awarded project) {
+        AwardedRule rule = findRule(project);
         return rule == null ? 0 : rule.getScore();
     }
 }

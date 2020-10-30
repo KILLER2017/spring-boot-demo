@@ -42,30 +42,30 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
     }
 
     @Override
-    public LiteratureRule findRule(Literature literature) {
+    public LiteratureRule findRule(Literature project) {
         LiteratureRule rule = baseMapper.selectOne(Wrappers.<LiteratureRule>lambdaQuery()
-                .eq(LiteratureRule::getYear, literature.getApprovalProjectYear())
-                .eq(LiteratureRule::getDepartment, literature.getDepartment().getId())
-                .eq(LiteratureRule::getType, literature.getType())
-                .eq(LiteratureRule::getPublisherLevel, literature.getPublisherLevel())
-                .le(LiteratureRule::getMin, literature.getWordCount())
-                .gt(LiteratureRule::getMax, literature.getWordCount())
+                .eq(LiteratureRule::getYear, project.getApprovalProjectYear())
+                .eq(LiteratureRule::getDepartment, project.getDepartment().getId())
+                .eq(LiteratureRule::getType, project.getType())
+                .eq(LiteratureRule::getPublisherLevel, project.getPublisherLevel())
+                .le(LiteratureRule::getMin, project.getWordCount())
+                .gt(LiteratureRule::getMax, project.getWordCount())
         );
 
         if (null == rule) {
-            log.info("找不到对应的绩效规则， {}", literature);
+            log.info("找不到对应的绩效规则， {}", project);
         }
 
         return rule;
     }
 
     @Override
-    public float getScore(Literature literature) {
+    public float getScore(Literature project) {
         float score = 0;
-        score += getBasicScore(literature);
-        score += getFundingSourceScore(literature);
-        score += getTopicWithDongguanScore(literature);
-        score *= getRevisedScore(literature);
+        score += getBasicScore(project);
+        score += getFundingSourceScore(project);
+        score += getTopicWithDongguanScore(project);
+        score *= getRevisedScore(project);
         return score;
     }
 

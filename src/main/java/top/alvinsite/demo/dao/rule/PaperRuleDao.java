@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-import top.alvinsite.demo.model.dto.rule.PaperRuleDTO;
 import top.alvinsite.demo.model.entity.rule.PaperRule;
 import top.alvinsite.demo.model.params.RuleQuery;
 
@@ -18,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public interface PaperRuleDao extends BaseMapper<PaperRule> {
-    List<PaperRuleDTO> findAll(RuleQuery ruleQuery);
+    List<PaperRule> findAll(RuleQuery ruleQuery);
 
 
     @Select("    select\n" +

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.rule.CrossingRuleDao">
-    <select id="findAll" parameterType="top.alvinsite.demo.model.params.RuleQuery" resultType="top.alvinsite.demo.model.dto.rule.CrossingRuleDTO">
+    <select id="findAll" parameterType="top.alvinsite.demo.model.params.RuleQuery" resultType="CrossingProjectRule">
         select
         *
         from crossing_project_rule

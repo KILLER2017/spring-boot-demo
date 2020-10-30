@@ -2,12 +2,11 @@ package top.alvinsite.demo.service.rule;
 
 import top.alvinsite.demo.model.entity.performance.Patent;
 import top.alvinsite.demo.model.entity.rule.PatentRule;
-import top.alvinsite.demo.model.params.RuleQuery;
 
-import java.util.List;
-
+/**
+ * 专利成果绩效规则服务接口
+ * @author Alvin
+ */
 public interface PatentRuleService extends IRuleService<Patent, PatentRule> {
-    List<PatentRule> findAll(RuleQuery ruleQuery);
-    PatentRule findRule(Patent patent);
-    float getScore(Patent patent);
+
 }

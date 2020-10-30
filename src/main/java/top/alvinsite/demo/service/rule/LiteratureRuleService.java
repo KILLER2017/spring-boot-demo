@@ -9,10 +9,13 @@ import top.alvinsite.demo.model.params.RuleQuery;
 
 import java.util.List;
 
+/**
+ * 著作成果绩效规则服务接口
+ * @author Alvin
+ */
 public interface LiteratureRuleService extends IRuleService<Literature, LiteratureRule> {
-    List<LiteratureRule> findAll(RuleQuery ruleQuery);
-    LiteratureRule findRule(Literature literature);
-    float getScore(Literature literature);
+
+
     List<LiteratureRuleFundingSource> getFundingSourceRules(RuleQuery ruleQuery);
     List<LiteratureRuleTopicWithDongguan> getTopicWithDongguanRules(RuleQuery ruleQuery);
     List<LiteratureRuleRevised> getRevisedRules(RuleQuery ruleQuery);

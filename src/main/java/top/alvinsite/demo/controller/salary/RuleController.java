@@ -25,8 +25,8 @@ public class RuleController {
     @Autowired
     private RuleService ruleService;
 
-    @GetMapping
-    public List<Rule> list(Integer year) {
+    @GetMapping("{year}")
+    public List<Rule> list(@PathVariable Integer year) {
         Assert.notNull(year, "year must be not null");
         return ruleService.list(year);
     }
