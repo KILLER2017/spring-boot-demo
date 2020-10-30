@@ -1,5 +1,8 @@
 package top.alvinsite.demo.model.entity.salary;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +18,10 @@ import javax.validation.constraints.NotNull;
 @Alias("Rule")
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "salary_rule")
 public class Rule {
+
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @NotNull

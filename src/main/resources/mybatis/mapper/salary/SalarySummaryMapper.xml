@@ -38,7 +38,7 @@
                 </foreach>
             </if>
         </where>
-        order by gxjg0101.dwh, gxjg0101.gh
+        order by salary_summaries.update_time, gxjg0101.dwh, gxjg0101.gh
     </select>
 
     <select id="findOneByAccountAndYear"  resultType="SalarySummary">

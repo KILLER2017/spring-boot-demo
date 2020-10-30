@@ -48,17 +48,4 @@
         </foreach>
         ON DUPLICATE KEY UPDATE year=values(year), type=values(type), post_type=values(post_type), alias=values(alias), rule=values(rule)
     </insert>
-
-    <delete id="delete">
-        delete from salary_rule
-        where id = #{id}
-    </delete>
-
-    <delete id="deleteByIds">
-        delete from salary_rule
-        where id in
-        <foreach collection="array" item="outputId" open="(" separator="," close=")">
-            #{outputId}
-        </foreach>
-    </delete>
 </mapper>

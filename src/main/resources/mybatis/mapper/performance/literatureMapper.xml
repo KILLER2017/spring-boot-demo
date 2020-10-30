@@ -61,7 +61,7 @@
         </where>
     </select>
 
-    <select id="findAuthorsById"  parameterType="String" resultType="ManagerUserDTO">
+    <select id="findAuthorsById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
         SELECT
             gxjg0101.xm as nickname,
             gxjg0101.gh as account

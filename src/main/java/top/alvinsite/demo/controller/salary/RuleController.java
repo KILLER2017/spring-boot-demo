@@ -1,7 +1,9 @@
 package top.alvinsite.demo.controller.salary;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +31,19 @@ public class RuleController {
         return ruleService.list(year);
     }
 
-    @PostMapping
-    public void save(String deleteIds, @RequestBody @Valid List<Rule> rules) {
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping("{year}")
+    public void save(@PathVariable Integer year, @RequestBody @Valid List<Rule> rules) {
         Assert.notEmpty(rules, "请添加规则后再进行保存");
-        ruleService.saveBatch(deleteIds, rules);
+        if (year != null) {
+            ruleService.remove(Wrappers.<Rule>lambdaQuery().eq(Rule::getYear , year));
+        }
+
+        ruleService.saveBatch(rules);
     }
 
     @GetMapping("delete")
     public void delete(String[] id) {
-        ruleService.delete(id);
+        ruleService.removeById(id);
     }
 }

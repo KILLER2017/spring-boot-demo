@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.jexl3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.alvinsite.demo.dao.salary.LevelFactorDao;
@@ -86,14 +85,25 @@ public class SummaryController {
 
         LevelFactorParam levelFactorParam = new LevelFactorParam(salarySummary.getType(), salarySummary.getLevel());
         LevelFactor levelFactor = levelFactorDao.findOneByTypeAndLevel(levelFactorParam);
-        Assert.notNull(levelFactor, "对应级差系数不能为空：" + levelFactorParam);
+
+        // Assert.notNull(levelFactor, "对应级差系数不能为空：" + levelFactorParam);
+        if (levelFactor == null) {
+            log.error("对应级差系数不能为空：{}", levelFactorParam);
+            return salarySummary;
+        }
+
         // 级差系数
         jexlContext.set("d", levelFactor.getFactor());
 
         WorkloadTargetParam workloadTargetParam = new WorkloadTargetParam(salarySummary.getLevel(), salarySummary.getPostType());
         WorkloadTarget workloadTarget = workloadTargetDao.findOneByLevelAndPostType(workloadTargetParam);
 
-        Assert.notNull(workloadTarget, "对应目标工作量不能为空：" + workloadTargetParam);
+        // Assert.notNull(workloadTarget, "对应目标工作量不能为空：" + workloadTargetParam);
+        if (workloadTarget == null) {
+            log.error("对应目标工作量不能为空：{}", workloadTargetParam);
+            return salarySummary;
+        }
+
         // 年度目标教学工作量
         jexlContext.set("e", workloadTarget.getTeachingWorkloadTarget());
         // 年度目标科研工作量
@@ -103,8 +113,11 @@ public class SummaryController {
 
         Rule rule = ruleDao.findOne(new SalaryRuleParam(year, salarySummary.getPost(), salarySummary.getPostType()));
 
-
-        Assert.notNull(rule, String.format("对应计算规则不能为空：规则（年份：%n，系列岗位：%s，岗位类型：%s）", year, salarySummary.getPost(), salarySummary.getPostType()));
+        // Assert.notNull(rule, String.format("对应计算规则不能为空：规则（年份：%d，系列岗位：%s，岗位类型：%s）", year, salarySummary.getPost(), salarySummary.getPostType()));
+        if (rule == null) {
+            log.error("对应计算规则不能为空：规则（年份：{}，系列岗位：{}，岗位类型：{}）", year, salarySummary.getPost(), salarySummary.getPostType());
+            return salarySummary;
+        }
 
         JexlEngine jexlEngine = new JexlBuilder().create();
         JexlExpression jexlExpression = jexlEngine.createExpression(rule.getRule());
