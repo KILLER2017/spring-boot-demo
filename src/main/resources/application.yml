@@ -1,6 +1,8 @@
 spring:
   application:
-    name: demo
+    name: performance
+    admin:
+      enabled:
 
 
   datasource:
@@ -39,6 +41,21 @@ spring:
     port: 6379
     password: candy.123
 
+  boot:
+    admin:
+      client:
+        # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
+        url: http://localhost:8100
+        instance:
+          prefer-ip: true
+          metadata:
+            username: admin
+            password: candy.123
+          name: 科研绩效
+        register-once: false
+        username: admin
+        password: candy.123
+
 mybatis-plus:
   # configuration:
     # default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
@@ -51,8 +68,6 @@ mybatis-plus:
   global-config:
     banner: false
 
-
-
 logging:
   level:
     root: info
@@ -61,6 +76,7 @@ logging:
     max-history: 30
     max-size: 10MB
     total-size-cap: 300MB
+    name: logs/application.log
 
 app:
   domain: csjx.dgut.edu.cn
@@ -75,10 +91,15 @@ cas:
     logout-url: https://${cas.dgut.domain}/logout?callback=
     check-token: https://${cas.dgut.domain}/ssoapi/v2/checkToken
     user-info-server: https://${cas.dgut.domain}/oauth/getUserInfo
-xcz:
-  permission:
-    enable: false
 
-  parameter:
-    enable: false
 debug: false
+
+#需要暴露监控端口给spring boot admin server访问
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

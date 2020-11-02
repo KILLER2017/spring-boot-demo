@@ -19,11 +19,15 @@ import top.alvinsite.demo.core.converter.StringToUserInfoConverter;
 @ComponentScan(basePackages = "top.alvinsite.demo.controller")
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    @Autowired
     StringToUserInfoConverter stringToUserInfoConverter;
 
-    @Autowired
     EnumConvertFactory enumConvertFactory;
+
+    @Autowired
+    public WebMvcConfiguration(StringToUserInfoConverter stringToUserInfoConverter, EnumConvertFactory enumConvertFactory) {
+        this.stringToUserInfoConverter = stringToUserInfoConverter;
+        this.enumConvertFactory = enumConvertFactory;
+    }
 
     @Override
     public void addFormatters(@NonNull FormatterRegistry registry) {

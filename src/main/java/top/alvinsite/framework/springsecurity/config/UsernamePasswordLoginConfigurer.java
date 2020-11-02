@@ -50,7 +50,7 @@ public class UsernamePasswordLoginConfigurer extends SecurityConfigurerAdapter<D
     }
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) {
         authenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         authenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);

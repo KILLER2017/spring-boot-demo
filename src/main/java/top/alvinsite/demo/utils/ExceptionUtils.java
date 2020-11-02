@@ -1,7 +1,12 @@
 package top.alvinsite.demo.utils;
 
+import top.alvinsite.framework.mail.Mail;
+import top.alvinsite.framework.springsecurity.entity.User;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.UUID;
 
 /**
  * Exception utilities.
@@ -29,5 +34,45 @@ public class ExceptionUtils {
         final PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
+    }
+
+    public static Mail buildMail(final Throwable throwable, final User user, final HttpServletRequest request) {
+        Mail mail = new Mail();
+        mail.setId(UUID.randomUUID().toString());
+        mail.setTo("543046534@qq.com");
+        mail.setSubject("科研绩效 | 未知异常：" + throwable.getMessage());
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("异常类型：").append(throwable).append("\n")
+                .append("异常信息：").append(throwable.getMessage()).append("\n");
+
+        stringBuilder.append(getLoginUserInfo(user));
+        stringBuilder.append(getRequestInfo(request));
+
+        stringBuilder.append("异常跟踪：\n").append(getStackTrace(throwable)).append("\n");
+
+        mail.setText(stringBuilder.toString());
+        return mail;
+    }
+
+    private static String getLoginUserInfo(User user) {
+        StringBuilder builder = new StringBuilder();
+        if (user != null) {
+            builder.append("请求用户：").append(user.getUsername()).append("\n")
+                    .append("用户权限").append(user.getAuthorities()).append("\n");
+        }
+        return builder.toString();
+    }
+
+    private static String getRequestInfo(HttpServletRequest request) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("请求URI：").append(request.getRequestURI()).append("\n")
+                .append("请求方式：").append(request.getMethod()).append("\n")
+                .append("query参数：").append(request.getQueryString()).append("\n")
+                .append("authorization：").append(request.getHeader("authorization")).append("\n")
+                .append("GET参数：").append(request.getParameterMap()).append("\n");
+
+
+        return builder.toString();
     }
 }

@@ -3,9 +3,11 @@ package top.alvinsite.demo.core;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -18,8 +20,12 @@ import top.alvinsite.demo.exception.ForbiddenException;
 import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.demo.utils.ExceptionUtils;
 import top.alvinsite.demo.utils.ValidationUtils;
+import top.alvinsite.framework.mail.Mail;
+import top.alvinsite.framework.mail.service.MailService;
+import top.alvinsite.framework.springsecurity.entity.User;
 import xcz.exception.AuthException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import java.util.Map;
 
@@ -32,6 +38,9 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class ControllerExceptionHandler {
+
+    @Autowired
+    private MailService mailService;
 
     @ExceptionHandler(MybatisPlusException.class)
     @ResponseStatus(HttpStatus.OK)
@@ -149,7 +158,12 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse handleGlobalException(Exception e) {
+    public BaseResponse handleGlobalException(Exception e, @AuthenticationPrincipal User user, HttpServletRequest request) {
+
+        // 发送未知异常告警邮件
+        Mail mail = ExceptionUtils.buildMail(e, user, request);
+        mailService.sendMail(mail);
+
         BaseResponse baseResponse = handleBaseException(e);
         log.info(e.getMessage());
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;

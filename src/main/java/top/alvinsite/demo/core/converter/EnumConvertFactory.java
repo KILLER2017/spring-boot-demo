@@ -8,23 +8,26 @@ import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.stereotype.Component;
 import top.alvinsite.demo.utils.EnumUtil;
 
+/**
+ * @author Alvin
+ */
 @Component
 public class EnumConvertFactory implements ConverterFactory<String, IEnum> {
     @Override
     public <T extends IEnum> Converter<String, T> getConverter(Class<T> targetType) {
-        return new StringToIEum<>(targetType);
+        return new stringToIEum<>(targetType);
     }
 
-    private static class StringToIEum<T extends IEnum> implements Converter<String, T> {
-        private Class<T> targerType;
+    private static class stringToIEum<T extends IEnum> implements Converter<String, T> {
+        private Class<T> targetType;
 
         /**
          * Instantiates a new String to i eum.
          *
-         * @param targerType the targer type
+         * @param targetType the target type
          */
-        public StringToIEum(Class<T> targerType) {
-            this.targerType = targerType;
+        public stringToIEum(Class<T> targetType) {
+            this.targetType = targetType;
         }
 
         @Override
@@ -32,7 +35,7 @@ public class EnumConvertFactory implements ConverterFactory<String, IEnum> {
             if (StringUtils.isBlank(source)) {
                 return null;
             }
-            return (T) EnumUtil.getIEnum(this.targerType, source);
+            return (T) EnumUtil.getIEnum(this.targetType, source);
         }
     }
 }

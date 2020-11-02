@@ -84,8 +84,9 @@ public class TestController {
     }
 
     @RequestMapping("test3")
-    public ProjectLevel test3(ProjectLevel level) {
-        return level;
+    public ProjectLevel test3(ProjectLevel level) throws Exception {
+        throw new Exception("test");
+        // return level;
     }
 
     /**
