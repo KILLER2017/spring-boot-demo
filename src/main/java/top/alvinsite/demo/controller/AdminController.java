@@ -33,10 +33,9 @@ public class AdminController {
     private TeacherDao teacherDao;
 
     @GetMapping
-    public PageInfo<AdminDTO> getAdminList(Page page, PerformanceQuery performanceQuery) throws Exception {
-        throw new Exception("邮件测试");
-        // PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        // return new PageInfo<>(adminDao.findAll(performanceQuery));
+    public PageInfo<AdminDTO> getAdminList(Page page, PerformanceQuery performanceQuery) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        return new PageInfo<>(adminDao.findAll(performanceQuery));
     }
 
     @PostMapping

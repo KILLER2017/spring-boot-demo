@@ -34,3 +34,13 @@ logging:
     root: info
     top.alvinsite.demo.controller: info
     top.alvinsite.demo.core: debug
+
+#需要暴露监控端口给spring boot admin server访问
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
