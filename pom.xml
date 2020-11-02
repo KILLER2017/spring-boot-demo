@@ -199,6 +199,7 @@
                 <configuration>
                     <fork>true</fork>
                     <mainClass>top.alvinsite.Application</mainClass>
+                    <executable>true</executable>
                 </configuration>
             </plugin>
         </plugins>
