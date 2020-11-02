@@ -59,7 +59,7 @@ public class ExceptionUtils {
         StringBuilder builder = new StringBuilder();
         if (user != null) {
             builder.append("请求用户：").append(user.getUsername()).append("\n")
-                    .append("用户权限").append(user.getAuthorities()).append("\n");
+                    .append("用户权限：").append(user.getAuthorities()).append("\n");
         }
         return builder.toString();
     }
@@ -70,8 +70,7 @@ public class ExceptionUtils {
                 .append("请求方式：").append(request.getMethod()).append("\n")
                 .append("query参数：").append(request.getQueryString()).append("\n")
                 .append("authorization：").append(request.getHeader("authorization")).append("\n")
-                .append("GET参数：").append(request.getParameterMap()).append("\n");
-
+                .append("GET参数：").append(request.getParameterMap().toString()).append("\n");
 
         return builder.toString();
     }

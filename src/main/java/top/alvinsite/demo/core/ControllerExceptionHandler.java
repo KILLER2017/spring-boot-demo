@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
+import top.alvinsite.demo.config.properties.AppProperties;
 import top.alvinsite.demo.exception.ForbiddenException;
 import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.demo.utils.ExceptionUtils;
@@ -23,7 +24,6 @@ import top.alvinsite.demo.utils.ValidationUtils;
 import top.alvinsite.framework.mail.Mail;
 import top.alvinsite.framework.mail.service.MailService;
 import top.alvinsite.framework.springsecurity.entity.User;
-import xcz.exception.AuthException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -38,6 +38,9 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class ControllerExceptionHandler {
+
+    @Autowired
+    private AppProperties appProperties;
 
     @Autowired
     private MailService mailService;
@@ -112,16 +115,6 @@ public class ControllerExceptionHandler {
         return baseResponse;
     }
 
-    @ExceptionHandler(AuthException.class)
-    @ResponseStatus(HttpStatus.OK)
-    public BaseResponse handleAuthException(Exception e) {
-        BaseResponse baseResponse = handleBaseException(e);
-        HttpStatus status = HttpStatus.UNAUTHORIZED;
-        baseResponse.setStatus(status.value());
-        baseResponse.setMessage(status.getReasonPhrase());
-        return baseResponse;
-    }
-
     @ExceptionHandler(ForbiddenException.class)
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse handleForbiddenException(Exception e) {
@@ -161,8 +154,10 @@ public class ControllerExceptionHandler {
     public BaseResponse handleGlobalException(Exception e, @AuthenticationPrincipal User user, HttpServletRequest request) {
 
         // 发送未知异常告警邮件
-        Mail mail = ExceptionUtils.buildMail(e, user, request);
-        mailService.sendMail(mail);
+        if (appProperties.isEnableUnknownExceptionMailAlert()) {
+            Mail mail = ExceptionUtils.buildMail(e, user, request);
+            mailService.sendMail(mail);
+        }
 
         BaseResponse baseResponse = handleBaseException(e);
         log.info(e.getMessage());

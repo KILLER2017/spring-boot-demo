@@ -4,7 +4,6 @@ spring:
     admin:
       enabled:
 
-
   datasource:
     #url: jdbc:mysql://localhost:3306/research_performance?serverTimezone=UTC
     #username: root
@@ -34,7 +33,6 @@ spring:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
 
-
   redis:
     database: 0
     host: 172.31.150.19
@@ -55,6 +53,7 @@ spring:
         register-once: false
         username: admin
         password: candy.123
+        enabled: false
 
 mybatis-plus:
   # configuration:
@@ -80,6 +79,8 @@ logging:
 
 app:
   domain: csjx.dgut.edu.cn
+  enable-username-password-login: false
+  enable-unknown-exception-mail-alert: true
 
 cas:
   dgut:

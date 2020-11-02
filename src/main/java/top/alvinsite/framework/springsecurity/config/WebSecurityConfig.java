@@ -1,5 +1,6 @@
 package top.alvinsite.framework.springsecurity.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,6 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import top.alvinsite.demo.config.properties.AppProperties;
 import top.alvinsite.framework.springsecurity.filter.OptionsRequestFilter;
 
 import java.util.Arrays;
@@ -22,9 +24,13 @@ import java.util.Arrays;
 /**
  * @author Administrator
  */
+@Slf4j
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private AppProperties appProperties;
 
     @Autowired
     protected UsernamePasswordLoginConfigurer usernamePasswordLoginConfigurer;
@@ -62,8 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 new Header("Access-Control-Expose-Headers","Authorization"))))
                 .and()
                 .addFilterAfter(new OptionsRequestFilter(), CorsFilter.class)
-                .apply(usernamePasswordLoginConfigurer)
-                .and()
                 .apply(jwtLoginConfigurer)
                 .and()
                 .apply(casLoginConfigurer)
@@ -74,6 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
                 .and()
                 .sessionManagement().disable();
+
+        if (appProperties.isEnableUsernamePasswordLogin()) {
+            log.info("启用账号密码登录");
+            http.apply(usernamePasswordLoginConfigurer);
+        }
     }
 
 

@@ -26,11 +26,11 @@ cas:
 
 app:
   domain: 127.0.0.1:8080
+  enable-username-password-login: true
+  enable-unknown-exception-mail-alert: false
 
 logging:
   level:
     root: info
-    top.alvinsite.demo.controller: debug
+    top.alvinsite.demo.controller: info
     top.alvinsite.demo.core: debug
-
-debug: false

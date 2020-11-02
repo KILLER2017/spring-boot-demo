@@ -4,6 +4,9 @@ import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+/**
+ * @author Administrator
+ */
 @Data
 @Alias("ResearcherPerformance")
 public class ResearcherPerformance {

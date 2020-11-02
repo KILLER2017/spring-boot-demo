@@ -14,7 +14,7 @@ import top.alvinsite.demo.model.entity.auth.Admin;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.framework.springsecurity.entity.User;
-import xcz.annotation.ParameterClass;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("auth/permission/admin")
-@ParameterClass
 public class AdminController {
     @Autowired
     private AdminDao adminDao;
@@ -34,9 +33,10 @@ public class AdminController {
     private TeacherDao teacherDao;
 
     @GetMapping
-    public PageInfo<AdminDTO> getAdminList(Page page, PerformanceQuery performanceQuery) {
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        return new PageInfo<>(adminDao.findAll(performanceQuery));
+    public PageInfo<AdminDTO> getAdminList(Page page, PerformanceQuery performanceQuery) throws Exception {
+        throw new Exception("邮件测试");
+        // PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        // return new PageInfo<>(adminDao.findAll(performanceQuery));
     }
 
     @PostMapping

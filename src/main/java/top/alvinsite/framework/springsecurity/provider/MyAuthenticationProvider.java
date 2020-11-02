@@ -29,8 +29,7 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider {
 
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return true;
-                // return encodedPassword.equals(rawPassword.toString());
+                return encodedPassword.equals(rawPassword.toString());
             }
         });
     }

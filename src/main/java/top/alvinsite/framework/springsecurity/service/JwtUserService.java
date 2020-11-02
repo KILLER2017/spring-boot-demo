@@ -1,6 +1,7 @@
 package top.alvinsite.framework.springsecurity.service;
 
 import com.auth0.jwt.JWT;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,6 +28,7 @@ import java.util.Set;
 /**
  * @author Alvin
  */
+@Slf4j
 @Service
 public class JwtUserService implements UserDetailsService {
 
@@ -56,6 +58,11 @@ public class JwtUserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
+
+        // 设置密码
+        user.setPassword("linzhou");
+
+
 
         // 获取用户组：系统管理员、机构管理员
         Set<GrantedAuthority> authorities = new HashSet<>();

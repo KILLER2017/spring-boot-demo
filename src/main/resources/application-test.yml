@@ -10,7 +10,6 @@ spring:
     host: 172.31.40.7
     password: candy.123
 
-
 logging:
   level:
     root: info
@@ -18,6 +17,8 @@ logging:
 
 app:
   domain: 172.31.200.1:10300
+  enable-username-password-login: true
+  enable-unknown-exception-mail-alert: false
 
 cas:
   dgut:
@@ -27,5 +28,3 @@ cas:
 server:
   address: 0.0.0.0
   port: 8083
-
-debug: true

@@ -7,7 +7,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,8 +18,8 @@ import top.alvinsite.demo.config.LoginConfig;
  * @author Alvin
  */ // @ConfigurationPropertiesScan
 @EnableConfigurationProperties(LoginConfig.class)
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-// @SpringBootApplication
+// @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
 // 定义MyBatis的扫描
 @MapperScan(
         // 指定扫描包
@@ -28,7 +27,7 @@ import top.alvinsite.demo.config.LoginConfig;
         // 限定注解
         annotationClass = Repository.class
 )
-public class DemoApplication extends SpringBootServletInitializer  {
+public class Application extends SpringBootServletInitializer  {
 
     private static ConfigurableApplicationContext CONTEXT;
 
@@ -37,7 +36,7 @@ public class DemoApplication extends SpringBootServletInitializer  {
         return builder -> builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
     }
     public static void main(String[] args) {
-        CONTEXT = SpringApplication.run(DemoApplication.class, args);
+        CONTEXT = SpringApplication.run(Application.class, args);
     }
 
     /**
@@ -48,7 +47,7 @@ public class DemoApplication extends SpringBootServletInitializer  {
 
         Thread thread = new Thread(() -> {
             CONTEXT.close();
-            CONTEXT = SpringApplication.run(DemoApplication.class, args.getSourceArgs());
+            CONTEXT = SpringApplication.run(Application.class, args.getSourceArgs());
         });
 
         thread.setDaemon(false);
