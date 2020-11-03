@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 /log.path_IS_UNDEFINED/
+/out/artifacts/demo_jar/logs/

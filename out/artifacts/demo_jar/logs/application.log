@@ -20,3 +20,108 @@
 2020-11-02 16:15:27.673  INFO 27056 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
 2020-11-02 16:15:27.765  INFO 27056 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2020-11-02 16:15:27.782  INFO 27056 --- [restartedMain] top.alvinsite.Application                : Started Application in 8.358 seconds (JVM running for 8.882)
+2020-11-02 16:47:17.456  INFO 27056 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-02 16:47:25.228  INFO 22952 --- [restartedMain] top.alvinsite.Application                : Starting Application on DESKTOP-K5MT1OK with PID 22952 (C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar\demo.jar started by Administrator in C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar)
+2020-11-02 16:47:25.231  INFO 22952 --- [restartedMain] top.alvinsite.Application                : No active profile set, falling back to default profiles: default
+2020-11-02 16:47:25.292  INFO 22952 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-11-02 16:47:25.293  INFO 22952 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-11-02 16:47:26.674  INFO 22952 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-02 16:47:26.677  INFO 22952 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-11-02 16:47:26.761  INFO 22952 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 69ms. Found 0 Redis repository interfaces.
+2020-11-02 16:47:27.226  INFO 22952 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'asyncConfig' of type [top.alvinsite.framework.spring.AsyncConfig$$EnhancerBySpringCGLIB$$d8ebf8d4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:47:27.737  INFO 22952 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6679841f' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:47:27.749  INFO 22952 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:47:28.431  INFO 22952 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-11-02 16:47:28.447  INFO 22952 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-11-02 16:47:28.448  INFO 22952 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-11-02 16:47:28.545  INFO 22952 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-11-02 16:47:28.545  INFO 22952 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3252 ms
+2020-11-02 16:47:30.038  WARN 22952 --- [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "top.alvinsite.demo.model.dto.performance.ResearcherPerformance".
+2020-11-02 16:47:31.557  INFO 11060 --- [restartedMain] top.alvinsite.Application                : Starting Application on DESKTOP-K5MT1OK with PID 11060 (C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar\demo.jar started by Administrator in C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar)
+2020-11-02 16:47:31.560  INFO 11060 --- [restartedMain] top.alvinsite.Application                : No active profile set, falling back to default profiles: default
+2020-11-02 16:47:31.627  INFO 11060 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-11-02 16:47:31.628  INFO 11060 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-11-02 16:47:35.307  INFO 22952 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38c2f16a, org.springframework.security.web.context.SecurityContextPersistenceFilter@70d04040, org.springframework.security.web.header.HeaderWriterFilter@59f8bb81, org.springframework.web.filter.CorsFilter@2a9ee042, top.alvinsite.framework.springsecurity.filter.OptionsRequestFilter@407ed73a, top.alvinsite.framework.springsecurity.filter.JwtAuthenticationFilter@1b8e2093, org.springframework.security.web.authentication.logout.LogoutFilter@6bac5d43, top.alvinsite.framework.springsecurity.filter.CasAuthenticationFilter@3b98346f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@2c00fb1e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3051a442, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7502d98c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@147edbd7, org.springframework.security.web.access.ExceptionTranslationFilter@4ffe789c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7d76c243]
+2020-11-02 16:47:35.429  INFO 11060 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-02 16:47:35.433  INFO 11060 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-11-02 16:47:35.537  INFO 11060 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89ms. Found 0 Redis repository interfaces.
+2020-11-02 16:47:35.880  INFO 22952 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-02 16:47:36.807  INFO 11060 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'asyncConfig' of type [top.alvinsite.framework.spring.AsyncConfig$$EnhancerBySpringCGLIB$$14bbe849] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:47:37.906  INFO 22952 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-11-02 16:47:37.944  INFO 22952 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2020-11-02 16:47:38.074  INFO 22952 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-02 16:47:38.098  INFO 22952 --- [restartedMain] top.alvinsite.Application                : Started Application in 13.453 seconds (JVM running for 14.227)
+2020-11-02 16:47:38.235  INFO 11060 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@665b9592' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:47:38.275  INFO 11060 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:47:39.781  INFO 11060 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-11-02 16:47:39.797  INFO 11060 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-11-02 16:47:39.798  INFO 11060 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-11-02 16:47:39.914  INFO 11060 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-11-02 16:47:39.921  INFO 11060 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 8292 ms
+2020-11-02 16:47:42.208  WARN 11060 --- [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "top.alvinsite.demo.model.dto.performance.ResearcherPerformance".
+2020-11-02 16:47:45.595  INFO 11060 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b6a443c, org.springframework.security.web.context.SecurityContextPersistenceFilter@178513a4, org.springframework.security.web.header.HeaderWriterFilter@88d6b18, org.springframework.web.filter.CorsFilter@5f4b5f4e, top.alvinsite.framework.springsecurity.filter.OptionsRequestFilter@3a94be18, top.alvinsite.framework.springsecurity.filter.JwtAuthenticationFilter@2cf9387f, org.springframework.security.web.authentication.logout.LogoutFilter@38155909, top.alvinsite.framework.springsecurity.filter.CasAuthenticationFilter@19c938f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7fa27444, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@706b694d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@40492e85, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@782e7c24, org.springframework.security.web.access.ExceptionTranslationFilter@41f28430, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@339634af]
+2020-11-02 16:47:45.919  INFO 11060 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-02 16:47:46.628  WARN 11060 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2020-11-02 16:47:46.641  INFO 11060 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2020-11-02 16:47:46.728  WARN 11060 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-11-02 16:47:46.746  WARN 11060 --- [restartedMain] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'tomcatMetricsBinder': java.lang.NullPointerException
+2020-11-02 16:47:46.756  INFO 11060 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-02 16:47:46.782  INFO 11060 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-11-02 16:47:46.803  INFO 11060 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-11-02 16:47:46.805 ERROR 11060 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-11-02 16:47:58.695  INFO 27720 --- [restartedMain] top.alvinsite.Application                : Starting Application on DESKTOP-K5MT1OK with PID 27720 (C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar\demo.jar started by Administrator in C:\Users\Administrator\IdeaProjects\demo\out\artifacts\demo_jar)
+2020-11-02 16:47:58.697  INFO 27720 --- [restartedMain] top.alvinsite.Application                : No active profile set, falling back to default profiles: default
+2020-11-02 16:47:58.764  INFO 27720 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-11-02 16:47:58.764  INFO 27720 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-11-02 16:48:00.170  INFO 27720 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-02 16:48:00.173  INFO 27720 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-11-02 16:48:00.256  INFO 27720 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65ms. Found 0 Redis repository interfaces.
+2020-11-02 16:48:00.749  INFO 27720 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'asyncConfig' of type [top.alvinsite.framework.spring.AsyncConfig$$EnhancerBySpringCGLIB$$3656b42d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:48:01.205  INFO 27720 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@28248d23' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:48:01.219  INFO 27720 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-02 16:48:01.970  INFO 27720 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-11-02 16:48:01.984  INFO 27720 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-11-02 16:48:01.985  INFO 27720 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-11-02 16:48:02.057  INFO 27720 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-11-02 16:48:02.058  INFO 27720 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3294 ms
+2020-11-02 16:48:04.034  WARN 27720 --- [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "top.alvinsite.demo.model.dto.performance.ResearcherPerformance".
+2020-11-02 16:48:09.857  INFO 27720 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6dff8aef, org.springframework.security.web.context.SecurityContextPersistenceFilter@756063b8, org.springframework.security.web.header.HeaderWriterFilter@518daf3a, org.springframework.web.filter.CorsFilter@62b60578, top.alvinsite.framework.springsecurity.filter.OptionsRequestFilter@436cceb6, top.alvinsite.framework.springsecurity.filter.JwtAuthenticationFilter@511e1ca4, org.springframework.security.web.authentication.logout.LogoutFilter@5a88dcf, top.alvinsite.framework.springsecurity.filter.CasAuthenticationFilter@8b97101, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@407ed73a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6f4bf4e8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d76c243, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19803a0b, org.springframework.security.web.access.ExceptionTranslationFilter@6ba7b050, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@133de04f]
+2020-11-02 16:48:10.262  INFO 27720 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-02 16:48:11.405  WARN 27720 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2020-11-02 16:48:11.611  INFO 27720 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2020-11-02 16:48:11.830  WARN 27720 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-11-02 16:48:11.857  WARN 27720 --- [restartedMain] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'tomcatMetricsBinder': java.lang.NullPointerException
+2020-11-02 16:48:11.860  INFO 27720 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-02 16:48:11.888  INFO 27720 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-11-02 16:48:11.915  INFO 27720 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-11-02 16:48:11.917 ERROR 27720 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+

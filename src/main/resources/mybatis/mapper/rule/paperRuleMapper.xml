@@ -12,7 +12,7 @@
             DM_PAPER_TYPE.ID AS type,
             paper_rule.score
         from paper_rule
-        left join DM_PAPER_TYPE on gxky0316.lwfl = DM_PAPER_TYPE.id
+        left join DM_PAPER_TYPE on paper_rule.type = DM_PAPER_TYPE.id
         <where>
             <if test="department != null">department = #{department}</if>
             <if test="year != null">and year = #{year}</if>
