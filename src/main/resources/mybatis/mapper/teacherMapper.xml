@@ -42,7 +42,7 @@
         <result property="nickname" column="nickname" />
         <result property="phone" column="yddh" />
         <result property="join" column="join" />
-        <association property="department" javaType="Department">
+        <association property="department" javaType="DepartmentVO">
             <id property="id" column="departmentCode" />
             <result property="title" column="departmentTitle" />
         </association>
@@ -71,7 +71,7 @@
         <result property="nickname" column="nickname" />
         <result property="phone" column="yddh" />
         <result property="join" column="join" />
-        <association property="department" javaType="Department">
+        <association property="department" javaType="DepartmentVO">
             <id property="id" column="departmentCode" />
             <result property="title" column="departmentTitle" />
         </association>
