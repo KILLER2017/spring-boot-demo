@@ -59,7 +59,7 @@
     </select>
 
     <select id="findAuthorsById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
-        SELECT DISTINCT
+        SELECT
             gxjg0101.xm as nickname,
             gxjg0101.gh as account
         FROM gxky0312

@@ -12,10 +12,9 @@ public class Receiver {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    public String receiveMessage(String message) {
+    public void receiveMessage(String message) {
         System.out.println("Received <" + message + ">");
         latch.countDown();
-        return "OK";
     }
 
     public CountDownLatch getLatch() {
