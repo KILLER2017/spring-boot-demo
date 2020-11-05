@@ -11,7 +11,6 @@ import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.demo.model.enums.ProjectLevel;
 import top.alvinsite.demo.utils.ExcelUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,9 +83,15 @@ public class TestController {
     }
 
     @RequestMapping("test3")
-    public ProjectLevel test3(ProjectLevel level) throws Exception {
-        throw new Exception("test");
-        // return level;
+    public void test3(int count) throws Exception {
+        long startTime = System.currentTimeMillis();
+        int result = 0;
+        for (int i = 0; i < count; i++) {
+            result += i;
+        }
+        //获取结束时间
+        long endTime = System.currentTimeMillis();
+        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
     }
 
     /**

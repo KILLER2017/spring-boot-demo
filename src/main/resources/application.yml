@@ -53,6 +53,13 @@ spring:
         password: candy.123
         enabled: false
 
+  rabbitmq:
+    host: 172.31.40.7
+    port: 5672
+    username: alvin
+    password: candy.123
+    virtual-host: test
+
 mybatis-plus:
   # configuration:
     # default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
@@ -91,7 +98,7 @@ cas:
     check-token: https://${cas.dgut.domain}/ssoapi/v2/checkToken
     user-info-server: https://${cas.dgut.domain}/oauth/getUserInfo
 
-debug: false
+
 
 #需要暴露监控端口给spring boot admin server访问
 management:
