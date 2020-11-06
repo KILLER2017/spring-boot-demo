@@ -31,8 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static top.alvinsite.demo.utils.BeanUtils.transformFrom;
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
+import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.utils.BeanUtils.updateProperties;
 
 /**
  * @author Alvin

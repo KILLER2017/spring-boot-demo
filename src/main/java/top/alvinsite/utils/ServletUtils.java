@@ -1,4 +1,4 @@
-package top.alvinsite.demo.utils;
+package top.alvinsite.utils;
 
 import cn.hutool.extra.servlet.ServletUtil;
 import org.springframework.lang.NonNull;

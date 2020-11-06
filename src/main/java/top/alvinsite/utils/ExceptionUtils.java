@@ -1,4 +1,4 @@
-package top.alvinsite.demo.utils;
+package top.alvinsite.utils;
 
 import top.alvinsite.framework.mail.Mail;
 import top.alvinsite.framework.springsecurity.entity.User;

@@ -17,7 +17,7 @@ import top.alvinsite.demo.model.entity.salary.Rule;
 import top.alvinsite.demo.model.entity.salary.SalarySummary;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
 import top.alvinsite.demo.model.params.*;
-import top.alvinsite.demo.utils.ExcelUtils;
+import top.alvinsite.utils.ExcelUtils;
 import top.alvinsite.framework.springsecurity.entity.User;
 
 import javax.servlet.http.HttpServletResponse;

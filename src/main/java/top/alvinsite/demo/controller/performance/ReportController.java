@@ -14,7 +14,7 @@ import top.alvinsite.demo.model.entity.performance.*;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.demo.service.performance.*;
-import top.alvinsite.demo.utils.ExcelUtils;
+import top.alvinsite.utils.ExcelUtils;
 import top.alvinsite.framework.spring.AsyncTaskManager;
 import top.alvinsite.framework.spring.TaskInfo;
 import top.alvinsite.framework.spring.TaskStatusEnum;
@@ -23,7 +23,7 @@ import top.alvinsite.framework.springsecurity.entity.User;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.updateProperties;
+import static top.alvinsite.utils.BeanUtils.updateProperties;
 
 /**
  * @author Alvin

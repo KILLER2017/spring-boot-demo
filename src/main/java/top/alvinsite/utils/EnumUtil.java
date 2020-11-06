@@ -1,4 +1,4 @@
-package top.alvinsite.demo.utils;
+package top.alvinsite.utils;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 

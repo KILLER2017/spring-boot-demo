@@ -11,7 +11,8 @@ import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.demo.utils.ExcelUtils;
+import top.alvinsite.utils.ExcelUtils;
+import top.alvinsite.framework.springsecurity.annotation.rest.AnonymousGetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,7 +83,8 @@ public class TestController {
         return "success";
     }
 
-    @RequestMapping("test3")
+
+    @AnonymousGetMapping("test3")
     public void test3(int count) throws Exception {
         long startTime = System.currentTimeMillis();
         int result = 0;

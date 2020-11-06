@@ -10,7 +10,7 @@ import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.WorkloadTargetParam;
-import top.alvinsite.demo.utils.ExcelUtils;
+import top.alvinsite.utils.ExcelUtils;
 
 import java.util.List;
 

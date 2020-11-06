@@ -22,7 +22,7 @@ import top.alvinsite.framework.springsecurity.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import static top.alvinsite.demo.utils.BeanUtils.transformFromInBatch;
+import static top.alvinsite.utils.BeanUtils.transformFromInBatch;
 
 /**
  * @author Alvin
