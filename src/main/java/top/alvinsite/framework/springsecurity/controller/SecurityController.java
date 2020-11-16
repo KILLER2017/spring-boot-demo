@@ -10,10 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.demo.model.vo.UserInfoVO;
+import top.alvinsite.framework.springsecurity.annotation.rest.AnonymousGetMapping;
 import top.alvinsite.framework.springsecurity.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +73,8 @@ public class SecurityController {
      * @param response 响应
      * @throws IOException IO异常
      */
-    @RequestMapping(value = "login", method = {RequestMethod.POST, RequestMethod.GET})
+
+    @AnonymousGetMapping(value = "login")
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 获取标记,判断是前台还是后台
         String state = request.getParameter("state");

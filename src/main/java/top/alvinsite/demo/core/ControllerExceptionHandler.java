@@ -3,6 +3,7 @@ package top.alvinsite.demo.core;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.jexl3.JexlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
 import top.alvinsite.demo.config.properties.AppProperties;
 import top.alvinsite.demo.exception.ForbiddenException;
+import top.alvinsite.demo.exception.MyJexlExpression;
 import top.alvinsite.demo.model.support.BaseResponse;
-import top.alvinsite.utils.ExceptionUtils;
-import top.alvinsite.utils.ValidationUtils;
 import top.alvinsite.framework.mail.Mail;
 import top.alvinsite.framework.mail.service.MailService;
 import top.alvinsite.framework.springsecurity.entity.User;
+import top.alvinsite.utils.ExceptionUtils;
+import top.alvinsite.utils.ValidationUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -52,6 +54,39 @@ public class ControllerExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         baseResponse.setStatus(status.value());
         baseResponse.setMessage(e.getMessage());
+        return baseResponse;
+    }
+
+    @ExceptionHandler(MyJexlExpression.class)
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse handleMyJexlExpression(Exception e) {
+        BaseResponse baseResponse = handleBaseException(e);
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        baseResponse.setStatus(status.value());
+
+        String errorMessage = e.getMessage();
+
+        errorMessage = errorMessage.replaceAll("a", "[激励绩效工资]");
+        errorMessage = errorMessage.replaceAll("b", "[超课时津贴]");
+        errorMessage = errorMessage.replaceAll("c", "[岗位津贴]");
+        errorMessage = errorMessage.replaceAll("d", "[级差系数]");
+        errorMessage = errorMessage.replaceAll("e", "[年度目标教学工作量]");
+        errorMessage = errorMessage.replaceAll("f", "[年度目标科研工作量]");
+        errorMessage = errorMessage.replaceAll("g", "[实际教学工作量]");
+        errorMessage = errorMessage.replaceAll("h", "[实际科研工作量]");
+        errorMessage = errorMessage.replaceAll("i", "[个人实际民主测评值]");
+
+        baseResponse.setMessage(errorMessage);
+        return baseResponse;
+    }
+
+    @ExceptionHandler(JexlException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse handleJexlException(Exception e) {
+        BaseResponse baseResponse = handleBaseException(e);
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        baseResponse.setStatus(status.value());
+        baseResponse.setMessage(e.getLocalizedMessage());
         return baseResponse;
     }
 

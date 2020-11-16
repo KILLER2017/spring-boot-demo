@@ -12,6 +12,7 @@ import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.RuleDao;
 import top.alvinsite.demo.dao.salary.SalarySummaryDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
+import top.alvinsite.demo.exception.MyJexlExpression;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.entity.salary.Rule;
 import top.alvinsite.demo.model.entity.salary.SalarySummary;
@@ -120,8 +121,14 @@ public class SummaryController {
         }
 
         JexlEngine jexlEngine = new JexlBuilder().create();
-        JexlExpression jexlExpression = jexlEngine.createExpression(rule.getRule());
-        salarySummary.setPerformanceWage((double)jexlExpression.evaluate(jexlContext));
+        try {
+            JexlExpression jexlExpression = jexlEngine.createExpression(rule.getRule());
+            salarySummary.setPerformanceWage((double)jexlExpression.evaluate(jexlContext));
+        } catch (JexlException e) {
+
+            String errorMessage = String.format("%s年，%s系列岗位，%s岗位类型的规则（%s）不合法", year, salarySummary.getPost(), salarySummary.getPostType(), rule.getRule());
+            throw new MyJexlExpression(errorMessage);
+        }
 
         double totalSalary = salarySummary.getPerformanceWage()
                 + salarySummary.getIncentiveWage()
