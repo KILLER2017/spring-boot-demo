@@ -18,7 +18,7 @@ logging:
 app:
   domain: 172.31.200.1:10300
   enable-username-password-login: true
-  enable-unknown-exception-mail-alert: false
+  enable-unknown-exception-mail-alert: true
 
 cas:
   dgut:
