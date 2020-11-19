@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8085
 
 spring:
   datasource:
@@ -28,13 +28,13 @@ cas:
     app-secret: 63ea3412464a
 
 app:
-  domain: 127.0.0.1:8080
+  domain: 172.31.200.1:10301
   enable-username-password-login: true
   enable-unknown-exception-mail-alert: false
 
 logging:
   level:
-    root: info
-    top.alvinsite.demo.controller: info
+    root: debug
+    top.alvinsite.demo.controller: debug
     top.alvinsite.demo.core: debug
-
+debug: true

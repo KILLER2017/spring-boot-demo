@@ -16,7 +16,7 @@ logging:
     top.alvinsite.demo: debug
 
 app:
-  domain: 172.31.200.1:10300
+  domain: 219.222.186.51:10300
   enable-username-password-login: true
   enable-unknown-exception-mail-alert: true
 
