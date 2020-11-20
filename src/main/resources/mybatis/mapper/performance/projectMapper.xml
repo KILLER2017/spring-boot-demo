@@ -52,7 +52,8 @@
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
-            <if test="year != null">and year(gxky0101.lxsj) = #{year}</if>
+            <if test="startedTime != null">and #{startedTime} &lt;= kssj</if>
+            <if test="finishedTime != null">and jhwcsj &lt;= #{finishedTime}</if>
             <if test="departmentScope != null">
                 and gxjg0101.dwh in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
@@ -110,7 +111,8 @@
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
-            <if test="year != null">and year(gxky0101.lxsj) = #{year}</if>
+            <if test="startedTime != null">and #{startedTime} &lt;= kssj</if>
+            <if test="finishedTime != null">and jxsj &lt;= #{finishedTime}</if>
             <if test="departmentScope != null">
                 and gxjg0101.dwh in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
