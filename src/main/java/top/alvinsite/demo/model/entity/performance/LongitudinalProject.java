@@ -1,5 +1,6 @@
 package top.alvinsite.demo.model.entity.performance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
@@ -9,6 +10,7 @@ import top.alvinsite.demo.model.entity.type.ProjectType;
 import top.alvinsite.demo.model.enums.ProjectLevel;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,6 +52,12 @@ public class LongitudinalProject extends BaseEntity  {
 
     private Integer SignedOrder;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date startedTime;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date finishedTime;
+
     // 项目分
     private float projectScore;
     // 经费分
@@ -59,4 +67,5 @@ public class LongitudinalProject extends BaseEntity  {
 
     @ExcelColumn(value = "绩效分数", col = 7)
     private float score;
+
 }

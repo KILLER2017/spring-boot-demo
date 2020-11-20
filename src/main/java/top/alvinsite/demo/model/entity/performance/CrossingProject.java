@@ -1,11 +1,13 @@
 package top.alvinsite.demo.model.entity.performance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +46,12 @@ public class CrossingProject extends BaseEntity  {
     private Integer memberNum;
 
     private Integer SignedOrder;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date startedTime;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date finishedTime;
 
     private List<ManagerUserDTO> members;
 

@@ -38,7 +38,9 @@
             department.id as departmentId,
             department.title as department,
             gxky0107.pxh as signedOrder,
-            year(gxky0101.lxsj) as approvalProjectYear
+            year(gxky0101.lxsj) as approvalProjectYear,
+            date_format(gxky0101.kssj,'%Y-%m-%d') as startedTime,
+            date_format(gxky0101.jhwcsj,'%Y-%m-%d') as finishedTime
 
         from gxky0107
         join gxky0101 on gxky0101.id = gxky0107.xmbh
@@ -98,7 +100,10 @@
             gxky0101.xmbh as contractNum,
             gxky0101.htjf as budget,
             gxky0107.pxh as signedOrder,
-            year(gxky0101.lxsj) as approvalProjectYear
+            year(gxky0101.lxsj) as approvalProjectYear,
+            date_format(gxky0101.kssj,'%Y-%m-%d') as startedTime,
+            date_format(gxky0101.jxsj,'%Y-%m-%d') as finishedTime
+
         from gxky0107
         join gxky0101 on gxky0101.id = gxky0107.xmbh
         join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
