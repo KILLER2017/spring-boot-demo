@@ -32,6 +32,7 @@
             gxky0305.zzqmc as title,
             gxky0305.zzqlx as type,
             year(gxky0305.cbrq) as ApprovalProjectYear,
+            date_format(gxky0305.cbrq,'%Y-%m-%d') as publishTime,
             gxky0305.zzrs as memberNum,
             gxky0306.smsx as SignedOrder
         from gxky0306
@@ -44,7 +45,8 @@
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
-            <if test="year != null">and year(gxky0305.cbrq) = #{year}</if>
+            <if test="startedTime != null">and #{startedTime} &lt;= gxky0305.cbrq</if>
+            <if test="finishedTime != null">and gxky0305.cbrq &lt;= #{finishedTime}</if>
             <if test="departmentScope != null">
                 and gxjg0101.dwh in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">

@@ -1,5 +1,6 @@
 package top.alvinsite.demo.model.entity.performance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
@@ -8,6 +9,7 @@ import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.entity.type.PaperType;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +42,9 @@ public class Paper extends BaseEntity  {
     private List<ManagerUserDTO> authors;
 
     private Integer ApprovalProjectYear;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date publishTime;
 
     private Integer memberNum;
 

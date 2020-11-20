@@ -1,5 +1,6 @@
 package top.alvinsite.demo.model.entity.performance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
@@ -7,6 +8,7 @@ import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.enums.CopyrightType;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +37,9 @@ public class Copyright extends BaseEntity  {
     private List<ManagerUserDTO> authors;
 
     private Integer ApprovalProjectYear;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date publishTime;
 
     private Integer memberNum;
 

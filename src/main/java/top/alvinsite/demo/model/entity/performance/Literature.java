@@ -1,6 +1,7 @@
 package top.alvinsite.demo.model.entity.performance;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
@@ -11,6 +12,7 @@ import top.alvinsite.demo.model.enums.PublisherLevel;
 import top.alvinsite.demo.model.enums.SubsidizeFrom;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +63,9 @@ public class Literature extends BaseEntity  {
     private int wordCount;
 
     private Integer ApprovalProjectYear;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date publishTime;
 
     private Integer memberNum;
 

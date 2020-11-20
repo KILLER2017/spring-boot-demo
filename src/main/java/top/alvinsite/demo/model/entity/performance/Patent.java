@@ -1,5 +1,6 @@
 package top.alvinsite.demo.model.entity.performance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
@@ -9,6 +10,7 @@ import top.alvinsite.demo.model.enums.PatentScope;
 import top.alvinsite.demo.model.enums.PatentType;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +44,9 @@ public class Patent extends BaseEntity {
     private List<ManagerUserDTO> inventors;
 
     private Integer ApprovalProjectYear;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date publishTime;
 
     private Integer memberNum;
 
