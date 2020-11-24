@@ -13,6 +13,7 @@ import top.alvinsite.demo.model.params.ScoreDistributionParam;
 import top.alvinsite.demo.service.ScoreDistributionService;
 import top.alvinsite.demo.service.performance.LongitudinalProjectService;
 import top.alvinsite.demo.service.rule.LongitudinalRuleService;
+import top.alvinsite.utils.TimeUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,11 +53,14 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
         float score = longitudinalRuleService.getScore(project);
 
         float proportion = scoreDistributionService.getProportion(ScoreDistributionParam.build(project, performance));
+        // 项目年度数
+        int annualNum = TimeUtils.getAnnualNum(project.getStartedTime(), project.getStartedTime());
+
 
         // 返回个人得分
-        project.setBudgetScore(project.getBudgetScore() * proportion);
-        project.setProjectScore(project.getProjectScore() * proportion);
-        project.setScore(score * proportion);
+        project.setBudgetScore(project.getBudgetScore() * proportion / annualNum);
+        project.setProjectScore(project.getProjectScore() * proportion / annualNum);
+        project.setScore(score * proportion / annualNum);
         return project;
     }
 
