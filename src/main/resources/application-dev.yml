@@ -34,7 +34,7 @@ app:
 
 logging:
   level:
-    root: debug
+    root: info
     top.alvinsite.demo.controller: debug
     top.alvinsite.demo.core: debug
-debug: true
+debug: false
