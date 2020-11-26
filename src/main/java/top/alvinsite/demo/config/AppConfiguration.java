@@ -1,17 +1,7 @@
 package top.alvinsite.demo.config;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import top.alvinsite.demo.config.properties.AppProperties;
 
 /**
@@ -28,7 +18,7 @@ public class AppConfiguration {
         this.appProperties = appProperties;
     }
 
-    @Bean(name = "redisTemplate")
+/*    @Bean(name = "redisTemplate")
     public RedisTemplate<Object, Object> initRedisTemplate(RedisConnectionFactory factory) {
 
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
@@ -50,5 +40,5 @@ public class AppConfiguration {
         redisTemplate.setHashValueSerializer(jacksonSerializer);
         redisTemplate.setConnectionFactory(factory);
         return redisTemplate;
-    }
+    }*/
 }
