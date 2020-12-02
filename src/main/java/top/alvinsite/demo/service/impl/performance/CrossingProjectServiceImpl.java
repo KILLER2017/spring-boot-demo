@@ -47,6 +47,11 @@ public class CrossingProjectServiceImpl implements CrossingProjectService {
     }
 
     @Override
+    public CrossingProject getAnnualYear(CrossingProject project) {
+        return project;
+    }
+
+    @Override
     public CrossingProject getProjectMemberNum(CrossingProject project) {
         Integer memberNum = projectMemberDao.selectCount(Wrappers.<ProjectMember>lambdaQuery().eq(ProjectMember::getProjectNum, project.getProjectNum()));
         project.setMemberNum(memberNum);

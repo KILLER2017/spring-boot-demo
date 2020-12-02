@@ -37,8 +37,15 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
     @Override
     public List<LongitudinalProject> findAll(PerformanceQuery performanceQuery) {
         List<LongitudinalProject> list = projectDao.findLongitudinalProject(performanceQuery);
-        list.stream().map(this::getProjectMemberNum).map(this::calcProjectPoints).collect(Collectors.toList());
+        list.stream().map(this::getProjectMemberNum)
+                .map(this::calcProjectPoints)
+                .collect(Collectors.toList());
         return list;
+    }
+
+    @Override
+    public LongitudinalProject getAnnualYear(LongitudinalProject project) {
+        return project;
     }
 
     @Override
@@ -54,7 +61,7 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
 
         float proportion = scoreDistributionService.getProportion(ScoreDistributionParam.build(project, performance));
         // 项目年度数
-        int annualNum = TimeUtils.getAnnualNum(project.getStartedTime(), project.getStartedTime());
+        int annualNum = TimeUtils.getAnnualNum(project.getStartedTime(), project.getFinishedTime());
 
 
         // 返回个人得分

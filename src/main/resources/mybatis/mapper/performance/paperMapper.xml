@@ -34,7 +34,7 @@
             gxky0312.lwbh as lwbh,
             gxky0316.lwmc as title,
             gxky0316.fbqk,
-            year(gxky0316.fbrq) as ApprovalProjectYear,
+            #{year} as ApprovalProjectYear,
             date_format(gxky0316.fbrq,'%Y-%m-%d') as publishTime,
             gxky0316.zzrs as memberNum,
             gxky0312.smsx as SignedOrder

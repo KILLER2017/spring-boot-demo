@@ -38,7 +38,7 @@
             department.id as departmentId,
             department.title as department,
             gxky0107.pxh as signedOrder,
-            year(gxky0101.lxsj) as approvalProjectYear,
+            #{year} as approvalProjectYear,
             date_format(gxky0101.kssj,'%Y-%m-%d') as startedTime,
             date_format(gxky0101.jhwcsj,'%Y-%m-%d') as finishedTime
 
@@ -100,7 +100,7 @@
             gxky0101.xmbh as contractNum,
             gxky0101.htjf as budget,
             gxky0107.pxh as signedOrder,
-            year(gxky0101.lxsj) as approvalProjectYear,
+            #{year} as approvalProjectYear,
             date_format(gxky0101.kssj,'%Y-%m-%d') as startedTime,
             date_format(gxky0101.jxsj,'%Y-%m-%d') as finishedTime
 

@@ -33,7 +33,7 @@
             gxky0314.zlbh,
             gxky0302.zllx as type,
             gxky0302.zlfw as scope,
-            year(gxky0302.gkrq) as ApprovalProjectYear,
+            #{year} as ApprovalProjectYear,
             date_format(gxky0302.gkrq,'%Y-%m-%d') as publishTime,
             gxky0302.fmsjrgs as memberNum,
             gxky0314.smsx as SignedOrder

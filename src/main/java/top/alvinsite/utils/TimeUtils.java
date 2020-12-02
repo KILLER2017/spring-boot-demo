@@ -61,4 +61,17 @@ public class TimeUtils {
 
         return annualNum;
     }
+
+    public static int getAnnualYear(Date date) {
+        int START_MONTH = 9;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+
+        if (month >= START_MONTH) {
+            return year + 1;
+        }
+        return year;
+    }
 }

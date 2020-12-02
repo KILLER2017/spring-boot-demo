@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.performance.*;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
+import top.alvinsite.demo.model.entity.performance.BaseEntity;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.service.performance.*;
 
@@ -66,6 +67,11 @@ public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPer
                 .collect(Collectors.toList());
 
         return list;
+    }
+
+    @Override
+    public BaseEntity getAnnualYear(BaseEntity project) {
+        return project;
     }
 
     @Override

@@ -32,7 +32,7 @@
             gxky0309.hjmc as title,
             gxky0309.hjjb as level,
             gxky0309.hjdj as grade,
-            year(gxky0309.hjrq) as ApprovalProjectYear,
+            #{year} as ApprovalProjectYear,
             date_format(gxky0309.hjrq,'%Y-%m-%d') as acquisitionTime,
             gxky0309.hjrs as memberNum,
             gxky0310.smsx as SignedOrder

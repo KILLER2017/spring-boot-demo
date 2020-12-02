@@ -28,7 +28,16 @@ public class AwardedServiceImpl extends ServiceImpl<AwardedDao, Awarded> impleme
 
     @Override
     public List<Awarded> findAll(PerformanceQuery performanceQuery) {
-        return getBaseMapper().findAwarded(performanceQuery).stream().map(this::getProjectMemberNum).map(this::calcProjectPoints).collect(Collectors.toList());
+        return getBaseMapper().findAwarded(performanceQuery).stream()
+                .map(this::getAnnualYear)
+                .map(this::getProjectMemberNum)
+                .map(this::calcProjectPoints)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Awarded getAnnualYear(Awarded project) {
+        return project;
     }
 
     @Override

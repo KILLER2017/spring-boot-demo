@@ -37,7 +37,7 @@
             gxky0301.cbsjb as publisherLevel,
             gxky0301.zzlz as fundingSource,
             gxky0301.sfwxgb as isRevised,
-            year(gxky0301.cbrq) as ApprovalProjectYear,
+            #{year} as ApprovalProjectYear,
             date_format(gxky0301.cbrq,'%Y-%m-%d') as publishTime,
             gxky0301.rs as memberNum,
             gxky0308.smsx as SignedOrder

@@ -19,6 +19,13 @@ public interface BasePerformanceService<T extends BaseEntity>  {
     List<T> findAll(PerformanceQuery performanceQuery);
 
     /**
+     * 获取项目所属年度
+     * @param project 绩效项目
+     * @return 填充项目年度后的绩效项目
+     */
+    T getAnnualYear(T project);
+
+    /**
      * 获取项目总人数
      * @param project 绩效项目
      * @return 填充总人数后的绩效项目
