@@ -2,6 +2,7 @@ package top.alvinsite.demo.service.impl.performance;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.ResearcherDao;
 import top.alvinsite.demo.dao.performance.*;
@@ -15,7 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPerformance> implements SummaryService {
-
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Autowired
     private ProjectDao projectDao;
 
@@ -71,6 +73,21 @@ public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPer
 
     @Override
     public BaseEntity getAnnualYear(BaseEntity project) {
+        return project;
+    }
+
+    @Override
+    public BaseEntity getOrder(BaseEntity project) {
+        return project;
+    }
+
+    @Override
+    public BaseEntity getProjectMemberNum(BaseEntity project) {
+        return project;
+    }
+
+    @Override
+    public BaseEntity calcProjectPoints(BaseEntity project) {
         return project;
     }
 

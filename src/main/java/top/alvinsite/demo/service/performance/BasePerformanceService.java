@@ -26,6 +26,13 @@ public interface BasePerformanceService<T extends BaseEntity>  {
     T getAnnualYear(T project);
 
     /**
+     * 获取项目绩效排序
+     * @param project
+     * @return
+     */
+     T getOrder(T project);
+
+    /**
      * 获取项目总人数
      * @param project 绩效项目
      * @return 填充总人数后的绩效项目

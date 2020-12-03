@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 @Alias("Paper")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Paper extends BaseEntity  {
     private String id;
 

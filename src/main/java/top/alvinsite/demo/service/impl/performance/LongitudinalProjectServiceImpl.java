@@ -2,9 +2,11 @@ package top.alvinsite.demo.service.impl.performance;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.ProjectMemberDao;
 import top.alvinsite.demo.dao.performance.ProjectDao;
+import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.ProjectMember;
 import top.alvinsite.demo.model.entity.performance.LongitudinalProject;
@@ -20,6 +22,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class LongitudinalProjectServiceImpl implements LongitudinalProjectService {
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     private final static String performance = "longitudinal";
 
     @Autowired
@@ -37,7 +42,9 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
     @Override
     public List<LongitudinalProject> findAll(PerformanceQuery performanceQuery) {
         List<LongitudinalProject> list = projectDao.findLongitudinalProject(performanceQuery);
-        list.stream().map(this::getProjectMemberNum)
+        list.stream()
+                .map(this::getProjectMemberNum)
+                .map(this::getOrder)
                 .map(this::calcProjectPoints)
                 .collect(Collectors.toList());
         return list;
@@ -53,6 +60,31 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
         Integer memberNum = projectMemberDao.selectCount(Wrappers.<ProjectMember>lambdaQuery().eq(ProjectMember::getProjectNum, project.getProjectNum()));
         project.setMemberNum(memberNum);
         return project;
+    }
+
+    @Override
+    public LongitudinalProject getOrder(LongitudinalProject project) {
+        String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
+        Integer order = (Integer) redisTemplate.opsForValue().get(key);
+        if (order == null) {
+            order = calcOrder(project);
+            redisTemplate.opsForValue().set(key, order);
+        }
+        project.setSignedOrder(order);
+        return project;
+    }
+
+
+    private Integer calcOrder(LongitudinalProject project) {
+        int order = 1;
+        for (ManagerUserDTO item : project.getMembers()) {
+            if (item.getAccount().equals(project.getAccount())) {
+                break;
+            } else {
+                order++;
+            }
+        }
+        return order;
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Data
 @Alias("Patent")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Patent extends BaseEntity {
     private String id;
 

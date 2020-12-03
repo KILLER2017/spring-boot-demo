@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Data
 @Alias("LongitudinalProject")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class LongitudinalProject extends BaseEntity  {
 
     private String id;

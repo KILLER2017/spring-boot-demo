@@ -1,7 +1,8 @@
 #!/bin/bash
 ## Author LinkinStar
-## UPDATE 2019-01-05
-version="1.0.1";
+## Author Alvin
+## UPDATE 20201202
+version="1.0.2";
 
 workspace="/root/java/performance"
 app="demo"

@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Data
 @Alias("Literature")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Literature extends BaseEntity  {
     private String id;
 

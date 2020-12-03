@@ -2,9 +2,11 @@ package top.alvinsite.demo.service.impl.performance;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.ProjectMemberDao;
 import top.alvinsite.demo.dao.performance.ProjectDao;
+import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.ProjectMember;
 import top.alvinsite.demo.model.entity.performance.CrossingProject;
@@ -21,7 +23,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class CrossingProjectServiceImpl implements CrossingProjectService {
-
+    @Autowired
+    private RedisTemplate redisTemplate;
     private final static String performance = "crossing";
 
     @Autowired
@@ -42,13 +45,42 @@ public class CrossingProjectServiceImpl implements CrossingProjectService {
     @Override
     public List<CrossingProject> findAll(PerformanceQuery performanceQuery){
         List<CrossingProject> list = projectDao.findCrossingProject(performanceQuery);
-        list.stream().map(this::getProjectMemberNum).map(this::calcProjectPoints).collect(Collectors.toList());
+        list.stream()
+                .map(this::getProjectMemberNum)
+                .map(this::getOrder)
+                .map(this::calcProjectPoints)
+                .collect(Collectors.toList());
         return list;
     }
 
     @Override
     public CrossingProject getAnnualYear(CrossingProject project) {
         return project;
+    }
+
+    @Override
+    public CrossingProject getOrder(CrossingProject project) {
+        String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
+        Integer order = (int) redisTemplate.opsForValue().get(key);
+        if (order == null) {
+            order = calcOrder(project);
+            redisTemplate.opsForValue().set(key, order);
+        }
+        project.setSignedOrder(order);
+        return project;
+    }
+
+
+    private Integer calcOrder(CrossingProject project) {
+        int order = 1;
+        for (ManagerUserDTO item : project.getMembers()) {
+            if (item.getAccount().equals(project.getAccount())) {
+                break;
+            } else {
+                order++;
+            }
+        }
+        return order;
     }
 
     @Override

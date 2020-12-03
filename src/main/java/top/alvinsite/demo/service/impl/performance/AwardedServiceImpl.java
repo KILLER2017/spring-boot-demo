@@ -2,8 +2,10 @@ package top.alvinsite.demo.service.impl.performance;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.performance.AwardedDao;
+import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.Awarded;
 import top.alvinsite.demo.model.params.PerformanceQuery;
@@ -17,7 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AwardedServiceImpl extends ServiceImpl<AwardedDao, Awarded> implements AwardedService {
-
+    @Autowired
+    private RedisTemplate redisTemplate;
     private final static String performance = "awarded";
 
     @Autowired
@@ -31,6 +34,7 @@ public class AwardedServiceImpl extends ServiceImpl<AwardedDao, Awarded> impleme
         return getBaseMapper().findAwarded(performanceQuery).stream()
                 .map(this::getAnnualYear)
                 .map(this::getProjectMemberNum)
+                .map(this::getOrder)
                 .map(this::calcProjectPoints)
                 .collect(Collectors.toList());
     }
@@ -43,6 +47,31 @@ public class AwardedServiceImpl extends ServiceImpl<AwardedDao, Awarded> impleme
     @Override
     public Awarded getProjectMemberNum(Awarded project) {
         return project;
+    }
+
+    @Override
+    public Awarded getOrder(Awarded project) {
+        String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
+        Integer order = (int) redisTemplate.opsForValue().get(key);
+        if (order == null) {
+            order = calcOrder(project);
+            redisTemplate.opsForValue().set(key, order);
+        }
+        project.setSignedOrder(order);
+        return project;
+    }
+
+
+    private Integer calcOrder(Awarded project) {
+        int order = 1;
+        for (ManagerUserDTO item : project.getAwardee()) {
+            if (item.getAccount().equals(project.getAccount())) {
+                break;
+            } else {
+                order++;
+            }
+        }
+        return order;
     }
 
     @Override

@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Data
 @Alias("Awarded")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Awarded extends BaseEntity {
     protected String id;
 
