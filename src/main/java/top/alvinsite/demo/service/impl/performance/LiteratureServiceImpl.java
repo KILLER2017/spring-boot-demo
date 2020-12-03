@@ -31,12 +31,14 @@ public class LiteratureServiceImpl extends ServiceImpl<LiteratureDao, Literature
 
     @Override
     public List<Literature> findAll(PerformanceQuery performanceQuery) {
-        return getBaseMapper().findLiterature(performanceQuery).stream()
+        List<Literature> list = getBaseMapper().findLiterature(performanceQuery);
+        list.stream()
                 .map(this::getAnnualYear)
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
                 .collect(Collectors.toList());
+        return list;
     }
 
     @Override

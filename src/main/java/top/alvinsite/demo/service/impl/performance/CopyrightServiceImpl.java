@@ -34,12 +34,14 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
 
     @Override
     public List<Copyright> findAll(PerformanceQuery performanceQuery) {
-        return getBaseMapper().findCopyright(performanceQuery).stream()
+        List<Copyright> list = getBaseMapper().findCopyright(performanceQuery);
+        list.stream()
                 .map(this::getAnnualYear)
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
                 .collect(Collectors.toList());
+        return list;
     }
 
     @Override

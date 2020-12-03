@@ -31,12 +31,14 @@ public class PaperServiceImpl extends ServiceImpl<PaperDao, Paper> implements Pa
 
     @Override
     public List<Paper> findAll(PerformanceQuery performanceQuery) {
-        return baseMapper.findPaper(performanceQuery).stream()
+        List<Paper> papers = baseMapper.findPaper(performanceQuery);
+        papers.stream()
                 .map(this::getAnnualYear)
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
                 .collect(Collectors.toList());
+        return papers;
     }
 
     @Override

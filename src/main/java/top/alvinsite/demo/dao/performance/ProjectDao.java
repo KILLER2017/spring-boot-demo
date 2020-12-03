@@ -13,7 +13,19 @@ import java.util.List;
  */
 @Repository
 public interface ProjectDao {
+
+    /**
+     * 获取纵向项目列表
+     * @param performanceQuery 过滤条件
+     * @return
+     */
     List<LongitudinalProject> findLongitudinalProject(PerformanceQuery performanceQuery);
+
+    /**
+     * 获取横向项目列表
+     * @param performanceQuery 过滤条件
+     * @return
+     */
     List<CrossingProject> findCrossingProject(PerformanceQuery performanceQuery);
     ManagerUserDTO findMembersById(String id);
 

@@ -12,5 +12,10 @@ import java.util.List;
  */
 @Repository
 public interface PaperDao extends BaseMapper<Paper> {
+    /**
+     * 获取论文列表
+     * @param performanceQuery 过滤条件
+     * @return
+     */
     List<Paper> findPaper(PerformanceQuery performanceQuery);
 }

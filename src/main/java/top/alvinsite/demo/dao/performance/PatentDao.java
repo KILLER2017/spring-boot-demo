@@ -12,5 +12,10 @@ import java.util.List;
  */
 @Repository
 public interface PatentDao extends BaseMapper<Patent> {
+    /**
+     * 获取专利列表
+     * @param performanceQuery 过滤条件
+     * @return
+     */
     List<Patent> findPatent(PerformanceQuery performanceQuery);
 }

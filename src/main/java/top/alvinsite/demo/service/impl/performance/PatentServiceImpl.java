@@ -31,12 +31,14 @@ public class PatentServiceImpl extends ServiceImpl<PatentDao, Patent> implements
 
     @Override
     public List<Patent> findAll(PerformanceQuery performanceQuery) {
-        return baseMapper.findPatent(performanceQuery).stream()
+        List<Patent> list = baseMapper.findPatent(performanceQuery);
+        list.stream()
                 .map(this::getAnnualYear)
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
                 .collect(Collectors.toList());
+        return list;
     }
 
     @Override

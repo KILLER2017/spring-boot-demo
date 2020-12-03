@@ -14,5 +14,11 @@ import java.util.List;
 
 @Repository
 public interface LiteratureDao extends BaseMapper<Literature> {
+
+    /**
+     * 获取专著列表
+     * @param performanceQuery 过滤条件
+     * @return
+     */
     List<Literature> findLiterature(PerformanceQuery performanceQuery);
 }

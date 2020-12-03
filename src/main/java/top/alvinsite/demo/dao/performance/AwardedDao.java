@@ -13,6 +13,12 @@ import java.util.List;
  */
 @Repository
 public interface AwardedDao extends BaseMapper<Awarded> {
+
+    /**
+     * 获取获奖列表
+     * @param performanceQuery
+     * @return
+     */
     List<Awarded> findAwarded(PerformanceQuery performanceQuery);
     ManagerUserDTO findAuthorsById(String id);
 }
