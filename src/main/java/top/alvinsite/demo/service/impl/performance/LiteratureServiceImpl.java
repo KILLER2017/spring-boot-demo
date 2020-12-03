@@ -52,7 +52,7 @@ public class LiteratureServiceImpl extends ServiceImpl<LiteratureDao, Literature
     @Override
     public Literature getOrder(Literature project) {
         String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
-        Integer order = (int) redisTemplate.opsForValue().get(key);
+        Integer order = (Integer) redisTemplate.opsForValue().get(key);
         if (order == null) {
             order = calcOrder(project);
             redisTemplate.opsForValue().set(key, order);

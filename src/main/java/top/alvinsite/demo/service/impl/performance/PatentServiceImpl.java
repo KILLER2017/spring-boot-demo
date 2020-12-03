@@ -53,7 +53,7 @@ public class PatentServiceImpl extends ServiceImpl<PatentDao, Patent> implements
     @Override
     public Patent getOrder(Patent project) {
         String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
-        Integer order = (int) redisTemplate.opsForValue().get(key);
+        Integer order = (Integer) redisTemplate.opsForValue().get(key);
         if (order == null) {
             order = calcOrder(project);
             redisTemplate.opsForValue().set(key, order);

@@ -52,7 +52,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperDao, Paper> implements Pa
     @Override
     public Paper getOrder(Paper project) {
         String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
-        Integer order = (int) redisTemplate.opsForValue().get(key);
+        Integer order = (Integer) redisTemplate.opsForValue().get(key);
         if (order == null) {
             order = calcOrder(project);
             redisTemplate.opsForValue().set(key, order);

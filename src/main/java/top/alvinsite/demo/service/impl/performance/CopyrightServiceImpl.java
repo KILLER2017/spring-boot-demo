@@ -50,7 +50,7 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
     @Override
     public Copyright getOrder(Copyright project) {
         String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
-        Integer order = (int) redisTemplate.opsForValue().get(key);
+        Integer order = (Integer) redisTemplate.opsForValue().get(key);
         if (order == null) {
             order = calcOrder(project);
             redisTemplate.opsForValue().set(key, order);
