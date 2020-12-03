@@ -37,4 +37,6 @@ logging:
     root: info
     top.alvinsite.demo.controller: debug
     top.alvinsite.demo.core: debug
+  file:
+    name: logs/application.log
 debug: false

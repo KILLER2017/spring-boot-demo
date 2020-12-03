@@ -76,11 +76,10 @@ logging:
   level:
     root: info
   file:
-    path: logs
     max-history: 30
     max-size: 10MB
     total-size-cap: 300MB
-    name: logs/application.log
+    name: var/log/performance/application.log
 
 app:
   domain: csjx.dgut.edu.cn
