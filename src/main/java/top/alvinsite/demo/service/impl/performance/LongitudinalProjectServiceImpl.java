@@ -105,7 +105,7 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
 
     @Override
     public void setTotalPoints(ResearcherPerformance researcherPerformance, float totalPoints) {
-        researcherPerformance.setLiteraturePoint(totalPoints);
+        researcherPerformance.setLongitudinalPoint(totalPoints);
     }
 
 }
