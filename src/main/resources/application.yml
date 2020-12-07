@@ -45,7 +45,6 @@ spring:
         # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
         url: http://monitor.alvinsite.top
         instance:
-          prefer-ip: true
           metadata:
             username: admin
             password: candy.123
