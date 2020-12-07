@@ -43,7 +43,7 @@ spring:
     admin:
       client:
         # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
-        url: http://monitor.alvinsite.top
+        url: http://172.31.40.7:8100
         instance:
           metadata:
             username: admin
