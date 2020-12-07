@@ -24,7 +24,11 @@ spring:
   boot:
     admin:
       client:
-        enabled: false
+        # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
+        url: http://172.31.40.7:8100
+        instance:
+          management-base-url: http://172.31.40.7:8080
+          service-base-url: http://172.31.40.7:8080
 cas:
   dgut:
     domain: cas.zemcho.com
