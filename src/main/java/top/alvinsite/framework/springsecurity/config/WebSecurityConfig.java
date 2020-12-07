@@ -69,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/salary/**").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/auth/permission/**").hasRole("ADMIN")
                 .antMatchers("/auth/getUserInfo").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/actuator/**").access(getIpWhiteListExpression())
                 // 自定义匿名访问所有url放行：允许匿名和带Token访问，细腻化到每个 Request 类型
                 // GET
                 .antMatchers(HttpMethod.GET, "/test/test3").permitAll()
@@ -123,6 +124,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    private String getIpWhiteListExpression() {
+        StringBuilder expression = new StringBuilder();
+        String[] ipList = {
+                "127.0.0.1",
+                "10.60.10.114",
+                "172.31.40.7",
+                "127.31.2.106",
+        };
+        for(String ip : ipList){
+            if ("".equals(expression.toString())) {
+                expression = new StringBuilder("hasIpAddress('" + ip + "')");
+            } else {
+                expression.append(" or hasIpAddress('").append(ip).append("')");
+            }
+        }
+        return expression.toString();
     }
 
     private Map<String, Set<String>> getAnonymousUrl(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {

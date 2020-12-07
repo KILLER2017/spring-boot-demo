@@ -41,7 +41,7 @@ spring:
     admin:
       client:
         # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
-        url: http://localhost:8100
+        url: http://monitor.alvinsite.top
         instance:
           prefer-ip: true
           metadata:
@@ -51,7 +51,7 @@ spring:
         register-once: false
         username: admin
         password: candy.123
-        enabled: false
+        enabled: true
 
   rabbitmq:
     host: 172.31.40.7
