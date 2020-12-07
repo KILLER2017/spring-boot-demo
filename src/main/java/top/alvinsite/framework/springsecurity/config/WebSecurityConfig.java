@@ -129,10 +129,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String getIpWhiteListExpression() {
         StringBuilder expression = new StringBuilder();
         String[] ipList = {
-                "127.0.0.1",
-                "10.60.10.114",
+
                 "172.31.40.7",
-                "127.31.2.106",
         };
         for(String ip : ipList){
             if ("".equals(expression.toString())) {
