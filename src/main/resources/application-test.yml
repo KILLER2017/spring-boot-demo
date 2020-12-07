@@ -10,6 +10,15 @@ spring:
     host: 172.31.40.7
     password: candy.123
 
+  boot:
+    admin:
+      client:
+        # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
+        url: http://172.31.40.7:8100
+        instance:
+          management-base-url: http://172.31.40.7:8080
+          service-base-url: http://172.31.40.7:8080
+
 logging:
   level:
     root: info
