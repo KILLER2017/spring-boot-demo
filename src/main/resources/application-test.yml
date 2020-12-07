@@ -26,5 +26,4 @@ cas:
     app-id: springboot
     app-secret: caea6429f3b2
 server:
-  address: 172.31.40.7
   port: 8083

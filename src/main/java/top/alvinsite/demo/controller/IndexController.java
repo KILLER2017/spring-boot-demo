@@ -3,6 +3,7 @@ package top.alvinsite.demo.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.params.PerformanceQuery;
@@ -15,7 +16,7 @@ import top.alvinsite.framework.spring.AsyncTaskManager;
  */
 @Slf4j
 @RestController
-@RequestMapping("performance/export")
+@RequestMapping
 public class IndexController {
 
     private final static String SUPER_USER_GROUP = "admin";
@@ -58,5 +59,10 @@ public class IndexController {
         if (!SUPER_USER_GROUP.equals(userInfo.getUserGroup()) && userInfo.getManageUnitId() != null) {
             performanceQuery.setDepartmentId(userInfo.getManageUnitId());
         }
+    }
+
+    @GetMapping
+    public String index() {
+        return "Backend service started successfully";
     }
 }

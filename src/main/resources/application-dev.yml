@@ -21,7 +21,10 @@ spring:
   devtools:
     restart:
       enabled: true
-
+  boot:
+    admin:
+      client:
+        enabled: false
 cas:
   dgut:
     domain: cas.zemcho.com
