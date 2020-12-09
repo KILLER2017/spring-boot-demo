@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 public class PerformanceQuery {
     private String nickname;
     private String account;
+    private String accountScope;
     private String department;
     private String departmentId;
     private String[] departmentScope;

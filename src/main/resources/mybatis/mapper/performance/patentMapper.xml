@@ -45,6 +45,7 @@
             gxky0302.shzt = 2
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="accountScope != null">and gxjg0101.gh = #{accountScope}</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
             <if test="startedTime != null">and #{startedTime} &lt;= gxky0302.gkrq</if>

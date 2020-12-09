@@ -65,10 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 // .antMatchers("/image/**").permitAll()
-                .antMatchers("/performance/**").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/performance/**").hasAnyRole("ADMIN", "MANAGER", "USER")
                 .antMatchers("/salary/**").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/auth/permission/**").hasRole("ADMIN")
-                .antMatchers("/auth/getUserInfo").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/auth/getUserInfo").authenticated()
                 .antMatchers("/actuator/**").access(getIpWhiteListExpression())
                 // 自定义匿名访问所有url放行：允许匿名和带Token访问，细腻化到每个 Request 类型
                 // GET

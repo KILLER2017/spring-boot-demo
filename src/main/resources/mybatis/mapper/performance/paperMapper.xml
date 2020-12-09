@@ -48,6 +48,7 @@
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="accountScope != null">and gxjg0101.gh = #{accountScope}</if>
             <if test="startedTime != null">and #{startedTime} &lt;= gxky0316.fbrq</if>
             <if test="finishedTime != null">and gxky0316.fbrq &lt;= #{finishedTime}</if>
             <if test="departmentScope != null">

@@ -62,13 +62,10 @@ public class JwtUserService implements UserDetailsService {
         // 设置密码
         user.setPassword("linzhou");
 
-
-
         // 获取用户组：系统管理员、机构管理员
         Set<GrantedAuthority> authorities = new HashSet<>();
         AdminDTO adminDTO = adminDao.findOneByAccount(user.getUsername());
         ManagerDTO managerDTO = managerDao.findOneByAccount(user.getUsername());
-
 
         if (adminDTO != null) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
@@ -80,7 +77,10 @@ public class JwtUserService implements UserDetailsService {
 
             String[] unitIds = managerDao.findUnitIdsByAccount(user.getUsername());
             user.setManageUnits(unitIds);
+        } else {
+            user.setUserGroup("user");
         }
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         user.setGrantedAuthorities(authorities);
 
         return user;

@@ -24,6 +24,7 @@ public class BaseController<M extends BasePerformanceService, T> {
     protected String controllerName = "default";
 
     private final static String SUPER_USER_GROUP = "admin";
+    private final static String NORMAL_USER_GROUP = "user";
 
     @Autowired
     protected M baseService;
@@ -31,7 +32,10 @@ public class BaseController<M extends BasePerformanceService, T> {
     protected void addManagerLimit(PerformanceQuery performanceQuery) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnits() != null) {
+        if (NORMAL_USER_GROUP.equals(user.getUserGroup())) {
+            performanceQuery.setAccountScope(user.getUsername());
+        }
+        else if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnits() != null) {
             performanceQuery.setDepartmentScope(user.getManageUnits());
         }
     }
