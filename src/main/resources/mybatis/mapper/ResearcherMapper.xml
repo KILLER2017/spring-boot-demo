@@ -32,6 +32,7 @@
             dqztm = 1 and type != 3 and dwh is not null
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="accountScope != null">and gxjg0101.gh = #{accountScope}</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
             <if test="departmentScope != null">
