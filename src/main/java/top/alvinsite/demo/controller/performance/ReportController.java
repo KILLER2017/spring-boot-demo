@@ -33,6 +33,7 @@ import static top.alvinsite.utils.BeanUtils.updateProperties;
 @RequestMapping("performance/report")
 public class ReportController {
     private final static String SUPER_USER_GROUP = "admin";
+    private final static String NORMAL_USER_GROUP = "user";
 
     @Value("${app.domain}")
     private String domain;
@@ -68,8 +69,11 @@ public class ReportController {
 
     protected void addManagerLimit(PerformanceQuery performanceQuery) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (NORMAL_USER_GROUP.equals(user.getUserGroup())) {
+            performanceQuery.setAccountScope(user.getUsername());
+        }
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnitId() != null) {
+        else if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnitId() != null) {
             performanceQuery.setDepartmentId(user.getManageUnitId());
         }
     }
@@ -104,7 +108,7 @@ public class ReportController {
         if (taskInfo.getStatus() == TaskStatusEnum.SUCCESS) {
             TaskInfo result = new TaskInfo();
             updateProperties(taskInfo, result);
-            result.setResult(String.format("http://%s/performance/export/result?taskId=%s", domain, taskId));
+            result.setResult(String.format("http://%s/performance/report/download?taskId=%s", domain, taskId));
 
             return BaseResponse.ok("导出文件生成完毕", result);
         }
