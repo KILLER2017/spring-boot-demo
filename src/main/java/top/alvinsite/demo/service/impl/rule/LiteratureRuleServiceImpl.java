@@ -10,7 +10,6 @@ import top.alvinsite.demo.dao.rule.LiteratureRuleDao;
 import top.alvinsite.demo.dao.rule.LiteratureRuleFundingSourceDao;
 import top.alvinsite.demo.dao.rule.LiteratureRuleRevisedDao;
 import top.alvinsite.demo.dao.rule.LiteratureRuleTopicWithDongguanDao;
-import top.alvinsite.demo.model.dto.rule.LiteratureRuleDTO;
 import top.alvinsite.demo.model.entity.performance.Literature;
 import top.alvinsite.demo.model.entity.rule.LiteratureRule;
 import top.alvinsite.demo.model.entity.rule.LiteratureRuleFundingSource;
@@ -97,7 +96,7 @@ public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, Li
                 .eq(LiteratureRuleRevised::getYear, literature.getApprovalProjectYear())
                 .eq(LiteratureRuleRevised::getDepartment, literature.getDepartment().getId())
                 .eq(LiteratureRuleRevised::isRevised, literature.isRevised()));
-        return revised == null ? 1 : revised.getScore();
+        return (revised == null ? 100 : revised.getScore()) / 100;
     }
 
     @Override
