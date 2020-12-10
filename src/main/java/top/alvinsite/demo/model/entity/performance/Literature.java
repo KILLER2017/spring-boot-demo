@@ -24,53 +24,54 @@ import java.util.List;
 public class Literature extends BaseEntity  {
     private String id;
 
-    private String account;
-
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "所属单位", col = 2)
+    @ExcelColumn(value = "工号", col = 2)
+    private String account;
+
+    @ExcelColumn(value = "所属单位", col = 3)
     private Department department;
 
-    @ExcelColumn(value = "著作名称", col = 3)
+    @ExcelColumn(value = "著作名称", col = 4)
     private String title;
 
-    @ExcelColumn(value = "著作类别", col = 4)
+    @ExcelColumn(value = "著作类别", col = 5)
     private BookType type;
 
-    // 出版社级别
+    @ExcelColumn(value = "总字数/万字", col = 6)
+    private int wordCount;
+
+    @ExcelColumn(value = "出版社级别", col = 7)
     @TableField(value = "cbsjb")
     private PublisherLevel publisherLevel;
 
-    // 资助来源
+    @ExcelColumn(value = "资助来源", col = 8)
     @TableField(value = "zzlz")
     private SubsidizeFrom fundingSource;
 
-    // 是否研究东莞问题专著
+    @ExcelColumn(value = "是否研究东莞问题专著", col = 9)
     private boolean isTopicWithDongguan = false;
 
-    // 是否为修订版
+    @ExcelColumn(value = "是否为修订版", col = 10)
     @TableField(value = "sfwxgb")
     private boolean isRevised;
 
-    @ExcelColumn(value = "参编作者", col = 5)
-    private List<ManagerUserDTO> authors;
-
-    @ExcelColumn(value = "第一作者", col = 6)
-    private String firstAuthor;
-
-    @ExcelColumn(value = "总字数/万字", col = 7)
-    private int wordCount;
-
-    private Integer ApprovalProjectYear;
-
+    @ExcelColumn(value = "出版时间", col = 11)
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date publishTime;
+
+    @ExcelColumn(value = "组成成员", col = 12)
+    private List<ManagerUserDTO> authors;
+
+    private String firstAuthor;
+
+    private Integer ApprovalProjectYear;
 
     private Integer memberNum;
 
     private Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 8)
+    @ExcelColumn(value = "绩效分数", col = 13)
     private float score;
 }

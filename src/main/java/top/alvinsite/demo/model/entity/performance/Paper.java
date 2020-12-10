@@ -21,35 +21,41 @@ import java.util.List;
 public class Paper extends BaseEntity  {
     private String id;
 
-    private String account;
+
 
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "所属单位", col = 2)
+    @ExcelColumn(value = "姓名", col = 2)
+    private String account;
+
+    @ExcelColumn(value = "所属单位", col = 3)
     private Department department;
 
-    @ExcelColumn(value = "论文题目", col = 3)
+    @ExcelColumn(value = "论文题目", col = 4)
     private String title;
 
-    @ExcelColumn(value = "发表期刊", col = 4)
+    @ExcelColumn(value = "发表期刊", col = 5)
     private String periodical;
 
-    @ExcelColumn(value = "刊物类型", col = 5)
+    @ExcelColumn(value = "刊物类型", col = 6)
     private List<PaperType> publicationType;
 
-    @ExcelColumn(value = "所有作者", col = 6)
+    @ExcelColumn(value = "发表时间", col = 7)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date publishTime;
+
+    @ExcelColumn(value = "组成成员", col = 8)
     private List<ManagerUserDTO> authors;
 
     private Integer ApprovalProjectYear;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date publishTime;
+
 
     private Integer memberNum;
 
     private Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 7)
+    @ExcelColumn(value = "绩效分数", col = 9)
     private float score;
 }

@@ -21,10 +21,11 @@ import java.util.List;
 public class Copyright extends BaseEntity  {
     private String id;
 
-    private String account;
-
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
+
+    @ExcelColumn(value = "工号", col = 2)
+    private String account;
 
     @ExcelColumn(value = "所属单位", col = 2)
     private Department department;
@@ -35,18 +36,19 @@ public class Copyright extends BaseEntity  {
     @ExcelColumn(value = "著作权类型", col = 4)
     private CopyrightType type;
 
-    @ExcelColumn(value = "所有作者", col = 5)
+    @ExcelColumn(value = "出版时间", col = 5)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date publishTime;
+
+    @ExcelColumn(value = "所有作者", col = 6)
     private List<ManagerUserDTO> authors;
 
     private Integer ApprovalProjectYear;
-
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date publishTime;
 
     private Integer memberNum;
 
     private Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 6)
+    @ExcelColumn(value = "绩效分数", col = 7)
     private float score;
 }
