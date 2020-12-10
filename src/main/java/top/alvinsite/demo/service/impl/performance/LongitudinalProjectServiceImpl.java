@@ -1,6 +1,5 @@
 package top.alvinsite.demo.service.impl.performance;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,6 @@ import top.alvinsite.demo.dao.ProjectMemberDao;
 import top.alvinsite.demo.dao.performance.ProjectDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
-import top.alvinsite.demo.model.entity.ProjectMember;
 import top.alvinsite.demo.model.entity.performance.LongitudinalProject;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.ScoreDistributionParam;
@@ -57,7 +55,7 @@ public class LongitudinalProjectServiceImpl implements LongitudinalProjectServic
 
     @Override
     public LongitudinalProject getProjectMemberNum(LongitudinalProject project) {
-        Integer memberNum = projectMemberDao.selectCount(Wrappers.<ProjectMember>lambdaQuery().eq(ProjectMember::getProjectNum, project.getProjectNum()));
+        int memberNum = project.getMembers().size();
         project.setMemberNum(memberNum);
         return project;
     }

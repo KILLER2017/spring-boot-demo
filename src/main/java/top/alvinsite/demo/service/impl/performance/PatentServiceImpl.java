@@ -49,6 +49,7 @@ public class PatentServiceImpl extends ServiceImpl<PatentDao, Patent> implements
     @Override
     public Patent getProjectMemberNum(Patent project) {
         // 专利信息已有总人数，无需再次计算
+        project.setMemberNum(project.getInventors().size());
         return project;
     }
 

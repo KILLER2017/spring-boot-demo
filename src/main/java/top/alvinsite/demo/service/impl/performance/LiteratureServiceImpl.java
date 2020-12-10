@@ -48,6 +48,7 @@ public class LiteratureServiceImpl extends ServiceImpl<LiteratureDao, Literature
 
     @Override
     public Literature getProjectMemberNum(Literature project) {
+        project.setMemberNum(project.getAuthors().size());
         return project;
     }
 

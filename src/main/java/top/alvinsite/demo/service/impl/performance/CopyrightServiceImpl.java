@@ -77,6 +77,7 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
 
     @Override
     public Copyright getProjectMemberNum(Copyright project) {
+        project.setMemberNum(project.getAuthors().size());
         return project;
     }
 

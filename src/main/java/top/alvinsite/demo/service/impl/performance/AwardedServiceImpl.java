@@ -48,6 +48,7 @@ public class AwardedServiceImpl extends ServiceImpl<AwardedDao, Awarded> impleme
 
     @Override
     public Awarded getProjectMemberNum(Awarded project) {
+        project.setMemberNum(project.getAwardee().size());
         return project;
     }
 

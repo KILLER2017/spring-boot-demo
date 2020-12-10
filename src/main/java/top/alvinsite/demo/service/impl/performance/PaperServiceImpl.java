@@ -48,6 +48,7 @@ public class PaperServiceImpl extends ServiceImpl<PaperDao, Paper> implements Pa
 
     @Override
     public Paper getProjectMemberNum(Paper project) {
+        project.setMemberNum(project.getAuthors().size());
         return project;
     }
 
