@@ -35,15 +35,21 @@ public class ScoreDistributionImpl extends ServiceImpl<ScoreDistributionDao, Sco
 
         ScoreDistribution scoreDistribution = baseMapper.selectOne(
                 Wrappers.<ScoreDistribution>lambdaQuery()
-                        // .eq(ScoreDistribution::getYear, scoreDistributionParam.getYear())
                         .eq(ScoreDistribution::getTotals, scoreDistributionParam.getTotals())
                         .eq(ScoreDistribution::getPosition, scoreDistributionParam.getPosition())
         );
 
         if (scoreDistribution == null) {
+            scoreDistribution = baseMapper.selectOne(
+                    Wrappers.<ScoreDistribution>lambdaQuery()
+                            .eq(ScoreDistribution::getTotals, 15)
+                            .eq(ScoreDistribution::getPosition, scoreDistributionParam.getPosition())
+            );
+        }
+
+        if (scoreDistribution == null) {
             String errorMessage = String.format("%s：没有人数%s，顺序：%s的分值分配法。请先填写分值分配表，或选择不采用分值分配法",
                     // 去掉年份筛选
-                    // scoreDistributionParam.getYear(),
                     scoreDistributionParam.getPerformance(),
                     scoreDistributionParam.getTotals(),
                     scoreDistributionParam.getPosition());
