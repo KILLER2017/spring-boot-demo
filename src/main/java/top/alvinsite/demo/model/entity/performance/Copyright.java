@@ -49,6 +49,6 @@ public class Copyright extends BaseEntity  {
 
     private Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 7)
+    @ExcelColumn(value = "科研分数", col = 7)
     private float score;
 }

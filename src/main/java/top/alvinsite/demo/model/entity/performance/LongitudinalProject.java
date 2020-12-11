@@ -71,7 +71,7 @@ public class LongitudinalProject extends BaseEntity  {
     private float budgetScore;
 
 
-    @ExcelColumn(value = "绩效分数", col = 13)
+    @ExcelColumn(value = "科研分数", col = 13)
     private float score;
 
 }

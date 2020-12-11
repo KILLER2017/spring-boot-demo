@@ -14,6 +14,6 @@ public abstract class BaseEntity {
 
     protected Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 7)
+    @ExcelColumn(value = "科研分数", col = 7)
     protected float score;
 }

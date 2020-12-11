@@ -55,6 +55,6 @@ public class Awarded extends BaseEntity {
 
     private Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 9)
+    @ExcelColumn(value = "科研分数", col = 9)
     private float score;
 }

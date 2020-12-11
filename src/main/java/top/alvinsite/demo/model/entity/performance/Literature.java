@@ -72,6 +72,6 @@ public class Literature extends BaseEntity  {
 
     private Integer SignedOrder;
 
-    @ExcelColumn(value = "绩效分数", col = 13)
+    @ExcelColumn(value = "科研分数", col = 13)
     private float score;
 }

@@ -69,6 +69,6 @@ public class CrossingProject extends BaseEntity  {
     @ExcelColumn(value = "经费分", col = 12)
     private float budgetScore;
 
-    @ExcelColumn(value = "绩效分数", col = 13)
+    @ExcelColumn(value = "科研分数", col = 13)
     protected float score;
 }
