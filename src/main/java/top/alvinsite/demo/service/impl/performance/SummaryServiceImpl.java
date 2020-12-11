@@ -92,6 +92,11 @@ public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPer
     }
 
     @Override
+    public BaseEntity filterDepartment(BaseEntity project) {
+        return project;
+    }
+
+    @Override
     public ResearcherPerformance calcTotalPoints(ResearcherPerformance researcherPerformance) {
         float totalPoints = researcherPerformance.getAwardedPoint()
                 + researcherPerformance.getCopyrightPoint()

@@ -37,6 +37,7 @@ public class PatentServiceImpl extends ServiceImpl<PatentDao, Patent> implements
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
+                .map(this::filterDepartment)
                 .collect(Collectors.toList());
         return list;
     }
@@ -87,6 +88,16 @@ public class PatentServiceImpl extends ServiceImpl<PatentDao, Patent> implements
 
         // 返回个人得分
         project.setScore(score);
+        return project;
+    }
+
+    @Override
+    public Patent filterDepartment(Patent project) {
+        String userDepartment = project.getDepartment().getId();
+        String firstMemberDepartment = project.getInventors().get(0).getDepartment();
+        if (!userDepartment.equals(firstMemberDepartment)) {
+            project.setScore(0);
+        }
         return project;
     }
 

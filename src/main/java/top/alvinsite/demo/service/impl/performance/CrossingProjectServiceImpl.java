@@ -47,6 +47,7 @@ public class CrossingProjectServiceImpl implements CrossingProjectService {
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
+                .map(this::filterDepartment)
                 .collect(Collectors.toList());
         return list;
     }
@@ -99,6 +100,18 @@ public class CrossingProjectServiceImpl implements CrossingProjectService {
         project.setBudgetScore(project.getBudgetScore() * proportion / annualNum);
         project.setProjectScore(project.getProjectScore() * proportion / annualNum);
         project.setScore(score * proportion / annualNum);
+        return project;
+    }
+
+    @Override
+    public CrossingProject filterDepartment(CrossingProject project) {
+        String userDepartment = project.getDepartment().getId();
+        String firstMemberDepartment = project.getMembers().get(0).getDepartment();
+        if (!userDepartment.equals(firstMemberDepartment)) {
+            project.setBudgetScore(0);
+            project.setProjectScore(0);
+            project.setScore(0);
+        }
         return project;
     }
 

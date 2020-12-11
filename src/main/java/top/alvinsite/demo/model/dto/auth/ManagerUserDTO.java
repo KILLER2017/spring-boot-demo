@@ -9,6 +9,7 @@ public class ManagerUserDTO {
 
     private String nickname;
     private String account;
+    private String department;
 
     @Override
     public String toString() {

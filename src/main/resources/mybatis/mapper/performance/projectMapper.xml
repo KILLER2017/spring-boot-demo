@@ -132,7 +132,8 @@
     <select id="findMembersById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
         SELECT
             gxjg0101.xm as nickname,
-            gxjg0101.gh as account
+            gxjg0101.gh as account,
+            gxjg0101.dwh as department
         FROM gxky0107
                  join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
         where

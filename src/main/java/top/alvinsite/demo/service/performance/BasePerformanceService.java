@@ -51,6 +51,13 @@ public interface BasePerformanceService<T extends BaseEntity>  {
     };
 
     /**
+     * 只有和一号成员同单位的成员才能获取分数
+     * @param project
+     * @return
+     */
+    T filterDepartment(T project);
+
+    /**
      * 设置用户绩效项目年度总分数
      * @param researcherPerformance 用户年度绩效分数
      * @param totalPoints 年度分数

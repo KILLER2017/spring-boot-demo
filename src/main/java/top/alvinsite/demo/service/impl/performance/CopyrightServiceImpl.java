@@ -40,6 +40,7 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
                 .map(this::calcProjectPoints)
+                .map(this::filterDepartment)
                 .collect(Collectors.toList());
         return list;
     }
@@ -91,6 +92,16 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
 
         // 返回个人得分
         project.setScore(score);
+        return project;
+    }
+
+    @Override
+    public Copyright filterDepartment(Copyright project) {
+        String userDepartment = project.getDepartment().getId();
+        String firstMemberDepartment = project.getAuthors().get(0).getDepartment();
+        if (!userDepartment.equals(firstMemberDepartment)) {
+            project.setScore(0);
+        }
         return project;
     }
 
