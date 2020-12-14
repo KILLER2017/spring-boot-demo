@@ -27,11 +27,16 @@ public class Rule {
     @NotNull
     private Integer year;
 
+    @NotBlank(message = "部门不能为空")
+    private String department;
+
     @NotBlank(message = "岗位不能为空")
     private String type;
 
     @NotBlank(message = "类型岗位不能为空")
     private String postType;
+
+    private String duty;
 
     private String alias;
 
