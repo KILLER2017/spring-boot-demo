@@ -9,6 +9,7 @@
             #{year} as year,
             gxjg0101.gh as account,
             gxjg0101.xm as nickname,
+            gxjg0101.dwh as department,
             salary_summaries.type,
             salary_summaries.level,
             salary_summaries.post,

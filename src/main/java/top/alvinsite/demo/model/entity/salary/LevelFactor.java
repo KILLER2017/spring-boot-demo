@@ -16,6 +16,8 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 public class LevelFactor {
     private Integer id;
 
+    private String department;
+
     @ExcelColumn(value = "人员类别", col = 1)
     private String type;
 

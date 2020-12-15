@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.Rule;
+import top.alvinsite.demo.model.params.SalaryRuleQuery;
 import top.alvinsite.demo.service.salary.RuleService;
 
 import javax.validation.Valid;
@@ -25,19 +26,21 @@ public class RuleController {
     @Autowired
     private RuleService ruleService;
 
-    @GetMapping("{year}")
-    public List<Rule> list(@PathVariable Integer year) {
-        Assert.notNull(year, "year must be not null");
-        return ruleService.list(year);
+    @GetMapping("{department}/{year}")
+    public List<Rule> list(@Valid SalaryRuleQuery salaryRuleQuery) {
+        return ruleService.list(salaryRuleQuery);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    @PostMapping("{year}")
-    public void save(@PathVariable Integer year, @RequestBody @Valid List<Rule> rules) {
+    @PostMapping("{department}/{year}")
+    public void save(@Valid SalaryRuleQuery salaryRuleQuery, @RequestBody @Valid List<Rule> rules) {
+
         Assert.notEmpty(rules, "请添加规则后再进行保存");
-        if (year != null) {
-            ruleService.remove(Wrappers.<Rule>lambdaQuery().eq(Rule::getYear , year));
-        }
+
+        ruleService.remove(Wrappers.<Rule>lambdaQuery()
+                .eq(Rule::getDepartment, salaryRuleQuery.getDepartment())
+                .eq(Rule::getYear, salaryRuleQuery.getYear())
+        );
 
         ruleService.saveBatch(rules);
     }

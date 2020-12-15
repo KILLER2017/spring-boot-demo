@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static top.alvinsite.utils.BeanUtils.transformFrom;
+
 /**
  * @author Administrator
  */
@@ -84,10 +86,9 @@ public class SummaryController {
         // 实际科研工作量
         jexlContext.set("h", salarySummary.getResearchWorkload());
 
-        LevelFactorParam levelFactorParam = new LevelFactorParam(salarySummary.getType(), salarySummary.getLevel());
+        LevelFactorParam levelFactorParam = new LevelFactorParam(salarySummary.getDepartment(), salarySummary.getType(), salarySummary.getLevel());
         LevelFactor levelFactor = levelFactorDao.findOneByTypeAndLevel(levelFactorParam);
 
-        // Assert.notNull(levelFactor, "对应级差系数不能为空：" + levelFactorParam);
         if (levelFactor == null) {
             log.error("对应级差系数不能为空：{}", levelFactorParam);
             return salarySummary;
@@ -99,7 +100,6 @@ public class SummaryController {
         WorkloadTargetParam workloadTargetParam = new WorkloadTargetParam(salarySummary.getLevel(), salarySummary.getPostType());
         WorkloadTarget workloadTarget = workloadTargetDao.findOneByLevelAndPostType(workloadTargetParam);
 
-        // Assert.notNull(workloadTarget, "对应目标工作量不能为空：" + workloadTargetParam);
         if (workloadTarget == null) {
             log.error("对应目标工作量不能为空：{}", workloadTargetParam);
             return salarySummary;
@@ -112,9 +112,10 @@ public class SummaryController {
         // 个人实际民主测评值
         jexlContext.set("i", salarySummary.getMeasurement());
 
-        Rule rule = ruleDao.findOne(new SalaryRuleParam(year, salarySummary.getPost(), salarySummary.getPostType()));
+        SalaryRuleParam salaryRuleParam = transformFrom(salarySummary, SalaryRuleParam.class);
+        salaryRuleParam.setYear(year);
+        Rule rule = ruleDao.findOne(salaryRuleParam);
 
-        // Assert.notNull(rule, String.format("对应计算规则不能为空：规则（年份：%d，系列岗位：%s，岗位类型：%s）", year, salarySummary.getPost(), salarySummary.getPostType()));
         if (rule == null) {
             log.error("对应计算规则不能为空：规则（年份：{}，系列岗位：{}，岗位类型：{}）", year, salarySummary.getPost(), salarySummary.getPostType());
             return salarySummary;

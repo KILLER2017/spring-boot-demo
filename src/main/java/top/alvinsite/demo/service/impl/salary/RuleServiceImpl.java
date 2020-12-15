@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.alvinsite.demo.dao.salary.RuleDao;
 import top.alvinsite.demo.model.entity.salary.Rule;
+import top.alvinsite.demo.model.params.SalaryRuleQuery;
 import top.alvinsite.demo.service.salary.RuleService;
 
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.List;
 public class RuleServiceImpl extends ServiceImpl<RuleDao, Rule> implements RuleService {
 
     @Override
-    public List<Rule> list(Integer year) {
-        return baseMapper.findAll(year);
+    public List<Rule> list(SalaryRuleQuery salaryRuleQuery) {
+        return baseMapper.findAll(salaryRuleQuery);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -20,6 +20,8 @@ public class SalarySummary {
     @ExcelColumn(value = "姓名", col = 1, width = 15)
     private String nickname;
 
+    private String department;
+
     @ExcelColumn(value = "人员类别", col = 3)
     private String type;
 

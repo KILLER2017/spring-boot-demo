@@ -3,22 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.salary.RuleDao">
-    <select id="findAll" resultType="Rule">
+    <select id="findAll" resultType="Rule" parameterType="SalaryRuleQuery">
         select
             id,
             year,
+            department,
             type,
             post_type as postType,
+            duty,
             alias,
             rule
         from salary_rule
         <where>
-            <if test="year != null">year = #{year}</if>
+            department = #{department} AND
+            year = #{year}
         </where>
         ORDER BY FIND_IN_SET(`type`,'教师,管理,辅导员,实验员')
     </select>
 
-    <select id="findOne" resultType="Rule">
+    <select id="findOne" resultType="Rule" parameterType="SalaryRuleParam">
         select
             id,
             year,
@@ -28,9 +31,11 @@
             rule
         from salary_rule
         <where>
-            year = #{year}
+            department = #{department}
+            and year = #{year}
             and type = #{type}
             and post_type = #{postType}
+            <if test="duty != null">and duty = #{duty}</if>
         </where>
         limit 1
     </select>

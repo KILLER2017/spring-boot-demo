@@ -3,13 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.salary.LevelFactorDao">
-    <select id="findAll" resultType="LevelFactor">
+    <select id="findAll" resultType="LevelFactor" parameterType="SalaryQuery">
         select
             id,
+            department,
             type,
             level,
             factor
         from level_factor
+        WHERE department = #{department}
     </select>
 
     <select id="findOne"  resultType="LevelFactor">
@@ -22,14 +24,14 @@
         where id = #{id}
     </select>
 
-    <select id="findOneByTypeAndLevel"  resultType="LevelFactor">
+    <select id="findOneByTypeAndLevel"  resultType="LevelFactor" parameterType="LevelFactorParam">
         select
             id,
             type,
             level,
             factor
         from level_factor
-        where type = #{type} and level = #{level}
+        where type = #{type} and level = #{level} and department = #{department}
         limit 1
     </select>
 

@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.utils.ExcelUtils;
 import top.alvinsite.framework.springsecurity.annotation.rest.AnonymousGetMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -45,19 +41,7 @@ public class TestController {
         return (Double) jexlExpression.evaluate(jexlContext);
     }
 
-    @RequestMapping("export-excel")
-    public void writeExcel(HttpServletRequest request, HttpServletResponse response) {
-        List<LevelFactor> levelFactors = levelFactorDao.findAll();
-        List<WorkloadTarget> workloadTargets = workloadTargetDao.findAll();
 
-        // ExcelUtils.writeExcel(response, levelFactors, LevelFactor.class);
-
-        new ExcelUtils.Builder()
-                .addSheet("sheet1", levelFactors, LevelFactor.class)
-                .addSheet("sheet2", workloadTargets, WorkloadTarget.class)
-                .setResponse(response)
-                .build();
-    }
 
     @RequestMapping("mybatis-plus")
     public String mybatisplus() {
@@ -67,14 +51,7 @@ public class TestController {
         }
         return "success";
     }
-    @RequestMapping("mybatis-plus-2")
-    public String mybatisplus2() {
-        List<LevelFactor> list = levelFactorDao.findAll();
-        for (LevelFactor item : list) {
-            log.info(String.valueOf(item));
-        }
-        return "success";
-    }
+
 
     @RequestMapping("mybatis-plus-3")
     public String mybatisplus3() {
