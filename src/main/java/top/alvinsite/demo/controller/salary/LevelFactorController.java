@@ -15,6 +15,7 @@ import top.alvinsite.demo.model.params.SalaryQuery;
 import top.alvinsite.framework.springsecurity.entity.User;
 import top.alvinsite.utils.ExcelUtils;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class LevelFactorController {
     private LevelFactorDao levelFactorDao;
 
     @GetMapping
-    public PageInfo<LevelFactor> list(SalaryQuery salaryQuery, Page page) {
+    public PageInfo<LevelFactor> list(@Valid SalaryQuery salaryQuery, Page page) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         return new PageInfo<>(levelFactorDao.findAll(salaryQuery));
     }
