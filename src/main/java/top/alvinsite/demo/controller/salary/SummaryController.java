@@ -97,7 +97,7 @@ public class SummaryController {
         // 级差系数
         jexlContext.set("d", levelFactor.getFactor());
 
-        WorkloadTargetParam workloadTargetParam = new WorkloadTargetParam(salarySummary.getLevel(), salarySummary.getPostType());
+        WorkloadTargetParam workloadTargetParam = transformFrom(salarySummary, WorkloadTargetParam.class);
         WorkloadTarget workloadTarget = workloadTargetDao.findOneByLevelAndPostType(workloadTargetParam);
 
         if (workloadTarget == null) {

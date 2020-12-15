@@ -3,14 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.salary.WorkloadTargetDao">
-    <select id="findAll" resultType="WorkloadTarget">
+    <select id="findAll" resultType="WorkloadTarget" parameterType="SalaryQuery">
         select
             id as id,
+            department,
             type as type,
             level as level,
             teaching_workload_target AS teachingWorkloadTarget,
             research_workload_target AS researchWorkloadTarget
         from workload_target
+        WHERE department = #{department}
     </select>
 
     <select id="findOne"  resultType="WorkloadTarget">
@@ -27,17 +29,18 @@
     <select id="findOneByLevelAndPostType"  resultType="WorkloadTarget">
         select
             id,
+            department,
             type,
             level,
             teaching_workload_target AS teachingWorkloadTarget,
             research_workload_target AS researchWorkloadTarget
         from workload_target
-        where level = #{level} and type = #{postType}
+        where level = #{level} and type = #{postType} and department = #{department}
     </select>
 
     <insert id="save">
-        INSERT INTO workload_target (id, type, level, teaching_workload_target, research_workload_target) values
-            (#{id}, #{type}, #{level}, #{teachingWorkloadTarget}, #{researchWorkloadTarget})
-        ON DUPLICATE KEY UPDATE type=values(type), level=values(level),teaching_workload_target=values(teaching_workload_target),research_workload_target=values(research_workload_target)
+        INSERT INTO workload_target (id, department, type, level, teaching_workload_target, research_workload_target) values
+            (#{id}, #{department}, #{type}, #{level}, #{teachingWorkloadTarget}, #{researchWorkloadTarget})
+        ON DUPLICATE KEY UPDATE department=values(department), type=values(type), level=values(level),teaching_workload_target=values(teaching_workload_target),research_workload_target=values(research_workload_target)
     </insert>
 </mapper>

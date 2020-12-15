@@ -37,6 +37,8 @@ public class RuleController {
 
         Assert.notEmpty(rules, "请添加规则后再进行保存");
 
+        rules.forEach(rule -> {rule.setDepartment(salaryRuleQuery.getDepartment());});
+
         ruleService.remove(Wrappers.<Rule>lambdaQuery()
                 .eq(Rule::getDepartment, salaryRuleQuery.getDepartment())
                 .eq(Rule::getYear, salaryRuleQuery.getYear())

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkloadTargetParam {
+    private String department;
     private String level;
     private String postType;
 

@@ -16,6 +16,8 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 public class WorkloadTarget {
     private Integer id;
 
+    private String department;
+
     @ExcelColumn(value = "类型岗位", col = 1)
     private String type;
 
