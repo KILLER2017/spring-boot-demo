@@ -36,8 +36,8 @@
     </select>
 
     <insert id="save">
-        INSERT INTO level_factor (id, type, level, factor) values
-            (#{id}, #{type}, #{level}, #{factor})
-        ON DUPLICATE KEY UPDATE type=values(type), level=values(level),factor=values(factor)
+        INSERT INTO level_factor (id, department, type, level, factor) values
+            (#{id}, #{department}, #{type}, #{level}, #{factor})
+        ON DUPLICATE KEY UPDATE department=values(department), type=values(type), level=values(level),factor=values(factor)
     </insert>
 </mapper>

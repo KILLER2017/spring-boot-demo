@@ -12,17 +12,23 @@ import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.params.LevelFactorParam;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.SalaryQuery;
+import top.alvinsite.demo.service.salary.LevelFactorService;
 import top.alvinsite.framework.springsecurity.entity.User;
 import top.alvinsite.utils.ExcelUtils;
 
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
 @RequestMapping("salary/level-factor")
 public class LevelFactorController {
+
+    @Autowired
+    private LevelFactorService levelFactorService;
+
     @Autowired
     private LevelFactorDao levelFactorDao;
 
@@ -46,18 +52,16 @@ public class LevelFactorController {
 
         List<LevelFactor> list = ExcelUtils.readExcel("", LevelFactor.class, file);
 
-
-        list.forEach(
-            item -> {
-                item.setDepartment(department);
-                LevelFactor oObject = levelFactorDao.findOneByTypeAndLevel(new LevelFactorParam(department, item.getType(), item.getType()));
-                if (oObject != null) {
-                    item.setId(oObject.getId());
-                }
-
-                levelFactorDao.save(item);
+        list.stream().map(item -> {
+            item.setDepartment(department);
+            LevelFactor oObject = levelFactorDao.findOneByTypeAndLevel(new LevelFactorParam(department, item.getType(), item.getType()));
+            if (oObject != null) {
+                item.setId(oObject.getId());
             }
-        );
+            return item;
+        }).collect(Collectors.toList());
+
+        list.forEach(item -> levelFactorDao.save(item));
     }
 
     @PostMapping("outputExcel")

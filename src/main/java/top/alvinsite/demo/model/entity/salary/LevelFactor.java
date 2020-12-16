@@ -1,5 +1,7 @@
 package top.alvinsite.demo.model.entity.salary;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LevelFactor {
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String department;
