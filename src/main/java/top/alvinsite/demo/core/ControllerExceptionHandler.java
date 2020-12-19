@@ -18,15 +18,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
 import top.alvinsite.demo.config.properties.AppProperties;
-import top.alvinsite.demo.exception.ForbiddenException;
-import top.alvinsite.demo.exception.MyJexlExpression;
 import top.alvinsite.demo.model.support.BaseResponse;
 import top.alvinsite.framework.mail.Mail;
 import top.alvinsite.framework.mail.service.MailService;
 import top.alvinsite.framework.springsecurity.entity.User;
 import top.alvinsite.utils.ExceptionUtils;
 import top.alvinsite.utils.ValidationUtils;
-
+import top.alvinsite.exception.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import java.util.Map;

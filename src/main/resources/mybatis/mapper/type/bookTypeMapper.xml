@@ -7,7 +7,7 @@
         select
             ID as id,
             NAME as title
-        from DM_BOOK_TYPE
+        from dm_book_type
         order by ID ASC
     </select>
 
@@ -15,7 +15,7 @@
         select
             ID as id,
             NAME as title
-        from DM_BOOK_TYPE
+        from dm_book_type
         where ID = #{id}
     </select>
 </mapper>

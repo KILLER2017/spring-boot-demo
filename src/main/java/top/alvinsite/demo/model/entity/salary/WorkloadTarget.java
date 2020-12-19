@@ -20,6 +20,8 @@ public class WorkloadTarget {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    private Integer year;
+
     private String department;
 
     @ExcelColumn(value = "类型岗位", col = 1)
@@ -31,6 +33,9 @@ public class WorkloadTarget {
     @ExcelColumn(value = "年度目标教学工作量", col = 3)
     private double teachingWorkloadTarget;
 
-    @ExcelColumn(value = "年度目标科研工作量", col = 4)
+    @ExcelColumn(value = "年度目标实验工作量", col = 4)
+    private double experimentalTeachingWorkloadTarget;
+
+    @ExcelColumn(value = "年度目标科研工作量", col = 5)
     private double researchWorkloadTarget;
 }

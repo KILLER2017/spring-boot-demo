@@ -97,7 +97,7 @@
             gxjg0101.xm as nickname,
             department.id as departmentId,
             department.title as department,
-            DM_CONTRACT_TYPE.NAME as contractType,
+            dm_contract_type.NAME as contractType,
             gxky0101.xmbh as contractNum,
             gxky0101.htjf as budget,
             gxky0107.pxh as signedOrder,
@@ -109,7 +109,7 @@
         join gxky0101 on gxky0101.id = gxky0107.xmbh
         join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
         join department on department.id = gxjg0101.dwh
-        LEFT JOIN DM_CONTRACT_TYPE ON DM_CONTRACT_TYPE.ID = gxky0101.htlx
+        LEFT JOIN dm_contract_type ON dm_contract_type.ID = gxky0101.htlx
         <where>
             gxky0101.xmxzbh = 1
             and gxky0101.shztbh = 2

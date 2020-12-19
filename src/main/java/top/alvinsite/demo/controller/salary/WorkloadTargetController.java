@@ -3,21 +3,25 @@ package top.alvinsite.demo.controller.salary;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
 import top.alvinsite.demo.model.params.Page;
-import top.alvinsite.demo.model.params.SalaryQuery;
+import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.WorkloadTargetParam;
-import top.alvinsite.framework.springsecurity.entity.User;
+import top.alvinsite.demo.model.params.salary.WorkloadTargetUpdateParam;
+import top.alvinsite.demo.service.salary.WorkloadTargetService;
 import top.alvinsite.utils.ExcelUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+
+import static top.alvinsite.utils.BeanUtils.transformFrom;
 
 /**
  * @author Administrator
@@ -29,42 +33,55 @@ public class WorkloadTargetController {
     @Autowired
     private WorkloadTargetDao workloadTargetDao;
 
+    @Autowired
+    private WorkloadTargetService workloadTargetService;
+
     @GetMapping
-    public PageInfo<WorkloadTarget> list(@Valid SalaryQuery salaryQuery, Page page) {
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        return new PageInfo<>(workloadTargetDao.findAll(salaryQuery));
+    public PageInfo<WorkloadTarget> getPageData(@Valid PerformanceQuery query, Page page) {
+        PageHelper.startPage(page);
+        return new PageInfo<>(workloadTargetDao.findAll(query));
     }
 
-    @PostMapping
-    public void save(@RequestBody WorkloadTarget workloadTarget) {
-        workloadTargetDao.save(workloadTarget);
-    }
-
-    @PostMapping("importExcel/{department}")
-    public void importExcel(@PathVariable String department, @RequestParam(value = "uploadFile") MultipartFile file) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ("manager".equals(user.getUserGroup()) && !Arrays.asList(user.getManageUnits()).contains(department)) {
-            throw new IllegalArgumentException("部门参数错误，只能向您管理的部门导入数据");
-        }
-
+    @PostMapping("importExcel")
+    public void importExcel(PerformanceQuery query, @RequestParam(value = "uploadFile") MultipartFile file) {
         List<WorkloadTarget> list = ExcelUtils.readExcel("", WorkloadTarget.class, file);
 
         list.forEach(
             item ->{
-                item.setDepartment(department);
-                WorkloadTarget oObject = workloadTargetDao.findOneByLevelAndPostType(new WorkloadTargetParam(department, item.getLevel(), item.getType()));
+                item.setYear(query.getYear());
+                item.setDepartment(query.getDepartment());
+                WorkloadTargetParam param = transformFrom(item, WorkloadTargetParam.class);
+                WorkloadTarget oObject = workloadTargetService.getOne(param);
                 if (oObject != null) {
                     item.setId(oObject.getId());
+                    workloadTargetService.updateById(item);
+                } else {
+                    workloadTargetService.save(item);
                 }
-
-                workloadTargetDao.save(item);
             }
-
         );
     }
 
-    @PostMapping("outputExcel")
-    public void outputExcel() {
+    /**
+     * 获取数据导入Excel模板
+     * @param response 请求响应
+     */
+    @PostMapping("template")
+    public void getTemplate(HttpServletResponse response) {
+        Workbook workbook = new ExcelUtils.Builder()
+                .addSheet("sheet1", new ArrayList<>(), WorkloadTarget.class)
+                .build();
+        ExcelUtils.buildExcelDocument("目标工作量导入模板.xlsx", workbook, response);
+    }
 
+    /**
+     * 目标工作量更新接口
+     * @param param 目标工作量
+     */
+    @PutMapping
+    public void update(@Valid @RequestBody WorkloadTargetUpdateParam param) {
+        WorkloadTarget record = transformFrom(param, WorkloadTarget.class);
+        assert record != null;
+        workloadTargetService.updateById(record);
     }
 }

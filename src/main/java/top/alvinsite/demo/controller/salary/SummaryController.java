@@ -12,7 +12,7 @@ import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.RuleDao;
 import top.alvinsite.demo.dao.salary.SalarySummaryDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
-import top.alvinsite.demo.exception.MyJexlExpression;
+import top.alvinsite.exception.MyJexlExpression;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.entity.salary.Rule;
 import top.alvinsite.demo.model.entity.salary.SalarySummary;
@@ -35,8 +35,6 @@ import static top.alvinsite.utils.BeanUtils.transformFrom;
 @RequestMapping("salary/summaries")
 public class SummaryController {
 
-    private final static String SUPER_USER_GROUP = "admin";
-
     @Autowired
     private RuleDao ruleDao;
 
@@ -49,19 +47,23 @@ public class SummaryController {
     @Autowired
     private SalarySummaryDao salarySummaryDao;
 
+    /**
+     * 列表
+     * @param user
+     * @param page
+     * @param performanceQuery
+     * @return
+     */
     @GetMapping
     public PageInfo<SalarySummary> list(@AuthenticationPrincipal User user, Page page, PerformanceQuery performanceQuery) {
-
-        // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnits() != null) {
-            performanceQuery.setDepartmentScope(user.getManageUnits());
-        }
 
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
 
         List<SalarySummary> list = salarySummaryDao.findAll(performanceQuery);
 
-        list.stream().map(salarySummary -> calcTotalSalary(salarySummary, performanceQuery.getYear())).collect(Collectors.toList());
+        list.stream()
+                .map(salarySummary -> calcTotalSalary(salarySummary, performanceQuery.getYear()))
+                .collect(Collectors.toList());
         return new PageInfo<>(list);
     }
 
@@ -86,7 +88,7 @@ public class SummaryController {
         // 实际科研工作量
         jexlContext.set("h", salarySummary.getResearchWorkload());
 
-        LevelFactorParam levelFactorParam = new LevelFactorParam(salarySummary.getDepartment(), salarySummary.getType(), salarySummary.getLevel());
+        LevelFactorParam levelFactorParam = transformFrom(salarySummary, LevelFactorParam.class);
         LevelFactor levelFactor = levelFactorDao.findOneByTypeAndLevel(levelFactorParam);
 
         if (levelFactor == null) {
@@ -111,8 +113,15 @@ public class SummaryController {
         jexlContext.set("f", workloadTarget.getResearchWorkloadTarget());
         // 个人实际民主测评值
         jexlContext.set("i", salarySummary.getMeasurement());
+        // 实际完成教研教改工作量
+        jexlContext.set("j", salarySummary.getTeachingResearchWorkload());
+        // 实际完成总实验教学工作量
+        jexlContext.set("k", salarySummary.getExperimentalTeachingWorkload());
+        // 年度目标实验教学工作量
+        jexlContext.set("l", workloadTarget.getExperimentalTeachingWorkloadTarget());
 
         SalaryRuleParam salaryRuleParam = transformFrom(salarySummary, SalaryRuleParam.class);
+        assert salaryRuleParam != null;
         salaryRuleParam.setYear(year);
         Rule rule = ruleDao.findOne(salaryRuleParam);
 
@@ -140,6 +149,11 @@ public class SummaryController {
         return salarySummary;
     }
 
+    /**
+     * 导入
+     * @param year
+     * @param file
+     */
     @PostMapping("importExcel")
     public void importExcel(Integer year, @RequestParam(value="uploadFile") MultipartFile file) {
         long t1 = System.currentTimeMillis();
@@ -164,14 +178,21 @@ public class SummaryController {
         salarySummaryDao.saveBatch(list);
     }
 
+    /**
+     * 导出
+     * @param performanceQuery 查询过滤参数
+     * @param response 请求响应
+     */
     @GetMapping("exportExcel")
-    public void exportExcel(@AuthenticationPrincipal User user, PerformanceQuery performanceQuery, HttpServletResponse response) {
-        // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
-        if (!SUPER_USER_GROUP.equals(user.getUserGroup()) && user.getManageUnits() != null) {
-            performanceQuery.setDepartmentScope(user.getManageUnits());
-        }
-
+    public void exportExcel(PerformanceQuery performanceQuery, HttpServletResponse response) {
         List<SalarySummary> list = salarySummaryDao.findAll(performanceQuery);
         ExcelUtils.writeExcel(response, list, SalarySummary.class);
+    }
+
+    /**
+     * 更新用户岗位职责完成情况
+     */
+    public void updateJobDetail() {
+
     }
 }

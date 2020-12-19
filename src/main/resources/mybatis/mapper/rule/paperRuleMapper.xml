@@ -9,10 +9,10 @@
             paper_rule.id,
             paper_rule.department,
             paper_rule.year,
-            DM_PAPER_TYPE.ID AS type,
+            dm_paper_type.ID AS type,
             paper_rule.score
         from paper_rule
-        left join DM_PAPER_TYPE on paper_rule.type = DM_PAPER_TYPE.id
+        left join dm_paper_type on paper_rule.type = dm_paper_type.id
         <where>
             <if test="department != null">department = #{department}</if>
             <if test="year != null">and year = #{year}</if>

@@ -24,10 +24,10 @@ public interface PaperRuleDao extends BaseMapper<PaperRule> {
             "    paper_rule.id,\n" +
             "    paper_rule.department,\n" +
             "    paper_rule.year,\n" +
-            "    DM_PAPER_TYPE.ID AS type,\n" +
+            "    dm_paper_type.ID AS type,\n" +
             "    paper_rule.score\n" +
             "    from paper_rule\n" +
-            "    left join DM_PAPER_TYPE on paper_rule.type = DM_PAPER_TYPE.id\n" +
+            "    left join dm_paper_type on paper_rule.type = dm_paper_type.id\n" +
             "    ${ew.customSqlSegment}")
     List<PaperRule> findAllByWrapper(@Param(Constants.WRAPPER) Wrapper wrapper);
 

@@ -19,6 +19,8 @@ public class LevelFactor {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    private Integer year;
+
     private String department;
 
     @ExcelColumn(value = "人员类别", col = 1)
@@ -28,6 +30,6 @@ public class LevelFactor {
     private String level;
 
     @ExcelColumn(value = "级差系数", col = 3)
-    private double factor;
+    private Double factor;
 
 }

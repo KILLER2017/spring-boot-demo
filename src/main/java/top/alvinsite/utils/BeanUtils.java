@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import top.alvinsite.demo.exception.BeanUtilsException;
+import top.alvinsite.exception.BeanUtilsException;
 
 import java.beans.PropertyDescriptor;
 import java.util.*;

@@ -26,6 +26,11 @@ public class RuleController {
     @Autowired
     private RuleService ruleService;
 
+    /**
+     * 列表数据接口
+     * @param salaryRuleQuery 查询过滤参数
+     * @return 列表数据
+     */
     @GetMapping("{department}/{year}")
     public List<Rule> list(@Valid SalaryRuleQuery salaryRuleQuery) {
         return ruleService.list(salaryRuleQuery);

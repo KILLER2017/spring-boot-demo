@@ -47,6 +47,10 @@ public class SalarySummary {
     @ExcelColumn(value = "实际科研工作量", col = 9)
     private int researchWorkload;
 
+    private int teachingResearchWorkload;
+
+    private int experimentalTeachingWorkload;
+
     /**
      * 业绩绩效工资
      */

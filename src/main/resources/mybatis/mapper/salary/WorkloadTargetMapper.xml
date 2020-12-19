@@ -3,16 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.alvinsite.demo.dao.salary.WorkloadTargetDao">
-    <select id="findAll" resultType="WorkloadTarget" parameterType="SalaryQuery">
+    <select id="findAll" resultType="WorkloadTarget" parameterType="PerformanceQuery">
         select
             id as id,
+            year,
             department,
             type as type,
             level as level,
             teaching_workload_target AS teachingWorkloadTarget,
+            experimental_teaching_workload_target AS experimentalTeachingWorkloadTarget,
             research_workload_target AS researchWorkloadTarget
         from workload_target
-        WHERE department = #{department}
+        <where>
+            department = #{departmentId} and year = #{year}
+            <if test="departmentScope != null">
+                and department in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
     </select>
 
     <select id="findOne"  resultType="WorkloadTarget">
@@ -35,7 +45,7 @@
             teaching_workload_target AS teachingWorkloadTarget,
             research_workload_target AS researchWorkloadTarget
         from workload_target
-        where level = #{level} and type = #{postType} and department = #{department}
+        where level = #{level} and type = #{type} and department = #{department}
     </select>
 
     <insert id="save">

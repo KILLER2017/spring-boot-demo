@@ -13,7 +13,7 @@ import org.apache.ibatis.type.Alias;
  */
 @Alias("PaperType")
 @Data
-@TableName(value = "DM_PAPER_TYPE")
+@TableName(value = "dm_paper_type")
 public class PaperType {
 
     @TableId(value = "ID", type = IdType.AUTO)

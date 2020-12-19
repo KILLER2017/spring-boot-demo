@@ -10,6 +10,7 @@ import org.apache.ibatis.type.Alias;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LevelFactorParam {
+    private Integer year;
     private String department;
     private String type;
     private String level;

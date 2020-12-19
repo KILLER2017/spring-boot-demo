@@ -7,7 +7,7 @@
         select
             ID as id,
             NAME as title
-        from DM_PROJECT_LEVEL
+        from dm_project_level
         order by ID ASC
     </select>
 
@@ -15,7 +15,7 @@
         select
             ID as id,
             NAME as title
-        from DM_PROJECT_LEVEL
+        from dm_project_level
         where ID = #{id}
     </select>
 </mapper>
