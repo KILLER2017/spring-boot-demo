@@ -66,12 +66,12 @@
 
     <select id="findAuthorsById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
         SELECT
-            gxjg0101.xm as nickname,
+            gxky0308.zzmc as nickname,
             gxjg0101.gh as account,
             gxjg0101.dwh as department
         FROM gxky0308
-        join gxjg0101 on gxjg0101.gh = gxky0308.zzzgh
-        where gxky0308.zzbh = #{id}
+        left join gxjg0101 on gxjg0101.gh = gxky0308.zzzgh
+        where gxky0308.zzbh = #{id} and gxky0308.zzlx &lt;&gt; 2
         order by gxky0308.smsx
     </select>
 

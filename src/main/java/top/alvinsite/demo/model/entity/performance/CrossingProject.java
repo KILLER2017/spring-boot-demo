@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 import java.util.Date;
@@ -18,19 +17,6 @@ import java.util.List;
 @Alias("CrossingProject")
 @EqualsAndHashCode(callSuper = true)
 public class CrossingProject extends BaseEntity  {
-    protected String id;
-
-
-
-    @ExcelColumn(value = "姓名", col = 1)
-    protected String nickname;
-
-    @ExcelColumn(value = "工号", col = 2)
-    private String account;
-
-    @ExcelColumn(value = "所属单位", col = 3)
-    protected Department department;
-
 
     private String projectNum;
 
@@ -45,12 +31,6 @@ public class CrossingProject extends BaseEntity  {
 
     @ExcelColumn(value = "合同金额", col = 7)
     private float budget;
-
-    private Integer ApprovalProjectYear;
-
-    private Integer memberNum;
-
-    private Integer SignedOrder;
 
     @ExcelColumn(value = "开始时间", col = 8)
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -68,7 +48,4 @@ public class CrossingProject extends BaseEntity  {
 
     @ExcelColumn(value = "经费分", col = 12)
     private float budgetScore;
-
-    @ExcelColumn(value = "科研分数", col = 13)
-    protected float score;
 }

@@ -29,33 +29,49 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @author Alvin
+ */
 public class ExcelUtils {
     private final static Logger log = LoggerFactory.getLogger(ExcelUtils.class);
 
     private final static String EXCEL2003 = "xls";
     private final static String EXCEL2007 = "xlsx";
+    private final static String FILENAME_MATCHES_REGEX_1 = "^.+\\.(?i)(xls)$";
+    private final static String FILENAME_MATCHES_REGEX_2 = "^.+\\.(?i)(xlsx)$";
+
+    private static Workbook getWorkbook(MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        assert fileName != null;
+        if (!fileName.matches(FILENAME_MATCHES_REGEX_1) && !fileName.matches(FILENAME_MATCHES_REGEX_2)) {
+            log.error("上传文件格式不正确");
+        }
+        InputStream is = file.getInputStream();
+        if (fileName.endsWith(EXCEL2007)) {
+            // FileInputStream is = new FileInputStream(new File(path));
+            return new XSSFWorkbook(is);
+        }
+        if (fileName.endsWith(EXCEL2003)) {
+            // FileInputStream is = new FileInputStream(new File(path));
+            return new HSSFWorkbook(is);
+        }
+        return null;
+    }
 
     public static <T> List<T> readExcel(String path, Class<T> cls, MultipartFile file){
 
         String fileName = file.getOriginalFilename();
-        if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
+        assert fileName != null;
+        if (!fileName.matches(FILENAME_MATCHES_REGEX_1) && !fileName.matches(FILENAME_MATCHES_REGEX_2)) {
             log.error("上传文件格式不正确");
         }
         List<T> dataList = new ArrayList<>();
         Workbook workbook = null;
         try {
-            InputStream is = file.getInputStream();
-            if (fileName.endsWith(EXCEL2007)) {
-//                FileInputStream is = new FileInputStream(new File(path));
-                workbook = new XSSFWorkbook(is);
-            }
-            if (fileName.endsWith(EXCEL2003)) {
-//                FileInputStream is = new FileInputStream(new File(path));
-                workbook = new HSSFWorkbook(is);
-            }
+            workbook = getWorkbook(file);
             if (workbook != null) {
                 //类映射  注解 value-->bean columns
-                Map<String, List<Field>> classMap = new HashMap<>();
+                Map<String, List<Field>> classMap = new HashMap<>(16);
                 List<Field> fields = Stream.of(cls.getDeclaredFields()).collect(Collectors.toList());
                 fields.forEach(
                         field -> {
@@ -131,13 +147,13 @@ public class ExcelUtils {
                 }
             }
         } catch (Exception e) {
-            log.error(String.format("parse excel exception!"), e);
+            log.error("parse excel exception!", e);
         } finally {
             if (workbook != null) {
                 try {
                     workbook.close();
                 } catch (Exception e) {
-                    log.error(String.format("parse excel exception!"), e);
+                    log.error("parse excel exception!", e);
                 }
             }
         }
@@ -146,7 +162,7 @@ public class ExcelUtils {
 
     private static <T> void handleField(T t, String value, Field field) throws Exception {
         Class<?> type = field.getType();
-        if (type == null || type == void.class || StringUtils.isBlank(value)) {
+        if (type == void.class || StringUtils.isBlank(value)) {
             return;
         }
         if (type == Object.class) {
@@ -303,7 +319,6 @@ public class ExcelUtils {
 
 
     public static class Builder{
-        private String excelName = "file.xlsx";
         private Workbook workbook;
         private HttpServletResponse response;
 
@@ -312,20 +327,22 @@ public class ExcelUtils {
 
         }
 
-        public Builder setExcelName(String excelName) {
-            this.excelName = excelName;
-            return this;
-        }
-
         public Builder setResponse(HttpServletResponse response) {
             this.response = response;
             return this;
         }
 
-        public <T> Builder addSheet(String sheetName, List<T> dataList, Class<T> cls) {
-            Field[] fields = cls.getDeclaredFields();
+        private static List<Field> getAllField(Class clazz){
+            List<Field> fields = new ArrayList<>();
+            while (clazz != null){
+                fields.addAll(new ArrayList<>(Arrays.asList(clazz.getDeclaredFields())));
+                clazz = clazz.getSuperclass();
+            }
+            return fields;
+        }
 
-            List<Field> fieldList = Arrays.stream(fields)
+        public <T> Builder addSheet(String sheetName, List<T> dataList, Class<T> cls) {
+            List<Field> fieldList = getAllField(cls).stream()
                     .filter(field -> {
                         ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
                         if (annotation != null && annotation.col() > 0) {
@@ -359,9 +376,9 @@ public class ExcelUtils {
 
     /**
      * 浏览器下载excel
-     * @param fileName
-     * @param wb
-     * @param response
+     * @param fileName 文件名
+     * @param wb workbook
+     * @param response 请求响应
      */
 
     public static void buildExcelDocument(String fileName, Workbook wb, HttpServletResponse response){
@@ -380,7 +397,7 @@ public class ExcelUtils {
     /**
      * 生成excel文件
      * @param path 生成excel路径
-     * @param wb
+     * @param wb workbook对象
      */
     private static void buildExcelFile(String path, Workbook wb){
 

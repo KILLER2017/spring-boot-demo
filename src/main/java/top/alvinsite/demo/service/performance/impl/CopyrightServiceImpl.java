@@ -1,9 +1,7 @@
 package top.alvinsite.demo.service.performance.impl;
 
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.performance.CopyrightDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
@@ -11,75 +9,27 @@ import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.Copyright;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.ScoreDistributionParam;
-import top.alvinsite.demo.service.rule.ScoreDistributionService;
 import top.alvinsite.demo.service.performance.CopyrightService;
 import top.alvinsite.demo.service.rule.CopyrightRuleService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> implements CopyrightService {
+public class CopyrightServiceImpl extends AbstractPerformanceService<CopyrightDao, Copyright> implements CopyrightService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
-    private final static String performance = "copyright";
+    private final static String PERFORMANCE = "copyright";
 
     @Autowired
     private CopyrightRuleService copyrightRuleService;
 
-    @Autowired
-    protected ScoreDistributionService scoreDistributionService;
-
     @Override
-    public List<Copyright> findAll(PerformanceQuery performanceQuery) {
-        List<Copyright> list = getBaseMapper().findCopyright(performanceQuery);
-        list.stream()
-                .map(this::getAnnualYear)
-                .map(this::getProjectMemberNum)
-                .map(this::getOrder)
-                .map(this::calcProjectPoints)
-                .map(this::filterDepartment)
-                .collect(Collectors.toList());
-        return list;
+    protected String getPerformance() {
+        return PERFORMANCE;
     }
 
     @Override
-    public Copyright getAnnualYear(Copyright project) {
-        return project;
-    }
-
-    @Override
-    public Copyright getOrder(Copyright project) {
-        String key = String.format("%s-%s-%s", performance, project.getId(), project.getAccount());
-        Integer order = (Integer) redisTemplate.opsForValue().get(key);
-        if (order == null) {
-            order = calcOrder(project);
-            redisTemplate.opsForValue().set(key, order);
-        }
-        project.setSignedOrder(order);
-        return project;
-    }
-
-
-    private Integer calcOrder(Copyright project) {
-        int order = 1;
-        for (ManagerUserDTO item : project.getAuthors()) {
-            if (item.getAccount().equals(project.getAccount())) {
-                break;
-            } else {
-                order++;
-            }
-        }
-        return order;
-    }
-
-
-    @Override
-    public Copyright getProjectMemberNum(Copyright project) {
-        project.setMemberNum(project.getAuthors().size());
-        return project;
+    protected List<ManagerUserDTO> getMembers(Copyright project) {
+        return project.getAuthors();
     }
 
     @Override
@@ -88,7 +38,7 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
         float score = copyrightRuleService.getScore(project);
 
         // 分值分配法
-        score *= scoreDistributionService.getProportion(ScoreDistributionParam.build(project, performance));
+        score *= scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));
 
         // 返回个人得分
         project.setScore(score);
@@ -96,13 +46,8 @@ public class CopyrightServiceImpl extends ServiceImpl<CopyrightDao, Copyright> i
     }
 
     @Override
-    public Copyright filterDepartment(Copyright project) {
-        String userDepartment = project.getDepartment().getId();
-        String firstMemberDepartment = project.getAuthors().get(0).getDepartment();
-        if (!userDepartment.equals(firstMemberDepartment)) {
-            project.setScore(0);
-        }
-        return project;
+    protected List<Copyright> beforeFindAll(PerformanceQuery performanceQuery) {
+        return baseMapper.findCopyright(performanceQuery);
     }
 
     @Override

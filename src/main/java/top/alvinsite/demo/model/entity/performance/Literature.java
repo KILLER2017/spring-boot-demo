@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.enums.BookType;
 import top.alvinsite.demo.model.enums.PublisherLevel;
 import top.alvinsite.demo.model.enums.SubsidizeFrom;
@@ -22,16 +21,6 @@ import java.util.List;
 @Alias("Literature")
 @EqualsAndHashCode(callSuper = true)
 public class Literature extends BaseEntity  {
-    private String id;
-
-    @ExcelColumn(value = "姓名", col = 1)
-    private String nickname;
-
-    @ExcelColumn(value = "工号", col = 2)
-    private String account;
-
-    @ExcelColumn(value = "所属单位", col = 3)
-    private Department department;
 
     @ExcelColumn(value = "著作名称", col = 4)
     private String title;
@@ -65,13 +54,4 @@ public class Literature extends BaseEntity  {
     private List<ManagerUserDTO> authors;
 
     private String firstAuthor;
-
-    private Integer ApprovalProjectYear;
-
-    private Integer memberNum;
-
-    private Integer SignedOrder;
-
-    @ExcelColumn(value = "科研分数", col = 13)
-    private float score;
 }

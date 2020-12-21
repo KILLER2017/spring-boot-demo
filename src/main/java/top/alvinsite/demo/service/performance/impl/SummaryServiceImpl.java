@@ -2,10 +2,8 @@ package top.alvinsite.demo.service.performance.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.ResearcherDao;
-import top.alvinsite.demo.dao.performance.*;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.BaseEntity;
 import top.alvinsite.demo.model.params.PerformanceQuery;
@@ -16,22 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPerformance> implements SummaryService {
-    @Autowired
-    private RedisTemplate redisTemplate;
-    @Autowired
-    private ProjectDao projectDao;
-
-    @Autowired
-    private PaperDao paperDao;
-
-    @Autowired
-    private PatentDao patentDao;
-
-    @Autowired
-    private CopyrightDao copyrightDao;
-
-    @Autowired
-    private AwardedDao awardedDAO;
 
     @Autowired
     private AwardedService awardedService;

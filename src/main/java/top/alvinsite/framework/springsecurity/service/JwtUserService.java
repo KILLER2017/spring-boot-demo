@@ -22,6 +22,7 @@ import top.alvinsite.framework.springsecurity.dao.UserDao;
 import top.alvinsite.framework.springsecurity.entity.User;
 import top.alvinsite.utils.JwtUtils;
 
+import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,8 +33,8 @@ import java.util.Set;
 @Service
 public class JwtUserService implements UserDetailsService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource
+    private RedisTemplate<String, UserDetails> redisTemplate;
 
     @Autowired
     private UserDao userDao;
@@ -95,7 +96,7 @@ public class JwtUserService implements UserDetailsService {
 
     public String saveUserLoginInfo(UserDetails user) {
         String token = JwtUtils.sign(user.getUsername());
-        String key = JWT.decode(token).getKeyId();
+        String key = "login-user:" + JWT.decode(token).getKeyId();
         redisTemplate.opsForValue().set(key, user);
         return token;
     }
@@ -109,7 +110,7 @@ public class JwtUserService implements UserDetailsService {
         if (StringUtils.isBlank(key)) {
             return null;
         }
-        return (UserDetails) redisTemplate.opsForValue().get(key);
+        return redisTemplate.opsForValue().get("login-user:" + key);
     }
 
     public void deleteUserLoginInfo(@NonNull String key) {

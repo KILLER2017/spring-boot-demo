@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.performance.LongitudinalProjectDao">
+    <resultMap id="findLongitudinalProjectResult" type="LongitudinalProject">
+        <id property="id" column="id" />
+        <result property="nickname" column="nickname" />
+        <result property="projectNum" column="projectNum" />
+
+
+        <association property="type" javaType="ProjectType">
+            <id property="id" column="typeId" />
+            <result property="title" column="typeTitle" />
+        </association>
+
+        <association property="department" javaType="Department" >
+            <id property="id" column="departmentId" />
+            <result property="title" column="department" />
+        </association>
+        <collection property="members" ofType="ManagerUserDTO" column="projectNum"  select="findMembersById">
+            <id property="account" column="account"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" parameterType="PerformanceQuery" resultMap="findLongitudinalProjectResult">
+        select
+            gxky0107.id as id,
+            gxky0101.id as projectNum,
+            gxky0101.xmmc as title,
+            gxky0117.bzm as typeId,
+            gxky0117.flmc as typeTitle,
+            gxky0101.xmjb as level,
+            gxky0101.htjf as budget,
+            gxjg0101.gh as account,
+            gxjg0101.xm as nickname,
+            department.id as departmentId,
+            department.title as department,
+            gxky0107.pxh as signedOrder,
+            #{year} as approvalProjectYear,
+            date_format(gxky0101.kssj,'%Y-%m-%d') as startedTime,
+            date_format(gxky0101.jhwcsj,'%Y-%m-%d') as finishedTime
+
+        from gxky0107
+        join gxky0101 on gxky0101.id = gxky0107.xmbh
+        join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
+        join department on department.id = gxjg0101.dwh
+        left join gxky0117 on gxky0101.xmflbh = gxky0117.bzm
+        <where>
+            gxky0101.xmxzbh = 0
+            and gxky0101.shztbh = 2
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="accountScope != null">and gxjg0101.gh = #{accountScope}</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="startedTime != null">and kssj &lt;= #{finishedTime}</if>
+            <if test="finishedTime != null">and jhwcsj &gt;= #{startedTime}</if>
+            <if test="departmentScope != null">
+                and gxjg0101.dwh in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="findMembersById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
+        SELECT
+            gxky0107.cyxm as nickname,
+            gxjg0101.gh as account,
+            gxjg0101.dwh as department
+        FROM gxky0107
+        left join gxjg0101 on gxjg0101.gh = gxky0107.xmzcyzgh
+        where
+            gxky0107.xmbh = #{id} and
+            gxky0107.zzlxbh &lt;&gt; 2 # 过滤本校学生
+        order by gxky0107.pxh
+    </select>
+
+</mapper>

@@ -36,13 +36,12 @@
             date_format(gxky0309.hjrq,'%Y-%m-%d') as acquisitionTime,
             gxky0309.hjrs as memberNum,
             gxky0310.smsx as SignedOrder
-
         from gxky0310
         join gxky0309 on gxky0309.id = gxky0310.hjbh
         join gxjg0101 on gxjg0101.gh = gxky0310.wcrzgh
         join department on department.id = gxjg0101.dwh
         <where>
-            gxky0309.shzt = 2
+            gxky0309.shzt = 2 AND gxky0310.wcrlx &lt;&gt; 2
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="accountScope != null">and gxjg0101.gh = #{accountScope}</if>
@@ -60,13 +59,13 @@
     </select>
 
     <select id="findAuthorsById"  parameterType="java.lang.String" resultType="ManagerUserDTO">
-        SELECT
-            gxjg0101.xm as nickname,
+        SELECT DISTINCT
+            gxky0310.wcrxm as nickname,
             gxjg0101.gh as account,
             gxjg0101.dwh as department
         FROM gxky0310
-        join gxjg0101 on gxjg0101.gh = gxky0310.wcrzgh
-        where gxky0310.hjbh = #{id}
+        left join gxjg0101 on gxjg0101.gh = gxky0310.wcrzgh
+        where gxky0310.hjbh = #{id} and gxky0310.wcrlx &lt;&gt; 2
         order by gxky0310.smsx
     </select>
 
