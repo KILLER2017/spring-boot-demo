@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
+import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.WorkloadTargetParam;
 import top.alvinsite.demo.service.salary.WorkloadTargetService;
+
+import java.util.List;
 
 /**
  * @author Alvin
@@ -22,5 +25,10 @@ public class WorkloadTargetServiceImpl extends ServiceImpl<WorkloadTargetDao, Wo
                         .eq(WorkloadTarget::getType, param.getType()),
                 false
         );
+    }
+
+    @Override
+    public List<WorkloadTarget> findAll(PerformanceQuery query) {
+        return baseMapper.findAll(query);
     }
 }

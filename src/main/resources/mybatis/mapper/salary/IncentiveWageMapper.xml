@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.IncentiveWageDao">
+    <select id="findAll" resultType="IncentiveWage" parameterType="PerformanceQuery">
+        select
+        incentive_wage.id,
+        incentive_wage.year,
+        gxjg0101.xm as nickname,
+        incentive_wage.account,
+        incentive_wage.incentive_performance_score,
+        incentive_wage.incentive_performance_score * incentive_wage_standard.factor as incentivePerformanceSalary
+
+        from incentive_wage
+        join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year
+        join gxjg0101 on gxjg0101.gh = incentive_wage.account
+        join department on department.id = gxjg0101.dwh
+        <where>
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="departmentScope != null">
+                and gxjg0101.dwh in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserIncentiveWage" resultType="java.lang.Double" parameterType="PerformanceQuery">
+        select
+            incentive_wage.incentive_performance_score * incentive_wage_standard.factor as incentivePerformanceSalary
+        from incentive_wage
+        join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year
+        <where>
+            <if test="account != null">incentive_wage.account = #{account}</if>
+            <if test="year != null">and incentive_wage.year = #{year}</if>
+        </where>
+    </select>
+
+</mapper>

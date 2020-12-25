@@ -14,8 +14,14 @@ import java.util.List;
  */
 @Service
 public class OvertimeWorkedSubsidyServiceImpl extends ServiceImpl<OvertimeWorkedSubsidyDao, OvertimeWorkedSubsidy> implements OvertimeWorkedSubsidyService {
+
     @Override
     public List<OvertimeWorkedSubsidy> findAll(PerformanceQuery query) {
-        return null;
+        return baseMapper.findAll(query);
+    }
+
+    @Override
+    public Double getUserOvertimeWorkedSubsidy(PerformanceQuery query) {
+        return baseMapper.getUserOvertimeWorkedSubsidy(query);
     }
 }

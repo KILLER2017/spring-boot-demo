@@ -1,91 +1,83 @@
 package top.alvinsite.demo.controller.salary;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import top.alvinsite.demo.dao.salary.LevelFactorDao;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
 import top.alvinsite.demo.model.params.LevelFactorParam;
-import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.salary.LevelFactorUpdateParam;
 import top.alvinsite.demo.service.salary.LevelFactorService;
-import top.alvinsite.utils.ExcelUtils;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static top.alvinsite.utils.BeanUtils.transformFrom;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @RestController
 @RequestMapping("salary/level-factor")
-public class LevelFactorController {
+public class LevelFactorController extends AbstractSalaryController<LevelFactorService, LevelFactor, LevelFactorUpdateParam> {
 
-    @Autowired
-    private LevelFactorService levelFactorService;
-
-    @Autowired
-    private LevelFactorDao levelFactorDao;
-
-    @GetMapping
-    public PageInfo<LevelFactor> getPageData(@Valid PerformanceQuery query, Page page) {
-        PageHelper.startPage(page);
-        return new PageInfo<>(levelFactorDao.findAll(query));
+    @Override
+    protected Class<LevelFactor> getEntityClass() {
+        return LevelFactor.class;
     }
 
-    @PostMapping
-    public void save(@RequestBody LevelFactor levelFactor) {
-        levelFactorDao.save(levelFactor);
+    @Override
+    protected Class<LevelFactorUpdateParam> getParamClass() {
+        return LevelFactorUpdateParam.class;
     }
 
-    @PostMapping("importExcel/{department}")
-    public void importExcel(PerformanceQuery query, @RequestParam(value="uploadFile") MultipartFile file) {
-        List<LevelFactor> list = ExcelUtils.readExcel("", LevelFactor.class, file);
-
-        list.forEach(item -> {
-            item.setYear(query.getYear());
-            item.setDepartment(query.getDepartment());
-            LevelFactorParam param = transformFrom(item, LevelFactorParam.class);
-            LevelFactor oObject = levelFactorDao.findOneByTypeAndLevel(param);
-
-            if (oObject != null) {
-                item.setId(oObject.getId());
-                levelFactorService.updateById(item);
-            } else {
-                levelFactorService.save(item);
-            }
-        });
-
+    @Override
+    protected String getOutputExcelName() {
+        return "级差系数.xlsx";
     }
 
-    /**
-     * 获取数据导入Excel模板
-     * @param response 请求响应
-     */
-    @PostMapping("template")
-    public void getTemplate(HttpServletResponse response) {
-        Workbook workbook = new ExcelUtils.Builder()
-                .addSheet("sheet1", new ArrayList<>(), WorkloadTarget.class)
-                .build();
-        ExcelUtils.buildExcelDocument("目标工作量导入模板.xlsx", workbook, response);
+    @Override
+    protected String getExcelTemplateName() {
+        return "级差系数导入模板.xlsx";
     }
 
-    /**
-     * 目标工作量更新接口
-     * @param param 目标工作量
-     */
-    @PutMapping
-    public void update(@Valid @RequestBody LevelFactorUpdateParam param) {
-        LevelFactor record = transformFrom(param, LevelFactor.class);
-        assert record != null;
-        levelFactorService.updateById(record);
+    @Override
+    protected LevelFactor handle(PerformanceQuery query, LevelFactor entity) {
+        entity.setYear(query.getYear());
+        entity.setDepartment(query.getDepartment());
+        LevelFactorParam param = transformFrom(entity, LevelFactorParam.class);
+        LevelFactor oObject = baseService.getOne(param);
+
+        if (oObject != null) {
+            entity.setId(oObject.getId());
+        }
+        return entity;
+    }
+
+    @GetMapping("type")
+    public List<String> getTypes(PerformanceQuery query) {
+        QueryWrapper<LevelFactor> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("distinct type")
+                .eq(query.getYear() != null, "year", query.getYear())
+                .eq(query.getDepartmentId() != null, "department", query.getDepartmentId());
+        List<LevelFactor> list = baseService.list(queryWrapper);
+        List<String> results;
+        results = list.stream().distinct().map(LevelFactor::getType).collect(Collectors.toList());
+        return results;
+    }
+
+    @GetMapping("level")
+    public List<String> getLevels(PerformanceQuery query) {
+        QueryWrapper<LevelFactor> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("distinct level")
+                .eq(query.getYear() != null,"year", query.getYear())
+                .eq(query.getDepartmentId() != null, "department", query.getDepartmentId());
+        List<LevelFactor> list = baseService.list(queryWrapper);
+        List<String> results;
+        results = list.stream().distinct().map(LevelFactor::getLevel).collect(Collectors.toList());
+        return results;
     }
 }

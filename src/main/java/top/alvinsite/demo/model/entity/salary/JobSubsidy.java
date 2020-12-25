@@ -1,27 +1,22 @@
 package top.alvinsite.demo.model.entity.salary;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.support.ExcelColumn;
-
-import java.time.LocalDateTime;
 
 /**
  * @author Alvin
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Alias("JobSubsidy")
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobSubsidy {
-
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+public class JobSubsidy extends BaseModel{
 
     private Integer year;
 
@@ -43,12 +38,9 @@ public class JobSubsidy {
 
     private final Integer length = 10;
 
+    @ExcelColumn(value = "个人岗位津贴/元", col = 6)
     private Double subsidy;
 
-    @ExcelColumn(value = "备注", col = 6)
+    @ExcelColumn(value = "备注", col = 7)
     private String remarks;
-
-    private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
 }

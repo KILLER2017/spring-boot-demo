@@ -15,7 +15,8 @@
             research_workload_target AS researchWorkloadTarget
         from workload_target
         <where>
-            department = #{departmentId} and year = #{year}
+            <if test="departmentId != null">department = #{departmentId}</if>
+            <if test="year != null">and year = #{year}</if>
             <if test="departmentScope != null">
                 and department in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
@@ -45,8 +46,9 @@
             teaching_workload_target AS teachingWorkloadTarget,
             research_workload_target AS researchWorkloadTarget
         from workload_target
-        where level = #{level} and type = #{type} and department = #{department}
+        where level = #{level} and type = #{type} and department = #{department} and year = #{year}
     </select>
+
 
     <insert id="save">
         INSERT INTO workload_target (id, department, type, level, teaching_workload_target, research_workload_target) values

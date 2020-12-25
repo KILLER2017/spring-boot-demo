@@ -1,77 +1,73 @@
 package top.alvinsite.demo.controller.salary;
 
-import com.github.pagehelper.PageInfo;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import top.alvinsite.demo.model.entity.salary.IncentiveWage;
-import top.alvinsite.demo.model.params.Page;
+import top.alvinsite.demo.model.entity.salary.IncentiveWageStandard;
 import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.salary.JobSubsidyUpdateParam;
+import top.alvinsite.demo.model.params.salary.IncentiveWageUpdateParam;
 import top.alvinsite.demo.service.salary.IncentiveWageService;
-import top.alvinsite.demo.service.salary.SalarySummaryService;
-import top.alvinsite.utils.ExcelUtils;
+import top.alvinsite.demo.service.salary.IncentiveWageStandardService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-
-import static top.alvinsite.utils.BeanUtils.transformFrom;
 
 /**
  * 超课时津贴控制器
  * @author Alvin
  */
 @RestController
-@RequestMapping("salary/incentiveWage")
-public class IncentiveWageController {
+@RequestMapping("salary/incentive-wage")
+public class IncentiveWageController extends AbstractSalaryController<IncentiveWageService, IncentiveWage, IncentiveWageUpdateParam> {
 
     @Autowired
-    private SalarySummaryService salarySummaryService;
+    private IncentiveWageStandardService standardService;
 
-    @Autowired
-    private IncentiveWageService incentiveWageService;
-
-    @GetMapping
-    public PageInfo<IncentiveWage> getPageData(PerformanceQuery query, Page page) {
-        salarySummaryService.findAll(query);
-        return null;
+    @Override
+    protected Class<IncentiveWage> getEntityClass() {
+        return IncentiveWage.class;
     }
 
-    @PostMapping("importExcel")
-    public void importExcel(PerformanceQuery query, MultipartFile file) {
-
+    @Override
+    protected Class<IncentiveWageUpdateParam> getParamClass() {
+        return IncentiveWageUpdateParam.class;
     }
 
-    @PostMapping("exportExcel")
-    public void exportExcel() {
-
+    @Override
+    protected String getOutputExcelName() {
+        return "激励绩效工资.xlsx";
     }
 
-    /**
-     * 获取数据导入Excel模板
-     * @param response 请求响应
-     */
-
-    @PostMapping("template")
-    public void getTemplate(HttpServletResponse response) {
-        Workbook workbook = new ExcelUtils.Builder()
-                .addSheet("sheet1", new ArrayList<>(), IncentiveWage.class)
-                .build();
-        ExcelUtils.buildExcelDocument("激励绩效工资导入模板.xlsx", workbook, response);
+    @Override
+    protected String getExcelTemplateName() {
+        return "激励绩效工资导出模板.xlsx";
     }
 
-    /**
-     * 岗位津贴更新接口
-     * @param param 岗位津贴
-     */
-    @PutMapping
-    public void update(@Valid @RequestBody JobSubsidyUpdateParam param) {
-        IncentiveWage incentiveWage = transformFrom(param, IncentiveWage.class);
-        assert incentiveWage != null;
-        double factor = 1;
-        incentiveWage.setIncentivePerformanceSalary(incentiveWage.getIncentivePerformanceScore() * factor);
-        incentiveWageService.updateById(incentiveWage);
+    @Override
+    protected IncentiveWage handle(PerformanceQuery query, IncentiveWage entity) {
+        entity.setYear(query.getYear());
+        // 查询是否已存在记录
+        IncentiveWage oldRecord = baseService.getOne(Wrappers.<IncentiveWage>lambdaQuery()
+                        .eq(IncentiveWage::getYear, query.getYear())
+                        .eq(IncentiveWage::getAccount, entity.getAccount())
+                , false);
+        if (oldRecord != null) {
+            entity.setId(oldRecord.getId());
+        }
+        return entity;
+    }
+
+    @GetMapping("standard")
+    public IncentiveWageStandard getIncentiveWageStandard(@Valid PerformanceQuery query) {
+        return standardService.getOne(Wrappers.<IncentiveWageStandard>lambdaQuery()
+                .eq(IncentiveWageStandard::getYear, query.getYear()),
+                false);
+    }
+
+    @PostMapping("standard")
+    public void setIncentiveWageStandard(@Valid @RequestBody IncentiveWageStandard incentiveWageStandard) {
+        standardService.saveOrUpdate(incentiveWageStandard, Wrappers.<IncentiveWageStandard>lambdaUpdate()
+                .eq(IncentiveWageStandard::getYear, incentiveWageStandard.getYear())
+        );
     }
 }

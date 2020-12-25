@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.OvertimeWorkedSubsidyDao">
+    <select id="findAll" resultType="OvertimeWorkedSubsidy" parameterType="PerformanceQuery">
+        select
+            overtime_worked_subsidy.id,
+            overtime_worked_subsidy.year,
+            gxjg0101.xm as nickname,
+            overtime_worked_subsidy.account,
+            overtime_worked_subsidy.professional_position as professionalPosition,
+            overtime_worked_subsidy.teaching_workload as teachingWorkload,
+            workload_target.teaching_workload_target,
+            IF(
+                overtime_worked_subsidy.teaching_workload - workload_target.teaching_workload_target >= 0,
+                (overtime_worked_subsidy.teaching_workload - workload_target.teaching_workload_target) * class_fees_standard.factor,
+                0
+            ) as overtimeSubsidy
+        from overtime_worked_subsidy
+        join gxjg0101 on gxjg0101.gh = overtime_worked_subsidy.account
+        join department on department.id = gxjg0101.dwh
+        join performance_wage on performance_wage.account = gxjg0101.gh and performance_wage.year = #{year}
+        join workload_target on workload_target.department = gxjg0101.dwh and workload_target.year = #{year}
+                                    and workload_target.type = performance_wage.post_type and workload_target.level = performance_wage.level
+        join class_fees_standard on class_fees_standard.year = #{year} and class_fees_standard.technical_posts_level = overtime_worked_subsidy.professional_position
+        <where>
+            <if test="year != null">overtime_worked_subsidy.year = #{year}</if>
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
+            <if test="departmentScope != null">
+                and gxjg0101.dwh in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getUserOvertimeWorkedSubsidy" resultType="java.lang.Double" parameterType="PerformanceQuery">
+        select
+            IF(
+            overtime_worked_subsidy.teaching_workload - workload_target.teaching_workload_target >= 0,
+            (overtime_worked_subsidy.teaching_workload - workload_target.teaching_workload_target) * class_fees_standard.factor,
+            0
+            ) as overtimeSubsidy
+        from overtime_worked_subsidy
+        join gxjg0101 on gxjg0101.gh = overtime_worked_subsidy.account
+        join performance_wage on performance_wage.account = gxjg0101.gh and performance_wage.year = #{year}
+        join workload_target on workload_target.department = gxjg0101.dwh and workload_target.year = #{year}
+        and workload_target.type = performance_wage.post_type and workload_target.level = performance_wage.level
+        join class_fees_standard on class_fees_standard.year = #{year} and class_fees_standard.technical_posts_level = overtime_worked_subsidy.professional_position
+        <where>
+            <if test="year != null">overtime_worked_subsidy.year = #{year}</if>
+            <if test="account != null">and gxjg0101.gh = #{account}</if>
+        </where>
+
+    </select>
+</mapper>

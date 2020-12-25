@@ -7,9 +7,16 @@ import top.alvinsite.demo.model.params.PerformanceQuery;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Repository
 public interface SalarySummaryDao extends BaseMapper<SalarySummary> {
-    List<SalarySummary> findAll(PerformanceQuery performanceQuery);
-    SalarySummary findOneByAccountAndYear(PerformanceQuery performanceQuery);
-    void saveBatch(List<SalarySummary> salarySummaries);
+
+    /**
+     * 获取工资详情列表
+     * @param query 查询参数
+     * @return 列表数据
+     */
+    List<SalarySummary> findAll(PerformanceQuery query);
 }

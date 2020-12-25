@@ -7,7 +7,7 @@
     <select id="findAll"  resultType="CopyrightRule">
         select
             *
-        from copyright_rule rule
+        from copyright_rule gpaFormula
         <where>
             <if test="department != null">department = #{department}</if>
             <if test="year != null">and year = #{year}</if>

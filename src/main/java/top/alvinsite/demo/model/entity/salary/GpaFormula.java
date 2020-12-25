@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
  * @author Alvin
  */
 @Data
-@Alias("Rule")
+@Alias("GpaFormula")
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "salary_rule")
-public class Rule {
+public class GpaFormula {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

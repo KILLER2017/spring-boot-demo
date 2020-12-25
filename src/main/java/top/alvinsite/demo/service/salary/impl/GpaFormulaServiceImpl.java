@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.alvinsite.demo.dao.salary.RuleDao;
-import top.alvinsite.demo.model.entity.salary.Rule;
+import top.alvinsite.demo.dao.salary.GpaFormulaDao;
+import top.alvinsite.demo.model.entity.salary.GpaFormula;
 import top.alvinsite.demo.model.params.SalaryRuleQuery;
-import top.alvinsite.demo.service.salary.RuleService;
+import top.alvinsite.demo.service.salary.GpaFormulaService;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,23 +17,22 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class RuleServiceImpl extends ServiceImpl<RuleDao, Rule> implements RuleService {
+public class GpaFormulaServiceImpl extends ServiceImpl<GpaFormulaDao, GpaFormula> implements GpaFormulaService {
 
     @Override
-    public List<Rule> list(SalaryRuleQuery salaryRuleQuery) {
+    public List<GpaFormula> findAll(SalaryRuleQuery salaryRuleQuery) {
         return baseMapper.findAll(salaryRuleQuery);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveBatch(String deleteIds, List<Rule> rules) {
+    public void saveBatch(String deleteIds, List<GpaFormula> gpaFormulas) {
         if (deleteIds != null) {
             String[] ids = deleteIds.split(",");
-            log.info(String.valueOf(ids));
-            // baseMapper.deleteByIds(ids);
+            log.info(Arrays.toString(ids));
         }
 
-        baseMapper.saveBatch(rules);
+        baseMapper.saveBatch(gpaFormulas);
     }
 
 }

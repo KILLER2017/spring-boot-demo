@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.alvinsite.demo.dao.salary.RuleDao">
-    <select id="findAll" resultType="Rule" parameterType="SalaryRuleQuery">
+<mapper namespace="top.alvinsite.demo.dao.salary.GpaFormulaDao">
+    <select id="findAll" resultType="GpaFormula" parameterType="SalaryRuleQuery">
         select
             id,
             year,
@@ -21,7 +21,7 @@
         ORDER BY FIND_IN_SET(`type`,'教师,管理,辅导员,实验员')
     </select>
 
-    <select id="findOne" resultType="Rule" parameterType="SalaryRuleParam">
+    <select id="findOne" resultType="GpaFormula" parameterType="SalaryRuleParam">
         select
             id,
             year,
@@ -33,7 +33,7 @@
         <where>
             department = #{department}
             and year = #{year}
-            and type = #{type}
+            and type = #{post}
             and post_type = #{postType}
             <if test="duty != null">and duty = #{duty}</if>
         </where>
@@ -42,14 +42,14 @@
 
     <insert id="save">
         INSERT INTO salary_rule (id, year, type, post_type, alias, rule) values
-            (#{id}, #{year}, #{type}, #{postType}, #{alias}, #{rule})
+            (#{id}, #{year}, #{type}, #{postType}, #{alias}, #{gpaFormula})
         ON DUPLICATE KEY UPDATE year=values(year), type=values(type), post_type=values(post_type), alias=values(alias), rule=values(rule)
     </insert>
 
     <insert id="saveBatch">
         INSERT INTO salary_rule (id, year, type, post_type, alias, rule) values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.year}, #{item.type}, #{item.postType}, #{item.alias}, #{item.rule})
+            (#{item.id}, #{item.year}, #{item.type}, #{item.postType}, #{item.alias}, #{item.gpaFormula})
         </foreach>
         ON DUPLICATE KEY UPDATE year=values(year), type=values(type), post_type=values(post_type), alias=values(alias), rule=values(rule)
     </insert>

@@ -20,6 +20,8 @@ import java.util.Arrays;
 public class ParamFilterAspect {
 
     private final static String SUPER_USER_GROUP = "admin";
+    private final static String MANAGER_GROUP = "manager";
+
 
     @Pointcut("execution(*  top.alvinsite.demo.controller.salary.*.*(..))")
     public void salaryController() {
@@ -27,13 +29,15 @@ public class ParamFilterAspect {
 
     @Around("salaryController()")
     public Object controller(ProceedingJoinPoint joinPoint) throws Throwable {
-
+        if (joinPoint.getArgs().length < 1) {
+            return joinPoint.proceed();
+        }
         Object object =  joinPoint.getArgs()[0];
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (object instanceof SalaryQuery) {
             SalaryQuery salaryQuery = (SalaryQuery) object;
 
-            if ("manager".equals(user.getUserGroup()) && !Arrays.asList(user.getManageUnits()).contains(salaryQuery.getDepartment())) {
+            if (MANAGER_GROUP.equals(user.getUserGroup()) && !Arrays.asList(user.getManageUnits()).contains(salaryQuery.getDepartment())) {
                 throw new IllegalArgumentException("部门参数错误，只能向您管理的部门导入数据");
             }
         }
@@ -48,7 +52,6 @@ public class ParamFilterAspect {
                 }
             }
         }
-        Object returnObj = joinPoint.proceed();
-        return returnObj;
+        return joinPoint.proceed();
     }
 }

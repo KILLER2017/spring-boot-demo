@@ -1,9 +1,9 @@
 package top.alvinsite.demo.model.entity.salary;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
 /**
@@ -11,20 +11,23 @@ import top.alvinsite.demo.model.support.ExcelColumn;
  * @author Alvin
  */
 @Data
-public class IncentiveWage {
+@EqualsAndHashCode(callSuper = true)
+@Alias("IncentiveWage")
+public class IncentiveWage extends BaseModel {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Integer year;
 
     @TableField(exist = false)
-    @ExcelColumn(value = "考核结果", col = 1)
+    @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "考核结果", col = 2)
+    @ExcelColumn(value = "工号", col = 2)
     private String account;
 
-    @ExcelColumn(value = "考核结果", col = 3)
+    @ExcelColumn(value = "个人激励绩效分值", col = 3)
     private Double incentivePerformanceScore;
 
+    @TableField(exist = false)
+    @ExcelColumn(value = "个人激励绩效分值", col = 4)
     private Double incentivePerformanceSalary;
 }

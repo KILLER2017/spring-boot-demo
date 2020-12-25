@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.alvinsite.demo.dao.salary.PerformanceWageDao">
+    <select id="findAll" resultType="PerformanceWage">
+        select
+        performance_wage.id,
+        performance_wage.year,
+            gxjg0101.gh as account,
+            gxjg0101.xm as nickname,
+            gxjg0101.dwh as department,
+        performance_wage.type,
+        performance_wage.level,
+        performance_wage.post,
+        performance_wage.post_type,
+        performance_wage.duty,
+            teaching_workload,
+            research_workload,
+            teaching_research_workload,
+            experimental_teaching_workload,
+            measurement
+        from gxjg0101
+        left join performance_wage on gxjg0101.gh = performance_wage.account and performance_wage.year = #{year}
+        left join department on department.id = gxjg0101.dwh
+        <where>
+            gxjg0101.type != 3
+            <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
+            <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
+            <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
+            <if test="departmentScope != null">
+                and gxjg0101.dwh in
+                <foreach collection="departmentScope" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        order by performance_wage.update_time desc, gxjg0101.gh asc
+    </select>
+
+    <select id="findOneByAccountAndYear"  resultType="PerformanceWage">
+        select
+        performance_wage.id,
+        performance_wage.year,
+        gxjg0101.gh as account,
+        gxjg0101.xm as nickname,
+        gxjg0101.dwh as department,
+        performance_wage.type,
+        performance_wage.level,
+        performance_wage.post,
+        performance_wage.post_type,
+        performance_wage.duty,
+        teaching_workload,
+        research_workload,
+        teaching_research_workload,
+        experimental_teaching_workload,
+        measurement
+        from gxjg0101
+        left join performance_wage on gxjg0101.gh = performance_wage.account and performance_wage.year = #{year}
+        left join department on department.id = gxjg0101.dwh
+        <where>
+            account = #{account}
+            and year = #{year}
+        </where>
+        limit 1
+    </select>
+</mapper>

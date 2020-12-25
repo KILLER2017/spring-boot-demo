@@ -7,7 +7,7 @@
     <select id="findAll" resultType="LiteratureRule">
         select
             *
-        from literature_rule rule
+        from literature_rule gpaFormula
         <where>
             <if test="department != null">department = #{department}</if>
             <if test="year != null">and year = #{year}</if>

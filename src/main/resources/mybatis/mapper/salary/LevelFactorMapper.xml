@@ -12,7 +12,11 @@
             level,
             factor
         from level_factor
-        WHERE department = #{departmentId} and year = #{year}
+        <where>
+            <if test="departmentId != null">department = #{departmentId}</if>
+            <if test="year != null">and year = #{year}</if>
+        </where>
+        order by update_time desc
     </select>
 
     <select id="findOne"  resultType="LevelFactor">

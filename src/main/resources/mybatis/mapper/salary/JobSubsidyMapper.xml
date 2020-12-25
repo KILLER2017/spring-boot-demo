@@ -6,6 +6,7 @@
     <select id="findAll" resultType="JobSubsidy" parameterType="SalaryQuery">
         select
         job_subsidy.id,
+        job_subsidy.year,
         gxjg0101.xm as nickname,
         job_subsidy.account,
         job_subsidy.job,

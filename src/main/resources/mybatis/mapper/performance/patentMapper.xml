@@ -48,8 +48,8 @@
             <if test="accountScope != null">and gxjg0101.gh = #{accountScope}</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
             <if test="departmentId != null">and gxjg0101.dwh = #{departmentId}</if>
-            <if test="startedTime != null">and #{startedTime} &lt;= gxky0302.gkrq</if>
-            <if test="finishedTime != null">and gxky0302.gkrq &lt;= #{finishedTime}</if>
+            <if test="startedTime != null">and #{startedTime} &lt;= gxky0302.sqrq_1</if>
+            <if test="finishedTime != null">and gxky0302.sqrq_1 &lt;= #{finishedTime}</if>
             <if test="departmentScope != null">
                 and gxjg0101.dwh in
                 <foreach collection="departmentScope" item="item" open="(" separator="," close=")">

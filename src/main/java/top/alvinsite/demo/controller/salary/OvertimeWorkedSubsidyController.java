@@ -1,17 +1,16 @@
 package top.alvinsite.demo.controller.salary;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
+import top.alvinsite.demo.model.entity.salary.ClassFeesStandard;
 import top.alvinsite.demo.model.entity.salary.OvertimeWorkedSubsidy;
-import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.salary.OvertimeWorkedSubsidyUpdateParam;
+import top.alvinsite.demo.service.salary.ClassFeesStandardService;
 import top.alvinsite.demo.service.salary.OvertimeWorkedSubsidyService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -20,36 +19,58 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("salary/overtime-worked-subsidy")
-public class OvertimeWorkedSubsidyController extends BaseController<OvertimeWorkedSubsidy,
-        OvertimeWorkedSubsidyUpdateParam> {
+public class OvertimeWorkedSubsidyController extends AbstractSalaryController<OvertimeWorkedSubsidyService, OvertimeWorkedSubsidy, OvertimeWorkedSubsidyUpdateParam> {
 
     @Autowired
-    private OvertimeWorkedSubsidyService overtimeWorkedSubsidyService;
+    private ClassFeesStandardService standardService;
 
     @Override
-    public PageInfo<OvertimeWorkedSubsidy> getPageData(PerformanceQuery query, Page page) {
-        PageHelper.startPage(page);
-        List<OvertimeWorkedSubsidy> list = overtimeWorkedSubsidyService.findAll(query);
-        return new PageInfo<>(list);
+    protected Class<OvertimeWorkedSubsidy> getEntityClass() {
+        return OvertimeWorkedSubsidy.class;
     }
 
     @Override
-    public void importExcel(PerformanceQuery query, MultipartFile file) {
-
+    protected Class<OvertimeWorkedSubsidyUpdateParam> getParamClass() {
+        return OvertimeWorkedSubsidyUpdateParam.class;
     }
 
     @Override
-    public void exportExcel() {
-
+    protected String getOutputExcelName() {
+        return "超课时津贴.xlsx";
     }
 
     @Override
-    public void getTemplate() {
-
+    protected String getExcelTemplateName() {
+        return "超课时津贴导入模板.xlsx";
     }
 
     @Override
-    public void update(OvertimeWorkedSubsidyUpdateParam record) {
+    protected OvertimeWorkedSubsidy handle(PerformanceQuery query, OvertimeWorkedSubsidy entity) {
+        // 查询是否已存在记录
+        OvertimeWorkedSubsidy oldRecord = baseService.getOne(Wrappers.<OvertimeWorkedSubsidy>lambdaQuery()
+                        .eq(OvertimeWorkedSubsidy::getYear, entity.getYear())
+                        .eq(OvertimeWorkedSubsidy::getAccount, entity.getAccount())
+                , false);
+        if (oldRecord != null) {
+            entity.setId(oldRecord.getId());
+        }
+        return entity;
+    }
 
+    @GetMapping("standard")
+    public List<ClassFeesStandard> getClassFeesStandard(@Valid PerformanceQuery query) {
+        return standardService.list(Wrappers.<ClassFeesStandard>lambdaQuery()
+                        .eq(ClassFeesStandard::getYear, query.getYear())
+                );
+    }
+
+    @PostMapping("standard")
+    public void setClassFeesStandard(@Valid @RequestBody List<ClassFeesStandard> standards) {
+        standards.forEach(item ->
+            standardService.saveOrUpdate(item, Wrappers.<ClassFeesStandard>lambdaUpdate()
+                    .eq(ClassFeesStandard::getYear, item.getYear())
+                    .eq(ClassFeesStandard::getTechnicalPostsLevel, item.getTechnicalPostsLevel())
+            )
+        );
     }
 }
