@@ -75,7 +75,7 @@ public abstract class AbstractPerformanceService<M extends BaseMapper<T>, T exte
     @Override
     public List<T> findAll(PerformanceQuery performanceQuery) {
         List<T> papers = beforeFindAll(performanceQuery);
-        papers = papers.stream()
+        papers.stream()
                 .map(this::getAnnualYear)
                 .map(this::getProjectMemberNum)
                 .map(this::getOrder)
