@@ -17,7 +17,7 @@ import java.util.UUID;
 public class JwtUtils {
 
     @Getter
-    private static final long EXPIRE_TIME = 15 * 60 * 1000;
+    private static final long EXPIRE_TIME = 2 * 60 * 60 * 1000;
 
     private static final String ENCRYPT_KEY = "privateKey";
 
