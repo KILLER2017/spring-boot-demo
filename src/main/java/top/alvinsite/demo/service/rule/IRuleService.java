@@ -31,4 +31,13 @@ public interface IRuleService<M, T> extends IService<T> {
      * @return 绩效分数
      */
     float getScore(M project);
+
+    /**
+     * 复制绩效规则
+     * @param sourceDepartment 源单位
+     * @param sourceYear 源年度
+     * @param targetDepartment 目标单位
+     * @param targetYear 目标年度
+     */
+    void copyRule(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear);
 }

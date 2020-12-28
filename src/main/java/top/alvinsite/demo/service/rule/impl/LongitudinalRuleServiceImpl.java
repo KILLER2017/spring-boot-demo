@@ -1,12 +1,10 @@
 package top.alvinsite.demo.service.rule.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.rule.LongitudinalRuleDao;
-import top.alvinsite.demo.model.dto.rule.LongitudinalRuleDTO;
 import top.alvinsite.demo.model.entity.performance.LongitudinalProject;
 import top.alvinsite.demo.model.entity.rule.LongitudinalProjectRule;
 import top.alvinsite.demo.model.params.RuleQuery;
@@ -14,9 +12,12 @@ import top.alvinsite.demo.service.rule.LongitudinalRuleService;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @Service
-public class LongitudinalRuleServiceImpl extends ServiceImpl<LongitudinalRuleDao, LongitudinalProjectRule> implements LongitudinalRuleService {
+public class LongitudinalRuleServiceImpl extends AbstractRuleService<LongitudinalRuleDao, LongitudinalProject, LongitudinalProjectRule> implements LongitudinalRuleService {
     @Autowired
     private LongitudinalRuleDao longitudinalRuleDao;
 

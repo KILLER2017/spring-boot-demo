@@ -1,7 +1,5 @@
 package top.alvinsite.demo.model.entity.rule;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Alias("CrossingProjectRule")
 public class CrossingProjectRule extends BaseRuleEntity  {
-    @TableId(type = IdType.AUTO)
-    private Integer id;
-    private String department;
-    private Integer year;
 
     @NotNull(message = "合同经费缺少最小值")
     private Float min;

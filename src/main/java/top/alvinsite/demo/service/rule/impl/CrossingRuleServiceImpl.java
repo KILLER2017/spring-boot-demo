@@ -1,7 +1,6 @@
 package top.alvinsite.demo.service.rule.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,12 @@ import top.alvinsite.demo.service.rule.CrossingRuleService;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @Service
-public class CrossingRuleServiceImpl extends ServiceImpl<CrossingRuleDao, CrossingProjectRule> implements CrossingRuleService{
+public class CrossingRuleServiceImpl extends AbstractRuleService<CrossingRuleDao, CrossingProject, CrossingProjectRule> implements CrossingRuleService{
     @Autowired
     private CrossingRuleDao crossingRuleDao;
 

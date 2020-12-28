@@ -2,7 +2,6 @@ package top.alvinsite.demo.service.rule.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +16,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @Service
-public class PaperRuleServiceImpl extends ServiceImpl<PaperRuleDao, PaperRule> implements PaperRuleService {
+public class PaperRuleServiceImpl extends AbstractRuleService<PaperRuleDao, Paper, PaperRule> implements PaperRuleService {
     @Autowired
     private PaperRuleDao paperRuleDao;
 

@@ -2,7 +2,6 @@ package top.alvinsite.demo.service.rule.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class LiteratureRuleServiceImpl extends ServiceImpl<LiteratureRuleDao, LiteratureRule> implements LiteratureRuleService {
+public class LiteratureRuleServiceImpl extends AbstractRuleService<LiteratureRuleDao, Literature, LiteratureRule> implements LiteratureRuleService {
     @Autowired
     private LiteratureRuleFundingSourceDao literatureRuleFundingSourceDao;
 

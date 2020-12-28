@@ -1,18 +1,10 @@
 package top.alvinsite.demo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.jexl3.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.alvinsite.demo.dao.salary.LevelFactorDao;
-import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
-import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.framework.springsecurity.annotation.rest.AnonymousGetMapping;
-
-import java.util.List;
+import top.alvinsite.demo.service.rule.*;
 
 /**
  * @author Alvin
@@ -22,64 +14,36 @@ import java.util.List;
 @RequestMapping("test")
 public class TestController {
 
-    @Autowired
-    private LevelFactorDao levelFactorDao;
+    private LongitudinalRuleService longitudinalRuleService;
+    private CrossingRuleService crossingRuleService;
+    private PaperRuleService paperRuleService;
+    private LiteratureRuleService literatureRuleService;
+    private PatentRuleService patentRuleService;
+    private CopyrightRuleService copyrightRuleService;
+    private AwardedRuleService awardedRuleService;
 
-    @Autowired
-    private WorkloadTargetDao workloadTargetDao;
+    public TestController(LongitudinalRuleService longitudinalRuleService, CrossingRuleService crossingRuleService, PaperRuleService paperRuleService, LiteratureRuleService literatureRuleService, PatentRuleService patentRuleService, CopyrightRuleService copyrightRuleService, AwardedRuleService awardedRuleService) {
+        this.longitudinalRuleService = longitudinalRuleService;
+        this.crossingRuleService = crossingRuleService;
+        this.paperRuleService = paperRuleService;
+        this.literatureRuleService = literatureRuleService;
+        this.patentRuleService = patentRuleService;
+        this.copyrightRuleService = copyrightRuleService;
+        this.awardedRuleService = awardedRuleService;
+    }
 
+    @GetMapping("copy-rule")
+    public void copyPerformanceRule(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
+        longitudinalRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        crossingRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        paperRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        literatureRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        patentRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        copyrightRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        awardedRuleService.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
 
-    @RequestMapping
-    public Double index() {
-        JexlContext jexlContext = new MapContext();
-        jexlContext.set("job_subsidy", 10.0f);
-        jexlContext.set("y", 3.0f);
-        jexlContext.set("z", 2.0f);
-        String expression = " 2job_subsidy + y";
-        JexlEngine jexlEngine = new JexlBuilder().create();
-        JexlExpression jexlExpression = jexlEngine.createExpression(expression);
-        return (Double) jexlExpression.evaluate(jexlContext);
     }
 
 
 
-    @RequestMapping("mybatis-plus")
-    public String mybatisplus() {
-        List<LevelFactor> list = levelFactorDao.selectList(null);
-        for (LevelFactor item : list) {
-            log.info(String.valueOf(item));
-        }
-        return "success";
-    }
-
-
-    @RequestMapping("mybatis-plus-3")
-    public String mybatisplus3() {
-        LevelFactor item = levelFactorDao.findOne(29);
-        log.info(String.valueOf(item));
-        return "success";
-    }
-
-
-    @AnonymousGetMapping("test3")
-    public void test3(int count) throws Exception {
-        long startTime = System.currentTimeMillis();
-        int result = 0;
-        for (int i = 0; i < count; i++) {
-            result += i;
-        }
-        //获取结束时间
-        long endTime = System.currentTimeMillis();
-        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
-    }
-
-    /**
-     * 获取用户认证信息 方法三
-     * @param userDetails
-     * @return
-     */
-    @RequestMapping("getAuthentication-3")
-    public Object getAuthentication(@AuthenticationPrincipal UserDetails userDetails) {
-        return userDetails;
-    }
 }

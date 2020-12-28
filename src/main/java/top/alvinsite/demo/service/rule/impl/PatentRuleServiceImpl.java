@@ -1,7 +1,6 @@
 package top.alvinsite.demo.service.rule.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,12 @@ import top.alvinsite.demo.service.rule.PatentRuleService;
 
 import java.util.List;
 
+/**
+ * @author Alvin
+ */
 @Slf4j
 @Service
-public class PatentRuleServiceImpl extends ServiceImpl<PatentRuleDao, PatentRule> implements PatentRuleService {
+public class PatentRuleServiceImpl extends AbstractRuleService<PatentRuleDao, Patent, PatentRule> implements PatentRuleService {
     @Autowired
     private PatentRuleDao patentRuleDao;
     @Override

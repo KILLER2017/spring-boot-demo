@@ -68,4 +68,8 @@ public class JobSubsidyController extends AbstractSalaryController<JobSubsidySer
         baseService.updateById(jobSubsidy);
     }
 
+    @Override
+    public void updateByPost(@RequestBody JobSubsidyUpdateParam record) {
+        update(record);
+    }
 }
