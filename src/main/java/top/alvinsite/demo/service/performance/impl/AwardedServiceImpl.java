@@ -32,6 +32,11 @@ public class AwardedServiceImpl extends AbstractPerformanceService<AwardedDao, A
 
     @Override
     public Awarded calcProjectPoints(Awarded project) {
+        if (!isUniformDepartment(project)) {
+            project.setScore(0);
+            return project;
+        }
+
         float score = awardedRuleService.getScore(project);
 
         // 分值分配法

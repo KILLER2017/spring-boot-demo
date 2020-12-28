@@ -1,7 +1,7 @@
 package top.alvinsite.demo.service.rule.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import top.alvinsite.demo.model.entity.rule.BaseRuleEntity;
 import top.alvinsite.demo.model.params.RuleQuery;
@@ -29,11 +29,12 @@ public abstract class AbstractRuleService<M extends BaseMapper<T>, N, T extends 
             return item;
         }).collect(Collectors.toList());
 
-        this.remove(Wrappers.<T>lambdaQuery()
-                .eq(T::getDepartment, sourceDepartment)
-                .eq(T::getYear, sourceYear)
-        );
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("department", targetDepartment)
+                .eq("year", targetYear);
+
+        remove(queryWrapper);
         // 保存规则
-        this.saveBatch(targetRules);
+        saveBatch(targetRules);
     }
 }

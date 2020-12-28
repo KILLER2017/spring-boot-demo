@@ -34,6 +34,15 @@ public class CrossingProjectServiceImpl extends AbstractPerformanceService<Cross
 
     @Override
     public CrossingProject calcProjectPoints(CrossingProject project) {
+        String userDepartment = project.getDepartment().getId();
+        String firstMemberDepartment = getMembers(project).get(0).getDepartment();
+        if (!userDepartment.equals(firstMemberDepartment)) {
+            project.setBudgetScore(0);
+            project.setProjectScore(0);
+            project.setScore(0);
+            return project;
+        }
+
         // 读取计分规则
         float score = crossingRuleService.getScore(project);
 

@@ -33,6 +33,11 @@ public class LiteratureServiceImpl extends AbstractPerformanceService<Literature
 
     @Override
     public Literature calcProjectPoints(Literature project) {
+        if (!isUniformDepartment(project)) {
+            project.setScore(0);
+            return project;
+        }
+
         // 读取计分规则
         float score = literatureRuleService.getScore(project);
 

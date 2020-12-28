@@ -18,6 +18,7 @@ import top.alvinsite.demo.model.params.RuleQuery;
 import top.alvinsite.demo.service.rule.LiteratureRuleService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Administrator
@@ -177,5 +178,65 @@ public class LiteratureRuleServiceImpl extends AbstractRuleService<LiteratureRul
                 literatureRuleRevisedDao.update(rule, lambdaQueryWrapper);
             }
         }
+    }
+
+    @Override
+    public void copyRule(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
+        // 复制主表数据
+        super.copyRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        // 复制literature_rule_funding_source
+        copyFundingSourceRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        // 复制literature_rule_revised
+        copyRevisedRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+        // 复制literature_rule_topic_with_dongguan
+        copyTopicWithDongguanRule(sourceDepartment, sourceYear, targetDepartment, targetYear);
+    }
+
+    private void copyFundingSourceRule(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
+        // 读取源规则
+        RuleQuery query = new RuleQuery();
+        query.setDepartment(sourceDepartment);
+        query.setYear(sourceYear);
+        List<LiteratureRuleFundingSource> rules = getFundingSourceRules(query);
+
+        List<LiteratureRuleFundingSource> targetRules = rules.stream().map(item -> {
+            item.setDepartment(targetDepartment);
+            item.setYear(targetYear);
+            return item;
+        }).collect(Collectors.toList());
+
+        saveFundingSourceRules(targetRules);
+    }
+
+    private void copyRevisedRule(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
+        // 读取源规则
+        RuleQuery query = new RuleQuery();
+        query.setDepartment(sourceDepartment);
+        query.setYear(sourceYear);
+        List<LiteratureRuleRevised> rules = getRevisedRules(query);
+
+        List<LiteratureRuleRevised> targetRules = rules.stream().map(item -> {
+            item.setDepartment(targetDepartment);
+            item.setYear(targetYear);
+            return item;
+        }).collect(Collectors.toList());
+
+        saveRevisedRules(targetRules);
+    }
+
+    private void copyTopicWithDongguanRule(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
+        // 读取源规则
+        RuleQuery query = new RuleQuery();
+        query.setDepartment(sourceDepartment);
+        query.setYear(sourceYear);
+        List<LiteratureRuleTopicWithDongguan> rules = getTopicWithDongguanRules(query);
+
+        List<LiteratureRuleTopicWithDongguan> targetRules = rules.stream().map(item -> {
+            item.setDepartment(targetDepartment);
+            item.setYear(targetYear);
+            return item;
+        }).collect(Collectors.toList());
+
+        saveTopicWithDongguanRules(targetRules);
     }
 }

@@ -33,6 +33,11 @@ public class PatentServiceImpl extends AbstractPerformanceService<PatentDao, Pat
 
     @Override
     public Patent calcProjectPoints(Patent project) {
+        if (!isUniformDepartment(project)) {
+            project.setScore(0);
+            return project;
+        }
+
         float score = patentRuleService.getScore(project);
 
         // 分值分配法

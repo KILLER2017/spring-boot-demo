@@ -37,6 +37,11 @@ public class PaperServiceImpl extends AbstractPerformanceService<PaperDao, Paper
 
     @Override
     public Paper calcProjectPoints(Paper project){
+        if (!isUniformDepartment(project)) {
+            project.setScore(0);
+            return project;
+        }
+
         float score = paperRuleService.getScore(project);
 
         // 分值分配法

@@ -79,6 +79,11 @@ public class SummaryServiceImpl extends ServiceImpl<ResearcherDao, ResearcherPer
     }
 
     @Override
+    public boolean isUniformDepartment(BaseEntity project) {
+        return true;
+    }
+
+    @Override
     public ResearcherPerformance calcTotalPoints(ResearcherPerformance researcherPerformance) {
         float totalPoints = researcherPerformance.getAwardedPoint()
                 + researcherPerformance.getCopyrightPoint()

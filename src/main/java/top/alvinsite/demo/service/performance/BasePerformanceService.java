@@ -52,11 +52,17 @@ public interface BasePerformanceService<T extends BaseEntity>  {
 
     /**
      * 只有和一号成员同单位的成员才能获取分数
-     * @param project
+     * @param project 绩效项目
      * @return
      */
     T filterDepartment(T project);
 
+    /**
+     * 判断是否和一号成员同单位
+     * @param project 绩效项目
+     * @return
+     */
+    boolean isUniformDepartment(T project);
     /**
      * 设置用户绩效项目年度总分数
      * @param researcherPerformance 用户年度绩效分数

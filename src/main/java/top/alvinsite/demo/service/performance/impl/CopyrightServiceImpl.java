@@ -34,6 +34,11 @@ public class CopyrightServiceImpl extends AbstractPerformanceService<CopyrightDa
 
     @Override
     public Copyright calcProjectPoints(Copyright project) {
+        if (!isUniformDepartment(project)) {
+            project.setScore(0);
+            return project;
+        }
+
         // 读取计分规则
         float score = copyrightRuleService.getScore(project);
 

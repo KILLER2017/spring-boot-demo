@@ -65,6 +65,14 @@ public abstract class AbstractPerformanceService<M extends BaseMapper<T>, T exte
         return project;
     }
 
+    @Override
+    public boolean isUniformDepartment(T project) {
+        String userDepartment = project.getDepartment().getId();
+        String firstMemberDepartment = getMembers(project).get(0).getDepartment();
+        return userDepartment.equals(firstMemberDepartment);
+
+    }
+
     /**
      * 从数据持久层获取数据
      * @param performanceQuery 查询参数

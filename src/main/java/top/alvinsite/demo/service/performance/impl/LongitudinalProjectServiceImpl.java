@@ -34,6 +34,13 @@ public class LongitudinalProjectServiceImpl extends AbstractPerformanceService<L
 
     @Override
     public LongitudinalProject calcProjectPoints(LongitudinalProject project) {
+        if (!isUniformDepartment(project)) {
+            project.setBudgetScore(0);
+            project.setProjectScore(0);
+            project.setScore(0);
+            return project;
+        }
+
         float score = longitudinalRuleService.getScore(project);
 
         float proportion = scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));
