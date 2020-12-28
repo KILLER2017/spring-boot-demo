@@ -128,4 +128,9 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T, V>
         baseService.updateById(item);
     }
 
+    @PostMapping("put")
+    public void updateByPost(@Valid @RequestBody V record) {
+        update(record);
+    }
+
 }
