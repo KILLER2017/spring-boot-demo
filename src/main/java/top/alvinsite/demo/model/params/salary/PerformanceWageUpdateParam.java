@@ -9,6 +9,8 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Data
 public class PerformanceWageUpdateParam {
 
+    private Integer id;
+
     private Integer year;
 
     @ExcelColumn(value = "姓名", col = 1, width = 10)

@@ -9,6 +9,12 @@ import top.alvinsite.demo.dao.rule.ScoreDistributionConfigDao;
 import top.alvinsite.demo.model.entity.rule.ScoreDistributionConfig;
 import top.alvinsite.demo.service.rule.ScoreDistributionConfigService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * @author Alvin
+ */
 @Service
 public class ScoreDistributionConfigServiceImpl extends ServiceImpl<ScoreDistributionConfigDao, ScoreDistributionConfig> implements ScoreDistributionConfigService {
 
@@ -40,5 +46,23 @@ public class ScoreDistributionConfigServiceImpl extends ServiceImpl<ScoreDistrib
         } else {
             scoreDistributionConfigDao.insert(newConfig);
         }
+    }
+
+    public void copyConfig(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
+        List<ScoreDistributionConfig> configs = list(Wrappers.<ScoreDistributionConfig>lambdaQuery()
+                .eq(ScoreDistributionConfig::getDepartment, sourceDepartment)
+                .eq(ScoreDistributionConfig::getYear, sourceYear));
+
+        configs = configs.stream().map(item -> {
+            item.setDepartment(targetDepartment);
+            item.setYear(targetYear);
+            return item;
+        }).collect(Collectors.toList());
+
+        remove(Wrappers.<ScoreDistributionConfig>lambdaQuery()
+                .eq(ScoreDistributionConfig::getDepartment, targetDepartment)
+                .eq(ScoreDistributionConfig::getYear, targetYear));
+
+        saveBatch(configs);
     }
 }
