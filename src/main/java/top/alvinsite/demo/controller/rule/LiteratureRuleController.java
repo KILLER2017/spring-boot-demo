@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 import static top.alvinsite.utils.BeanUtils.updateProperties;
 
 /**
- * @author Alvin
+ * @author Alvin<543046534@qq.com>
  */
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/literature")
-public class LiteratureRuleController extends BaseRuleController<LiteratureRuleService, LiteratureRule> {
+public class LiteratureRuleController extends AbstractRuleController<LiteratureRuleService, LiteratureRule> {
 
     public static String performance = "literature";
 

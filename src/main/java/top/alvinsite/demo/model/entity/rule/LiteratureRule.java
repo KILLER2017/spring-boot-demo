@@ -22,12 +22,6 @@ public class LiteratureRule extends BaseRuleEntity  {
     @NotNull(message = "出版社级别不能为空")
     private PublisherLevel publisherLevel;
 
-    @NotNull(message = "总字数缺少最小值")
-    private Integer min;
-
-    @NotNull(message = "总字数缺少最大值")
-    private Integer max;
-
-    @NotNull(message = "绩效分数不能为空")
-    private Float score;
+    @NotNull(message = "字数因子不能为空")
+    private Double factor;
 }

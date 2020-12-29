@@ -67,7 +67,7 @@ public class PaperRuleServiceImpl extends AbstractRuleService<PaperRuleDao, Pape
     }
 
     @Override
-    public float getScore(Paper project) {
+    public double getScore(Paper project) {
         // 读取计分规则
         List<Float> scores = new ArrayList<>();
 

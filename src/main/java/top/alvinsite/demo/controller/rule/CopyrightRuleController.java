@@ -7,12 +7,12 @@ import top.alvinsite.demo.model.entity.rule.CopyrightRule;
 import top.alvinsite.demo.service.rule.CopyrightRuleService;
 
 /**
- * @author Alvin
+ * @author Alvin<543046534@qq.com>
  */
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/copyright")
-public class CopyrightRuleController extends BaseRuleController<CopyrightRuleService, CopyrightRule> {
+public class CopyrightRuleController extends AbstractRuleController<CopyrightRuleService, CopyrightRule> {
 
     public static String performance = "copyright";
 

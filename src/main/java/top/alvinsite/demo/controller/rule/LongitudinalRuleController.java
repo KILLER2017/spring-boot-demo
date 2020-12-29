@@ -7,12 +7,12 @@ import top.alvinsite.demo.model.entity.rule.LongitudinalProjectRule;
 import top.alvinsite.demo.service.rule.LongitudinalRuleService;
 
 /**
- * @author Alvin
+ * @author Alvin<543046534@qq.com>
  */
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/longitudinal-project")
-public class LongitudinalRuleController extends BaseRuleController<LongitudinalRuleService, LongitudinalProjectRule> {
+public class LongitudinalRuleController extends AbstractRuleController<LongitudinalRuleService, LongitudinalProjectRule> {
 
     public static String performance = "longitudinal";
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import top.alvinsite.demo.dao.type.DepartmentDao;
 
 /**
- * @author Alvin
+ * @author Alvin<543046534@qq.com>
  */
 public class HelperController {
     @Autowired

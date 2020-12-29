@@ -40,7 +40,7 @@ public class CopyrightServiceImpl extends AbstractPerformanceService<CopyrightDa
         }
 
         // 读取计分规则
-        float score = copyrightRuleService.getScore(project);
+        double score = copyrightRuleService.getScore(project);
 
         // 分值分配法
         score *= scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));

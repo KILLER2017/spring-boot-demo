@@ -42,7 +42,7 @@ public class PaperServiceImpl extends AbstractPerformanceService<PaperDao, Paper
             return project;
         }
 
-        float score = paperRuleService.getScore(project);
+        double score = paperRuleService.getScore(project);
 
         // 分值分配法
         score *= scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));

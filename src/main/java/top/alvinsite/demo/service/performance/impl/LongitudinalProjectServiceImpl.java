@@ -41,7 +41,7 @@ public class LongitudinalProjectServiceImpl extends AbstractPerformanceService<L
             return project;
         }
 
-        float score = longitudinalRuleService.getScore(project);
+        double score = longitudinalRuleService.getScore(project);
 
         float proportion = scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));
         // 项目年度数

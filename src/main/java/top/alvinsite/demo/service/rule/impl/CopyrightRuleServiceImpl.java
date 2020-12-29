@@ -42,7 +42,7 @@ public class CopyrightRuleServiceImpl extends AbstractRuleService<CopyrightRuleD
     }
 
     @Override
-    public float getScore(Copyright project) {
+    public double getScore(Copyright project) {
         CopyrightRule rule = findRule(project);
         return rule == null ? 0 : rule.getScore();
     }

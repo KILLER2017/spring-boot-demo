@@ -48,6 +48,7 @@ public class ScoreDistributionConfigServiceImpl extends ServiceImpl<ScoreDistrib
         }
     }
 
+    @Override
     public void copyConfig(String sourceDepartment, int sourceYear, String targetDepartment, int targetYear) {
         List<ScoreDistributionConfig> configs = list(Wrappers.<ScoreDistributionConfig>lambdaQuery()
                 .eq(ScoreDistributionConfig::getDepartment, sourceDepartment)

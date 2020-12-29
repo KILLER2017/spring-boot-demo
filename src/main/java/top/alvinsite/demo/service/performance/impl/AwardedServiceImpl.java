@@ -13,6 +13,7 @@ import top.alvinsite.demo.service.rule.AwardedRuleService;
 
 import java.util.List;
 
+
 @Service
 public class AwardedServiceImpl extends AbstractPerformanceService<AwardedDao, Awarded> implements AwardedService {
     private final static String PERFORMANCE = "awarded";
@@ -37,7 +38,7 @@ public class AwardedServiceImpl extends AbstractPerformanceService<AwardedDao, A
             return project;
         }
 
-        float score = awardedRuleService.getScore(project);
+        double score = awardedRuleService.getScore(project);
 
         // 分值分配法
         score *= scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));

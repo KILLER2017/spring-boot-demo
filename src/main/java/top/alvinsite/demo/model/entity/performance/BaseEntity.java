@@ -28,5 +28,5 @@ public abstract class BaseEntity {
     protected Integer SignedOrder;
 
     @ExcelColumn(value = "科研分数", col = 20)
-    protected float score;
+    protected double score;
 }

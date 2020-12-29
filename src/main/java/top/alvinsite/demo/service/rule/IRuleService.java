@@ -30,7 +30,7 @@ public interface IRuleService<M, T> extends IService<T> {
      * @param project 绩效项目
      * @return 绩效分数
      */
-    float getScore(M project);
+    double getScore(M project);
 
     /**
      * 复制绩效规则

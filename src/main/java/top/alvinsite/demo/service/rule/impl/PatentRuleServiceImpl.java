@@ -42,7 +42,7 @@ public class PatentRuleServiceImpl extends AbstractRuleService<PatentRuleDao, Pa
     }
 
     @Override
-    public float getScore(Patent project) {
+    public double getScore(Patent project) {
         // 读取计分规则
         PatentRule rule = findRule(project);
         return rule == null ? 0 : rule.getScore();

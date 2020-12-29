@@ -44,7 +44,7 @@ public class CrossingProjectServiceImpl extends AbstractPerformanceService<Cross
         }
 
         // 读取计分规则
-        float score = crossingRuleService.getScore(project);
+        double score = crossingRuleService.getScore(project);
 
         float proportion = scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));
         int annualNum = TimeUtils.getAnnualNum(project.getStartedTime(), project.getStartedTime());

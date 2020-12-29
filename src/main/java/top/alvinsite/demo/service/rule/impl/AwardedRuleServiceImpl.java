@@ -42,7 +42,7 @@ public class AwardedRuleServiceImpl extends AbstractRuleService<AwardedRuleDao, 
     }
 
     @Override
-    public float getScore(Awarded project) {
+    public double getScore(Awarded project) {
         AwardedRule rule = findRule(project);
         return rule == null ? 0 : rule.getScore();
     }

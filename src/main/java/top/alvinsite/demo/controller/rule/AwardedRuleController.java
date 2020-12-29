@@ -9,13 +9,13 @@ import top.alvinsite.demo.service.rule.AwardedRuleService;
 
 
 /**
- * @author Alvin
+ * @author Alvin<543046534@qq.com>
  */
 @Slf4j
 @RestController
 @RequestMapping("performance/rule/awarded")
 @Api(value = "科研获奖规则 接口集合")
-public class AwardedRuleController extends BaseRuleController<AwardedRuleService, AwardedRule> {
+public class AwardedRuleController extends AbstractRuleController<AwardedRuleService, AwardedRule> {
 
     public static String performance = "awarded";
 

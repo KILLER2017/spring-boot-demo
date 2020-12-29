@@ -47,8 +47,6 @@ public class LiteratureRuleServiceImpl extends AbstractRuleService<LiteratureRul
                 .eq(LiteratureRule::getDepartment, project.getDepartment().getId())
                 .eq(LiteratureRule::getType, project.getType())
                 .eq(LiteratureRule::getPublisherLevel, project.getPublisherLevel())
-                .le(LiteratureRule::getMin, project.getWordCount())
-                .gt(LiteratureRule::getMax, project.getWordCount())
         );
 
         if (null == rule) {
@@ -59,8 +57,8 @@ public class LiteratureRuleServiceImpl extends AbstractRuleService<LiteratureRul
     }
 
     @Override
-    public float getScore(Literature project) {
-        float score = 0;
+    public double getScore(Literature project) {
+        double score = 0;
         score += getBasicScore(project);
         score += getFundingSourceScore(project);
         score += getTopicWithDongguanScore(project);
@@ -68,9 +66,9 @@ public class LiteratureRuleServiceImpl extends AbstractRuleService<LiteratureRul
         return score;
     }
 
-    private float getBasicScore(Literature literature) {
+    private double getBasicScore(Literature literature) {
         LiteratureRule rule = findRule(literature);
-        return rule == null ? 0 : rule.getScore();
+        return rule == null ? 0 : rule.getFactor() * literature.getWordCount();
     }
 
     private float getFundingSourceScore(Literature literature) {

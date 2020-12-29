@@ -38,7 +38,7 @@ public class PatentServiceImpl extends AbstractPerformanceService<PatentDao, Pat
             return project;
         }
 
-        float score = patentRuleService.getScore(project);
+        double score = patentRuleService.getScore(project);
 
         // 分值分配法
         score *= scoreDistributionService.getProportion(ScoreDistributionParam.build(project, PERFORMANCE));

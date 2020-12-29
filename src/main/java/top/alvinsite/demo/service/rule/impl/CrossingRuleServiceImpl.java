@@ -41,7 +41,7 @@ public class CrossingRuleServiceImpl extends AbstractRuleService<CrossingRuleDao
     }
 
     @Override
-    public float getScore(CrossingProject project) {
+    public double getScore(CrossingProject project) {
         CrossingProjectRule rule = findRule(project);
 
         // 计算项目总分

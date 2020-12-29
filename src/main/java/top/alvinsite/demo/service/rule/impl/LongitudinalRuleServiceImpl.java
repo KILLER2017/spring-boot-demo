@@ -43,7 +43,7 @@ public class LongitudinalRuleServiceImpl extends AbstractRuleService<Longitudina
     }
 
     @Override
-    public float getScore(LongitudinalProject project) {
+    public double getScore(LongitudinalProject project) {
         // 读取计分规则
         LongitudinalProjectRule rule = findRule(project);
 

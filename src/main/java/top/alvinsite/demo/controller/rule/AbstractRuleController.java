@@ -30,14 +30,15 @@ import java.util.stream.Collectors;
 
 import static top.alvinsite.utils.BeanUtils.updateProperties;
 
+
 /**
- * @author Alvin
+ * @author alvin<543046534@qq.com>
  */
 @Slf4j
 @Validated
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseRuleController<M extends IRuleService, T extends BaseRuleEntity> {
+public abstract class AbstractRuleController<M extends IRuleService, T extends BaseRuleEntity> {
 
     private final static String SUPER_USER_GROUP = "admin";
 
@@ -70,7 +71,6 @@ public abstract class BaseRuleController<M extends IRuleService, T extends BaseR
 
     @GetMapping()
     public RuleVO get(@Valid RuleQuery ruleQuery) {
-        log.info("request base controller");
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
         addManagerLimit(ruleQuery);
 
