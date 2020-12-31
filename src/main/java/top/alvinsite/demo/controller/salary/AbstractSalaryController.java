@@ -83,7 +83,7 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T, V>
      * @param query 查询过滤参数
      * @param file Excel文件
      */
-    @PostMapping("importExcel/{year}")
+    @PostMapping("importExcel/{departmentId}/{year}")
     @Transactional(rollbackFor = Exception.class)
     public void importExcel(@Valid PerformanceQuery query, @RequestParam(value="uploadFile") MultipartFile file) {
         List<V> excelData = ExcelUtils.readExcel("", getParamClass(), file);

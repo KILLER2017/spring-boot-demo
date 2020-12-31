@@ -47,7 +47,7 @@ public class LevelFactorController extends AbstractSalaryController<LevelFactorS
     @Override
     protected LevelFactor handle(PerformanceQuery query, LevelFactor entity) {
         entity.setYear(query.getYear());
-        entity.setDepartment(query.getDepartment());
+        entity.setDepartment(query.getDepartmentId());
         LevelFactorParam param = transformFrom(entity, LevelFactorParam.class);
         LevelFactor oObject = baseService.getOne(param);
 

@@ -43,7 +43,7 @@ public class WorkloadTargetController extends AbstractSalaryController<WorkloadT
     @Override
     protected WorkloadTarget handle(PerformanceQuery query, WorkloadTarget entity) {
         entity.setYear(query.getYear());
-        entity.setDepartment(query.getDepartment());
+        entity.setDepartment(query.getDepartmentId());
         WorkloadTargetParam param = transformFrom(entity, WorkloadTargetParam.class);
         WorkloadTarget oObject = baseService.getOne(param);
         if (oObject != null) {
