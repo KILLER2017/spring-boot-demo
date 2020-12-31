@@ -54,7 +54,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
     @Override
     public List<PerformanceWage> findAll(PerformanceQuery query) {
         List<PerformanceWage> list = baseMapper.findAll(query);
-        list = list.stream()
+        list.stream()
                 .map(this::calcPerformanceWage)
                 .collect(Collectors.toList());
         return list;
@@ -172,6 +172,10 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
     @Override
     public Double getUserPerformanceWage(PerformanceQuery query) {
         PerformanceWage performanceWage = baseMapper.findOneByAccountAndYear(query);
+        if (performanceWage == null) {
+            return 0.0;
+        }
+
         calcPerformanceWage(performanceWage);
         return performanceWage.getPerformanceWage();
     }

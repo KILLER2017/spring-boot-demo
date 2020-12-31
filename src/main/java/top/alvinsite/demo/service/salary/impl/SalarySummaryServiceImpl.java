@@ -34,7 +34,7 @@ public class SalarySummaryServiceImpl extends ServiceImpl<SalarySummaryDao, Sala
     @Override
     public List<SalarySummary> findAll(PerformanceQuery query) {
         List<SalarySummary> list = baseMapper.findAll(query);
-        list = list.stream()
+        list.stream()
                 .map(this::setPerformanceWage)
                 .map(this::setIncentiveWage)
                 .map(this::setOvertimeWorkedSubsidy)
