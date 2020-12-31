@@ -5,7 +5,7 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.PerformanceWageDao">
     <select id="findAll" resultType="PerformanceWage">
         select
-            performance_wage.id,
+            gxjg0101.gh as id,
             performance_wage.year,
             gxjg0101.gh as account,
             gxjg0101.xm as nickname,
