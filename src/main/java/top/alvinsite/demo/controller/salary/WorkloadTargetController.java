@@ -1,6 +1,8 @@
 package top.alvinsite.demo.controller.salary;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
@@ -52,6 +54,12 @@ public class WorkloadTargetController extends AbstractSalaryController<WorkloadT
         return entity;
     }
 
-
+    @PostMapping("delete")
+    public void delete(PerformanceQuery query) {
+        baseService.remove(Wrappers.<WorkloadTarget>lambdaQuery()
+                .eq(WorkloadTarget::getDepartment, query.getDepartmentId())
+                .eq(WorkloadTarget::getYear, query.getYear())
+        );
+    }
 
 }

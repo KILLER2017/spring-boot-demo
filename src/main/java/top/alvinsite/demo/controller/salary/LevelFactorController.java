@@ -1,8 +1,10 @@
 package top.alvinsite.demo.controller.salary;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
@@ -55,6 +57,14 @@ public class LevelFactorController extends AbstractSalaryController<LevelFactorS
             entity.setId(oObject.getId());
         }
         return entity;
+    }
+
+    @PostMapping("delete")
+    public void delete(PerformanceQuery query) {
+        baseService.remove(Wrappers.<LevelFactor>lambdaQuery()
+                .eq(LevelFactor::getDepartment, query.getDepartmentId())
+                .eq(LevelFactor::getYear, query.getYear())
+        );
     }
 
     @GetMapping("type")
