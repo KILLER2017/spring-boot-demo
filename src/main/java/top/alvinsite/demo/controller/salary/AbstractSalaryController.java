@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import top.alvinsite.demo.model.entity.salary.BaseModel;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.service.salary.SalaryService;
@@ -27,7 +28,7 @@ import static top.alvinsite.utils.BeanUtils.transformFromInBatch;
  * @author Alvin
  */
 @Validated
-public abstract class AbstractSalaryController<M extends SalaryService<T>, T, V> {
+public abstract class AbstractSalaryController<M extends SalaryService<T>, T extends BaseModel, V> {
 
     @Autowired
     protected M baseService;

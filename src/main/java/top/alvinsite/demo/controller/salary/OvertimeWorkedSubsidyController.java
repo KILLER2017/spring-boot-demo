@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("salary/overtime-worked-subsidy")
-public class OvertimeWorkedSubsidyController extends AbstractSalaryController<OvertimeWorkedSubsidyService, OvertimeWorkedSubsidy, OvertimeWorkedSubsidyUpdateParam> {
+public class OvertimeWorkedSubsidyController extends BaseSalaryController<OvertimeWorkedSubsidyService, OvertimeWorkedSubsidy, OvertimeWorkedSubsidyUpdateParam> {
 
     @Autowired
     private ClassFeesStandardService standardService;

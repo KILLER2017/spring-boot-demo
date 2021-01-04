@@ -14,17 +14,7 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Alias("SalarySummary")
 @TableName("special_subsidy")
 @EqualsAndHashCode(callSuper = true)
-public class SalarySummary extends BaseModel {
-
-    @TableField(exist = false)
-    @ExcelColumn(value = "姓名", col = 1)
-    private String nickname;
-
-    @ExcelColumn(value = "工号", col = 2)
-    private String account;
-
-    @ExcelColumn(value = "年份", col = 3)
-    private Integer year;
+public class SalarySummary extends BaseSalaryModel {
 
     /**
      * 业绩绩效工资

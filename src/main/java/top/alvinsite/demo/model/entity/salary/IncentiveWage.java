@@ -13,21 +13,12 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Alias("IncentiveWage")
-public class IncentiveWage extends BaseModel {
+public class IncentiveWage extends BaseSalaryModel {
 
-    private Integer year;
-
-    @TableField(exist = false)
-    @ExcelColumn(value = "姓名", col = 1)
-    private String nickname;
-
-    @ExcelColumn(value = "工号", col = 2)
-    private String account;
-
-    @ExcelColumn(value = "个人激励绩效分值", col = 3)
+    @ExcelColumn(value = "个人激励绩效分值", col = 4)
     private Double incentivePerformanceScore;
 
     @TableField(exist = false)
-    @ExcelColumn(value = "个人激励绩效分值", col = 4)
+    @ExcelColumn(value = "个人激励绩效分值", col = 5)
     private Double incentivePerformanceSalary;
 }

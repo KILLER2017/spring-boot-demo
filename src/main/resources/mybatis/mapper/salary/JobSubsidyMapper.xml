@@ -5,18 +5,18 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.JobSubsidyDao">
     <select id="findAll" resultType="JobSubsidy" parameterType="SalaryQuery">
         select
-        job_subsidy.id,
-        job_subsidy.year,
+        gxjg0101.gh as id,
+        #{year} as year,
         gxjg0101.xm as nickname,
-        job_subsidy.account,
+        gxjg0101.gh as account,
         job_subsidy.job,
         job_subsidy.evaluation_result,
         job_subsidy.subsidy_factor,
         job_subsidy.length,
         job_subsidy.subsidy,
         job_subsidy.remarks
-        from job_subsidy
-        join gxjg0101 on gxjg0101.gh = job_subsidy.account
+        from gxjg0101
+        left join job_subsidy on gxjg0101.gh = job_subsidy.account and job_subsidy.year = #{year}
         join department on department.id = gxjg0101.dwh
         <where>
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>

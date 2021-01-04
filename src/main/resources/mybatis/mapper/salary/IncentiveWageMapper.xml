@@ -5,16 +5,15 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.IncentiveWageDao">
     <select id="findAll" resultType="IncentiveWage" parameterType="PerformanceQuery">
         select
-        incentive_wage.id,
-        incentive_wage.year,
-        gxjg0101.xm as nickname,
-        incentive_wage.account,
-        incentive_wage.incentive_performance_score,
-        incentive_wage.incentive_performance_score * incentive_wage_standard.factor as incentivePerformanceSalary
-
-        from incentive_wage
-        join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year
-        join gxjg0101 on gxjg0101.gh = incentive_wage.account
+            gxjg0101.gh as id,
+            #{year} as year,
+            gxjg0101.xm as nickname,
+            gxjg0101.gh as account,
+            incentive_wage.incentive_performance_score,
+            incentive_wage.incentive_performance_score * incentive_wage_standard.factor as incentivePerformanceSalary
+        from gxjg0101
+        left join incentive_wage on gxjg0101.gh = incentive_wage.account and incentive_wage.year = #{year}
+        left join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year
         join department on department.id = gxjg0101.dwh
         <where>
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>

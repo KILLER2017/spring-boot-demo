@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @author Alvin
  */
 @Data
-public class BaseModel {
+public abstract class BaseModel {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

@@ -18,7 +18,7 @@ import static top.alvinsite.utils.BeanUtils.transformFrom;
  */
 @RestController
 @RequestMapping("salary/job-subsidy")
-public class JobSubsidyController extends AbstractSalaryController<JobSubsidyService, JobSubsidy, JobSubsidyUpdateParam> {
+public class JobSubsidyController extends BaseSalaryController<JobSubsidyService, JobSubsidy, JobSubsidyUpdateParam> {
 
 
     @Override

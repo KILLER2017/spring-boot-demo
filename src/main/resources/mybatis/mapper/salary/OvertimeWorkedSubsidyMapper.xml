@@ -5,10 +5,10 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.OvertimeWorkedSubsidyDao">
     <select id="findAll" resultType="OvertimeWorkedSubsidy" parameterType="PerformanceQuery">
         select
-            overtime_worked_subsidy.id,
-            overtime_worked_subsidy.year,
+            gxjg0101.gh as id,
+            #{year} as year,
             gxjg0101.xm as nickname,
-            overtime_worked_subsidy.account,
+            gxjg0101.gh as account,
             overtime_worked_subsidy.professional_position as professionalPosition,
             overtime_worked_subsidy.teaching_workload as teachingWorkload,
             workload_target.teaching_workload_target,
@@ -17,15 +17,14 @@
                 (overtime_worked_subsidy.teaching_workload - workload_target.teaching_workload_target) * class_fees_standard.factor,
                 0
             ) as overtimeSubsidy
-        from overtime_worked_subsidy
-        join gxjg0101 on gxjg0101.gh = overtime_worked_subsidy.account
+        from gxjg0101
+        left join overtime_worked_subsidy on gxjg0101.gh = overtime_worked_subsidy.account and overtime_worked_subsidy.year = #{year}
         join department on department.id = gxjg0101.dwh
-        join performance_wage on performance_wage.account = gxjg0101.gh and performance_wage.year = #{year}
-        join workload_target on workload_target.department = gxjg0101.dwh and workload_target.year = #{year}
+        left join performance_wage on performance_wage.account = gxjg0101.gh and performance_wage.year = #{year}
+        left join workload_target on workload_target.department = gxjg0101.dwh and workload_target.year = #{year}
                                     and workload_target.type = performance_wage.post_type and workload_target.level = performance_wage.level
-        join class_fees_standard on class_fees_standard.year = #{year} and class_fees_standard.technical_posts_level = overtime_worked_subsidy.professional_position
+        left join class_fees_standard on class_fees_standard.year = #{year} and class_fees_standard.technical_posts_level = overtime_worked_subsidy.professional_position
         <where>
-            <if test="year != null">overtime_worked_subsidy.year = #{year}</if>
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>

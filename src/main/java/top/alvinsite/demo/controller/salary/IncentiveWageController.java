@@ -18,7 +18,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("salary/incentive-wage")
-public class IncentiveWageController extends AbstractSalaryController<IncentiveWageService, IncentiveWage, IncentiveWageUpdateParam> {
+public class IncentiveWageController extends BaseSalaryController<IncentiveWageService, IncentiveWage, IncentiveWageUpdateParam> {
 
     @Autowired
     private IncentiveWageStandardService standardService;
