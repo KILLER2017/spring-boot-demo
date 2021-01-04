@@ -19,6 +19,7 @@
         left join job_subsidy on gxjg0101.gh = job_subsidy.account and job_subsidy.year = #{year}
         join department on department.id = gxjg0101.dwh
         <where>
+            gxjg0101.type != 3
             <if test="nickname != null">and gxjg0101.xm like concat('%', #{nickname}, '%')</if>
             <if test="account != null">and gxjg0101.gh like concat('%', #{account}, '%')</if>
             <if test="department != null">and department.title like concat('%', #{department}, '%')</if>
