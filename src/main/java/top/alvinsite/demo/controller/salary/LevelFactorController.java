@@ -56,7 +56,7 @@ public class LevelFactorController extends AbstractSalaryController<LevelFactorS
         return entity;
     }
 
-    @PostMapping("delete")
+    @GetMapping("delete")
     public void delete(PerformanceQuery query) {
         baseService.remove(Wrappers.<LevelFactor>lambdaQuery()
                 .eq(LevelFactor::getDepartment, query.getDepartmentId())
