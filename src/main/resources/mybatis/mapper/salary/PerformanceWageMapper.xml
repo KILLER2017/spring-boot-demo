@@ -6,7 +6,7 @@
     <select id="findAll" resultType="PerformanceWage">
         select
             gxjg0101.gh as id,
-            performance_wage.year,
+            #{year} as year,
             gxjg0101.gh as account,
             gxjg0101.xm as nickname,
             gxjg0101.dwh as department,

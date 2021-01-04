@@ -13,6 +13,8 @@ import top.alvinsite.demo.service.salary.PerformanceWageService;
 
 import javax.validation.Valid;
 
+import static top.alvinsite.utils.BeanUtils.transformFrom;
+
 /**
  * @author Alvin
  */
@@ -74,5 +76,20 @@ public class PerformanceWageController extends AbstractSalaryController<Performa
                 .eq(PerformanceWageFormula::getYear, formula.getYear())
                 .eq(PerformanceWageFormula::getDepartment, formula.getDepartment())
         );
+    }
+
+    @Override
+    public void update(@RequestBody PerformanceWageUpdateParam record) {
+        PerformanceWage item = transformFrom(record, getEntityClass());
+        assert item != null;
+        baseService.saveOrUpdate(item, Wrappers.<PerformanceWage>lambdaUpdate()
+                .eq(PerformanceWage::getAccount, item.getAccount())
+                .eq(PerformanceWage::getYear, item.getYear())
+        );
+    }
+
+    @Override
+    public void updateByPost(@RequestBody PerformanceWageUpdateParam record) {
+        update(record);
     }
 }
