@@ -24,7 +24,7 @@ public class GpaFormula {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "年份不能为空")
     private Integer year;
 
     @NotBlank(message = "部门不能为空")
