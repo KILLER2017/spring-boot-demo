@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.PaperService;
 @Slf4j
 @RestController
 @RequestMapping("performance/paper")
-public class PaperController extends BaseController<PaperService, Paper> {
+public class PaperController extends AbstractPerformanceController<PaperService, Paper> {
 
 }

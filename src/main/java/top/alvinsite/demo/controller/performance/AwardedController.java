@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.AwardedService;
 @Slf4j
 @RestController
 @RequestMapping("performance/awarded")
-public class AwardedController extends BaseController<AwardedService, Awarded>{
+public class AwardedController extends AbstractPerformanceController<AwardedService, Awarded> {
 
 }

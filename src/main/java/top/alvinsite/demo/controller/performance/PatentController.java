@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.PatentService;
 @Slf4j
 @RestController
 @RequestMapping("performance/patent")
-public class PatentController extends BaseController<PatentService, Patent> {
+public class PatentController extends AbstractPerformanceController<PatentService, Patent> {
 
 }

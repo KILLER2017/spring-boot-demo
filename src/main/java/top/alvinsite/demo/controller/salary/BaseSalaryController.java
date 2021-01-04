@@ -1,6 +1,6 @@
 package top.alvinsite.demo.controller.salary;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestBody;
 import top.alvinsite.demo.model.entity.salary.BaseSalaryModel;
 import top.alvinsite.demo.service.salary.SalaryService;
@@ -18,10 +18,10 @@ public abstract class BaseSalaryController<M extends SalaryService<T>, T extends
     public void update(@RequestBody V record) {
         T item = transformFrom(record, getEntityClass());
         assert item != null;
-        baseService.saveOrUpdate(item, Wrappers.<T>lambdaUpdate()
-                .eq(T::getAccount, item.getAccount())
-                .eq(T::getYear, item.getYear())
-        );
+        QueryWrapper<T> queryWrapper = new QueryWrapper<T>()
+                .eq("account", item.getAccount())
+                .eq("year", item.getYear());
+        baseService.saveOrUpdate(item, queryWrapper);
     }
 
     @Override

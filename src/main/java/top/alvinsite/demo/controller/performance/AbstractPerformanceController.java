@@ -19,7 +19,7 @@ import java.util.List;
  * @author Alvin
  */
 @Validated
-public class BaseController<M extends BasePerformanceService, T> {
+public abstract class AbstractPerformanceController<M extends BasePerformanceService, T> {
 
     protected String controllerName = "default";
 

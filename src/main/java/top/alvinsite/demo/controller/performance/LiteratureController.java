@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.LiteratureService;
 @Slf4j
 @RestController
 @RequestMapping("performance/literature")
-public class LiteratureController extends BaseController<LiteratureService, Literature> {
+public class LiteratureController extends AbstractPerformanceController<LiteratureService, Literature> {
 
 }

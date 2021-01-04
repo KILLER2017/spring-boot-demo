@@ -12,5 +12,5 @@ import top.alvinsite.demo.service.performance.SummaryService;
 @Slf4j
 @RestController
 @RequestMapping("performance/summaries")
-public class PerformanceSummaryController extends BaseController<SummaryService, ResearcherPerformance> {
+public class PerformanceSummaryController extends AbstractPerformanceController<SummaryService, ResearcherPerformance> {
 }

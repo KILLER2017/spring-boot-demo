@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.CopyrightService;
 @Slf4j
 @RestController
 @RequestMapping("performance/copyright")
-public class CopyrightController extends BaseController<CopyrightService, Copyright>{
+public class CopyrightController extends AbstractPerformanceController<CopyrightService, Copyright> {
 
 }

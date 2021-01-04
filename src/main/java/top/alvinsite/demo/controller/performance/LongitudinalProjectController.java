@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.LongitudinalProjectService;
 @Slf4j
 @RestController
 @RequestMapping("performance/longitudinal-project")
-public class LongitudinalProjectController extends BaseController<LongitudinalProjectService, LongitudinalProject> {
+public class LongitudinalProjectController extends AbstractPerformanceController<LongitudinalProjectService, LongitudinalProject> {
 
 }

@@ -12,6 +12,6 @@ import top.alvinsite.demo.service.performance.CrossingProjectService;
 @Slf4j
 @RestController
 @RequestMapping("performance/crossing-project")
-public class CrossingProjectController extends BaseController<CrossingProjectService, CrossingProject> {
+public class CrossingProjectController extends AbstractPerformanceController<CrossingProjectService, CrossingProject> {
 
 }

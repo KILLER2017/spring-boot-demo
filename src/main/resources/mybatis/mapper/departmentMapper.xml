@@ -22,7 +22,7 @@
         where account = #{account} and is_active = 1
     </select>
 
-    <select id="findOne"  resultType="top.alvinsite.demo.model.entity.Department">
+    <select id="findOne"  resultType="Department">
         select
             ID as id,
             NAME as title
