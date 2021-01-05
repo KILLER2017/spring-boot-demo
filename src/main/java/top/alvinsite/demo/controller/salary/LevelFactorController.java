@@ -3,11 +3,13 @@ package top.alvinsite.demo.controller.salary;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
 import top.alvinsite.demo.model.params.LevelFactorParam;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.salary.LevelFactorUpdateParam;
+import top.alvinsite.demo.model.validation.ValidationGroup2;
 import top.alvinsite.demo.service.salary.LevelFactorService;
 
 import java.util.List;
@@ -65,7 +67,7 @@ public class LevelFactorController extends AbstractSalaryController<LevelFactorS
     }
 
     @GetMapping("type")
-    public List<String> getTypes(PerformanceQuery query) {
+    public List<String> getTypes(@Validated(ValidationGroup2.class) PerformanceQuery query) {
         QueryWrapper<LevelFactor> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("distinct type")
                 .eq(query.getYear() != null, "year", query.getYear())
@@ -77,7 +79,7 @@ public class LevelFactorController extends AbstractSalaryController<LevelFactorS
     }
 
     @GetMapping("level")
-    public List<String> getLevels(PerformanceQuery query) {
+    public List<String> getLevels(@Validated(ValidationGroup2.class) PerformanceQuery query) {
         QueryWrapper<LevelFactor> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("distinct level")
                 .eq(query.getYear() != null,"year", query.getYear())

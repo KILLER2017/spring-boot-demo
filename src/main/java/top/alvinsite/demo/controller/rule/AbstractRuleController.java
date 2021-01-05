@@ -83,7 +83,7 @@ public abstract class AbstractRuleController<M extends IRuleService, T extends B
         ruleVO.setUseScoreDistribution(scoreDistributionConfigService.useScoreDistribute(ruleQuery.getYear(), ruleQuery.getDepartment(), performance));
         ruleVO.setList(baseService.list(query));
         return ruleVO;
-    };
+    }
 
     @PostMapping("{department}/{year}/{useScoreDistribution}")
     @Transactional(rollbackFor = {Exception.class})
@@ -111,6 +111,6 @@ public abstract class AbstractRuleController<M extends IRuleService, T extends B
         scoreDistributionConfigService.applyConfig(config);
         baseService.removeByMap(map);
         baseService.saveOrUpdateBatch(rules);
-    };
+    }
 
 }

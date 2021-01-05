@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import top.alvinsite.demo.model.entity.salary.BaseModel;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.validation.ValidationGroup2;
 import top.alvinsite.demo.service.salary.SalaryService;
 import top.alvinsite.utils.ExcelUtils;
 
@@ -65,7 +66,7 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
      * @return 列表数据
      */
     @GetMapping
-    public PageInfo<T> getPageData(@Valid PerformanceQuery query, Page page) {
+    public PageInfo<T> getPageData(@Validated(ValidationGroup2.class) PerformanceQuery query, Page page) {
         PageHelper.startPage(page);
         List<T> list = baseService.findAll(query);
         return new PageInfo<>(list);
@@ -87,7 +88,7 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
      */
     @PostMapping("importExcel/{departmentId}/{year}")
     @Transactional(rollbackFor = Exception.class)
-    public void importExcel(@Valid PerformanceQuery query, @RequestParam(value="uploadFile") MultipartFile file) {
+    public void importExcel(PerformanceQuery query, @RequestParam(value="uploadFile") MultipartFile file) {
         List<V> excelData = ExcelUtils.readExcel("", getParamClass(), file);
         List<T> list = transformFromInBatch(excelData, getEntityClass());
         list = list.stream()
@@ -104,7 +105,7 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
      * Excel数据导出接口
      */
     @GetMapping("exportExcel")
-    public void exportExcel(@Valid PerformanceQuery query, HttpServletResponse response) {
+    public void exportExcel(@Validated(ValidationGroup2.class) PerformanceQuery query, HttpServletResponse response) {
         List<T> list = baseService.findAll(query);
 
         Workbook workbook = new ExcelUtils.Builder()

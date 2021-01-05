@@ -2,11 +2,13 @@ package top.alvinsite.demo.controller.salary;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.IncentiveWage;
 import top.alvinsite.demo.model.entity.salary.IncentiveWageStandard;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.salary.IncentiveWageUpdateParam;
+import top.alvinsite.demo.model.validation.ValidationGroup2;
 import top.alvinsite.demo.service.salary.IncentiveWageService;
 import top.alvinsite.demo.service.salary.IncentiveWageStandardService;
 
@@ -58,9 +60,10 @@ public class IncentiveWageController extends BaseSalaryController<IncentiveWageS
     }
 
     @GetMapping("standard")
-    public IncentiveWageStandard getIncentiveWageStandard(@Valid PerformanceQuery query) {
+    public IncentiveWageStandard getIncentiveWageStandard(@Validated(ValidationGroup2.class) PerformanceQuery query) {
         return standardService.getOne(Wrappers.<IncentiveWageStandard>lambdaQuery()
-                .eq(IncentiveWageStandard::getYear, query.getYear()),
+                .eq(IncentiveWageStandard::getYear, query.getYear())
+                .eq(IncentiveWageStandard::getDepartment, query.getDepartmentId()),
                 false);
     }
 
@@ -68,6 +71,7 @@ public class IncentiveWageController extends BaseSalaryController<IncentiveWageS
     public void setIncentiveWageStandard(@Valid @RequestBody IncentiveWageStandard incentiveWageStandard) {
         standardService.saveOrUpdate(incentiveWageStandard, Wrappers.<IncentiveWageStandard>lambdaUpdate()
                 .eq(IncentiveWageStandard::getYear, incentiveWageStandard.getYear())
+                .eq(IncentiveWageStandard::getDepartment, incentiveWageStandard.getDepartment())
         );
     }
 }

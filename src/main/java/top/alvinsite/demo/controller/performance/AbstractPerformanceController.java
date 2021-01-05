@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import top.alvinsite.demo.model.params.Page;
 import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.validation.ValidationGroup1;
 import top.alvinsite.demo.service.performance.BasePerformanceService;
 import top.alvinsite.framework.springsecurity.entity.User;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -41,7 +41,7 @@ public abstract class AbstractPerformanceController<M extends BasePerformanceSer
     }
 
     @GetMapping
-    public PageInfo get(Page page, @Valid PerformanceQuery performanceQuery) throws Exception {
+    public PageInfo get(Page page, @Validated(ValidationGroup1.class) PerformanceQuery performanceQuery) {
         // 如果用户不是系统管理员，则限定只能查询自己管理机构的数据
         addManagerLimit(performanceQuery);
 

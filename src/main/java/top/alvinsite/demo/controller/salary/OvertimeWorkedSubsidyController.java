@@ -2,11 +2,13 @@ package top.alvinsite.demo.controller.salary;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.ClassFeesStandard;
 import top.alvinsite.demo.model.entity.salary.OvertimeWorkedSubsidy;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.salary.OvertimeWorkedSubsidyUpdateParam;
+import top.alvinsite.demo.model.validation.ValidationGroup2;
 import top.alvinsite.demo.service.salary.ClassFeesStandardService;
 import top.alvinsite.demo.service.salary.OvertimeWorkedSubsidyService;
 
@@ -58,9 +60,10 @@ public class OvertimeWorkedSubsidyController extends BaseSalaryController<Overti
     }
 
     @GetMapping("standard")
-    public List<ClassFeesStandard> getClassFeesStandard(@Valid PerformanceQuery query) {
+    public List<ClassFeesStandard> getClassFeesStandard(@Validated(ValidationGroup2.class) PerformanceQuery query) {
         return standardService.list(Wrappers.<ClassFeesStandard>lambdaQuery()
                         .eq(ClassFeesStandard::getYear, query.getYear())
+                        .eq(ClassFeesStandard::getDepartment, query.getDepartmentId())
                 );
     }
 
@@ -69,6 +72,7 @@ public class OvertimeWorkedSubsidyController extends BaseSalaryController<Overti
         standards.forEach(item ->
             standardService.saveOrUpdate(item, Wrappers.<ClassFeesStandard>lambdaUpdate()
                     .eq(ClassFeesStandard::getYear, item.getYear())
+                    .eq(ClassFeesStandard::getDepartment, item.getDepartment())
                     .eq(ClassFeesStandard::getTechnicalPostsLevel, item.getTechnicalPostsLevel())
             )
         );

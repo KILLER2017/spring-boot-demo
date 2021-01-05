@@ -137,6 +137,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         }
 
         WorkloadTargetParam workloadTargetParam = transformFrom(performanceWage, WorkloadTargetParam.class);
+        workloadTargetParam.setType(performanceWage.getPostType());
         WorkloadTarget workloadTarget = workloadTargetDao.findOneByLevelAndPostType(workloadTargetParam);
 
         if (workloadTarget == null) {
