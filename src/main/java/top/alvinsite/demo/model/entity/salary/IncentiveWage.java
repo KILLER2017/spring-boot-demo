@@ -19,6 +19,6 @@ public class IncentiveWage extends BaseSalaryModel {
     private Double incentivePerformanceScore;
 
     @TableField(exist = false)
-    @Excel(name = "个人激励绩效分值", col = 5)
+    @Excel(name = "激励绩效工资", col = 5)
     private Double incentivePerformanceSalary;
 }

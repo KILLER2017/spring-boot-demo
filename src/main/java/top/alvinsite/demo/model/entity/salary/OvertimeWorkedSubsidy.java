@@ -25,8 +25,10 @@ public class OvertimeWorkedSubsidy extends BaseSalaryModel {
     private Integer teachingWorkload;
 
     @Excel(name = "年度目标教学工作量", col = 6)
+    @TableField(exist = false)
     private Integer teachingWorkloadTarget;
 
     @Excel(name = "超课时津贴/元", col = 7)
+    @TableField(exist = false)
     private Double overtimeSubsidy;
 }
