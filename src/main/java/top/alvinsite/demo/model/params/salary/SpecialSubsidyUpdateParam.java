@@ -1,7 +1,7 @@
 package top.alvinsite.demo.model.params.salary;
 
 import lombok.Data;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 /**
  * @author Alvin
@@ -11,15 +11,15 @@ public class SpecialSubsidyUpdateParam {
 
     private String id;
 
-    @ExcelColumn(value = "姓名", col = 1)
+    @Excel(name = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "工号", col = 2)
+    @Excel(name = "工号", col = 2)
     private String account;
 
     /**
      * 双肩挑
      */
-    @ExcelColumn(value = "双肩挑", col = 3)
+    @Excel(name = "双肩挑", col = 3)
     private Double specialSubsidy;
 }

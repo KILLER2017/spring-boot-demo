@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.enums.HonorGrade;
 import top.alvinsite.demo.model.enums.HonorLevel;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,19 +20,19 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Awarded extends BaseEntity {
 
-    @ExcelColumn(value = "奖励名称", col = 4)
+    @Excel(name = "奖励名称", col = 4)
     protected String title;
 
-    @ExcelColumn(value = "获奖级别", col = 5)
+    @Excel(name = "获奖级别", col = 5)
     private HonorLevel level;
 
-    @ExcelColumn(value = "获奖等级", col = 6)
+    @Excel(name = "获奖等级", col = 6)
     private HonorGrade grade;
 
-    @ExcelColumn(value = "获奖时间", col = 7)
+    @Excel(name = "获奖时间", col = 7)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate acquisitionTime;
 
-    @ExcelColumn(value = "获奖完成人", col = 8)
+    @Excel(name = "获奖完成人", col = 8)
     private List<ManagerUserDTO> awardee;
 }

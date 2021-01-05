@@ -2,7 +2,7 @@ package top.alvinsite.demo.model.entity.performance;
 
 import lombok.Data;
 import top.alvinsite.demo.model.entity.Department;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 /**
  * @author Alvin
@@ -12,13 +12,13 @@ public abstract class BaseEntity {
 
     private String id;
 
-    @ExcelColumn(value = "姓名", col = 1)
+    @Excel(name = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "工号", col = 2)
+    @Excel(name = "工号", col = 2)
     private String account;
 
-    @ExcelColumn(value = "所属单位", col = 3)
+    @Excel(name = "所属单位", col = 3)
     private Department department;
 
     protected Integer ApprovalProjectYear;
@@ -27,6 +27,6 @@ public abstract class BaseEntity {
 
     protected Integer SignedOrder;
 
-    @ExcelColumn(value = "科研分数", col = 20)
+    @Excel(name = "科研分数", col = 20)
     protected double score;
 }

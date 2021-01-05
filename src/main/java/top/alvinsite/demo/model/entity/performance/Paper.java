@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.entity.type.PaperType;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import java.util.Date;
 import java.util.List;
@@ -18,19 +18,19 @@ import java.util.List;
 @Alias("Paper")
 @EqualsAndHashCode(callSuper = true)
 public class Paper extends BaseEntity  {
-    @ExcelColumn(value = "论文题目", col = 4)
+    @Excel(name = "论文题目", col = 4)
     private String title;
 
-    @ExcelColumn(value = "发表期刊", col = 5)
+    @Excel(name = "发表期刊", col = 5)
     private String periodical;
 
-    @ExcelColumn(value = "刊物类型", col = 6)
+    @Excel(name = "刊物类型", col = 6)
     private List<PaperType> publicationType;
 
-    @ExcelColumn(value = "发表时间", col = 7)
+    @Excel(name = "发表时间", col = 7)
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date publishTime;
 
-    @ExcelColumn(value = "组成成员", col = 8)
+    @Excel(name = "组成成员", col = 8)
     private List<ManagerUserDTO> authors;
 }

@@ -2,7 +2,7 @@ package top.alvinsite.demo.model.dto.performance;
 
 import lombok.Data;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import java.util.List;
 
@@ -10,21 +10,21 @@ import java.util.List;
 public class CopyrightDTO {
     private String id;
 
-    @ExcelColumn(value = "姓名", col = 1)
+    @Excel(name = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "所属单位", col = 2)
+    @Excel(name = "所属单位", col = 2)
     private String department;
 
-    @ExcelColumn(value = "著作权名称", col = 3)
+    @Excel(name = "著作权名称", col = 3)
     private String title;
 
-    @ExcelColumn(value = "著作权类型", col = 4)
+    @Excel(name = "著作权类型", col = 4)
     private String type;
 
-    @ExcelColumn(value = "所有作者", col = 5)
+    @Excel(name = "所有作者", col = 5)
     private List<ManagerUserDTO> authors;
 
-    @ExcelColumn(value = "绩效分数", col = 6)
+    @Excel(name = "绩效分数", col = 6)
     private float score;
 }

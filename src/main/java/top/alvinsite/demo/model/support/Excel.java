@@ -12,26 +12,25 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ExcelColumn {
+public @interface Excel {
+
     /**
-     * Excel标题
-     *
-     * @return
-     * @author Lynch
+     * Excel列标题
      */
-    String value() default "";
+    String name() default "";
 
     /**
      * Excel从左往右排列位置
-     *
-     * @return
-     * @author Lynch
      */
     int col() default 0;
 
     /**
-     * 列的宽度
-     * @return
+     * 导出时在excel中每个列的高度 单位为字符
+     */
+    double height() default 14;
+
+    /**
+     * 导出时在excel中每个列的宽 单位为字符
      */
     int width() default 20;
 }

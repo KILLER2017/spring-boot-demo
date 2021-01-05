@@ -2,7 +2,7 @@ package top.alvinsite.demo.model.dto.performance;
 
 import lombok.Data;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import java.util.List;
 
@@ -10,25 +10,25 @@ import java.util.List;
 public class AwardedDTO {
     protected String id;
 
-    @ExcelColumn(value = "姓名", col = 1)
+    @Excel(name = "姓名", col = 1)
     protected String nickname;
 
-    @ExcelColumn(value = "所属单位", col = 2)
+    @Excel(name = "所属单位", col = 2)
     protected String department;
 
-    @ExcelColumn(value = "奖励名称", col = 3)
+    @Excel(name = "奖励名称", col = 3)
     protected String title;
 
-    @ExcelColumn(value = "获奖级别", col = 4)
+    @Excel(name = "获奖级别", col = 4)
     private String level;
 
-    @ExcelColumn(value = "获奖等级", col = 5)
+    @Excel(name = "获奖等级", col = 5)
     private String grade;
 
-    @ExcelColumn(value = "获奖完成人", col = 6)
+    @Excel(name = "获奖完成人", col = 6)
     private List<ManagerUserDTO> awardee;
 
-    @ExcelColumn(value = "绩效分数", col = 7)
+    @Excel(name = "绩效分数", col = 7)
     protected float score;
 
 }

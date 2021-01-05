@@ -3,7 +3,7 @@ package top.alvinsite.demo.model.entity.salary;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 /**
  * 超课时津贴实体类
@@ -14,15 +14,17 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @EqualsAndHashCode(callSuper = true)
 public class OvertimeWorkedSubsidy extends BaseSalaryModel {
 
-    @ExcelColumn(value = "专业技术职务", col = 4)
+    @Excel(name = "专业技术职务", col = 4)
     private String professionalPosition;
 
-    @ExcelColumn(value = "实际完成课程教学工作量", col = 5)
+    private Double factor;
+
+    @Excel(name = "实际完成课程教学工作量", col = 5)
     private Integer teachingWorkload;
 
-    @ExcelColumn(value = "年度目标教学工作量", col = 6)
+    @Excel(name = "年度目标教学工作量", col = 6)
     private Integer teachingWorkloadTarget;
 
-    @ExcelColumn(value = "超课时津贴/元", col = 7)
+    @Excel(name = "超课时津贴/元", col = 7)
     private Double overtimeSubsidy;
 }

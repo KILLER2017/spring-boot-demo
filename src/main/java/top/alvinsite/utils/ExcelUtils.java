@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -75,9 +75,9 @@ public class ExcelUtils {
                 List<Field> fields = Stream.of(cls.getDeclaredFields()).collect(Collectors.toList());
                 fields.forEach(
                         field -> {
-                            ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+                            Excel annotation = field.getAnnotation(Excel.class);
                             if (annotation != null) {
-                                String value = annotation.value();
+                                String value = annotation.name();
                                 if (StringUtils.isBlank(value)) {
                                     return;//return起到的作用和continue是相同的 语法
                                 }
@@ -232,7 +232,7 @@ public class ExcelUtils {
 
         List<Field> fieldList = Arrays.stream(fields)
                 .filter(field -> {
-                    ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+                    Excel annotation = field.getAnnotation(Excel.class);
                     if (annotation != null && annotation.col() > 0) {
                         field.setAccessible(true);
                         return true;
@@ -240,7 +240,7 @@ public class ExcelUtils {
                     return false;
                 }).sorted(Comparator.comparing(field -> {
                     int col = 0;
-                    ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+                    Excel annotation = field.getAnnotation(Excel.class);
                     if (annotation != null) {
                         col = annotation.col();
                     }
@@ -265,12 +265,12 @@ public class ExcelUtils {
             AtomicInteger aj = new AtomicInteger();
             //写入头部
             fieldList.forEach(field -> {
-                ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+                Excel annotation = field.getAnnotation(Excel.class);
                 String columnName = "";
                 int columnIndex = 0;
                 int columnWidth = 20 * 256;
                 if (annotation != null) {
-                    columnName = annotation.value();
+                    columnName = annotation.name();
                     columnIndex = annotation.col() - 1;
                     columnWidth = annotation.width() * 256;
                 }
@@ -344,7 +344,7 @@ public class ExcelUtils {
         public <T> Builder addSheet(String sheetName, List<T> dataList, Class<T> cls) {
             List<Field> fieldList = getAllField(cls).stream()
                     .filter(field -> {
-                        ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+                        Excel annotation = field.getAnnotation(Excel.class);
                         if (annotation != null && annotation.col() > 0) {
                             field.setAccessible(true);
                             return true;
@@ -352,7 +352,7 @@ public class ExcelUtils {
                         return false;
                     }).sorted(Comparator.comparing(field -> {
                         int col = 0;
-                        ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
+                        Excel annotation = field.getAnnotation(Excel.class);
                         if (annotation != null) {
                             col = annotation.col();
                         }

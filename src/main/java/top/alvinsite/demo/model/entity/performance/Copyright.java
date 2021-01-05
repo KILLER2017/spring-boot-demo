@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.enums.CopyrightType;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import java.util.Date;
 import java.util.List;
@@ -19,16 +19,16 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Copyright extends BaseEntity  {
 
-    @ExcelColumn(value = "著作权名称", col = 3)
+    @Excel(name = "著作权名称", col = 3)
     private String title;
 
-    @ExcelColumn(value = "著作权类型", col = 4)
+    @Excel(name = "著作权类型", col = 4)
     private CopyrightType type;
 
-    @ExcelColumn(value = "出版时间", col = 5)
+    @Excel(name = "出版时间", col = 5)
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date publishTime;
 
-    @ExcelColumn(value = "所有作者", col = 6)
+    @Excel(name = "所有作者", col = 6)
     private List<ManagerUserDTO> authors;
 }

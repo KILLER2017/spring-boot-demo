@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.enums.PatentScope;
 import top.alvinsite.demo.model.enums.PatentType;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import java.util.Date;
 import java.util.List;
@@ -21,20 +21,20 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Patent extends BaseEntity {
 
-    @ExcelColumn(value = "专利名称", col = 4)
+    @Excel(name = "专利名称", col = 4)
     private String title;
 
-    @ExcelColumn(value = "专利范围", col = 5)
+    @Excel(name = "专利范围", col = 5)
     private PatentScope scope;
 
-    @ExcelColumn(value = "专利类型", col = 6)
+    @Excel(name = "专利类型", col = 6)
     private PatentType type;
 
-    @ExcelColumn(value = "公开时间", col = 7)
+    @Excel(name = "公开时间", col = 7)
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date publishTime;
 
-    @ExcelColumn(value = "专利发明（设计）人", col = 8)
+    @Excel(name = "专利发明（设计）人", col = 8)
     private List<ManagerUserDTO> inventors;
 
 }

@@ -93,7 +93,11 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
         list = list.stream()
                 .map(item -> handle(query, item))
                 .collect(Collectors.toList());
-        baseService.saveOrUpdateBatch(list);
+        try {
+            baseService.saveOrUpdateBatch(list);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("导入文件存在非法数据，请核实导入信息内容", e);
+        }
     }
 
     /**

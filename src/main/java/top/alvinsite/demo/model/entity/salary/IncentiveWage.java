@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 /**
  * 激励绩效工资实体类
@@ -15,10 +15,10 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Alias("IncentiveWage")
 public class IncentiveWage extends BaseSalaryModel {
 
-    @ExcelColumn(value = "个人激励绩效分值", col = 4)
+    @Excel(name = "个人激励绩效分值", col = 4)
     private Double incentivePerformanceScore;
 
     @TableField(exist = false)
-    @ExcelColumn(value = "个人激励绩效分值", col = 5)
+    @Excel(name = "个人激励绩效分值", col = 5)
     private Double incentivePerformanceSalary;
 }

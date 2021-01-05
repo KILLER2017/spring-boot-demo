@@ -3,7 +3,7 @@ package top.alvinsite.demo.model.entity.salary;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 /**
  * @author Alvin
@@ -14,13 +14,13 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @EqualsAndHashCode(callSuper = true)
 public abstract class BaseSalaryModel extends BaseModel {
 
-    @ExcelColumn(value = "年份", col = 1)
+    @Excel(name = "年份", col = 1)
     private Integer year;
 
     @TableField(exist = false)
-    @ExcelColumn(value = "姓名", col = 2)
+    @Excel(name = "姓名", col = 2)
     private String nickname;
 
-    @ExcelColumn(value = "工号", col = 3)
+    @Excel(name = "工号", col = 3)
     private String account;
 }

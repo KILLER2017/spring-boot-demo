@@ -10,6 +10,7 @@
             gxjg0101.xm as nickname,
             gxjg0101.gh as account,
             overtime_worked_subsidy.professional_position as professionalPosition,
+            class_fees_standard.factor,
             overtime_worked_subsidy.teaching_workload as teachingWorkload,
             workload_target.teaching_workload_target,
             IF(

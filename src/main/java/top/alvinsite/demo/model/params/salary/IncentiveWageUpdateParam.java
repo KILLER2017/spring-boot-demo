@@ -1,7 +1,7 @@
 package top.alvinsite.demo.model.params.salary;
 
 import lombok.Data;
-import top.alvinsite.demo.model.support.ExcelColumn;
+import top.alvinsite.demo.model.support.Excel;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,13 +15,13 @@ public class IncentiveWageUpdateParam {
 
     private Integer year;
 
-    @ExcelColumn(value = "姓名", col = 1)
+    @Excel(name = "姓名", col = 1)
     private String nickname;
 
-    @ExcelColumn(value = "工号", col = 2)
+    @Excel(name = "工号", col = 2)
     private String account;
 
     @NotNull(message = "个人激励绩效分值不能为空")
-    @ExcelColumn(value = "个人激励绩效分值", col = 3)
+    @Excel(name = "个人激励绩效分值", col = 3)
     private Double incentivePerformanceScore;
 }
