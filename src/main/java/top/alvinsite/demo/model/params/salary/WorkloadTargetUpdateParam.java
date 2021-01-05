@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class WorkloadTargetUpdateParam {
     @NotNull(message = "ID不能为空")
-    private Integer id;
+    private String id;
 
     @ExcelColumn(value = "类型岗位", col = 1)
     private String type;

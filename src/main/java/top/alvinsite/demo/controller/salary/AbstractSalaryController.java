@@ -1,6 +1,7 @@
 package top.alvinsite.demo.controller.salary;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -126,7 +127,9 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
     @PutMapping
     public void update(@Valid @RequestBody V record) {
         T item = transformFrom(record, getEntityClass());
-        baseService.saveOrUpdate(item);
+        QueryWrapper<T> queryWrapper = new QueryWrapper<T>()
+                .eq("id", item.getId());
+        baseService.saveOrUpdate(item, queryWrapper);
     }
 
     @PostMapping("put")

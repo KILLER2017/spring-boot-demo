@@ -9,7 +9,7 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Data
 public class LevelFactorUpdateParam {
 
-    private Integer id;
+    private String id;
 
     @ExcelColumn(value = "人员类别", col = 1)
     private String type;
