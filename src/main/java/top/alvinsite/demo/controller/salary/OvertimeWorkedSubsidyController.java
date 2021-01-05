@@ -48,6 +48,7 @@ public class OvertimeWorkedSubsidyController extends BaseSalaryController<Overti
 
     @Override
     protected OvertimeWorkedSubsidy handle(PerformanceQuery query, OvertimeWorkedSubsidy entity) {
+        entity.setYear(query.getYear());
         // 查询是否已存在记录
         OvertimeWorkedSubsidy oldRecord = baseService.getOne(Wrappers.<OvertimeWorkedSubsidy>lambdaQuery()
                         .eq(OvertimeWorkedSubsidy::getYear, entity.getYear())
