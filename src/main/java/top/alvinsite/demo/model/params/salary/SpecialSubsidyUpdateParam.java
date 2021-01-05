@@ -9,7 +9,7 @@ import top.alvinsite.demo.model.support.ExcelColumn;
 @Data
 public class SpecialSubsidyUpdateParam {
 
-    private Integer id;
+    private String id;
 
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;

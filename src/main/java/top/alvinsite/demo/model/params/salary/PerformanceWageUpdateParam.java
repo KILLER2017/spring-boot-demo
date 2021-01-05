@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class PerformanceWageUpdateParam {
 
-    private Integer id;
+    private String id;
 
     private Integer year;
 
