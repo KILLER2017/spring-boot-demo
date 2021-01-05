@@ -12,15 +12,13 @@ import javax.validation.constraints.NotNull;
 @Data
 public class JobSubsidyUpdateParam {
 
-    private Integer id;
+    private String id;
 
-    @NotNull(message = "年份不能为空")
     private Integer year;
 
     @ExcelColumn(value = "姓名", col = 1)
     private String nickname;
 
-    @NotBlank(message = "工号不能为空")
     @ExcelColumn(value = "工号", col = 2)
     private String account;
 

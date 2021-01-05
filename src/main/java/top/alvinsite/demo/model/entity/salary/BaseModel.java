@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public abstract class BaseModel {
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private String id;
 
     @JsonIgnore
     private LocalDateTime createTime;

@@ -5,7 +5,7 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.OvertimeWorkedSubsidyDao">
     <select id="findAll" resultType="OvertimeWorkedSubsidy" parameterType="PerformanceQuery">
         select
-            gxjg0101.gh as id,
+            concat(#{year}, '#', gxjg0101.gh) as id,
             #{year} as year,
             gxjg0101.xm as nickname,
             gxjg0101.gh as account,

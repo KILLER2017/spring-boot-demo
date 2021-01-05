@@ -5,7 +5,7 @@
 <mapper namespace="top.alvinsite.demo.dao.salary.JobSubsidyDao">
     <select id="findAll" resultType="JobSubsidy" parameterType="SalaryQuery">
         select
-        gxjg0101.gh as id,
+        concat(#{year}, '#', gxjg0101.gh) as id,
         #{year} as year,
         gxjg0101.xm as nickname,
         gxjg0101.gh as account,

@@ -18,6 +18,11 @@ public abstract class BaseSalaryController<M extends SalaryService<T>, T extends
     public void update(@RequestBody V record) {
         T item = transformFrom(record, getEntityClass());
         assert item != null;
+        String[] parameters = item.getId().split("#");
+        item.setId(null);
+        item.setYear(Integer.valueOf(parameters[0]));
+        item.setAccount(parameters[1]);
+
         QueryWrapper<T> queryWrapper = new QueryWrapper<T>()
                 .eq("account", item.getAccount())
                 .eq("year", item.getYear());
