@@ -3,6 +3,9 @@ package top.alvinsite.demo.model.params.salary;
 import lombok.Data;
 import top.alvinsite.demo.model.support.ExcelColumn;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Alvin
  */
@@ -11,9 +14,13 @@ public class OvertimeWorkedSubsidyUpdateParam {
 
     private Integer id;
 
+    @NotNull(message = "年份不能为空")
+    private Integer year;
+
     @ExcelColumn(value = "姓名", col = 1, width = 10)
     private String nickname;
 
+    @NotBlank(message = "工号不能为空")
     @ExcelColumn(value = "工号", col = 2, width = 10)
     private String account;
 
