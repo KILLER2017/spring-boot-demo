@@ -2,15 +2,12 @@ package top.alvinsite.demo.controller.salary;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.JobSubsidy;
 import top.alvinsite.demo.model.params.PerformanceQuery;
 import top.alvinsite.demo.model.params.salary.JobSubsidyUpdateParam;
 import top.alvinsite.demo.service.salary.JobSubsidyService;
-
-import static top.alvinsite.utils.BeanUtils.transformFrom;
 
 /**
  * 岗位津贴控制器
@@ -57,19 +54,5 @@ public class JobSubsidyController extends BaseSalaryController<JobSubsidyService
         // 计算并设置个人岗位津贴
         entity.setSubsidy(entity.getSubsidyFactor() * entity.getLength());
         return entity;
-    }
-
-
-    @Override
-    public void update(@RequestBody JobSubsidyUpdateParam param) {
-        JobSubsidy jobSubsidy = transformFrom(param, JobSubsidy.class);
-        assert jobSubsidy != null;
-        jobSubsidy.setSubsidy(jobSubsidy.getSubsidyFactor() * jobSubsidy.getLength());
-        baseService.updateById(jobSubsidy);
-    }
-
-    @Override
-    public void updateByPost(@RequestBody JobSubsidyUpdateParam record) {
-        update(record);
     }
 }

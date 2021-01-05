@@ -13,7 +13,7 @@
         job_subsidy.evaluation_result,
         job_subsidy.subsidy_factor,
         job_subsidy.length,
-        job_subsidy.subsidy,
+        job_subsidy.subsidy_factor * job_subsidy.length as subsidy,
         job_subsidy.remarks
         from gxjg0101
         left join job_subsidy on gxjg0101.gh = job_subsidy.account and job_subsidy.year = #{year}
