@@ -1,5 +1,6 @@
 package top.alvinsite.demo.model.entity.salary;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
@@ -17,6 +18,7 @@ public class OvertimeWorkedSubsidy extends BaseSalaryModel {
     @Excel(name = "专业技术职务", col = 4)
     private String professionalPosition;
 
+    @TableField(exist = false)
     private Double factor;
 
     @Excel(name = "实际完成课程教学工作量", col = 5)

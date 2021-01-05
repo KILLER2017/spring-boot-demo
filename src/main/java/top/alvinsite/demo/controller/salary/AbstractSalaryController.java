@@ -132,6 +132,7 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
     @PutMapping
     public void update(@Valid @RequestBody V record) {
         T item = transformFrom(record, getEntityClass());
+        assert item != null;
         QueryWrapper<T> queryWrapper = new QueryWrapper<T>()
                 .eq("id", item.getId());
         baseService.saveOrUpdate(item, queryWrapper);
