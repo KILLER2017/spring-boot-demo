@@ -23,7 +23,7 @@ public class OvertimeWorkedSubsidyUpdateParam {
     private String account;
 
     @NotBlank(message = "专业技术职务不能为空")
-    @Excel(name = "专业技术职务", col = 3)
+    @Excel(name = "专业技术职务", col = 3, combo = {"正高", "副高", "中级", "初级"})
     private String professionalPosition;
 
     @NotNull(message = "实际完成课程教学工作量不能为空")

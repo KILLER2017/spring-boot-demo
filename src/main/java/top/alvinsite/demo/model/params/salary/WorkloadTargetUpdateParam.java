@@ -15,7 +15,7 @@ public class WorkloadTargetUpdateParam {
     @NotNull(message = "ID不能为空")
     private String id;
 
-    @Excel(name = "类型岗位", col = 1)
+    @Excel(name = "类型岗位", col = 1, combo = {"教学科研型岗", "公共课专任型岗", "科研教学型岗", "非中层干部型岗", "管理型岗", "实验教辅型岗", "实验教研型岗"})
     private String type;
 
     @Excel(name = "级别/职务", col = 2)

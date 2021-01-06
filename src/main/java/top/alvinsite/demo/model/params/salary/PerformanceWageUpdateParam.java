@@ -23,7 +23,7 @@ public class PerformanceWageUpdateParam {
     private String account;
 
     @NotBlank(message = "人员类别不能为空")
-    @Excel(name = "人员类别", col = 3, width = 10)
+    @Excel(name = "人员类别", col = 3, width = 10, combo = {"教学、科研专业技术人员", "管理人员", "教辅岗位专业技术人员"})
     private String type;
 
     @NotBlank(message = "级别/职务不能为空")
@@ -31,11 +31,11 @@ public class PerformanceWageUpdateParam {
     private String level;
 
     @NotBlank(message = "系列岗位不能为空")
-    @Excel(name = "系列岗位", col = 5, width = 10)
+    @Excel(name = "系列岗位", col = 5, width = 10, combo = {"教师", "管理", "辅导员", "实验员"})
     private String post;
 
     @NotBlank(message = "类型岗位不能为空")
-    @Excel(name = "类型岗位", col = 6, width = 10)
+    @Excel(name = "类型岗位", col = 6, width = 10, combo = {"教学科研型岗", "公共课专任型岗", "科研教学型岗", "非中层干部型岗", "管理型岗", "实验教辅型岗", "实验教研型岗"})
     private String postType;
 
     @Excel(name = "职责情况", col = 7, width = 10)

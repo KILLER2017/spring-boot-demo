@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.jexl3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.GpaFormulaDao;
+import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.PerformanceWageDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.*;
@@ -165,7 +165,8 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         try {
             JexlExpression expression = jexlEngine.createExpression(gpaFormula);
             handleFormulaContext(gpaFormula, jexlContext, performanceWage);
-            performanceWage.setPerformanceGpa((Double) expression.evaluate(jexlContext));
+            Double value = (Double) expression.evaluate(jexlContext);
+            performanceWage.setPerformanceGpa(value);
         } catch (IllegalArgumentException e) {
             log.error(e.getMessage());
         } catch (JexlException e) {
@@ -234,12 +235,12 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         // 实际教学工作量
         if (expression.contains(TEACHING_WORKLOAD_KEY)) {
 
-            jexlContext.set(TEACHING_WORKLOAD_KEY, performanceWage.getTeachingWorkload());
+            jexlContext.set(TEACHING_WORKLOAD_KEY, performanceWage.getTeachingWorkload().doubleValue());
         }
 
         // 实际科研工作量
         if (expression.contains(RESEARCH_WORKLOAD_KEY)) {
-            jexlContext.set(RESEARCH_WORKLOAD_KEY, performanceWage.getResearchWorkload());
+            jexlContext.set(RESEARCH_WORKLOAD_KEY, performanceWage.getResearchWorkload().doubleValue());
         }
 
         // 个人实际民主测评值
@@ -249,12 +250,12 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
 
         // 实际完成教研教改工作量
         if (expression.contains(TEACHING_RESEARCH_WORKLOAD_KEY)) {
-            jexlContext.set(TEACHING_RESEARCH_WORKLOAD_KEY, performanceWage.getTeachingResearchWorkload());
+            jexlContext.set(TEACHING_RESEARCH_WORKLOAD_KEY, performanceWage.getTeachingResearchWorkload().doubleValue());
         }
 
         // 实际完成总实验教学工作量
         if (expression.contains(EXPERIMENTAL_TEACHING_WORKLOAD_KEY)) {
-            jexlContext.set(EXPERIMENTAL_TEACHING_WORKLOAD_KEY, performanceWage.getExperimentalTeachingWorkload());
+            jexlContext.set(EXPERIMENTAL_TEACHING_WORKLOAD_KEY, performanceWage.getExperimentalTeachingWorkload().doubleValue());
         }
     }
 
@@ -278,7 +279,8 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
 
             Double overtimeWorkedSubsidy = overtimeWorkedSubsidyService.getUserOvertimeWorkedSubsidy(query);
             // 超课时津贴
-            jexlContext.set(OVERTIME_WORKED_SUBSIDY_KEY, overtimeWorkedSubsidy != null ? overtimeWorkedSubsidy : 0.0);
+            Double value = overtimeWorkedSubsidy != null ? overtimeWorkedSubsidy : 0.0;
+            jexlContext.set(OVERTIME_WORKED_SUBSIDY_KEY, value);
         }
     }
 
@@ -290,7 +292,8 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
 
             Double incentiveWage = incentiveWageService.getUserIncentiveWage(query);
             // 激励绩效工资
-            jexlContext.set(INCENTIVE_WAGE_KEY, incentiveWage != null ? incentiveWage : 0.0);
+            Double value = incentiveWage != null ? incentiveWage : 0.0;
+            jexlContext.set(INCENTIVE_WAGE_KEY, value);
         }
     }
 

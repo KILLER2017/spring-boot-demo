@@ -189,7 +189,7 @@ public class ExcelUtils {
         }
         if (type == Object.class) {
             field.set(t, value);
-            //数字类型
+            // 数字类型
         } else if (type.getSuperclass() == null || type.getSuperclass() == Number.class) {
             if (type == int.class || type == Integer.class) {
                 field.set(t, NumberUtils.toInt(value));
