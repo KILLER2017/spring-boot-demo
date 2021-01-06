@@ -87,7 +87,7 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
      * @param file Excel文件
      */
     @PostMapping("importExcel/{departmentId}/{year}")
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = IllegalArgumentException.class)
     public void importExcel(PerformanceQuery query, @RequestParam(value="uploadFile") MultipartFile file) {
         List<V> excelData = ExcelUtils.readExcel("", getParamClass(), file);
         List<T> list = transformFromInBatch(excelData, getEntityClass());

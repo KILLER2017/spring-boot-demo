@@ -23,7 +23,7 @@ public class JobSubsidyUpdateParam {
     private String account;
 
     @NotBlank(message = "岗位不能为空")
-    @Excel(name = "岗位", col = 3)
+    @Excel(name = "岗位", col = 3, isMultiSelect = true, combo = {"班主任", "系正主任", "系副主任", "实验室郑主任", "实验室副主任", "学院党总支部正书记", "学院党总支部副书记", "课程组组长"})
     private String job;
 
     @NotBlank(message = "考核结果不能为空")

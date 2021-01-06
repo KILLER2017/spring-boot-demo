@@ -171,6 +171,13 @@ public class ExcelUtils {
         Excel annotation = field.getAnnotation(Excel.class);
         if (annotation.combo().length != 0) {
             List<String> combo = Arrays.asList(annotation.combo());
+            if (annotation.isMultiSelect()) {
+                String[] temp = value.split(annotation.separator());
+                if (!combo.containsAll(Arrays.asList(temp))) {
+                    String errorMessage = String.format("%s的值[%s]错误，只能从%s选择", annotation.name(), value, combo);
+                    throw new IllegalArgumentException(errorMessage);
+                }
+            }
             if (!combo.contains(value)) {
                 String errorMessage = String.format("%s的值[%s]错误，只能从%s选择", annotation.name(), value, combo);
                 throw new IllegalArgumentException(errorMessage);

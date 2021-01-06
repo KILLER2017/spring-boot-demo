@@ -2,9 +2,12 @@ package top.alvinsite.demo.model.entity.salary;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 import top.alvinsite.demo.model.support.Excel;
+
+import java.util.Objects;
 
 /**
  * @author Alvin
@@ -13,6 +16,7 @@ import top.alvinsite.demo.model.support.Excel;
 @Alias("WorkloadTarget")
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class WorkloadTarget extends BaseModel {
 
     private Integer year;
@@ -33,4 +37,24 @@ public class WorkloadTarget extends BaseModel {
 
     @Excel(name = "年度目标科研工作量", col = 5)
     private double researchWorkloadTarget;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        WorkloadTarget that = (WorkloadTarget) o;
+        return Double.compare(that.teachingWorkloadTarget, teachingWorkloadTarget) == 0 &&
+                Double.compare(that.experimentalTeachingWorkloadTarget, experimentalTeachingWorkloadTarget) == 0 &&
+                Double.compare(that.researchWorkloadTarget, researchWorkloadTarget) == 0 &&
+                year.equals(that.year) &&
+                department.equals(that.department) &&
+                type.equals(that.type) &&
+                level.equals(that.level);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), year, department, type, level, teachingWorkloadTarget, experimentalTeachingWorkloadTarget, researchWorkloadTarget);
+    }
 }

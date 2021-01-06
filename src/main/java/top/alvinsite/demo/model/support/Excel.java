@@ -24,6 +24,10 @@ public @interface Excel {
      */
     int col() default 0;
 
+    boolean isMultiSelect() default false;
+
+    String separator() default ",";
+
     /**
      * 设置只能选择不能输入的列内容.
      */
