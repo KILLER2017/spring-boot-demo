@@ -34,11 +34,13 @@
         select
             incentive_wage.incentive_performance_score * incentive_wage_standard.factor as incentivePerformanceSalary
         from incentive_wage
-        join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year
+        join gxjg0101 on gxjg0101.gh = incentive_wage.account
+        join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year and incentive_wage_standard.department = gxjg0101.dwh
         <where>
             <if test="account != null">incentive_wage.account = #{account}</if>
             <if test="year != null">and incentive_wage.year = #{year}</if>
         </where>
+        limit 1
     </select>
 
 </mapper>

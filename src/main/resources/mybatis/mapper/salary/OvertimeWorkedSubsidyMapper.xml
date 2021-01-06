@@ -53,11 +53,12 @@
         join performance_wage on performance_wage.account = gxjg0101.gh and performance_wage.year = #{year}
         join workload_target on workload_target.department = gxjg0101.dwh and workload_target.year = #{year}
         and workload_target.type = performance_wage.post_type and workload_target.level = performance_wage.level
-        join class_fees_standard on class_fees_standard.year = #{year} and class_fees_standard.technical_posts_level = overtime_worked_subsidy.professional_position
+        join class_fees_standard on class_fees_standard.year = #{year} and class_fees_standard.department = gxjg0101.dwh and class_fees_standard.technical_posts_level = overtime_worked_subsidy.professional_position
         <where>
             <if test="year != null">overtime_worked_subsidy.year = #{year}</if>
             <if test="account != null">and gxjg0101.gh = #{account}</if>
         </where>
+        limit 1
 
     </select>
 </mapper>
