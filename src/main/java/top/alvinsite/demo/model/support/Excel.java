@@ -25,6 +25,11 @@ public @interface Excel {
     int col() default 0;
 
     /**
+     * 设置只能选择不能输入的列内容.
+     */
+    String[] combo() default {};
+
+    /**
      * 导出时在excel中每个列的高度 单位为字符
      */
     double height() default 14;

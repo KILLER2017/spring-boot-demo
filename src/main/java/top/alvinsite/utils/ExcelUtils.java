@@ -128,6 +128,8 @@ public class ExcelUtils {
                                             x -> {
                                                 try {
                                                     handleField(t, cellValue, x);
+                                                } catch (IllegalArgumentException e) {
+                                                    throw e;
                                                 } catch (Exception e) {
                                                     log.error(String.format("reflect field:%s value:%s exception!", x.getName(), cellValue), e);
                                                 }
@@ -140,13 +142,17 @@ public class ExcelUtils {
                             } else {
                                 log.warn(String.format("row:%s is blank ignore!", i));
                             }
+                        } catch (IllegalArgumentException e) {
+                            throw e;
                         } catch (Exception e) {
                             log.error(String.format("parse row:%s exception!", i), e);
                         }
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }  catch (Exception e) {
             log.error("parse excel exception!", e);
         } finally {
             if (workbook != null) {
@@ -162,6 +168,15 @@ public class ExcelUtils {
 
     private static <T> void handleField(T t, String value, Field field) throws Exception {
         Class<?> type = field.getType();
+        Excel annotation = field.getAnnotation(Excel.class);
+        if (annotation.combo().length != 0) {
+            List<String> combo = Arrays.asList(annotation.combo());
+            if (!combo.contains(value)) {
+                String errorMessage = String.format("%s的值[%s]错误，只能从%s选择", annotation.name(), value, combo);
+                throw new IllegalArgumentException(errorMessage);
+            }
+        }
+
         if (type == void.class || StringUtils.isBlank(value)) {
             return;
         }

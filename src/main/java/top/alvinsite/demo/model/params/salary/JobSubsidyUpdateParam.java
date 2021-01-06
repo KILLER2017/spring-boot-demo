@@ -27,7 +27,7 @@ public class JobSubsidyUpdateParam {
     private String job;
 
     @NotBlank(message = "考核结果不能为空")
-    @Excel(name = "考核结果", col = 4)
+    @Excel(name = "考核结果", col = 4, combo = {"优秀", "良好", "合格", "不合格"})
     private String evaluationResult;
 
     @NotNull(message = "岗位津贴不能为空")

@@ -20,7 +20,7 @@ public class JobSubsidy extends BaseSalaryModel{
     @Excel(name = "岗位", col = 4)
     private String job;
 
-    @Excel(name = "考核结果", col = 5)
+    @Excel(name = "考核结果", col = 5, combo = {"优秀", "良好", "合格", "不合格"})
     private String evaluationResult;
 
     @Excel(name = "岗位津贴/月", col = 6)
