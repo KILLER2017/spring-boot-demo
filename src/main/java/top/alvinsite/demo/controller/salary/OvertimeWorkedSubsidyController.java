@@ -13,6 +13,7 @@ import top.alvinsite.demo.service.salary.ClassFeesStandardService;
 import top.alvinsite.demo.service.salary.OvertimeWorkedSubsidyService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,10 +63,19 @@ public class OvertimeWorkedSubsidyController extends BaseSalaryController<Overti
 
     @GetMapping("standard")
     public List<ClassFeesStandard> getClassFeesStandard(@Validated(ValidationGroup2.class) PerformanceQuery query) {
-        return standardService.list(Wrappers.<ClassFeesStandard>lambdaQuery()
-                        .eq(ClassFeesStandard::getYear, query.getYear())
-                        .eq(ClassFeesStandard::getDepartment, query.getDepartmentId())
-                );
+        List<ClassFeesStandard> list = standardService.list(Wrappers.<ClassFeesStandard>lambdaQuery()
+                .eq(ClassFeesStandard::getYear, query.getYear())
+                .eq(ClassFeesStandard::getDepartment, query.getDepartmentId())
+        );
+
+        if (list.size() == 0) {
+            list = new ArrayList<>();
+            list.add(new ClassFeesStandard(query.getYear(), query.getDepartmentId(), "正高", null));
+            list.add(new ClassFeesStandard(query.getYear(), query.getDepartmentId(), "副高", null));
+            list.add(new ClassFeesStandard(query.getYear(), query.getDepartmentId(), "中级", null));
+            list.add(new ClassFeesStandard(query.getYear(), query.getDepartmentId(), "初级", null));
+        }
+        return list;
     }
 
     @PostMapping("standard")
