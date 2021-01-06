@@ -48,6 +48,9 @@ public class PerformanceWage extends BaseSalaryModel {
     private Integer experimentalTeachingWorkload;
 
     @TableField(exist = false)
-    @Excel(name = "业绩绩效工资", col = 14)
+    @Excel(name = "业绩绩效绩点", col = 14)
+    private Double performanceGpa;
+
+    @TableField(exist = false)
     private Double performanceWage;
 }

@@ -121,7 +121,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
     public List<PerformanceWage> findAll(PerformanceQuery query) {
         List<PerformanceWage> list = baseMapper.findAll(query);
         list.stream()
-                .map(this::calcPerformanceWage)
+                .map(this::calcGpa)
                 .collect(Collectors.toList());
         return list;
     }
@@ -150,6 +150,36 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         assert salaryRuleParam != null;
         GpaFormula gpaFormula = gpaFormulaDao.findOne(salaryRuleParam);
         return gpaFormula != null ? gpaFormula.getRule() : null;
+    }
+
+    private PerformanceWage calcGpa(PerformanceWage performanceWage) {
+        if (performanceWage.getLevel() == null ||
+                performanceWage.getPostType() == null
+        ) {
+            log.error("职务级别或类型岗位为空，跳过绩效工资计算：{}", performanceWage);
+            return performanceWage;
+        }
+
+        String gpaFormula = getGpaFormula(performanceWage);
+
+        if (gpaFormula == null) {
+            log.error("业绩绩点计算公式[{}]为空，跳过计算", performanceWage);
+            return performanceWage;
+        }
+
+        JexlContext jexlContext = new MapContext();
+        JexlEngine jexlEngine = new JexlBuilder().create();
+        try {
+            JexlExpression expression = jexlEngine.createExpression(gpaFormula);
+            handleFormulaContext(gpaFormula, jexlContext, performanceWage);
+            performanceWage.setPerformanceGpa((Double) expression.evaluate(jexlContext));
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage());
+        } catch (JexlException e) {
+            String errorMessage = String.format("%s年，%s系列岗位，%s岗位类型的绩点计算规则（%s）不合法", performanceWage.getYear(), performanceWage.getPost(), performanceWage.getPostType(), gpaFormula);
+            throw new MyJexlExpression(errorMessage);
+        }
+        return performanceWage;
     }
 
     private PerformanceWage calcPerformanceWage(PerformanceWage performanceWage) {
@@ -270,7 +300,6 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
             jexlContext.set(INCENTIVE_WAGE_KEY, incentiveWage != null ? incentiveWage : 0.0);
         }
     }
-
 
     private void handleFormulaLevelFactorContext(String expression, JexlContext jexlContext, PerformanceWage performanceWage) {
         if (expression.contains(LEVEL_FACTOR_KEY)) {
