@@ -6,5 +6,5 @@ import top.alvinsite.demo.model.entity.salary.PerformanceWageFormula;
 /**
  * @author Alvin
  */
-public interface PerformanceSalaryFormulaService extends IService<PerformanceWageFormula> {
+public interface PerformanceWageFormulaService extends IService<PerformanceWageFormula> {
 }
