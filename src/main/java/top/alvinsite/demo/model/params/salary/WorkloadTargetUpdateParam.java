@@ -1,6 +1,7 @@
 package top.alvinsite.demo.model.params.salary;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import top.alvinsite.demo.model.support.Excel;
 
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
  * @author Alvin
  */
 @Data
+@EqualsAndHashCode
 public class WorkloadTargetUpdateParam {
     @NotNull(message = "ID不能为空")
     private String id;

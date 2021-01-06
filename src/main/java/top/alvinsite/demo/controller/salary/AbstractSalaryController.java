@@ -91,8 +91,8 @@ public abstract class AbstractSalaryController<M extends SalaryService<T>, T ext
     public void importExcel(PerformanceQuery query, @RequestParam(value="uploadFile") MultipartFile file) {
         List<V> excelData = ExcelUtils.readExcel("", getParamClass(), file);
         List<T> list = transformFromInBatch(excelData, getEntityClass());
-        list = list.stream().distinct()
-                .map(item -> handle(query, item))
+        list = list.stream().distinct().collect(Collectors.toList());
+        list = list.stream().map(item -> handle(query, item))
                 .collect(Collectors.toList());
         try {
             baseService.saveOrUpdateBatch(list);
