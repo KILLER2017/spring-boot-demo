@@ -13,7 +13,7 @@
             incentive_wage.incentive_performance_score * incentive_wage_standard.factor as incentivePerformanceSalary
         from gxjg0101
         left join incentive_wage on gxjg0101.gh = incentive_wage.account and incentive_wage.year = #{year}
-        left join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year
+        left join incentive_wage_standard on incentive_wage_standard.year = incentive_wage.year AND incentive_wage_standard.department = gxjg0101.dwh
         join department on department.id = gxjg0101.dwh
         <where>
             gxjg0101.type != 3
