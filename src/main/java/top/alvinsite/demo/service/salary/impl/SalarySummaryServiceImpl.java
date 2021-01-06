@@ -62,7 +62,6 @@ public class SalarySummaryServiceImpl extends ServiceImpl<SalarySummaryDao, Sala
         query.setAccount(detail.getAccount());
         query.setYear(detail.getYear());
 
-        log.error("未计算业绩绩效工资");
         Double salary = salaryChecker(performanceWageService.getUserPerformanceWage(query));
         detail.setPerformanceWage(salary);
         return detail;

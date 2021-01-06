@@ -153,17 +153,10 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
     }
 
     private PerformanceWage calcGpa(PerformanceWage performanceWage) {
-        if (performanceWage.getLevel() == null ||
-                performanceWage.getPostType() == null
-        ) {
-            log.error("职务级别或类型岗位为空，跳过绩效工资计算：{}", performanceWage);
-            return performanceWage;
-        }
-
         String gpaFormula = getGpaFormula(performanceWage);
 
         if (gpaFormula == null) {
-            log.error("业绩绩点计算公式[{}]为空，跳过计算", performanceWage);
+            log.error("业绩绩点计算公式为空，跳过计算，参数：[{}]", performanceWage);
             return performanceWage;
         }
 
@@ -177,7 +170,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
             log.error(e.getMessage());
         } catch (JexlException e) {
             String errorMessage = String.format("%s年，%s系列岗位，%s岗位类型的绩点计算规则（%s）不合法", performanceWage.getYear(), performanceWage.getPost(), performanceWage.getPostType(), gpaFormula);
-            throw new MyJexlExpression(errorMessage);
+            throw new MyJexlExpression(errorMessage, e);
         }
         return performanceWage;
     }
@@ -186,14 +179,14 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         if (performanceWage.getLevel() == null ||
                 performanceWage.getPostType() == null
         ) {
-            log.error("职务级别或类型岗位为空，跳过绩效工资计算：{}", performanceWage);
+            log.error("职务级别或类型岗位为空，无法匹配薪酬计算规则，跳过绩效工资计算：{}", performanceWage);
             return performanceWage;
         }
 
         String salaryFormula = getPerformanceWageCalcFormula(performanceWage);
 
         if (salaryFormula == null) {
-            log.error("业绩薪酬计算公式[{}]为空，跳过计算", performanceWage);
+            log.error("业绩薪酬计算公式为空，跳过计算，参数[{}]", performanceWage);
             return performanceWage;
         }
 
@@ -209,11 +202,11 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
                     return performanceWage;
                 }
                 JexlExpression gpaExpression = jexlEngine.createExpression(gpaFormula);
+                handleFormulaContext(gpaFormula, jexlContext, performanceWage);
                 jexlContext.set("m", gpaExpression.evaluate(jexlContext));
-            } else {
-                handleFormulaContext(salaryFormula, jexlContext, performanceWage);
             }
 
+            handleFormulaContext(salaryFormula, jexlContext, performanceWage);
             performanceWage.setPerformanceWage((Double) salaryExpression.evaluate(jexlContext));
         } catch (IllegalArgumentException e) {
             log.error(e.getMessage());
