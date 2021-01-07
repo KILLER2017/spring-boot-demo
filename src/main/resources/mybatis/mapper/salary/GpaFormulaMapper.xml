@@ -35,7 +35,7 @@
             and year = #{year}
             and type = #{post}
             and post_type = #{postType}
-            <if test="duty != null">and duty = #{duty}</if>
+            <if test="post == '管理' and duty != null">and duty = #{duty}</if>
         </where>
         limit 1
     </select>
