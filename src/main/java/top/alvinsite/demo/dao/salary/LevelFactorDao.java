@@ -3,8 +3,8 @@ package top.alvinsite.demo.dao.salary;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.demo.model.params.LevelFactorParam;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.LevelFactorParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 
 import java.util.List;
 

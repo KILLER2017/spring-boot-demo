@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.PerformanceWage;
 import top.alvinsite.demo.model.entity.salary.PerformanceWageFormula;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.salary.PerformanceWageUpdateParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.salary.PerformanceWageUpdateParam;
 import top.alvinsite.demo.service.salary.PerformanceWageFormulaService;
 import top.alvinsite.demo.service.salary.PerformanceWageService;
 

@@ -6,16 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.demo.model.params.LevelFactorParam;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.salary.LevelFactorUpdateParam;
+import top.alvinsite.demo.model.param.LevelFactorParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.salary.LevelFactorUpdateParam;
 import top.alvinsite.demo.model.validation.ValidationGroup2;
 import top.alvinsite.demo.service.salary.LevelFactorService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * @author Administrator

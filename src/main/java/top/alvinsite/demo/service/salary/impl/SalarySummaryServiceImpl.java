@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.salary.SalarySummaryDao;
 import top.alvinsite.demo.model.entity.salary.SalarySummary;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.demo.service.salary.*;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.demo.model.support.UserInfo;
 import top.alvinsite.demo.service.performance.*;
 import top.alvinsite.framework.spring.AsyncTaskManager;

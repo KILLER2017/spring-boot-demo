@@ -1,4 +1,4 @@
-package top.alvinsite.demo.model.params.salary;
+package top.alvinsite.demo.model.param.salary;
 
 import lombok.Data;
 import top.alvinsite.demo.model.support.Excel;

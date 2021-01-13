@@ -22,7 +22,7 @@
         </collection>
     </resultMap>
 
-    <select id="findLiterature" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findLiteratureResult">
+    <select id="findLiterature" parameterType="top.alvinsite.demo.model.param.PerformanceQuery" resultMap="findLiteratureResult">
         select
             gxky0308.id as id,
             gxjg0101.gh as account,

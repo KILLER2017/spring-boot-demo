@@ -3,7 +3,7 @@ package top.alvinsite.demo.controller.salary;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.ClassFeesStandard;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.demo.service.salary.ClassFeesStandardService;
 
 /**

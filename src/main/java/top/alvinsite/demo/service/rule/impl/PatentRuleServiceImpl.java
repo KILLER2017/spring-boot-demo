@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.rule.PatentRuleDao;
 import top.alvinsite.demo.model.entity.performance.Patent;
 import top.alvinsite.demo.model.entity.rule.PatentRule;
-import top.alvinsite.demo.model.params.RuleQuery;
+import top.alvinsite.demo.model.param.RuleQuery;
 import top.alvinsite.demo.service.rule.PatentRuleService;
 
 import java.util.List;

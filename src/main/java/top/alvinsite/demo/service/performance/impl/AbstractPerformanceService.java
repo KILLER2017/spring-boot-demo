@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.entity.performance.BaseEntity;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.demo.service.performance.BasePerformanceService;
 import top.alvinsite.demo.service.rule.ScoreDistributionService;
 

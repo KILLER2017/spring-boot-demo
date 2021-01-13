@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.demo.model.params.LevelFactorParam;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.LevelFactorParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.demo.service.salary.LevelFactorService;
 
 import java.util.List;

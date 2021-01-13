@@ -5,7 +5,7 @@ import top.alvinsite.demo.model.entity.Department;
 
 import javax.validation.constraints.NotBlank;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * @author Administrator

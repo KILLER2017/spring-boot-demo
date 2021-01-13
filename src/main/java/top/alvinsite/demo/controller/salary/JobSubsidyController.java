@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.JobSubsidy;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.salary.JobSubsidyUpdateParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.salary.JobSubsidyUpdateParam;
 import top.alvinsite.demo.service.salary.JobSubsidyService;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * 岗位津贴控制器

@@ -7,8 +7,8 @@ import top.alvinsite.demo.dao.performance.CopyrightDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.Copyright;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.ScoreDistributionParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.ScoreDistributionParam;
 import top.alvinsite.demo.service.performance.CopyrightService;
 import top.alvinsite.demo.service.rule.CopyrightRuleService;
 

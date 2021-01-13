@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.alvinsite.demo.dao.salary.GpaFormulaDao;
 import top.alvinsite.demo.model.entity.salary.GpaFormula;
-import top.alvinsite.demo.model.params.SalaryRuleQuery;
+import top.alvinsite.demo.model.param.SalaryRuleQuery;
 import top.alvinsite.demo.service.salary.GpaFormulaService;
 
 import java.util.Arrays;

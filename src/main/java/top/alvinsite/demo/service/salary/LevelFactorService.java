@@ -1,7 +1,7 @@
 package top.alvinsite.demo.service.salary;
 
 import top.alvinsite.demo.model.entity.salary.LevelFactor;
-import top.alvinsite.demo.model.params.LevelFactorParam;
+import top.alvinsite.demo.model.param.LevelFactorParam;
 
 /**
  * @author Alvin

@@ -11,17 +11,17 @@ import top.alvinsite.demo.dao.salary.LevelFactorDao;
 import top.alvinsite.demo.dao.salary.PerformanceWageDao;
 import top.alvinsite.demo.dao.salary.WorkloadTargetDao;
 import top.alvinsite.demo.model.entity.salary.*;
-import top.alvinsite.demo.model.params.LevelFactorParam;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.SalaryRuleParam;
-import top.alvinsite.demo.model.params.WorkloadTargetParam;
+import top.alvinsite.demo.model.param.LevelFactorParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.SalaryRuleParam;
+import top.alvinsite.demo.model.param.WorkloadTargetParam;
 import top.alvinsite.demo.service.salary.*;
 import top.alvinsite.exception.MyJexlExpression;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * @author Alvin
@@ -156,7 +156,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         String gpaFormula = getGpaFormula(performanceWage);
 
         if (gpaFormula == null) {
-            log.error("业绩绩点计算公式为空，跳过计算，参数：[{}]", performanceWage);
+            log.warn("业绩绩点计算公式为空，跳过计算，参数：[{}]", performanceWage);
             return performanceWage;
         }
 
@@ -180,14 +180,14 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
         if (performanceWage.getLevel() == null ||
                 performanceWage.getPostType() == null
         ) {
-            log.error("职务级别或类型岗位为空，无法匹配薪酬计算规则，跳过绩效工资计算：{}", performanceWage);
+            log.warn("职务级别或类型岗位为空，无法匹配薪酬计算规则，跳过绩效工资计算：{}", performanceWage);
             return performanceWage;
         }
 
         String salaryFormula = getPerformanceWageCalcFormula(performanceWage);
 
         if (salaryFormula == null) {
-            log.error("业绩薪酬计算公式为空，跳过计算，参数[{}]", performanceWage);
+            log.warn("业绩薪酬计算公式为空，跳过计算，参数[{}]", performanceWage);
             return performanceWage;
         }
 
@@ -199,7 +199,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
             if (salaryFormula.contains(GPA_KEY)) {
                 String gpaFormula = getGpaFormula(performanceWage);
                 if (gpaFormula == null) {
-                    log.error("业绩绩点计算公式[{}]，跳过计算", performanceWage);
+                    log.warn("业绩绩点计算公式[{}]，跳过计算", performanceWage);
                     return performanceWage;
                 }
                 JexlExpression gpaExpression = jexlEngine.createExpression(gpaFormula);
@@ -213,7 +213,7 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
             log.error(e.getMessage());
         } catch (JexlException e) {
             String errorMessage = String.format("%s年，%s系列岗位，%s岗位类型的规则（%s）不合法", performanceWage.getYear(), performanceWage.getPost(), performanceWage.getPostType(), salaryFormula);
-            throw new MyJexlExpression(errorMessage);
+            throw new MyJexlExpression(errorMessage, e);
         }
         return performanceWage;
     }
@@ -234,7 +234,6 @@ public class PerformanceWageServiceImpl extends ServiceImpl<PerformanceWageDao, 
 
         // 实际教学工作量
         if (expression.contains(TEACHING_WORKLOAD_KEY)) {
-
             jexlContext.set(TEACHING_WORKLOAD_KEY, performanceWage.getTeachingWorkload().doubleValue());
         }
 

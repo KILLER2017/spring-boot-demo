@@ -1,4 +1,4 @@
-package top.alvinsite.utils;
+package top.alvinsite.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

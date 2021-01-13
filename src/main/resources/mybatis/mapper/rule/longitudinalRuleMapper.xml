@@ -6,7 +6,7 @@
 
 
 
-    <select id="findAll" parameterType="top.alvinsite.demo.model.params.RuleQuery" resultType="LongitudinalProjectRule">
+    <select id="findAll" parameterType="top.alvinsite.demo.model.param.RuleQuery" resultType="LongitudinalProjectRule">
         select
             *
         from longitudinal_project_rule

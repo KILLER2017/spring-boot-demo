@@ -20,7 +20,7 @@ import top.alvinsite.demo.model.dto.auth.AdminDTO;
 import top.alvinsite.demo.model.dto.auth.ManagerDTO;
 import top.alvinsite.framework.springsecurity.dao.UserDao;
 import top.alvinsite.framework.springsecurity.entity.User;
-import top.alvinsite.utils.JwtUtils;
+import top.alvinsite.util.JwtUtils;
 
 import javax.annotation.Resource;
 import java.util.HashSet;

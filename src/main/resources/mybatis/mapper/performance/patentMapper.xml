@@ -22,7 +22,7 @@
         </collection>
     </resultMap>
 
-    <select id="findPatent" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findPatentResult">
+    <select id="findPatent" parameterType="top.alvinsite.demo.model.param.PerformanceQuery" resultMap="findPatentResult">
         select
             gxky0314.id as id,
             gxjg0101.gh as account,

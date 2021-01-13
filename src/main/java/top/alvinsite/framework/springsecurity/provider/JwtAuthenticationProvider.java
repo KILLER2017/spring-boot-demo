@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.www.NonceExpiredException
 import org.springframework.stereotype.Component;
 import top.alvinsite.framework.springsecurity.service.JwtUserService;
 import top.alvinsite.framework.springsecurity.token.JwtAuthenticationToken;
-import top.alvinsite.utils.JwtUtils;
+import top.alvinsite.util.JwtUtils;
 
 import java.util.Calendar;
 

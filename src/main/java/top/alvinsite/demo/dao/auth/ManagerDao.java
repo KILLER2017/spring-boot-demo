@@ -3,8 +3,8 @@ package top.alvinsite.demo.dao.auth;
 import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.model.dto.auth.ManagerDTO;
 import top.alvinsite.demo.model.entity.auth.ManagerUser;
-import top.alvinsite.demo.model.params.ManagerUserQuery;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.ManagerUserQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 
 import java.util.List;
 

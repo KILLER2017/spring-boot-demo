@@ -2,7 +2,7 @@ package top.alvinsite.demo.service.performance;
 
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.BaseEntity;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 
 import java.util.List;
 

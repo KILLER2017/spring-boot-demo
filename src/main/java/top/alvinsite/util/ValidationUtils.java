@@ -1,4 +1,4 @@
-package top.alvinsite.utils;
+package top.alvinsite.util;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;

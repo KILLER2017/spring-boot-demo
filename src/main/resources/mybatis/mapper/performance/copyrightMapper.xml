@@ -21,7 +21,7 @@
         </collection>
     </resultMap>
 
-    <select id="findCopyright" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findCopyrightResult">
+    <select id="findCopyright" parameterType="top.alvinsite.demo.model.param.PerformanceQuery" resultMap="findCopyrightResult">
         select
             gxky0306.id as id,
             gxky0306.zzqbh,

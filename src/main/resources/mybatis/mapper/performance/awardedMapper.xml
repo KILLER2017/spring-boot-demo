@@ -21,7 +21,7 @@
             <result property="nickname" column="nickname"/>
         </collection>
     </resultMap>
-    <select id="findAwarded" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findCopyrightResult">
+    <select id="findAwarded" parameterType="top.alvinsite.demo.model.param.PerformanceQuery" resultMap="findCopyrightResult">
         select
             gxky0310.id as id,
             gxky0310.hjbh,

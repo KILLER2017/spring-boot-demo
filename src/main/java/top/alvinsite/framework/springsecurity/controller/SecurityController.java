@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * @author Alvin

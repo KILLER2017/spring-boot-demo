@@ -6,8 +6,8 @@ import top.alvinsite.demo.dao.performance.PatentDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.Patent;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.ScoreDistributionParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.ScoreDistributionParam;
 import top.alvinsite.demo.service.performance.PatentService;
 import top.alvinsite.demo.service.rule.PatentRuleService;
 

@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.WorkloadTargetParam;
-import top.alvinsite.demo.model.params.salary.WorkloadTargetUpdateParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.WorkloadTargetParam;
+import top.alvinsite.demo.model.param.salary.WorkloadTargetUpdateParam;
 import top.alvinsite.demo.service.salary.WorkloadTargetService;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * @author Administrator

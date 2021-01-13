@@ -6,8 +6,8 @@ import top.alvinsite.demo.dao.performance.AwardedDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.Awarded;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.ScoreDistributionParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.ScoreDistributionParam;
 import top.alvinsite.demo.service.performance.AwardedService;
 import top.alvinsite.demo.service.rule.AwardedRuleService;
 

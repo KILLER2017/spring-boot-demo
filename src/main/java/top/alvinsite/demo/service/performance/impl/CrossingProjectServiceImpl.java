@@ -6,11 +6,11 @@ import top.alvinsite.demo.dao.performance.CrossingProjectDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.CrossingProject;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.ScoreDistributionParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.ScoreDistributionParam;
 import top.alvinsite.demo.service.performance.CrossingProjectService;
 import top.alvinsite.demo.service.rule.CrossingRuleService;
-import top.alvinsite.utils.TimeUtils;
+import top.alvinsite.util.TimeUtils;
 
 import java.util.List;
 

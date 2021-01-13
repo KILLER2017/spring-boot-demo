@@ -11,9 +11,9 @@ import top.alvinsite.demo.dao.auth.ManagerDao;
 import top.alvinsite.demo.model.dto.ManagerUserCandidateDTO;
 import top.alvinsite.demo.model.dto.auth.ManagerDTO;
 import top.alvinsite.demo.model.entity.auth.ManagerUser;
-import top.alvinsite.demo.model.params.ManagerUserQuery;
-import top.alvinsite.demo.model.params.Page;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.ManagerUserQuery;
+import top.alvinsite.demo.model.param.Page;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.framework.springsecurity.entity.User;
 
 import java.util.List;

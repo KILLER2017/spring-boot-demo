@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.stereotype.Component;
-import top.alvinsite.utils.EnumUtil;
+import top.alvinsite.util.EnumUtil;
 
 /**
  * @author Alvin

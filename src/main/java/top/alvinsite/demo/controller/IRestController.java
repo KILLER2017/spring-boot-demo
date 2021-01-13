@@ -4,8 +4,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.alvinsite.demo.model.params.Page;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.Page;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 
 
 @RestController

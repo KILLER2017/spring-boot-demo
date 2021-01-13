@@ -11,11 +11,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.alvinsite.demo.model.entity.salary.BaseModel;
-import top.alvinsite.demo.model.params.Page;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.Page;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 import top.alvinsite.demo.model.validation.ValidationGroup2;
 import top.alvinsite.demo.service.salary.SalaryService;
-import top.alvinsite.utils.ExcelUtils;
+import top.alvinsite.util.ExcelUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
-import static top.alvinsite.utils.BeanUtils.transformFromInBatch;
+import static top.alvinsite.util.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFromInBatch;
 
 /**
  * @author Alvin

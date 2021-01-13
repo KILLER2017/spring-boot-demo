@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.model.entity.rule.PaperRule;
-import top.alvinsite.demo.model.params.RuleQuery;
+import top.alvinsite.demo.model.param.RuleQuery;
 
 import java.util.List;
 

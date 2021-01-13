@@ -8,8 +8,8 @@ import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.alvinsite.demo.model.entity.salary.GpaFormula;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.SalaryRuleQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.SalaryRuleQuery;
 import top.alvinsite.demo.service.salary.GpaFormulaService;
 
 import javax.validation.Valid;

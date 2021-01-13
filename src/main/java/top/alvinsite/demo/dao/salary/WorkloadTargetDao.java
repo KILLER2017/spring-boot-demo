@@ -3,8 +3,8 @@ package top.alvinsite.demo.dao.salary;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.WorkloadTargetParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.WorkloadTargetParam;
 
 import java.util.List;
 

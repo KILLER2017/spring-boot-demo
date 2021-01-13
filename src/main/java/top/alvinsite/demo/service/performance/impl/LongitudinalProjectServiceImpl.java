@@ -6,11 +6,11 @@ import top.alvinsite.demo.dao.performance.LongitudinalProjectDao;
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
 import top.alvinsite.demo.model.dto.performance.ResearcherPerformance;
 import top.alvinsite.demo.model.entity.performance.LongitudinalProject;
-import top.alvinsite.demo.model.params.PerformanceQuery;
-import top.alvinsite.demo.model.params.ScoreDistributionParam;
+import top.alvinsite.demo.model.param.PerformanceQuery;
+import top.alvinsite.demo.model.param.ScoreDistributionParam;
 import top.alvinsite.demo.service.performance.LongitudinalProjectService;
 import top.alvinsite.demo.service.rule.LongitudinalRuleService;
-import top.alvinsite.utils.TimeUtils;
+import top.alvinsite.util.TimeUtils;
 
 import java.util.List;
 

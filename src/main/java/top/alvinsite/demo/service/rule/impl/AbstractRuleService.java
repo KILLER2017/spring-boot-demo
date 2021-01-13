@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import top.alvinsite.demo.model.entity.rule.BaseRuleEntity;
-import top.alvinsite.demo.model.params.RuleQuery;
+import top.alvinsite.demo.model.param.RuleQuery;
 import top.alvinsite.demo.service.rule.IRuleService;
 
 import java.util.List;

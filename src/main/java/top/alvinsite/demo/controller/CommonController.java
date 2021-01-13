@@ -13,7 +13,7 @@ import top.alvinsite.demo.model.dto.type.PaperTypeDTO;
 import top.alvinsite.demo.model.entity.Department;
 import top.alvinsite.demo.model.entity.type.ProjectType;
 import top.alvinsite.demo.model.enums.*;
-import top.alvinsite.demo.model.params.RuleQuery;
+import top.alvinsite.demo.model.param.RuleQuery;
 import top.alvinsite.demo.model.vo.DepartmentVO;
 import top.alvinsite.demo.model.vo.EnumVO;
 import top.alvinsite.demo.model.vo.ProjectTypeVO;
@@ -22,7 +22,7 @@ import top.alvinsite.framework.springsecurity.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import static top.alvinsite.utils.BeanUtils.transformFromInBatch;
+import static top.alvinsite.util.BeanUtils.transformFromInBatch;
 
 /**
  * @author Alvin

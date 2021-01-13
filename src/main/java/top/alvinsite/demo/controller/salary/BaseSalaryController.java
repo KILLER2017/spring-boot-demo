@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import top.alvinsite.demo.model.entity.salary.BaseSalaryModel;
 import top.alvinsite.demo.service.salary.SalaryService;
 
-import static top.alvinsite.utils.BeanUtils.transformFrom;
+import static top.alvinsite.util.BeanUtils.transformFrom;
 
 /**
  * @author Alvin

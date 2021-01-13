@@ -1,7 +1,7 @@
 package top.alvinsite.demo.service.rule;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.alvinsite.demo.model.params.RuleQuery;
+import top.alvinsite.demo.model.param.RuleQuery;
 
 import java.util.List;
 

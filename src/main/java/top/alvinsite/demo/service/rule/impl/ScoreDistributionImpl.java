@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.alvinsite.demo.dao.rule.ScoreDistributionDao;
 import top.alvinsite.demo.model.entity.rule.ScoreDistribution;
-import top.alvinsite.demo.model.params.ScoreDistributionParam;
+import top.alvinsite.demo.model.param.ScoreDistributionParam;
 import top.alvinsite.demo.service.rule.ScoreDistributionService;
 import top.alvinsite.demo.service.rule.ScoreDistributionConfigService;
 

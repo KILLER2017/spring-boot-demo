@@ -1,7 +1,7 @@
 package top.alvinsite.demo.service.salary;
 
 import top.alvinsite.demo.model.entity.salary.OvertimeWorkedSubsidy;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 
 /**
  * @author Alvin

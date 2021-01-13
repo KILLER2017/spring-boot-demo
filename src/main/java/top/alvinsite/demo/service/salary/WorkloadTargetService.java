@@ -1,7 +1,7 @@
 package top.alvinsite.demo.service.salary;
 
 import top.alvinsite.demo.model.entity.salary.WorkloadTarget;
-import top.alvinsite.demo.model.params.WorkloadTargetParam;
+import top.alvinsite.demo.model.param.WorkloadTargetParam;
 
 /**
  * @author Alvin

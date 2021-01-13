@@ -24,7 +24,7 @@
         </collection>
     </resultMap>
 
-    <select id="findPaper" parameterType="top.alvinsite.demo.model.params.PerformanceQuery" resultMap="findPaperResult">
+    <select id="findPaper" parameterType="top.alvinsite.demo.model.param.PerformanceQuery" resultMap="findPaperResult">
         select
             gxky0312.id as id,
             gxjg0101.gh as account,

@@ -1,4 +1,4 @@
-package top.alvinsite.demo.model.params;
+package top.alvinsite.demo.model.param;
 
 
 import lombok.Data;

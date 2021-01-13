@@ -1,7 +1,7 @@
 package top.alvinsite.demo.dao.performance;
 
 import top.alvinsite.demo.model.dto.auth.ManagerUserDTO;
-import top.alvinsite.demo.model.params.PerformanceQuery;
+import top.alvinsite.demo.model.param.PerformanceQuery;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package top.alvinsite.demo.service.salary;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import top.alvinsite.demo.model.entity.salary.GpaFormula;
-import top.alvinsite.demo.model.params.SalaryRuleQuery;
+import top.alvinsite.demo.model.param.SalaryRuleQuery;
 
 import java.util.List;
 

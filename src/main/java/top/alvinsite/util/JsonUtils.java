@@ -1,4 +1,4 @@
-package top.alvinsite.utils;
+package top.alvinsite.util;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
