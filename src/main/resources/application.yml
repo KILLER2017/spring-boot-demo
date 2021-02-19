@@ -1,16 +1,11 @@
-
-
 spring:
   application:
-    name: performance
+    name: spring-boot-demo
 
   datasource:
-    #url: jdbc:mysql://localhost:3306/research_performance?serverTimezone=UTC
-    #username: root
-    #password: root
-    url: jdbc:mysql://172.31.150.19:3306/performance?serverTimezone=UTC
-    username: performance
-    password: RBE872d6Y8KzX5HK
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+      username: xxxxxxxx
+    password: xxxxxxxxx
 
     driver-class-name: com.mysql.cj.jdbc.Driver
     tomcat:
@@ -23,8 +18,8 @@ spring:
 
   mail:
     host: smtp.exmail.qq.com
-    username: 20190089@dgut.edu.cn
-    password: Angel123
+    username: xxxxxxxxxxxxx
+    password: xxxxxxxxxxxxx
     port: 465
     properties:
       from: 20190089@dgut.edu.cn
@@ -35,33 +30,33 @@ spring:
 
   redis:
     database: 0
-    host: 172.31.150.19
+    host: localhost
     port: 6379
-    password: candy.123
+    password: xxxxxxxxxxx
 
   boot:
     admin:
       client:
         # spring boot admin server的注册地址,多个以逗号隔开,并把localhost换成ip
-        url: http://172.31.40.7:8100
+        url: http://localhost:8100
         instance:
           metadata:
-            username: admin
-            password: candy.123
+            username: xxxxxxxxx
+            password: xxxxxxxxx
           name: 科研绩效
-          management-base-url: http://172.31.150.19:8080
-          service-base-url: http://172.31.150.19:8080
+          management-base-url: http://localhost:8080
+          service-base-url: http://localhost:8080
         register-once: false
-        username: admin
-        password: candy.123
-        enabled: true
+        username: xxxxxxxxx
+        password: xxxxxxxxx
+        enabled: false
 
   rabbitmq:
-    host: 172.31.40.7
+    host: localhost
     port: 5672
-    username: alvin
-    password: candy.123
-    virtual-host: test
+    username: xxxxxxxxx
+    password: xxxxxxxxx
+    virtual-host: xxxxxxxx
 
 mybatis-plus:
   # configuration:
@@ -85,15 +80,15 @@ logging:
     name: /var/log/performance/application.log
 
 app:
-  domain: csjx.dgut.edu.cn
+  domain: test.alvinsite.top
   enable-username-password-login: false
   enable-unknown-exception-mail-alert: true
 
 cas:
   dgut:
     domain: cas.dgut.edu.cn
-    app-id: performance
-    app-secret: 13e787fff1d0
+    app-id: xxxxxxxxxxxxx
+    app-secret: xxxxxxxxxxxx
     enable: true
     login-url: https://${cas.dgut.domain}/?appid=${cas.dgut.app-id}&state=
     logout-url: https://${cas.dgut.domain}/logout?callback=
